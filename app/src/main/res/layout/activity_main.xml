@@ -6,13 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <Button
+        android:id="@+id/game_button"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:onClick="goto_dataEntry"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/stats_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        tools:text="Enter New Game"
+        android:fontFamily="@font/four_souls_body" />
+
+    <Button
+        android:id="@+id/stats_button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        tools:text="View Stats"
+        android:fontFamily="@font/four_souls_body"
+        app:layout_constraintBottom_toBottomOf="@+id/game_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/game_button" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        tools:text="The Binding Of Isaac: 4 Souls Statistics Tracker"
+        android:fontFamily="@font/four_souls_title"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.196" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
