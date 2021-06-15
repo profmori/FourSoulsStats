@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Four Souls Statistics</string>
+    <!-- Overall App Information -->
+    <string name="app_name" translatable="false">Four Souls Stats</string>
+
+    <!-- Main Page -->
+    <string name="main_title" translatable="false">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
+    <string name="main_stats_button" translatable="false">View Statistics</string>
+    <string name="main_enter_data" translatable="false">Enter Game Data</string>
+    <string name="main_settings_button" translatable="false">App Settings</string>
+
+    <!-- Data Input Page -->
+    <string name="input_title">Input Game Data</string>
+    <string name="input_no_players">Number of Players:</string>
+
+    <!-- Statistics Page -->
+
+    <!-- Settings -->
+
+
 </resources>
