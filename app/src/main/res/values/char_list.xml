@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name = "characterArray">
+        <item>"Eden1"</item>
+        <item>"Eden2"</item>
+    </string-array>
+
+</resources>
