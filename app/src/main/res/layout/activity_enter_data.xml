@@ -55,7 +55,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             android:background="@drawable/number_rectangle"
+
             android:text="@string/input_default_players"
+            android:labelFor="@id/playerNumber"
             android:importantForAutofill="no"
             android:ems="2"
             android:inputType="number"
@@ -89,29 +91,42 @@
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/number_rectangle"
-            android:ems="2"
-            android:importantForAutofill="no"
-            android:inputType="number"
-            android:text="@string/input_default_treasures"
-
-            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@id/treasurePrompt"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:background="@drawable/number_rectangle"
+
+            android:text="@string/input_default_treasures"
+            android:labelFor="@id/treasureNumber"
+            android:ems="2"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textAlignment="center" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playerList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/treasureLine"
-        android:layout_marginTop="50dp">
-
-
+        app:layout_constraintBottom_toTopOf="@id/continueButton"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/continueButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="15dp"
+
+        android:text="@string/input_continue_buttom"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

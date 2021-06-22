@@ -14,6 +14,11 @@
     <string name="input_default_players">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures">0</string>
+    <string name="input_continue_buttom">Continue To Game Input</string>
+    
+    <!-- Input Recycler View Strings -->
+    <string name="input_card_char_title">Character:</string>
+    <string name="input_card_content_desc">Character Card</string>
 
     <!-- Statistics Page -->
 

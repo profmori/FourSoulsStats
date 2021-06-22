@@ -1,11 +1,8 @@
 package com.example.foursoulsstatistics
 
-import java.io.File
-import java.io.FileInputStream
-import android.content.Context
 import java.util.stream.IntStream.range
 
-class Player (val playerName: String, val charName: String, val charImage: Int) {
+class Player (var playerName: String, var charName: String, var charImage: Int) {
 
     companion object {
         fun makePlayerList(playerNum: Int): ArrayList<Player>{
@@ -15,14 +12,12 @@ class Player (val playerName: String, val charName: String, val charImage: Int) 
             }
             return players
         }
+    }
 
-        fun getPlayerList() {
-            /*val filename = "myfile"
-            val fileContents = "Hello world!"
-            context.openFileOutput(filename, Context.MODE_PRIVATE).use {
-                it.write(fileContents.toByteArray())
-             */
-        }
+    fun updateCharacter(newChar: String){
+        charName = newChar
+        val charImageString = "R.drawable." + charName.toLowerCase()
+        //charImage = charImageString
     }
 
 }

@@ -8,24 +8,51 @@
 
     <ImageView
         android:id="@+id/charImage"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alpha="0.5"
-        android:contentDescription="Character Card"
-        android:adjustViewBounds="true"
         app:layout_constraintTop_toTopOf="parent"
         android:paddingVertical="10dp"
         android:paddingHorizontal="10dp"
+
+        android:alpha="0.5"
+
+        android:contentDescription="@string/input_card_content_desc"
+        android:adjustViewBounds="true"
+
         tools:src="@drawable/blank_char"/>
 
-    <Spinner
-        android:id="@+id/charSpinner"
+    <TextView
+        android:id="@+id/charSelectText"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/charTextEntry"
+        app:layout_constraintStart_toStartOf="@id/charImage"
+        android:layout_marginStart="15dp"
+        android:text="@string/input_card_char_title"/>
+
+    
+    <AutoCompleteTextView
+        android:id="@+id/charTextEntry"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/charImage"
         app:layout_constraintBottom_toBottomOf="@id/charImage"
+        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintStart_toStartOf="@id/charImage"
-        app:layout_constraintEnd_toEndOf="@id/charImage" />
+        app:layout_constraintEnd_toEndOf="@id/charImage"
+        android:layout_marginStart="15dp"
+
+        android:completionThreshold="0"
+        android:labelFor="@id/charTextEntry"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:dropDownHeight="60sp"
+        android:dropDownVerticalOffset="20dp" />
 
     <Button
         android:id="@+id/message_button"
@@ -36,6 +63,5 @@
         app:layout_constraintStart_toStartOf="@id/charImage"
         app:layout_constraintEnd_toEndOf="@id/charImage"
         app:layout_constraintVertical_bias="0.7" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

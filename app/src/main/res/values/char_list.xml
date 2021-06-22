@@ -2,8 +2,71 @@
 
 <resources>
     <string-array name = "characterArray">
-        <item>"Eden1"</item>
-        <item>"Eden2"</item>
+        <!-- Blank first entry -->
+        <item> </item>
+        <!-- Base Game Characters -->
+        <item>Blue Baby</item>
+        <item>Cain</item>
+        <item>Eden</item>
+        <item>Eve</item>
+        <item>The Forgotten</item>
+        <item>Isaac</item>
+        <item>Judas</item>
+        <item>Lazarus</item>
+        <item>Lilith</item>
+        <item>Maggy</item>
+        <item>Samson</item>
+        <!-- Gold Box Characters -->
+        <item>Apollyon</item>
+        <item>Azazel</item>
+        <item>Keeper</item>
+        <item>The Lost</item>
+        <!-- Four Souls + Characters -->
+        <item>Bumbo</item>
+        <item>Dark Judas</item>
+        <item>Guppy</item>
+        <item>Whore of Babylon</item>
+        <!-- Reqiuem Characters (Hidden) -->
+        <!--
+        <item>Bethany</item>
+        <item>Jacob &amp; Esau</item>
+        -->
+        <!-- Tainted Characters -->
+        <!--
+        <item>The Baleful</item>
+        <item>The Benighted</item>
+        <item>The Broken</item>
+        <item>The Capricious</item>
+        <item>The Curdled</item>
+        <item>The Dauntless</item>
+        <item>The Deceiver</item>
+        <item>The Deserter</item>
+        <item>The Empty</item>
+        <item>The Enigma</item>
+        <item>The Fettered</item>
+        <item>The Harlot</item>
+        <item>The Hoarder</item>
+        <item>The Miser</item>
+        <item>The Savage</item>
+        <item>The Soiled</item>
+        <item>The Zealot</item>
+        -->
+        <!-- Warp Zone Characters (Hidden) -->
+        <!--
+        <item>Ash</item>
+        <item>Blind Johnny</item>
+        <item>Blue Archer</item>
+        <item>Boyfriend</item>
+        <item>Captain Viridian</item>
+        <item>Guy Spelunky</item>
+        <item>Pink Knight</item>
+        <item>Psycho Goreman</item>
+        <item>Quote</item>
+        <item>Salad Fingers</item>
+        <item>The Knight</item>
+        <item>The Silent</item>
+        <item>Yung Venuz</item>
+        -->
     </string-array>
 
 </resources>
