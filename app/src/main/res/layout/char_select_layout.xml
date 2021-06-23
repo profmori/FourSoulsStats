@@ -47,21 +47,42 @@
         android:completionThreshold="0"
         android:labelFor="@id/charTextEntry"
         android:textSize="18sp"
-        android:inputType="text"
+        android:inputType="textNoSuggestions"
         android:imeOptions="actionNext"
 
         style="@style/Widget.AppCompat.Spinner.DropDown"
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp" />
 
-    <Button
-        android:id="@+id/message_button"
+    <TextView
+        android:id="@+id/playerSelectText"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/playerTextEntry"
+        app:layout_constraintStart_toStartOf="@id/charImage"
+        android:layout_marginStart="15dp"
+        android:text="@string/input_card_player_title"/>
+
+
+    <AutoCompleteTextView
+        android:id="@+id/playerTextEntry"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/charImage"
         app:layout_constraintBottom_toBottomOf="@id/charImage"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/charImage"
         app:layout_constraintEnd_toEndOf="@id/charImage"
-        app:layout_constraintVertical_bias="0.7" />
+        android:layout_marginStart="15dp"
+
+        android:completionThreshold="0"
+        android:labelFor="@id/playerTextEntry"
+        android:inputType="textNoSuggestions"
+        android:imeOptions="actionNext"
+
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:dropDownHeight="60sp"
+        android:dropDownVerticalOffset="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

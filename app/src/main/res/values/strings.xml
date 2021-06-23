@@ -19,6 +19,7 @@
     <!-- Input Recycler View Strings -->
     <string name="input_card_char_title">Character:</string>
     <string name="input_card_content_desc">Character Card</string>
+    <string name="input_card_player_title">Player:</string>
 
     <!-- Statistics Page -->
 

@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/inputTitle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.1" >
+        app:layout_constraintVertical_bias="0.05" >
 
         <TextView
             android:id="@+id/numberPrompt"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputTitle"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintVertical_bias="0.1">
 
         <TextView
             android:id="@+id/treasurePrompt"
