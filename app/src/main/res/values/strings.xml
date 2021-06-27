@@ -14,12 +14,17 @@
     <string name="input_default_players">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures">0</string>
-    <string name="input_continue_buttom">Continue To Game Input</string>
-    
+    <string name="input_continue_button">Continue To Game Input</string>
+
+    <string name="input_too_few">Not all characters filled in</string>
+
     <!-- Input Recycler View Strings -->
     <string name="input_card_char_title">Character:</string>
     <string name="input_card_content_desc">Character Card</string>
     <string name="input_card_player_title">Player:</string>
+    <string name="player_menu_default">If you are seeing this, there\'s a bug</string>
+    <string name="add_player_1">Add</string>
+    <string name="add_player_2">to player list</string>
 
     <!-- Statistics Page -->
 

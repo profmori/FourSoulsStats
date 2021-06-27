@@ -2,10 +2,8 @@ package com.example.foursoulsstatistics
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
+import android.view.*
 import android.view.View.OnFocusChangeListener
-import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
@@ -88,11 +86,11 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
 
         val playerEntry = viewHolder.playerEntry
         // Gets the player entry box
-        val fullPlayerList = player.playerNameList
+        var fullPlayerList = player.playerNameList
         // Gets the list of players from the player class and makes it a string array
         fullPlayerList.sort()
         // Sort the player list alphabetically
-        val playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, fullPlayerList)
+        var playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, fullPlayerList)
         // Creates an array adapter to hold the player name list
         playerEntry.setAdapter(playerAdaptor)
         // Sets the adapter for this list
@@ -112,11 +110,10 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         // When the character entry box loses or gains focus
             if (!hasFocus) {
             // If it has just lost focus
-                println(charEntry.text.toString())
-                println(charList.contains(charEntry.text.toString()))
-                if (!charList.contains(charEntry.text.toString()) and (charEntry.text.toString() != "")) {
+                val charInput = charEntry.text.toString()
+                if (!charList.contains(charInput) and (charInput != "")) {
                 // If the entered value is not valid
-                    val newChar = findClosest(charEntry.text, charList)
+                    val newChar = findClosest(charInput, charList)
                     // Find the closest text value
                     charEntry.setText(newChar)
                     // Set the text to a correct value
@@ -134,6 +131,7 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             // Before text is changed check this
             adaptDropDown(playerEntry)
+            // Adapts the drop down length
         }
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
@@ -141,16 +139,30 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         // When the character entry box loses or gains focus
         if (!hasFocus) {
             // If it has just lost focus
-            if ((playerEntry.text.toString() !in fullPlayerList) and (playerEntry.text.toString() != "")) {
+            val input = playerEntry.text.toString()
+            if ((input !in player.playerNameList) and (input != "")) {
                 // If the entered value is not valid
-                println(fullPlayerList)
-                val newPlayer = findClosest(playerEntry.text,fullPlayerList)
-                // Find the closest text value
-                playerEntry.setText(newPlayer)
-                // Set the text to a correct value
+                createPlayerPopup(playerEntry, player, input)
+                // Gives the option to add a new player
             }
             player.updatePlayer(playerEntry.text.toString())
             // Update the player to store their new character
+            playerEntry.setText(player.playerName)
+            // Fill in the player name if this is an update
+        }
+        else if (!player.playerNameList.contentEquals(fullPlayerList) and hasFocus){
+        // If the player list has been updated since this was first run, and this is now being focused (text entered)
+            fullPlayerList = player.playerNameList
+            // Recreate the full player list
+            fullPlayerList.sort()
+            // Sort the player list alphabetically
+            playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, fullPlayerList)
+            // Creates an array adapter to hold the player name list
+            playerEntry.setAdapter(playerAdaptor)
+            // Sets the adapter for this list
+            playerEntry.setText(player.playerName)
+            // Fill in the player name if this is an update
+
         }
     }
 }
@@ -161,7 +173,7 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         // Returns the player list size element
     }
 
-    fun findClosest(wrongText: CharSequence, correctList: Array<String>):String {
+    fun findClosest(wrongText: String, correctList: Array<String>):String {
         val spaceWrong = " $wrongText"
         // Creates a version of the wrong text preceded by a space
         val wrongLen = wrongText.length
@@ -194,4 +206,52 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
             // If there are 3 or more entries, jsut shown 3 in the dropdown
         }
     }
+
+    private fun createPlayerPopup(parentView: AutoCompleteTextView, player: Player, inputText : String) {
+    // When the player does not match an existing player this is called
+        var nameAdded = false
+        val newPlayerPopup = PopupMenu(parentView.context,parentView)
+        // Creates a new pop-up menu for adding a player
+        newPlayerPopup.menuInflater.inflate(R.menu.new_player_menu, newPlayerPopup.menu)
+        // Inflates the menu from the provided menu layout
+        val changeName = newPlayerPopup.menu.findItem(R.id.addName)
+        // Gets the menu item which corresponds to adding the name (currently the only one)
+        var titleString: String = parentView.context.getString(R.string.add_player_1)
+        println(titleString)
+        titleString += " " + inputText + " " + parentView.context.getString(R.string.add_player_2)
+        println(titleString)
+
+        changeName.title = titleString
+        // Changes the menu item text
+
+        newPlayerPopup.setOnMenuItemClickListener {
+        // When a menu item is clicked - can only be the change name item
+            for (p in playerList) {
+            // Goes through every player
+                p.addPlayer(inputText)
+                // Adds the new player to this player's list of possible player names
+            }
+            player.updatePlayer(inputText)
+            // Updates the currnt player to the new player
+            nameAdded  = true
+            true
+            // Needed to rueturn a unit? Not sure what this does
+        }
+
+        newPlayerPopup.setOnDismissListener {
+        // When the new player popup is dismissed
+            if (!nameAdded) {
+            // If no name was added by this menu
+                val newPlayer = findClosest(inputText, player.playerNameList)
+                // Find the closest text value
+                parentView.setText(newPlayer)
+                // Set the text to a "correct" value
+                player.updatePlayer(newPlayer)
+                // Update the stored player to the new value
+            }
+         }
+        newPlayerPopup.show()
+        // Show the pop-up menu
+    }
+
 }
