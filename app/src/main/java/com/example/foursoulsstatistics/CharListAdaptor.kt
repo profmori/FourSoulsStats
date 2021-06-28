@@ -2,14 +2,18 @@ package com.example.foursoulsstatistics
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
 import android.view.View.OnFocusChangeListener
-import android.widget.*
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
-import java.util.*
 
 
-class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapter<charListAdaptor.ViewHolder>() {
+class CharListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
 
@@ -19,10 +23,10 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
     // List of the base game characters
     private val goldArray = arrayOf("Apollyon", "Azazel", "The Keeper", "The Lost")
     // List of the gold box characters
-    private val plusArray = arrayOf<String>("Bumbo", "Dark Judas", "Guppy", "Whore of Babylon")
+    private val plusArray = arrayOf<String>("Bum-bo", "Dark Judas", "Guppy", "Whore of Babylon")
     // List of the FS+ characters
     private val requiemArray = arrayOf<String>("Bethany", "Jacob & Esau")
-    // List of Reqium characters
+    // List of Requiem characters
     private val taintedArray = arrayOf<String>("The Baleful", "The Benighted", "The Broken",
             "The Capricious", "The Curdled", "The Dauntless", "The Deceiver", "The Deserter",
             "The Empty", "The Enigma", "The Fettered", "The Harlot", "The Hoarder", "The Miser",
@@ -39,16 +43,16 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
-        val charImage = itemView.findViewById<ImageView>(R.id.charImage)
+        val charImage: ImageView = itemView.findViewById(R.id.charSelectImage)
         // Allows the background image to be set in code
-        val charEntry = itemView.findViewById<AutoCompleteTextView>(R.id.charTextEntry)
+        val charEntry: AutoCompleteTextView = itemView.findViewById(R.id.charTextEntry)
         // Access the character selection entry in code
-        val playerEntry = itemView.findViewById<AutoCompleteTextView>(R.id.playerTextEntry)
+        val playerEntry: AutoCompleteTextView = itemView.findViewById(R.id.playerTextEntry)
         // Access the player selection entry in code
     }
 
     // Usually involves inflating a layout from XML and returning the holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): charListAdaptor.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharListAdaptor.ViewHolder {
         val context = parent.context
         // Gets the context of the view
         val inflater = LayoutInflater.from(context)
@@ -59,10 +63,10 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
     }
 
     // Involves populating data into the item through holder
-    override fun onBindViewHolder(viewHolder: charListAdaptor.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: CharListAdaptor.ViewHolder, position: Int) {
         // Get the data model based on position
 
-        val player: Player = playerList.get(position)
+        val player: Player = playerList[position]
         // Set item views based on your player
 
         val background = viewHolder.charImage
@@ -150,12 +154,10 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
             playerEntry.setText(player.playerName)
             // Fill in the player name if this is an update
         }
-        else if (!player.playerNameList.contentEquals(fullPlayerList) and hasFocus){
+        else if ((!player.playerNameList.contentEquals(fullPlayerList)) and hasFocus){
         // If the player list has been updated since this was first run, and this is now being focused (text entered)
             fullPlayerList = player.playerNameList
             // Recreate the full player list
-            fullPlayerList.sort()
-            // Sort the player list alphabetically
             playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, fullPlayerList)
             // Creates an array adapter to hold the player name list
             playerEntry.setAdapter(playerAdaptor)
@@ -173,7 +175,7 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         // Returns the player list size element
     }
 
-    fun findClosest(wrongText: String, correctList: Array<String>):String {
+    private fun findClosest(wrongText: String, correctList: Array<String>):String {
         val spaceWrong = " $wrongText"
         // Creates a version of the wrong text preceded by a space
         val wrongLen = wrongText.length
@@ -203,7 +205,7 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
             // Make the dropdown fit the number of lines
         } else {
             view.dropDownHeight = 3 * view.lineHeight
-            // If there are 3 or more entries, jsut shown 3 in the dropdown
+            // If there are 3 or more entries, just shown 3 in the dropdown
         }
     }
 
@@ -232,10 +234,10 @@ class charListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
                 // Adds the new player to this player's list of possible player names
             }
             player.updatePlayer(inputText)
-            // Updates the currnt player to the new player
+            // Updates the current player to the new player
             nameAdded  = true
             true
-            // Needed to rueturn a unit? Not sure what this does
+            // Needed to return a unit? Not sure what this does
         }
 
         newPlayerPopup.setOnDismissListener {

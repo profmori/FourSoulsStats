@@ -3,7 +3,7 @@
     <style name="Theme.FourSoulsStatistics" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/clear</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color. -->
@@ -16,7 +16,9 @@
 
         <!-- Add Custom Font As Default -->
         <item name="android:fontFamily">@font/four_souls_body</item>
+        <!-- Font Souls created by AssisrMatheus, Blank Char created by u/Koretex_ -->
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
 
     </style>
 </resources>

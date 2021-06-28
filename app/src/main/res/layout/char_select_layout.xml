@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".enterData">
+    tools:context=".EnterData">
 
     <ImageView
-        android:id="@+id/charImage"
+        android:id="@+id/charSelectImage"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,10 +15,11 @@
         android:paddingVertical="10dp"
         android:paddingHorizontal="10dp"
 
-        android:alpha="0.5"
-
         android:contentDescription="@string/input_card_content_desc"
         android:adjustViewBounds="true"
+
+        app:tint="@color/lighter"
+        android:tintMode="src_atop"
 
         tools:src="@drawable/blank_char"/>
 
@@ -27,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/charTextEntry"
-        app:layout_constraintStart_toStartOf="@id/charImage"
+        app:layout_constraintStart_toStartOf="@id/charSelectImage"
         android:layout_marginStart="15dp"
         android:text="@string/input_card_char_title"/>
 
@@ -37,11 +38,11 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/charImage"
-        app:layout_constraintBottom_toBottomOf="@id/charImage"
+        app:layout_constraintTop_toTopOf="@id/charSelectImage"
+        app:layout_constraintBottom_toBottomOf="@id/charSelectImage"
         app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintStart_toStartOf="@id/charImage"
-        app:layout_constraintEnd_toEndOf="@id/charImage"
+        app:layout_constraintStart_toStartOf="@id/charSelectImage"
+        app:layout_constraintEnd_toEndOf="@id/charSelectImage"
         android:layout_marginStart="15dp"
 
         android:completionThreshold="0"
@@ -59,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/playerTextEntry"
-        app:layout_constraintStart_toStartOf="@id/charImage"
+        app:layout_constraintStart_toStartOf="@id/charSelectImage"
         android:layout_marginStart="15dp"
         android:text="@string/input_card_player_title"/>
 
@@ -69,11 +70,11 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/charImage"
-        app:layout_constraintBottom_toBottomOf="@id/charImage"
+        app:layout_constraintTop_toTopOf="@id/charSelectImage"
+        app:layout_constraintBottom_toBottomOf="@id/charSelectImage"
         app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintStart_toStartOf="@id/charImage"
-        app:layout_constraintEnd_toEndOf="@id/charImage"
+        app:layout_constraintStart_toStartOf="@id/charSelectImage"
+        app:layout_constraintEnd_toEndOf="@id/charSelectImage"
         android:layout_marginStart="15dp"
 
         android:completionThreshold="0"

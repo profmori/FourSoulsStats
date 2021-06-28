@@ -7,11 +7,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class enterData : AppCompatActivity() {
+class EnterData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_data)
@@ -22,6 +21,11 @@ class enterData : AppCompatActivity() {
         val playerNo = findViewById<EditText>(R.id.playerNumber)
         // Get the player number input box
 
+        val treasureNo = findViewById<EditText>(R.id.treasureNumber)
+        // Get the treasure number input box
+
+        var gameTreasures = treasureNo.text.toString()
+
         var playerCount = playerNo.text.toString().toInt()
         // Get the number of players in the game from the player number
 
@@ -30,7 +34,7 @@ class enterData : AppCompatActivity() {
 
         var playerList = Player.makePlayerList(playerCount)
         // Create adapter passing in the number of players
-        var adapter = charListAdaptor(playerList)
+        var adapter = CharListAdaptor(playerList)
         // Attach the adapter to the recyclerview to populate items
         charList.adapter = adapter
         // Set layout manager to position the items
@@ -41,12 +45,16 @@ class enterData : AppCompatActivity() {
         playerNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 // After the text in the player number field is changed
+                val oldPlayerCount = playerCount
+                // Stores the player count for if an error occurs
                 try {
                     playerCount = playerNo.text.toString().toInt()
                     // Try and make the value in the text into an integer
                 } catch (e: NumberFormatException) {
-                    playerCount = 0
-                    // If an error is thrown from no text set the number of players to 0
+                    playerCount = oldPlayerCount
+                    // If an error is thrown from no text set the number of players back to what it was
+                    playerNo.setText(playerCount.toString())
+                    // Rewrite the text field to show this
                 } finally {
                     if (playerCount < 1) {
                         // If the user tries to input something invalid
@@ -57,21 +65,46 @@ class enterData : AppCompatActivity() {
                     }
                     playerList = Player.updatePlayerList(playerList, playerCount)
                     // Makes a player list based on the number of players
-                    adapter = charListAdaptor(playerList)
+                    adapter = CharListAdaptor(playerList)
                     // Creates the recycler view adapter for this
                     charList.adapter = adapter
                     // Creates the recycler view
                 }
             }
+            else{
+            // If the user has just entered the text field
+                playerNo.setText("")
+                // Clear the input
+            }
+        }
+
+        treasureNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+            // After the number of treasures has been input
+                if (treasureNo.text.toString() == "") {
+                // If the field is blank
+                    treasureNo.setText(gameTreasures)
+                    // Set the field to the existing number of treasures
+                }
+                else{
+                    gameTreasures = treasureNo.text.toString()
+                    // Otherwise store the new number of treasures
+                }
+            }
+            else{
+            // If the user has just entered the text field
+                treasureNo.setText("")
+                // Clear the text field
+            }
         }
 
         continueButton.setOnClickListener {
-            tryMoveOn(playerList)
+            tryMoveOn(playerList,gameTreasures)
             // Try to move to the next screen
         }
     }
 
-    fun tryMoveOn(playerList: kotlin.collections.ArrayList<Player>){
+    private fun tryMoveOn(playerList: ArrayList<Player>, gameTreasures: String){
         var moveOn = true
         // Say you can move on
         for (p in playerList) {
@@ -87,10 +120,12 @@ class enterData : AppCompatActivity() {
 
         if (moveOn) {
         // If you can move on
-            val enterResult = Intent(this, enterResult::class.java)
+            val enterResult = Intent(this, EnterResult::class.java)
             // Create a new intent to go to the result entry page
             enterResult.putExtra("players", playerList)
             // Create an extra parameter which passes the player list into the results page
+            enterResult.putExtra("treasures",gameTreasures)
+            // Creates an extra parameter which passes the number of treasures to the results page
             startActivity(enterResult)
             // Move to the result entry page
         } else {

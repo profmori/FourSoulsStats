@@ -15,8 +15,7 @@
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures">0</string>
     <string name="input_continue_button">Continue To Game Input</string>
-
-    <string name="input_too_few">Not all characters filled in</string>
+    <string name="input_too_few">Not all data filled in</string>
 
     <!-- Input Recycler View Strings -->
     <string name="input_card_char_title">Character:</string>
@@ -25,6 +24,17 @@
     <string name="player_menu_default">If you are seeing this, there\'s a bug</string>
     <string name="add_player_1">Add</string>
     <string name="add_player_2">to player list</string>
+
+    <!-- Souls Input Page -->
+    <string name="result_continue">Input Result</string>
+    <string name="result_wrong_count">There needs to be exactly 1 winner</string>
+    <string name="result_pass_on">Game saved</string>
+
+    <!-- Win Page Recycler Strings -->
+    <string name="win_card_player">Player:</string>
+    <string name="win_card_souls">Souls:</string>
+    <string name="win_card_winner">Winner:</string>
+    <string name="win_card_default_souls">0</string>
 
     <!-- Statistics Page -->
 

@@ -2,8 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContainer"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:saveEnabled="false"
     tools:context=".MainActivity">
 
@@ -28,7 +31,7 @@
 
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:onClick="goto_dataEntry"
+        android:onClick="gotoDataEntry"
         android:text="@string/main_enter_data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/mainStats"
@@ -46,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mainData"
 
-        android:onClick="goto_statsPage"
+        android:onClick="gotoStatsPage"
 
         android:text="@string/main_stats_button" />
 
@@ -59,7 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainData"
 
-        android:onClick="goto_settings"
+        android:onClick="gotoSettings"
 
         android:text="@string/main_settings_button" />
 

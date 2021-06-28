@@ -2,7 +2,6 @@ package com.example.foursoulsstatistics
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
@@ -16,17 +15,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun goto_dataEntry(view: View) {
-        val goToData = Intent(this, enterData::class.java)
+    fun gotoDataEntry(view: View) {
+        val goToData = Intent(this, EnterData::class.java)
         startActivity(goToData)
     }
 
-    fun goto_statsPage(view: View) {
+    fun gotoStatsPage(view: View) {
         //val goToStats = Intent(this, statsView::class.java)
         //startActivity(goToStats)
     }
 
-    fun goto_settings(view: View) {
+    fun gotoSettings(view: View) {
         //val goToSettings = Intent(this, settingsEdit::class.java)
         //startActivity(goToSettings)
     }

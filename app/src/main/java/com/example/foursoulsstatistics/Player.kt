@@ -1,14 +1,17 @@
 package com.example.foursoulsstatistics
 
-import java.io.Serializable
+import android.os.Parcelable
 import java.util.*
 import java.util.stream.IntStream.range
 import kotlin.collections.ArrayList
 
-class Player (var playerName: String, var charName: String, var charImage: Int): Serializable {
+@kotlinx.parcelize.Parcelize
+// Makes the class parcelable so it can be passed between activities - does not pass the basic character mappings
+class Player (var playerName: String, var charName: String, var charImage: Int, var soulsNum: Int, var winner: Boolean) : Parcelable {
 
     // Base Game Characters
-    val baseMap = mapOf(
+    @kotlinx.parcelize.IgnoredOnParcel
+    private val baseMap = mapOf(
             "blue baby" to listOf(R.drawable.blue_baby, R.drawable.blue_baby_alt),
             "cain" to listOf(R.drawable.cain),
             "eden" to listOf(R.drawable.eden),
@@ -22,21 +25,25 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
             "samson" to listOf(R.drawable.samson)
     )
     // Gold Box Characters
-    val goldMap = mapOf(
+    @kotlinx.parcelize.IgnoredOnParcel
+    private val goldMap = mapOf(
             "apollyon" to listOf(R.drawable.apollyon),
             "azazel" to listOf(R.drawable.azazel),
             "the keeper" to listOf(R.drawable.keeper, R.drawable.keeper_alt),
             "the lost" to listOf(R.drawable.lost, R.drawable.lost_alt)
     )
     // FS+ Characters
-    val plusMap = mapOf(
-            "bumbo" to listOf(R.drawable.bumbo),
+    @kotlinx.parcelize.IgnoredOnParcel
+    private val plusMap = mapOf(
+            "bum-bo" to listOf(R.drawable.bumbo),
             "dark judas" to listOf(R.drawable.dark_judas),
             "guppy" to listOf(R.drawable.guppy, R.drawable.guppy_alt),
             "whore of babylon" to listOf(R.drawable.whore)
     )
-    val reqiuemMap = mapOf(
-            // Reqiuem Characters
+
+    @kotlinx.parcelize.IgnoredOnParcel
+    private val requiemMap = mapOf(
+            // Requiem Characters
             "bethany" to listOf(R.drawable.bethany),
             "jacob & esau" to listOf(R.drawable.jacob_esau),
             // Tainted Characters
@@ -58,12 +65,15 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
             "the soiled" to listOf(R.drawable.soiled),
             "the zealot" to listOf(R.drawable.zealot)
     )
-    val warpMap = mapOf(
+
+    @kotlinx.parcelize.IgnoredOnParcel
+    private val warpMap = mapOf(
             // Warp Zones
             "ash" to listOf(R.drawable.ash),
             "blind johnny" to listOf(R.drawable.blind_johnny),
             "blue archer" to listOf(R.drawable.blue_archer),
             "boyfriend" to listOf(R.drawable.boyfriend),
+            "bum-bo the weird" to listOf(R.drawable.bumbo_weird),
             "captain viridian" to listOf(R.drawable.captain_viridian),
             "crewmate" to listOf(R.drawable.crewmate),
             "guy spelunky" to listOf(R.drawable.guy_spelunky),
@@ -71,15 +81,18 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
             "psycho goreman" to listOf(R.drawable.psycho_goreman),
             "quote" to listOf(R.drawable.quote),
             "salad fingers" to listOf(R.drawable.salad_fingers),
+            "steven" to listOf(R.drawable.steven),
             "the knight" to listOf(R.drawable.knight),
             "the silent" to listOf(R.drawable.silent),
             "yung venuz" to listOf(R.drawable.yung_venuz)
     )
 
-    val imageMap = baseMap + goldMap + plusMap + reqiuemMap + warpMap
+    @kotlinx.parcelize.IgnoredOnParcel
+    val imageMap = baseMap + goldMap + plusMap + requiemMap + warpMap
     // Combine all the character maps into one big map - this can be done in settings
 
-    var playerNameList = arrayOf<String>("jim", "abs", "char", "femi")
+    @kotlinx.parcelize.IgnoredOnParcel
+    var playerNameList = arrayOf("jim", "abs", "char", "femi")
     // An initial array of player names - will eventually read a file
 
     companion object {
@@ -89,21 +102,21 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
             // Creates the array
             for (i in range(1,playerNum+1)) {
             // Iterates through every player in the array
-                players.add(Player("", "", R.drawable.blank_char))
+                players.add(Player("", "", R.drawable.blank_char,0,false))
                 // Add a player with no name or character and a blank character image
             }
             return players
-            // Reutnrs the array of players
+            // Returns the array of players
         }
         fun updatePlayerList(playerList : ArrayList<Player>, playerNum: Int): ArrayList<Player>{
-        // Function to losslessly update the number of players
+        // Function to update the number of players without resetting the recycler
             val currentLength = playerList.size
             // Gets the length of the player list
             if(currentLength < playerNum) {
             // If the number of players has increased
                 for (i in range(currentLength, playerNum)) {
                 // For the number of extra players
-                    playerList.add(Player("", "", R.drawable.blank_char))
+                    playerList.add(Player("", "", R.drawable.blank_char,0,false))
                     // Add a player with no name or character and a blank character image
                 }
             }
@@ -126,14 +139,13 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
         // If the character has changed
             charName = newChar
             // Update to the new character name
-            if (imageMap.get(charName) != null){
-            // If the image map has a value for this character
-                charImage = imageMap.get(charName)!!.random()
+            charImage = if (imageMap[charName] != null){
+                // If the image map has a value for this character
+                imageMap[charName]!!.random()
                 // Pick a random suitable image (includes alt art)
-            }
-            else{
-            // If there are no images for the selected character (which should never occur)
-                charImage = R.drawable.blank_char
+            } else{
+                // If there are no images for the selected character (which should never occur)
+                R.drawable.blank_char
                 // Set the image to the blank character card
             }
         }
@@ -143,6 +155,8 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
     // Function to add the player to the player list
         playerNameList += arrayOf(newPlayer.toLowerCase(Locale.getDefault()))
         // Just add it as an array
+        playerNameList.sort()
+        // Sort the array for equality checking
     }
 
     fun updatePlayer(newPlayer: String) {
@@ -150,5 +164,4 @@ class Player (var playerName: String, var charName: String, var charImage: Int):
         playerName = newPlayer
         // Set the player name to the new player
     }
-
 }
