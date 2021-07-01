@@ -1,16 +1,35 @@
 package com.example.foursoulsstatistics
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Transformations.map
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.database.CharEntity
+import com.example.foursoulsstatistics.database.GameDAO
+import com.example.foursoulsstatistics.database.GameDataBase
+import com.example.foursoulsstatistics.database.Player
+import kotlinx.coroutines.launch
 
 class EnterData : AppCompatActivity() {
+
+    private lateinit var gameDatabase: GameDataBase
+    // Initialise the database
+    private lateinit var gameDao: GameDAO
+    // Initialise the access object
+
+    private var characterList: Array<CharEntity> = emptyArray<CharEntity>()
+    // Initialises character names
+
+    private var playerList: Array<Player> = emptyArray<Player>()
+    // Initialises player names
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_data)
@@ -32,15 +51,28 @@ class EnterData : AppCompatActivity() {
         val continueButton = findViewById<Button>(R.id.inputContinueButton)
         // Gets the button to continue
 
-        var playerList = Player.makePlayerList(playerCount)
+        var playerHandlerList = PlayerHandler.makePlayerList(playerCount)
         // Create adapter passing in the number of players
-        var adapter = CharListAdaptor(playerList)
+        var adapter = CharListAdaptor(playerHandlerList)
         // Attach the adapter to the recyclerview to populate items
         charList.adapter = adapter
         // Set layout manager to position the items
         charList.layoutManager = GridLayoutManager(this, 2)
         // Lay the recycler out as a grid
 
+        gameDatabase = GameDataBase.getDataBase(this)
+        // Get the database instance
+        gameDao = gameDatabase.gameDAO
+        // Get the database access object
+
+        val edition = arrayOf("base", "gold")
+
+        lifecycleScope.launch {
+            edition.forEach{characterList += gameDao.getCharacterList(it)}
+            playerList = gameDao.getPlayers()
+        }
+
+        adapter.addData(characterList, playerList)
 
         playerNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
@@ -63,9 +95,9 @@ class EnterData : AppCompatActivity() {
                         playerNo.setText(playerCount.toString())
                         // Rewrite the text field to show this
                     }
-                    playerList = Player.updatePlayerList(playerList, playerCount)
+                    playerHandlerList = PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
                     // Makes a player list based on the number of players
-                    adapter = CharListAdaptor(playerList)
+                    adapter = CharListAdaptor(playerHandlerList)
                     // Creates the recycler view adapter for this
                     charList.adapter = adapter
                     // Creates the recycler view
@@ -99,15 +131,15 @@ class EnterData : AppCompatActivity() {
         }
 
         continueButton.setOnClickListener {
-            tryMoveOn(playerList,gameTreasures)
+            tryMoveOn(playerHandlerList,gameTreasures)
             // Try to move to the next screen
         }
     }
 
-    private fun tryMoveOn(playerList: ArrayList<Player>, gameTreasures: String){
+    private fun tryMoveOn(playerHandlerList: ArrayList<PlayerHandler>, gameTreasures: String){
         var moveOn = true
         // Say you can move on
-        for (p in playerList) {
+        for (p in playerHandlerList) {
         // Iterate through all players
             if ((p.playerName == "") or (p.charName == "")) {
             // If something is not entered
@@ -122,12 +154,23 @@ class EnterData : AppCompatActivity() {
         // If you can move on
             val enterResult = Intent(this, EnterResult::class.java)
             // Create a new intent to go to the result entry page
-            enterResult.putExtra("players", playerList)
+            enterResult.putExtra("players", playerHandlerList)
             // Create an extra parameter which passes the player list into the results page
             enterResult.putExtra("treasures",gameTreasures)
             // Creates an extra parameter which passes the number of treasures to the results page
+            val handler = playerHandlerList.map{playerHandler -> playerHandler.charName}
+            val list = playerList.map{player -> player.playerName }
+            for (h in handler) {
+                if (!list.contains(h)) {
+                    lifecycleScope.launch {
+                        val player = Player(h)
+                        gameDao.addPlayer(player)
+                    }
+                }
+            }
             startActivity(enterResult)
             // Move to the result entry page
+
         } else {
         // If you cannot move on
             val errorToast = Toast.makeText(this, R.string.input_too_few, Toast.LENGTH_LONG)

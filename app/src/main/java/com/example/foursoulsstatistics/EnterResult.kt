@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.database.Game
+import com.example.foursoulsstatistics.database.GameDataBase
+import com.example.foursoulsstatistics.database.GameInstance
+import kotlinx.coroutines.launch
 
 class EnterResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_result)
 
-        val playerList = intent.getParcelableArrayListExtra<Player>("players") as ArrayList<Player>
+        val playerList = intent.getParcelableArrayListExtra<PlayerHandler>("players") as ArrayList<PlayerHandler>
         // Pull the player list from the extra pass in the intent - casting as an array list rather than a java array list
 
         val treasureCount = intent.getStringExtra("treasures") as String
@@ -43,7 +48,6 @@ class EnterResult : AppCompatActivity() {
             // Zero the winner count
             for (p in playerList){
             // Iterate through all players
-                println(p.winner)
                 if(p.winner){
                 // If someone won
                     count += 1
@@ -74,7 +78,20 @@ class EnterResult : AppCompatActivity() {
 
     }
 
-    fun saveData(gameId: Long, playerList: ArrayList<Player>, treasureCount: String) {
+    private fun saveData(gameId: Long, playerList: ArrayList<PlayerHandler>, treasureCount: String) {
+        val gameDatabase: GameDataBase = GameDataBase.getDataBase(this)
+        val gameDAO = gameDatabase.gameDAO
+        var instanceArray = emptyArray<GameInstance>()
 
+        for (p in playerList){
+            val newGameInstance = GameInstance(0,gameId,p.playerName, p.charName, p.soulsNum, p.winner)
+            instanceArray += arrayOf(newGameInstance)
+        }
+
+        val game = Game(gameId, playerList.size, treasureCount.toInt())
+        lifecycleScope.launch {
+            gameDAO.addGame(game)
+            instanceArray.forEach { gameDAO.addGameInstance(it)}
+        }
     }
 }

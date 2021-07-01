@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.database.GameDAO
+import com.example.foursoulsstatistics.database.GameDataBase
 
 
-class ResultsListAdaptor(private val playerList: ArrayList<Player>) : RecyclerView.Adapter<ResultsListAdaptor.ViewHolder>() {
+class ResultsListAdaptor(private val playerList: ArrayList<PlayerHandler>) : RecyclerView.Adapter<ResultsListAdaptor.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -30,6 +32,7 @@ class ResultsListAdaptor(private val playerList: ArrayList<Player>) : RecyclerVi
         // Inflate the custom layout
         val contactView = inflater.inflate(R.layout.win_entry_layout, parent, false)
         // Return a new holder instance
+
         return ViewHolder(contactView)
     }
 
@@ -37,17 +40,21 @@ class ResultsListAdaptor(private val playerList: ArrayList<Player>) : RecyclerVi
     override fun onBindViewHolder(viewHolder: ResultsListAdaptor.ViewHolder, position: Int) {
         // Get the data model based on position
 
-        val player: Player = playerList[position]
+        val playerHandler: PlayerHandler = playerList[position]
         // Set item views based on your player
 
         val background = viewHolder.charImage
         // Get the background image
-        background.setImageResource(player.charImage)
-        // Set the image to the stored player image
+
+        val charImage = playerHandler.charImage
+        // Select a random character image
+
+        background.setImageResource(charImage)
+        // Set the image to the stored player
 
         val playerEntry = viewHolder.playerName
         // Gets the character entry input box
-        val playerText = "${playerEntry.context.getString(R.string.win_card_player)} ${player.playerName}"
+        val playerText = "${playerEntry.context.getString(R.string.win_card_player)} ${playerHandler.playerName}"
         // Create a text string which adds the player name
         playerEntry.text = playerText
         // Set the player text entry to have the player name
@@ -93,7 +100,7 @@ class ResultsListAdaptor(private val playerList: ArrayList<Player>) : RecyclerVi
         }
 
         winnerTick.setOnCheckedChangeListener { _, _ ->
-            player.winner = winnerTick.isChecked
+            playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
         }
 }

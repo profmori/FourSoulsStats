@@ -1,7 +1,5 @@
 package com.example.foursoulsstatistics
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -10,35 +8,21 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.database.CharEntity
+import com.example.foursoulsstatistics.database.GameDAO
+import com.example.foursoulsstatistics.database.GameDataBase
+import com.example.foursoulsstatistics.database.Player
 
+class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
 
-class CharListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
-
-    /*
-    private val baseArray = arrayOf<String>("Blue Baby", "Cain", "Eden", "Eve", "The Forgotten",
-            "Isaac", "Judas", "Lazarus", "Lilith", "Maggy", "Samson")
-    // List of the base game characters
-    private val goldArray = arrayOf("Apollyon", "Azazel", "The Keeper", "The Lost")
-    // List of the gold box characters
-    private val plusArray = arrayOf<String>("Bum-bo", "Dark Judas", "Guppy", "Whore of Babylon")
-    // List of the FS+ characters
-    private val requiemArray = arrayOf<String>("Bethany", "Jacob & Esau")
-    // List of Requiem characters
-    private val taintedArray = arrayOf<String>("The Baleful", "The Benighted", "The Broken",
-            "The Capricious", "The Curdled", "The Dauntless", "The Deceiver", "The Deserter",
-            "The Empty", "The Enigma", "The Fettered", "The Harlot", "The Hoarder", "The Miser",
-            "The Savage", "The Soiled", "The Zealot")
-    // List of tainted characters
-    private val warpArray = arrayOf<String>("Ash", "Blind Johnny", "Blue Archer", "Boyfriend",
-            "Captain Viridian", "Guy Spelunky", "Pink Knight", "Psycho Goreman", "Quote",
-            "Salad Fingers", "The Knight", "The Silent", "Yung Venuz")
-    // List of warp zone characters
-
-    private var charList = baseArray + goldArray + plusArray + requiemArray + taintedArray + warpArray
-     */
+    private var nameAdded: Boolean = false
+    // Initialises the name added boolean
+    private var charList: Array<CharEntity> = emptyArray()
+    private var playerList: Array<Player> = emptyArray()
+    private var charNames: Array<String> = emptyArray()
+    private var playerNames: Array<String> = emptyArray()
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -66,112 +50,63 @@ class CharListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
     override fun onBindViewHolder(viewHolder: CharListAdaptor.ViewHolder, position: Int) {
         // Get the data model based on position
 
-        val player: Player = playerList[position]
-        // Set item views based on your player
+        val playerHandler: PlayerHandler = playerHandlerList[position]
+        // Set item views based on your player handler
 
         val background = viewHolder.charImage
         // Get the background image
-        background.setImageResource(player.charImage)
-        // Set the image to the stored player
-
         val charEntry = viewHolder.charEntry
         // Gets the character entry input
-        val charList = player.imageMap.keys.toTypedArray()
-        // Get the characters from the keys of the image map
-        charList.sort()
-        // Sort the character list alphabetically
-        val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item, charList)
-        // Creates an array adapter to hold the character list
-        charEntry.setAdapter(charAdapter)
-        // Sets the adapter for this list
-        charEntry.setText(player.charName)
-        // Fill in the character name if this is an update
-
 
         val playerEntry = viewHolder.playerEntry
         // Gets the player entry box
-        var fullPlayerList = player.playerNameList
-        // Gets the list of players from the player class and makes it a string array
-        fullPlayerList.sort()
-        // Sort the player list alphabetically
-        var playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, fullPlayerList)
-        // Creates an array adapter to hold the player name list
-        playerEntry.setAdapter(playerAdaptor)
-        // Sets the adapter for this list
-        playerEntry.setText(player.playerName)
-        // Fill in the player name if this is an update
 
-        charEntry.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+        updateView(playerHandler,background,playerEntry, charEntry)
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            // Before text is changed check this
-                adaptDropDown(charEntry)
-            }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
         charEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
         // When the character entry box loses or gains focus
             if (!hasFocus) {
             // If it has just lost focus
                 val charInput = charEntry.text.toString()
-                if (!charList.contains(charInput) and (charInput != "")) {
+                var newChar = charInput
+                if ((charInput != "") and !charNames.contains(charInput)) {
                 // If the entered value is not valid
-                    val newChar = findClosest(charInput, charList)
+                    newChar = findClosest(charInput, charNames)
                     // Find the closest text value
-                    charEntry.setText(newChar)
-                    // Set the text to a correct value
                 }
-                player.updateCharacter(charEntry.text.toString())
+                playerHandler.charName = newChar
                 // Update the player to store their new character
-                background.setImageResource(player.charImage)
-                // Set the background image to the character card
+                updateView(playerHandler,background,playerEntry,charEntry)
             }
         }
 
-    playerEntry.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            // Before text is changed check this
-            adaptDropDown(playerEntry)
-            // Adapts the drop down length
-        }
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-    })
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
         // When the character entry box loses or gains focus
         if (!hasFocus) {
             // If it has just lost focus
             val input = playerEntry.text.toString()
-            if ((input !in player.playerNameList) and (input != "")) {
+            if ((input !in playerNames) and (input != "")) {
                 // If the entered value is not valid
-                createPlayerPopup(playerEntry, player, input)
+                createPlayerPopup(playerEntry, playerHandler, input, background, charEntry)
                 // Gives the option to add a new player
             }
-            player.updatePlayer(playerEntry.text.toString())
-            // Update the player to store their new character
-            playerEntry.setText(player.playerName)
-            // Fill in the player name if this is an update
+            else{
+                playerHandler.playerName = input
+                // Update the player to store their new character
+                updateView(playerHandler,background,playerEntry,charEntry)
+            }
         }
-        else if ((!player.playerNameList.contentEquals(fullPlayerList)) and hasFocus){
+        else if (hasFocus and nameAdded){
         // If the player list has been updated since this was first run, and this is now being focused (text entered)
-            fullPlayerList = player.playerNameList
-            // Recreate the full player list
-            playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, fullPlayerList)
-            // Creates an array adapter to hold the player name list
-            playerEntry.setAdapter(playerAdaptor)
-            // Sets the adapter for this list
-            playerEntry.setText(player.playerName)
-            // Fill in the player name if this is an update
+            updateView(playerHandler,background, playerEntry,charEntry)
+            nameAdded = false
 
         }
     }
 }
-
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
-        return playerList.size
+        return playerHandlerList.size
         // Returns the player list size element
     }
 
@@ -198,43 +133,32 @@ class CharListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         // If no character is found reset the box
     }
 
-    fun adaptDropDown(view: AutoCompleteTextView){
-        if (view.adapter.count < 3) {
-            // If the number of entries shown is less than 3
-            view.dropDownHeight = view.adapter.count * view.lineHeight
-            // Make the dropdown fit the number of lines
-        } else {
-            view.dropDownHeight = 3 * view.lineHeight
-            // If there are 3 or more entries, just shown 3 in the dropdown
-        }
-    }
-
-    private fun createPlayerPopup(parentView: AutoCompleteTextView, player: Player, inputText : String) {
+    private fun createPlayerPopup(
+        playerEntry: AutoCompleteTextView,
+        playerHandler: PlayerHandler,
+        inputText: String,
+        background: ImageView,
+        charEntry: AutoCompleteTextView
+    ) {
     // When the player does not match an existing player this is called
-        var nameAdded = false
-        val newPlayerPopup = PopupMenu(parentView.context,parentView)
+        nameAdded = false
+        val newPlayerPopup = PopupMenu(playerEntry.context,playerEntry)
         // Creates a new pop-up menu for adding a player
         newPlayerPopup.menuInflater.inflate(R.menu.new_player_menu, newPlayerPopup.menu)
         // Inflates the menu from the provided menu layout
         val changeName = newPlayerPopup.menu.findItem(R.id.addName)
         // Gets the menu item which corresponds to adding the name (currently the only one)
-        var titleString: String = parentView.context.getString(R.string.add_player_1)
-        println(titleString)
-        titleString += " " + inputText + " " + parentView.context.getString(R.string.add_player_2)
-        println(titleString)
+        var titleString: String = playerEntry.context.getString(R.string.add_player_1)
+        titleString += " $inputText"
+        titleString += " " + playerEntry.context.getString(R.string.add_player_2)
 
         changeName.title = titleString
         // Changes the menu item text
 
         newPlayerPopup.setOnMenuItemClickListener {
         // When a menu item is clicked - can only be the change name item
-            for (p in playerList) {
-            // Goes through every player
-                p.addPlayer(inputText)
-                // Adds the new player to this player's list of possible player names
-            }
-            player.updatePlayer(inputText)
-            // Updates the current player to the new player
+            playerHandler.playerName = inputText
+            // Update the stored player to the new value
             nameAdded  = true
             true
             // Needed to return a unit? Not sure what this does
@@ -244,16 +168,50 @@ class CharListAdaptor(private val playerList: List<Player>) : RecyclerView.Adapt
         // When the new player popup is dismissed
             if (!nameAdded) {
             // If no name was added by this menu
-                val newPlayer = findClosest(inputText, player.playerNameList)
+                val newText = findClosest(inputText, playerNames)
                 // Find the closest text value
-                parentView.setText(newPlayer)
-                // Set the text to a "correct" value
-                player.updatePlayer(newPlayer)
+                playerHandler.playerName = newText
                 // Update the stored player to the new value
             }
+            updateView(playerHandler,background,playerEntry,charEntry)
          }
         newPlayerPopup.show()
         // Show the pop-up menu
     }
 
+    private fun updateView(playerHandler: PlayerHandler, background: ImageView, playerEntry: AutoCompleteTextView, charEntry: AutoCompleteTextView){
+
+        val pos = charNames.indexOf(playerHandler.charName)
+        if (pos >= 0) {
+            val currentChar = charList[pos]
+            val charImage = arrayOf(currentChar.image, currentChar.imageAlt).random()
+            // Select a random character image
+            playerHandler.charImage = charImage
+        }
+        background.setImageResource(playerHandler.charImage)
+        // Set the image to the stored player image
+
+
+        val playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, playerNames)
+        // Creates an array adapter to hold the player name list
+        playerEntry.setAdapter(playerAdaptor)
+        // Sets the adapter for this list
+        playerEntry.setText(playerHandler.playerName)
+        // Fill in the player name if this is an update
+
+        val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item, charNames)
+        // Creates an array adapter to hold the character list
+        charEntry.setAdapter(charAdapter)
+        // Sets the adapter for this list
+        charEntry.setText(playerHandler.charName)
+        // Fill in the character name if this is an update
+    }
+
+    fun addData(chars: Array<CharEntity>, players: Array<Player>){
+        charList = chars
+        playerList = players
+        charNames = charList.map{charEntity -> charEntity.charName }.toTypedArray()
+        // Store the names from the list of characters
+        playerNames = playerList.map{player -> player.playerName }.toTypedArray()
+    }
 }

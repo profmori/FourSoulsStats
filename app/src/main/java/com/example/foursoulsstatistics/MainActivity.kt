@@ -9,9 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //val displayMetrics: DisplayMetrics = context.getResources().getDisplayMetrics()
-        //val dpHeight = displayMetrics.heightPixels / displayMetrics.density
-        //val dpWidth = displayMetrics.widthPixels / displayMetrics.density
         setContentView(R.layout.activity_main)
     }
 
