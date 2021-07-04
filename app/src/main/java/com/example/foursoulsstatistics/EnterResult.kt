@@ -20,15 +20,18 @@ class EnterResult : AppCompatActivity() {
         setContentView(R.layout.activity_enter_result)
         // Set the layout
 
-
         val playerNames = intent.getStringArrayExtra("names") as Array<String>
         val charNames = intent.getStringArrayExtra("chars") as Array<String>
         val charImages = intent.getIntArrayExtra("images") as IntArray
+
+        val fonts = SettingsHandler.setFont(this)
+        // Get the right font type (readable or not
 
         var playerList = emptyArray<PlayerHandler>()
 
         for (i in range(0,playerNames.size)){
             playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],0,false)
+            playerList.last().fonts = fonts
         }
 
         val treasureCount = intent.getStringExtra("treasures") as String
@@ -51,6 +54,13 @@ class EnterResult : AppCompatActivity() {
 
         val confirmResult: Button = findViewById(R.id.enterResultsButton)
         // Finds the button to confirm the results
+
+
+        if (confirmResult.typeface != fonts["body"]){
+            // If the fonts are wrong
+            confirmResult.typeface = fonts["body"]
+            // Update them
+        }
 
         confirmResult.setOnClickListener {
             // When the button is pressed
@@ -113,8 +123,6 @@ class EnterResult : AppCompatActivity() {
             // Adds the game to the database
             instanceArray.forEach { gameDao.addGameInstance(it)}
             // Adds every instance to the database
-            val absList = gameDao.getPlayerWithInstance("abs")
-            absList.forEach { println(it) }
         }
     }
 }

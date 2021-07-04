@@ -44,6 +44,10 @@ interface GameDAO {
     // Gets the data of the exact character required
     suspend fun getCharData(charName: String): CharEntity
 
+    @Query("SELECT * FROM games")
+    // Gets all the games data table
+    suspend fun getGames(): Array<Game>
+
     @Transaction
     @Query("SELECT * FROM players WHERE playerName = :playerName")
     // Gets player game data

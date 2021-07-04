@@ -1,10 +1,12 @@
 package com.example.foursoulsstatistics
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foursoulsstatistics.database.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 class EnterData : AppCompatActivity() {
 
@@ -38,8 +41,16 @@ class EnterData : AppCompatActivity() {
         val playerNo = findViewById<EditText>(R.id.playerNumber)
         // Get the player number input box
 
+        val playerPrompt = findViewById<TextView>(R.id.playerPrompt)
+
         val treasureNo = findViewById<EditText>(R.id.treasureNumber)
         // Get the treasure number input box
+
+        val treasurePrompt = findViewById<TextView>(R.id.treasurePrompt)
+        // Gets the treasure prompt
+
+        val titleView = findViewById<TextView>(R.id.inputTitle)
+        // Gets the title
 
         var gameTreasures = treasureNo.text.toString()
 
@@ -51,6 +62,14 @@ class EnterData : AppCompatActivity() {
 
         var playerHandlerList = PlayerHandler.makePlayerList(playerCount)
         // Create adapter passing in the number of players
+
+        val fonts = SettingsHandler.setFont(this)
+        // Get the right font type (readable or not
+
+        playerHandlerList.forEach {
+            it.fonts = fonts
+        }
+
         var adapter = CharListAdaptor(playerHandlerList)
         // Attach the adapter to the recyclerview to populate items
         charRecycler.adapter = adapter
@@ -62,9 +81,10 @@ class EnterData : AppCompatActivity() {
         // Get the database instance
         gameDao = gameDatabase.gameDAO
         // Get the database access object
-        val edition = arrayOf("base", "gold")
-        // Temp just gets the base and gold box characters
 
+        val edition = getEditions(this)
+
+        val altArt = SettingsHandler.readSettings(this)["alt_art"]
         lifecycleScope.launch {
         // In a coroutine
             edition.forEach{characterList += gameDao.getCharacterList(it)}
@@ -74,8 +94,20 @@ class EnterData : AppCompatActivity() {
             playerHandlerList.forEach {
                 it.addData(characterList, playerList)
                 // Add the player and character list to all player handlers
+                it.useAlts = altArt!!
             }
 
+        }
+
+        if(playerNo.typeface != fonts["body"]){
+        // If the fonts are wrong
+            playerNo.typeface = fonts["body"]
+            playerPrompt.typeface = fonts["body"]
+            treasureNo.typeface = fonts["body"]
+            treasurePrompt.typeface = fonts["body"]
+            titleView.typeface = fonts["title"]
+            continueButton.typeface = fonts["body"]
+            // Update them
         }
 
         playerNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
@@ -173,7 +205,7 @@ class EnterData : AppCompatActivity() {
             // Creates an extra parameter which passes the number of treasures to the results page
             val handler = playerHandlerList.map{playerHandler -> playerHandler.playerName}.toTypedArray()
             val list = playerList.map{player -> player.playerName }
-            val dataUpdate = lifecycleScope.launch {
+            lifecycleScope.launch {
                 for (h in handler) {
                     if (!list.contains(h)) {
                         val player = Player(h)
@@ -191,5 +223,15 @@ class EnterData : AppCompatActivity() {
             errorToast.show()
             // Show the error toast
         }
+    }
+
+    fun getEditions(context: Context):Array<String>{
+        val settings = SettingsHandler.readSettings(context)
+        var editionArray = arrayOf("base")
+        if (settings["gold"] == true){editionArray += "gold"}
+        if (settings["plus"] == true){editionArray += "plus"}
+        if (settings["requiem"] == true){editionArray += "requiem"}
+        if (settings["warp"] == true){editionArray += "warp"}
+        return editionArray
     }
 }

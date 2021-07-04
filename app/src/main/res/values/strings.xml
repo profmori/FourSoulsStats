@@ -37,8 +37,20 @@
     <string name="win_card_default_souls">0</string>
 
     <!-- Statistics Page -->
+    <string name="stats_player_title">Player Data</string>
+    <string name="stats_character_title">Character Data</string>
+    <string name="stats_back_button">Return to Main Menu</string>
+    <string name="stats_table_entry">%.2f</string>
 
     <!-- Settings -->
-
+    <string name="settings_title">Settings</string>
+    <string name="settings_to_main">Return to Main Menu</string>
+    <string name="settings_gold">Gold Box :</string>
+    <string name="settings_plus">Four Souls+ :</string>
+    <string name="settings_requiem">Requiem :</string>
+    <string name="settings_warp">Warp Zones :</string>
+    <string name="character_prompt">Use Characters From :</string>
+    <string name="settings_alt_art">Use Character Alt Art :</string>
+    <string name="settings_readable_font">Use a Readable Font : </string>
 
 </resources>

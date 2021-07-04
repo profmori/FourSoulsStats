@@ -1,5 +1,6 @@
 package com.example.foursoulsstatistics
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.withContext
 
 
 class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : RecyclerView.Adapter<ResultsListAdaptor.ViewHolder>() {
@@ -19,6 +21,8 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
         // Allows the background image to be set in code
         val playerName: TextView = itemView.findViewById(R.id.winPlayerName)
         // Access the player name
+        val soulsText: TextView = itemView.findViewById(R.id.winSoulPrompt)
+        // Access the prompt to say souls
         val soulsCount: EditText = itemView.findViewById(R.id.winSoulNumber)
         // Access the player selection entry in code
         val winnerCheck: CheckBox = itemView.findViewById(R.id.winnerCheckbox)
@@ -26,7 +30,7 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
     }
 
     // Usually involves inflating a layout from XML and returning the holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsListAdaptor.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): ResultsListAdaptor.ViewHolder {
         val context = parent.context
         // Gets the context of the view
         val inflater = LayoutInflater.from(context)
@@ -44,6 +48,8 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
         val playerHandler: PlayerHandler = playerList[position]
         // Set item views based on your player
 
+        val fonts = playerHandler.fonts
+
         val background = viewHolder.charImage
         // Get the background image
 
@@ -55,7 +61,8 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
 
         val playerEntry = viewHolder.playerName
         // Gets the character entry input box
-        val playerText = "${playerEntry.context.getString(R.string.win_card_player)} ${playerHandler.playerName}"
+        val playerName = playerHandler.playerName
+        val playerText = "${playerEntry.context.getString(R.string.win_card_player)} $playerName"
         // Create a text string which adds the player name
         playerEntry.text = playerText
         // Set the player text entry to have the player name
@@ -64,8 +71,19 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
         // Gets the soul input box
 
         var soulNumber = soulsBox.text.toString().toInt()
+        // Gets the soul input field
+
+        val soulsText = viewHolder.soulsText
+
         val winnerTick = viewHolder.winnerCheck
         // Gets the winner tick box
+
+        if(playerEntry.typeface != fonts["body"]){
+            playerEntry.typeface = fonts["body"]
+            soulsBox.typeface = fonts["body"]
+            winnerTick.typeface = fonts["body"]
+            soulsText.typeface = fonts["body"]
+        }
 
         soulsBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
@@ -111,5 +129,4 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
         return playerList.size
         // Returns the player list size element
     }
-
 }

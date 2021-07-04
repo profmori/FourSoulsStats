@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.foursoulsstatistics"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -63,4 +63,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+
+    // Sortable Table
+    implementation 'com.github.ISchwarz23:SortableTableView:2.8.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

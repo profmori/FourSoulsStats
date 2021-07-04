@@ -1,5 +1,6 @@
 package com.example.foursoulsstatistics
 
+import android.graphics.Typeface
 import android.os.Parcelable
 import com.example.foursoulsstatistics.database.CharEntity
 import com.example.foursoulsstatistics.database.Player
@@ -14,6 +15,8 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
     var playerList = emptyArray<Player>()
     var playerNames = emptyArray<String>()
     // Creates variables for all the stored data about characters and players
+    var fonts = emptyMap<String, Typeface>()
+    var useAlts = true
 
 
     companion object {
@@ -41,6 +44,9 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                     // For the number of extra players
                     newPlayerList += PlayerHandler("", "", R.drawable.blank_char, 0, false)
                     // Add a player with no name or character and a blank character image
+                    newPlayerList.last().fonts = playerList[0].fonts
+                    newPlayerList.last().useAlts = playerList[0].useAlts
+                    newPlayerList.last().addData(playerList[0].charList,playerList[0].playerList)
                 }
             } else {
                 // If the number of players has not increased
@@ -77,9 +83,10 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                 val currentChar = charList[pos]
                 charImage = currentChar.image
                 // Set the image to the basic value
-                if (currentChar.imageAlt != null) {
+                if ((currentChar.imageAlt != null) and useAlts) {
                     // If there is an alternate image
-                    charImage = arrayOf(currentChar.image, currentChar.imageAlt).random()
+                    charImage =
+                        arrayOf(currentChar.image, currentChar.imageAlt).random()!!
                     // Select a random character image
                 }
             }

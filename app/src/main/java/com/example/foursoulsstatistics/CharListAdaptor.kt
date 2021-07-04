@@ -4,10 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
-import android.widget.PopupMenu
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 
 class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
@@ -22,8 +19,13 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Allows the background image to be set in code
         val charEntry: AutoCompleteTextView = itemView.findViewById(R.id.charTextEntry)
         // Access the character selection entry in code
+        val charPrompt: TextView = itemView.findViewById(R.id.charSelectText)
+        // Access the character entry prompt
         val playerEntry: AutoCompleteTextView = itemView.findViewById(R.id.playerTextEntry)
         // Access the player selection entry in code
+        val playerPrompt: TextView = itemView.findViewById(R.id.playerSelectText)
+        // Access the player entry prompt
+
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -44,13 +46,27 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         val playerHandler: PlayerHandler = playerHandlerList[position]
         // Set item views based on your player handler
 
+        val fonts = playerHandler.fonts
+
         val background = viewHolder.charImage
         // Get the background image
         val charEntry = viewHolder.charEntry
         // Gets the character entry input
+        val charPrompt = viewHolder.charPrompt
+        // Gets the character entry prompt
 
         val playerEntry = viewHolder.playerEntry
         // Gets the player entry box
+        val playerPrompt = viewHolder.playerPrompt
+
+
+
+        if(playerEntry.typeface != fonts["body"]){
+            playerPrompt.typeface = fonts["body"]
+            playerEntry.typeface = fonts["body"]
+            charPrompt.typeface = fonts["body"]
+            charEntry.typeface = fonts["body"]
+        }
 
         updateView(playerHandler,background,playerEntry, charEntry)
 

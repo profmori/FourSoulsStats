@@ -1,8 +1,12 @@
 package com.example.foursoulsstatistics
 
 import android.content.Intent
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.foursoulsstatistics.database.CharacterList
@@ -15,7 +19,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var updated = false
+        val settingsFile = getFileStreamPath("settings.txt")
+        // Gets the setting file location
+
+        if(!settingsFile.exists()) {
+        // If there is no setting file
+            SettingsHandler.initialiseSettings(this)
+            // Make a setting file
+        }
+
         val gameDatabase = GameDataBase.getDataBase(this)
         // Get the database instance
         val gameDao = gameDatabase.gameDAO
@@ -34,29 +46,41 @@ class MainActivity : AppCompatActivity() {
                     // Add the character, replacing existing versions
                 }
             }
-            updated = true
         }
+
+        val titleText = findViewById<TextView>(R.id.mainTitle)
+
         val dataButton = findViewById<Button>(R.id.mainData)
 
-        dataButton.setOnClickListener {
-            if(updated) {
-                val goToData = Intent(this, EnterData::class.java)
-                startActivity(goToData)
-            }
+        val statsButton = findViewById<Button>(R.id.mainStats)
+
+        val settingsButton = findViewById<Button>(R.id.mainSettings)
+
+        val fonts = SettingsHandler.setFont(this)
+        // Get the right font type (readable or not
+
+        if (titleText.typeface != fonts["title"]){
+        // If the fonts are wrong
+            titleText.typeface = fonts["title"]
+            dataButton.typeface = fonts["body"]
+            statsButton.typeface = fonts["body"]
+            settingsButton.typeface = fonts["body"]
+            // Update them
         }
 
-        val statsButton = findViewById<Button>(R.id.mainStats)
+        dataButton.setOnClickListener {
+            val goToData = Intent(this, EnterData::class.java)
+            startActivity(goToData)
+        }
 
         statsButton.setOnClickListener {
             val goToStats = Intent(this, ViewStatistics::class.java)
             startActivity(goToStats)
         }
 
-        val settingsButton = findViewById<Button>(R.id.mainSettings)
-
         settingsButton.setOnClickListener {
-            //val goToSettings = Intent(this, settingsEdit::class.java)
-            //startActivity(goToSettings)
+            val goToSettings = Intent(this, EditSettings::class.java)
+            startActivity(goToSettings)
         }
     }
 }

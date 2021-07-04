@@ -14,26 +14,24 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
+        android:layout_margin="10dp"
 
         android:text="@string/input_title"
         android:fontFamily="@font/four_souls_title"
-        android:textSize="30sp"
-        android:textAlignment="center"/>
+        android:textSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/playerLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/inputTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.05" >
+        android:layout_margin="15dp">
 
         <TextView
-            android:id="@+id/numberPrompt"
+            android:id="@+id/playerPrompt"
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -51,7 +49,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/numberPrompt"
+            app:layout_constraintStart_toEndOf="@id/playerPrompt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintTop_toTopOf="parent"
@@ -72,9 +70,8 @@
         android:id="@+id/treasureLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputTitle"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintTop_toBottomOf="@id/playerLine"
+        android:layout_margin="15dp">
 
         <TextView
             android:id="@+id/treasurePrompt"
@@ -117,8 +114,7 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/treasureLine"
         app:layout_constraintBottom_toTopOf="@id/inputContinueButton"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginVertical="10dp">
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
@@ -129,7 +125,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="15dp"
+        android:layout_margin="10dp"
 
         android:focusable="true"
         android:focusableInTouchMode="true"
