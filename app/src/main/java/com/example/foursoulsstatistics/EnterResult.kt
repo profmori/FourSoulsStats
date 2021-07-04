@@ -12,14 +12,24 @@ import com.example.foursoulsstatistics.database.Game
 import com.example.foursoulsstatistics.database.GameDataBase
 import com.example.foursoulsstatistics.database.GameInstance
 import kotlinx.coroutines.launch
+import java.util.stream.IntStream.range
 
 class EnterResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_result)
+        // Set the layout
 
-        val playerList = intent.getParcelableArrayListExtra<PlayerHandler>("players") as ArrayList<PlayerHandler>
-        // Pull the player list from the extra pass in the intent - casting as an array list rather than a java array list
+
+        val playerNames = intent.getStringArrayExtra("names") as Array<String>
+        val charNames = intent.getStringArrayExtra("chars") as Array<String>
+        val charImages = intent.getIntArrayExtra("images") as IntArray
+
+        var playerList = emptyArray<PlayerHandler>()
+
+        for (i in range(0,playerNames.size)){
+            playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],0,false)
+        }
 
         val treasureCount = intent.getStringExtra("treasures") as String
         // Pull the count of treasures from the intent pass as a string
@@ -78,20 +88,33 @@ class EnterResult : AppCompatActivity() {
 
     }
 
-    private fun saveData(gameId: Long, playerList: ArrayList<PlayerHandler>, treasureCount: String) {
+    private fun saveData(gameId: Long, playerList: Array<PlayerHandler>, treasureCount: String) {
+    // Function to save the game
         val gameDatabase: GameDataBase = GameDataBase.getDataBase(this)
-        val gameDAO = gameDatabase.gameDAO
+        // Gets the game database
+        val gameDao = gameDatabase.gameDAO
+        // Gets the database access object
         var instanceArray = emptyArray<GameInstance>()
+        // Creates an empty array of game instances
 
         for (p in playerList){
+        // Iterates through the player data list
             val newGameInstance = GameInstance(0,gameId,p.playerName, p.charName, p.soulsNum, p.winner)
+            // Creates a new game instance to record each player
             instanceArray += arrayOf(newGameInstance)
+            // Adds it to the instance array
         }
 
         val game = Game(gameId, playerList.size, treasureCount.toInt())
+        // Creates a game variable to store this game
         lifecycleScope.launch {
-            gameDAO.addGame(game)
-            instanceArray.forEach { gameDAO.addGameInstance(it)}
+        // Runs a coroutine
+            gameDao.addGame(game)
+            // Adds the game to the database
+            instanceArray.forEach { gameDao.addGameInstance(it)}
+            // Adds every instance to the database
+            val absList = gameDao.getPlayerWithInstance("abs")
+            absList.forEach { println(it) }
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.example.foursoulsstatistics.database
 
-import androidx.room.*
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.Relation
 
 @Entity(tableName = "players")
 // Creates a table to store all players
@@ -15,7 +18,7 @@ data class CharEntity(
     @PrimaryKey(autoGenerate = false)
     val charName: String,
     val image: Int,
-    val imageAlt: Int,
+    val imageAlt: Int?,
     val edition: String
 )
 

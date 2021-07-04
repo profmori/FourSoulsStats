@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.foursoulsstatistics.R
 
 @Database(
     entities = [
@@ -45,24 +44,8 @@ abstract class GameDataBase: RoomDatabase() {
                         context.applicationContext,
                         GameDataBase::class.java,
                         "game_database"
-                    )
-                        //.createFromAsset("database/characters.db")
-                        .build()
+                    ).build()
                     // Use the database builder to create the database
-                    val charList = arrayOf(
-                        // Base Characters
-                        CharEntity("blue baby", R.drawable.blue_baby, R.drawable.blue_baby_alt,"base"),
-                        CharEntity("cain", R.drawable.cain, R.drawable.cain, "base"),
-                        CharEntity("eden", R.drawable.eden, R.drawable.eden, "base"),
-                        CharEntity("eve", R.drawable.eve, R.drawable.eve, "base"),
-                        CharEntity("the forgotten", R.drawable.forgotten, R.drawable.forgotten, "base"),
-                        CharEntity("isaac", R.drawable.isaac, R.drawable.isaac_alt, "base"),
-                        CharEntity("judas", R.drawable.judas, R.drawable.judas_alt, "base"),
-                        CharEntity("lazarus", R.drawable.lazarus, R.drawable.lazarus, "base"),
-                        CharEntity("lilith",R.drawable.lilith, R.drawable.lilith_alt, "base"),
-                        CharEntity("maggy",R.drawable.maggy,R.drawable.maggy,"base"),
-                        CharEntity("samson",R.drawable.maggy,R.drawable.maggy,"base")
-                        )
                 instance = dataBase
                 // Set the instance variable
                 return instance as GameDataBase

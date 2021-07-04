@@ -8,21 +8,12 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.PopupMenu
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foursoulsstatistics.database.CharEntity
-import com.example.foursoulsstatistics.database.GameDAO
-import com.example.foursoulsstatistics.database.GameDataBase
-import com.example.foursoulsstatistics.database.Player
 
-class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
+class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
 
     private var nameAdded: Boolean = false
     // Initialises the name added boolean
-    private var charList: Array<CharEntity> = emptyArray()
-    private var playerList: Array<Player> = emptyArray()
-    private var charNames: Array<String> = emptyArray()
-    private var playerNames: Array<String> = emptyArray()
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -69,14 +60,22 @@ class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : Recy
             // If it has just lost focus
                 val charInput = charEntry.text.toString()
                 var newChar = charInput
-                if ((charInput != "") and !charNames.contains(charInput)) {
+                if ((charInput != "") and !playerHandler.charNames.contains(charInput)) {
                 // If the entered value is not valid
-                    newChar = findClosest(charInput, charNames)
+                    newChar = findClosest(charInput, playerHandler.charNames)
                     // Find the closest text value
                 }
-                playerHandler.charName = newChar
+                playerHandler.updateCharacter(newChar)
                 // Update the player to store their new character
                 updateView(playerHandler,background,playerEntry,charEntry)
+            }
+            else{
+                val cDropDown = playerHandler.charNames
+                cDropDown.sort()
+                val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item, cDropDown)
+                // Creates an array adapter to hold the character list
+                charEntry.setAdapter(charAdapter)
+                // Sets the adapter for this list
             }
         }
 
@@ -85,13 +84,13 @@ class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : Recy
         if (!hasFocus) {
             // If it has just lost focus
             val input = playerEntry.text.toString()
-            if ((input !in playerNames) and (input != "")) {
+            if ((input !in playerHandler.playerNames) and (input != "")) {
                 // If the entered value is not valid
                 createPlayerPopup(playerEntry, playerHandler, input, background, charEntry)
                 // Gives the option to add a new player
             }
             else{
-                playerHandler.playerName = input
+                playerHandler.playerName = input.lowercase()
                 // Update the player to store their new character
                 updateView(playerHandler,background,playerEntry,charEntry)
             }
@@ -100,7 +99,6 @@ class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : Recy
         // If the player list has been updated since this was first run, and this is now being focused (text entered)
             updateView(playerHandler,background, playerEntry,charEntry)
             nameAdded = false
-
         }
     }
 }
@@ -157,7 +155,11 @@ class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : Recy
 
         newPlayerPopup.setOnMenuItemClickListener {
         // When a menu item is clicked - can only be the change name item
-            playerHandler.playerName = inputText
+            playerHandlerList.forEach {
+                it.playerNames+= arrayOf(inputText)
+                it.playerNames.sort()
+            }
+            playerHandler.playerName = inputText.lowercase()
             // Update the stored player to the new value
             nameAdded  = true
             true
@@ -168,12 +170,13 @@ class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : Recy
         // When the new player popup is dismissed
             if (!nameAdded) {
             // If no name was added by this menu
-                val newText = findClosest(inputText, playerNames)
+                val newText = findClosest(inputText, playerHandler.playerNames)
                 // Find the closest text value
-                playerHandler.playerName = newText
+                playerHandler.playerName = newText.lowercase()
                 // Update the stored player to the new value
             }
             updateView(playerHandler,background,playerEntry,charEntry)
+            // Update the recycler view
          }
         newPlayerPopup.show()
         // Show the pop-up menu
@@ -181,37 +184,25 @@ class CharListAdaptor(private val playerHandlerList: List<PlayerHandler>) : Recy
 
     private fun updateView(playerHandler: PlayerHandler, background: ImageView, playerEntry: AutoCompleteTextView, charEntry: AutoCompleteTextView){
 
-        val pos = charNames.indexOf(playerHandler.charName)
-        if (pos >= 0) {
-            val currentChar = charList[pos]
-            val charImage = arrayOf(currentChar.image, currentChar.imageAlt).random()
-            // Select a random character image
-            playerHandler.charImage = charImage
-        }
         background.setImageResource(playerHandler.charImage)
         // Set the image to the stored player image
 
-
-        val playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, playerNames)
+        val pDropDown = playerHandler.playerNames
+        pDropDown.sort()
+        val playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, pDropDown)
         // Creates an array adapter to hold the player name list
         playerEntry.setAdapter(playerAdaptor)
         // Sets the adapter for this list
         playerEntry.setText(playerHandler.playerName)
         // Fill in the player name if this is an update
 
-        val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item, charNames)
+        val cDropDown = playerHandler.charNames
+        cDropDown.sort()
+        val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item,cDropDown)
         // Creates an array adapter to hold the character list
         charEntry.setAdapter(charAdapter)
         // Sets the adapter for this list
         charEntry.setText(playerHandler.charName)
         // Fill in the character name if this is an update
-    }
-
-    fun addData(chars: Array<CharEntity>, players: Array<Player>){
-        charList = chars
-        playerList = players
-        charNames = charList.map{charEntity -> charEntity.charName }.toTypedArray()
-        // Store the names from the list of characters
-        playerNames = playerList.map{player -> player.playerName }.toTypedArray()
     }
 }

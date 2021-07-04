@@ -1,6 +1,5 @@
 package com.example.foursoulsstatistics.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -15,12 +14,17 @@ interface GameDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     // If the same character is added multiple times, don't do it
     suspend fun addCharacter(character: CharEntity)
-    // Allows for a list of characters to be added
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // If the same character is updated replace it
+    suspend fun updateCharacter(character: CharEntity)
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
+    // Should never happen
     suspend fun addGame(game: Game)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // Add a game instance, identical entries should be replaced
     suspend fun addGameInstance(gameInstance: GameInstance)
 
     @Query("SELECT * FROM players")
@@ -32,18 +36,26 @@ interface GameDAO {
     // SQL query to get the characters who's edition field matches the input requestedEdition
     suspend fun getCharacterList(requestedEdition: String): Array<CharEntity>
 
+    @Query("SELECT * FROM characters")
+    // SQL query to get all characters
+    suspend fun getFullCharacterList(): Array<CharEntity>
+
     @Query("SELECT * FROM characters WHERE charName = :charName")
+    // Gets the data of the exact character required
     suspend fun getCharData(charName: String): CharEntity
 
     @Transaction
     @Query("SELECT * FROM players WHERE playerName = :playerName")
+    // Gets player game data
     suspend fun getPlayerWithInstance(playerName: String): Array<PlayerWithInstance>
 
     @Transaction
     @Query("SELECT * FROM characters WHERE charName = :charName")
+    // Gets character game data
     suspend fun getCharacterWithInstance(charName: String): Array<CharacterWithInstance>
 
     @Transaction
     @Query("SELECT * FROM games WHERE gameID = :gameID")
+    // Gets data for a single game
     suspend fun getGameWithInstance(gameID: Long): Array<GameWithInstance>
 }
