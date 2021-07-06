@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.foursoulsstatistics.R
+import com.example.foursoulsstatistics.TextHandler
 import de.codecrafters.tableview.TableDataAdapter
 import de.codecrafters.tableview.TableHeaderAdapter
 
-class CharacterTable(var charName: String, var winrate: Double, var soulsAvg: Double, var playedGames: Int, var adjustedSouls: Double){
+class CharacterTable(var charName: String, var winrate: Double, var soulsAvg: Double, private var playedGames: Int, var adjustedSouls: Double){
     fun setData(data: Array<CharacterWithInstance>, games: Array<Game>){
         charName = data[0].character.charName
         val instances = data[0].gameInstances
@@ -37,15 +38,16 @@ class CharacterTable(var charName: String, var winrate: Double, var soulsAvg: Do
 
 }
 
-class CharacterTableAdapter(context: Context, data: Array<CharacterTable>) : TableDataAdapter<CharacterTable>(context, data) {
+class CharacterTableAdapter(context: Context, private val tableFont: Typeface, data: Array<CharacterTable>) : TableDataAdapter<CharacterTable>(context, data) {
 
     override fun getCellView(rowIndex: Int, columnIndex: Int, parentView: ViewGroup): View {
         val character = getRowData(rowIndex)
         val renderedView = TextView(context)
         renderedView.gravity = Gravity.CENTER
+        renderedView.typeface = tableFont
 
         when(columnIndex){
-            0 -> renderedView.text = character.charName
+            0 -> renderedView.text = TextHandler.capitalise(character.charName)
             1 ->{
                 if (character.winrate >= 0){
                     renderedView.text = context.getString(R.string.stats_table_entry).format(character.winrate)
@@ -72,6 +74,30 @@ class CharacterTableAdapter(context: Context, data: Array<CharacterTable>) : Tab
             }
         }
         return renderedView
+    }
+}
+
+class CharacterTableHeaderAdapter(context: Context, headerFont: Typeface, vararg headers: String) : TableHeaderAdapter(context) {
+    private val headers: Array<String?> = headers as Array<String?>
+    private var paddingLeft = 20
+    private var paddingTop = 30
+    private var paddingRight = 20
+    private var paddingBottom = 30
+    private var textSize = 14
+    private var typeface = headerFont
+    private var gravity = Gravity.CENTER_HORIZONTAL
+
+    override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
+        val textView = TextView(context)
+        if (columnIndex < headers.size) {
+            textView.text = headers[columnIndex]
+            textView.gravity = gravity
+        }
+        textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+        textView.typeface = typeface
+        textView.textSize = textSize.toFloat()
+        //textView.setTextColor(textColor)
+        return textView
     }
 }
 
@@ -104,122 +130,5 @@ class CharAdjustedSoulsComparator: Comparator<CharacterTable>{
         val souls1 = char1.adjustedSouls
         val souls2 = char2.adjustedSouls
         return souls2.compareTo(souls1)
-    }
-}
-
-class CharacterTableHeaderAdapter
-/**
- * Creates a new SimpleTableHeaderAdapter.
- *
- * @param context The context to use inside this [TableHeaderAdapter].
- * @param headers The header labels that shall be rendered.
- */(context: Context, vararg headers: String) : TableHeaderAdapter(context) {
-    private val headers: Array<String?> = headers as Array<String?>
-    private var paddingLeft = 20
-    private var paddingTop = 30
-    private var paddingRight = 20
-    private var paddingBottom = 30
-    private var textSize = 14
-    private var typeface = Typeface.BOLD
-    private var textColor = R.color.black
-    private var gravity = Gravity.CENTER_HORIZONTAL
-
-    /**
-     * Sets the padding that will be used for all table headers.
-     *
-     * @param left   The padding on the left side.
-     * @param top    The padding on the top side.
-     * @param right  The padding on the right side.
-     * @param bottom The padding on the bottom side.
-     */
-    fun setPaddings(left: Int, top: Int, right: Int, bottom: Int) {
-        paddingLeft = left
-        paddingTop = top
-        paddingRight = right
-        paddingBottom = bottom
-    }
-
-    /**
-     * Sets the gravity of the text inside the header cell.
-     * @param gravity The gravity of the text inside the header cell.
-     */
-    fun setGravity(gravity: Int) {
-        this.gravity = gravity
-    }
-
-    /**
-     * Sets the padding that will be used on the left side for all table headers.
-     *
-     * @param paddingLeft The padding on the left side.
-     */
-    fun setPaddingLeft(paddingLeft: Int) {
-        this.paddingLeft = paddingLeft
-    }
-
-    /**
-     * Sets the padding that will be used on the top side for all table headers.
-     *
-     * @param paddingTop The padding on the top side.
-     */
-    fun setPaddingTop(paddingTop: Int) {
-        this.paddingTop = paddingTop
-    }
-
-    /**
-     * Sets the padding that will be used on the right side for all table headers.
-     *
-     * @param paddingRight The padding on the right side.
-     */
-    fun setPaddingRight(paddingRight: Int) {
-        this.paddingRight = paddingRight
-    }
-
-    /**
-     * Sets the padding that will be used on the bottom side for all table headers.
-     *
-     * @param paddingBottom The padding on the bottom side.
-     */
-    fun setPaddingBottom(paddingBottom: Int) {
-        this.paddingBottom = paddingBottom
-    }
-
-    /**
-     * Sets the text size that will be used for all table headers.
-     *
-     * @param textSize The text size that shall be used.
-     */
-    fun setTextSize(textSize: Int) {
-        this.textSize = textSize
-    }
-
-    /**
-     * Sets the typeface that will be used for all table headers.
-     *
-     * @param typeface The type face that shall be used.
-     */
-    fun setTypeface(typeface: Int) {
-        this.typeface = typeface
-    }
-
-    /**
-     * Sets the text color that will be used for all table headers.
-     *
-     * @param textColor The text color that shall be used.
-     */
-    fun setTextColor(textColor: Int) {
-        this.textColor = textColor
-    }
-
-    override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
-        val textView = TextView(context)
-        if (columnIndex < headers.size) {
-            textView.text = headers[columnIndex]
-            textView.gravity = gravity
-        }
-        textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
-        textView.setTypeface(textView.typeface, typeface)
-        textView.textSize = textSize.toFloat()
-        //textView.setTextColor(textColor)
-        return textView
     }
 }

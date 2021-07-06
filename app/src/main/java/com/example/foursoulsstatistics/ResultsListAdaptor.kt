@@ -1,6 +1,5 @@
 package com.example.foursoulsstatistics
 
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.withContext
 
 
 class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : RecyclerView.Adapter<ResultsListAdaptor.ViewHolder>() {
@@ -30,7 +28,7 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
     }
 
     // Usually involves inflating a layout from XML and returning the holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int, ): ResultsListAdaptor.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsListAdaptor.ViewHolder {
         val context = parent.context
         // Gets the context of the view
         val inflater = LayoutInflater.from(context)
@@ -61,7 +59,7 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
 
         val playerEntry = viewHolder.playerName
         // Gets the character entry input box
-        val playerName = playerHandler.playerName
+        val playerName = TextHandler.capitalise(playerHandler.playerName.lowercase())
         val playerText = "${playerEntry.context.getString(R.string.win_card_player)} $playerName"
         // Create a text string which adds the player name
         playerEntry.text = playerText
@@ -96,10 +94,11 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
                 // If the input cannot be made into a number
                     soulNumber = oldSoulNumber
                     // Use the old soul number
-                    soulsBox.setText(soulNumber)
-                    // Fill the text box back in
                 }
                 finally {
+                    playerHandler.soulsNum = soulNumber
+                    soulsBox.setText(playerHandler.soulsNum.toString())
+                    // Fill the text box back in
                     if (soulNumber >= 4) {
                     // If there are more than four souls
                         winnerTick.isChecked = true

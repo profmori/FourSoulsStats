@@ -1,12 +1,9 @@
 package com.example.foursoulsstatistics
 
 import android.content.Intent
-import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.foursoulsstatistics.database.CharacterList
@@ -56,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         val settingsButton = findViewById<Button>(R.id.mainSettings)
 
-        val fonts = SettingsHandler.setFont(this)
+        val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
 
         if (titleText.typeface != fonts["title"]){
@@ -81,6 +78,13 @@ class MainActivity : AppCompatActivity() {
         settingsButton.setOnClickListener {
             val goToSettings = Intent(this, EditSettings::class.java)
             startActivity(goToSettings)
+        }
+    }
+
+    override fun onBackPressed() {
+        val source = intent.getStringExtra("from")
+        if (source != "EnterResult"){
+            finish()
         }
     }
 }

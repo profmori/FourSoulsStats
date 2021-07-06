@@ -12,10 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foursoulsstatistics.database.*
-import kotlinx.coroutines.async
+import com.example.foursoulsstatistics.database.CharEntity
+import com.example.foursoulsstatistics.database.GameDAO
+import com.example.foursoulsstatistics.database.GameDataBase
+import com.example.foursoulsstatistics.database.Player
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 class EnterData : AppCompatActivity() {
 
@@ -60,10 +61,13 @@ class EnterData : AppCompatActivity() {
         val continueButton = findViewById<Button>(R.id.inputContinueButton)
         // Gets the button to continue
 
+        val returnButton = findViewById<Button>(R.id.inputToMain)
+        // Gets the button to return to the main menu
+
         var playerHandlerList = PlayerHandler.makePlayerList(playerCount)
         // Create adapter passing in the number of players
 
-        val fonts = SettingsHandler.setFont(this)
+        val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
 
         playerHandlerList.forEach {
@@ -107,6 +111,7 @@ class EnterData : AppCompatActivity() {
             treasurePrompt.typeface = fonts["body"]
             titleView.typeface = fonts["title"]
             continueButton.typeface = fonts["body"]
+            returnButton.typeface = fonts["body"]
             // Update them
         }
 
@@ -170,6 +175,13 @@ class EnterData : AppCompatActivity() {
             tryMoveOn(playerHandlerList,gameTreasures)
             // Try to move to the next screen
         }
+
+        returnButton.setOnClickListener {
+            val backToMain = Intent(this, MainActivity::class.java)
+            // Create an intent back to the main screen
+            startActivity(backToMain)
+            // Go back to the main screen
+        }
     }
 
     private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: String){
@@ -225,7 +237,7 @@ class EnterData : AppCompatActivity() {
         }
     }
 
-    fun getEditions(context: Context):Array<String>{
+    private fun getEditions(context: Context):Array<String>{
         val settings = SettingsHandler.readSettings(context)
         var editionArray = arrayOf("base")
         if (settings["gold"] == true){editionArray += "gold"}

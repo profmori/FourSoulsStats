@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ViewStatistics">
 
+    <ImageView
+        android:id="@+id/background"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:ignore="ContentDescription"
+
+        android:background="@color/purple_200"
+
+        android:src="@drawable/border_treasure_back"
+        android:scaleType="fitXY" />
+
     <TextView
         android:id="@+id/statsPlayerTitle"
 
@@ -13,21 +26,22 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="10dp"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="30dp"
 
         android:text="@string/stats_player_title"/>
 
     <de.codecrafters.tableview.SortableTableView
         android:id="@+id/playerTable"
 
-        android:layout_width="380dp"
+        android:layout_width="370dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statsPlayerTitle"
         app:layout_constraintBottom_toBottomOf="@id/halfwayMark"
-        android:layout_margin="10dp"/>
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp"/>
 
     <View
         android:id="@+id/halfwayMark"
@@ -44,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerTable"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
 
         android:text="@string/stats_character_title"/>
 
@@ -54,12 +68,13 @@
         xmlns:table="http://schemas.android.com/apk/res-auto"
 
         android:layout_height="0dp"
-        android:layout_width="380dp"
+        android:layout_width="370dp"
         table:layout_constraintTop_toBottomOf="@id/statsCharTitle"
         table:layout_constraintBottom_toTopOf="@id/statsBackButton"
         table:layout_constraintStart_toStartOf="parent"
         table:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="10dp" />
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp" />
 
     <Button
         android:id="@+id/statsBackButton"
@@ -69,8 +84,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
 
-        android:text="@string/stats_back_button"/>
+        android:textAllCaps="false"
+        android:text="@string/back_to_main"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

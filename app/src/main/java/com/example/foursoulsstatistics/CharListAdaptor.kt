@@ -1,11 +1,19 @@
 package com.example.foursoulsstatistics
 
+import android.os.Build
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TypefaceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+
 
 class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
 
@@ -59,8 +67,6 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Gets the player entry box
         val playerPrompt = viewHolder.playerPrompt
 
-
-
         if(playerEntry.typeface != fonts["body"]){
             playerPrompt.typeface = fonts["body"]
             playerEntry.typeface = fonts["body"]
@@ -88,7 +94,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
             else{
                 val cDropDown = playerHandler.charNames
                 cDropDown.sort()
-                val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item, cDropDown)
+                val charAdapter = DropDownAdapter(charEntry.context, cDropDown, fonts["body"]!!)
                 // Creates an array adapter to hold the character list
                 charEntry.setAdapter(charAdapter)
                 // Sets the adapter for this list
@@ -100,7 +106,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         if (!hasFocus) {
             // If it has just lost focus
             val input = playerEntry.text.toString()
-            if ((input !in playerHandler.playerNames) and (input != "")) {
+            if ((input.lowercase() !in playerHandler.playerNames) and (input != "")) {
                 // If the entered value is not valid
                 createPlayerPopup(playerEntry, playerHandler, input, background, charEntry)
                 // Gives the option to add a new player
@@ -162,18 +168,29 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Inflates the menu from the provided menu layout
         val changeName = newPlayerPopup.menu.findItem(R.id.addName)
         // Gets the menu item which corresponds to adding the name (currently the only one)
-        var titleString: String = playerEntry.context.getString(R.string.add_player_1)
-        titleString += " $inputText"
-        titleString += " " + playerEntry.context.getString(R.string.add_player_2)
-
-        changeName.title = titleString
+        var addPlayer: String = playerEntry.context.getString(R.string.add_player_1)
+        addPlayer += " $inputText"
+        addPlayer += " " + playerEntry.context.getString(R.string.add_player_2)
+        // Add the strings together to make the prompt
+        changeName.title = TextHandler.capitalise(addPlayer.lowercase())
         // Changes the menu item text
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val titleString = SpannableString(changeName.title)
+            titleString.setSpan(TypefaceSpan(playerHandler.fonts["body"]!!),0,titleString.length,Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            changeName.title = titleString
+        }
+
+
 
         newPlayerPopup.setOnMenuItemClickListener {
         // When a menu item is clicked - can only be the change name item
             playerHandlerList.forEach {
-                it.playerNames+= arrayOf(inputText)
+            // For every player handler in the list
+                it.playerNames+= arrayOf(inputText.lowercase())
+                // Add the new text to the players name list
                 it.playerNames.sort()
+                // Sort the player names alphabetically again
             }
             playerHandler.playerName = inputText.lowercase()
             // Update the stored player to the new value
@@ -205,20 +222,20 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         val pDropDown = playerHandler.playerNames
         pDropDown.sort()
-        val playerAdaptor = ArrayAdapter(playerEntry.context, android.R.layout.simple_spinner_item, pDropDown)
+        val playerAdaptor = DropDownAdapter(playerEntry.context, pDropDown, playerHandler.fonts["body"]!!)
         // Creates an array adapter to hold the player name list
         playerEntry.setAdapter(playerAdaptor)
         // Sets the adapter for this list
-        playerEntry.setText(playerHandler.playerName)
+        playerEntry.setText(TextHandler.capitalise(playerHandler.playerName))
         // Fill in the player name if this is an update
 
         val cDropDown = playerHandler.charNames
         cDropDown.sort()
-        val charAdapter = ArrayAdapter(charEntry.context, android.R.layout.simple_spinner_item,cDropDown)
+        val charAdapter = DropDownAdapter(charEntry.context, cDropDown, playerHandler.fonts["body"]!!)
         // Creates an array adapter to hold the character list
         charEntry.setAdapter(charAdapter)
         // Sets the adapter for this list
-        charEntry.setText(playerHandler.charName)
+        charEntry.setText(TextHandler.capitalise(playerHandler.charName))
         // Fill in the character name if this is an update
     }
 }

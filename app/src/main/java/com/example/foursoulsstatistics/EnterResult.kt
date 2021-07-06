@@ -24,7 +24,7 @@ class EnterResult : AppCompatActivity() {
         val charNames = intent.getStringArrayExtra("chars") as Array<String>
         val charImages = intent.getIntArrayExtra("images") as IntArray
 
-        val fonts = SettingsHandler.setFont(this)
+        val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
 
         var playerList = emptyArray<PlayerHandler>()
@@ -55,10 +55,14 @@ class EnterResult : AppCompatActivity() {
         val confirmResult: Button = findViewById(R.id.enterResultsButton)
         // Finds the button to confirm the results
 
+        val returnButton = findViewById<Button>(R.id.resultsToEntry)
+        // Gets the button to return to the data entry phase
+
 
         if (confirmResult.typeface != fonts["body"]){
             // If the fonts are wrong
             confirmResult.typeface = fonts["body"]
+            returnButton.typeface = fonts["body"]
             // Update them
         }
 
@@ -80,6 +84,7 @@ class EnterResult : AppCompatActivity() {
                 // Save the game
                 val backToMain = Intent(this, MainActivity::class.java)
                 // Create an intent back to the main screen
+                backToMain.putExtra("from", "EnterResult")
                 startActivity(backToMain)
                 // Go back to the main screen
                 val passToast = Toast.makeText(this, R.string.result_pass_on, Toast.LENGTH_LONG)
@@ -94,6 +99,10 @@ class EnterResult : AppCompatActivity() {
                 errorToast.show()
                 // Show the error toast
             }
+        }
+
+        returnButton.setOnClickListener {
+            finish()
         }
 
     }

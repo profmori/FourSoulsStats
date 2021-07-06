@@ -1,7 +1,6 @@
 package com.example.foursoulsstatistics
 
 import android.content.Context
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 
 class SettingsHandler {
@@ -70,29 +69,6 @@ class SettingsHandler {
 
             return settingMap
             // Return the updated map
-        }
-
-        fun setFont(context: Context): Map<String, Typeface> {
-        // Allows the font to be set from a central place
-            val fontMap: Map<String, Typeface>
-            // Creates a map for the font
-            val readableFont = readSettings(context)["readable_font"]
-            // Get whether the font should be readable
-            fontMap = if (readableFont == true) {
-                mapOf(
-                    "body" to context.resources.getFont(R.font.roboto_regular),
-                    "title" to context.resources.getFont(R.font.roboto_black)
-                )
-                // Use the readable fonts
-            } else {
-                mapOf(
-                    "body" to context.resources.getFont(R.font.four_souls_body),
-                    "title" to context.resources.getFont(R.font.four_souls_title)
-                )
-                // Use the stylised font
-            }
-        return fontMap
-        // Return the current font mapping
         }
     }
 }

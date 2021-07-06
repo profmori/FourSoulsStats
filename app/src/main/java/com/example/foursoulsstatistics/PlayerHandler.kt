@@ -1,11 +1,9 @@
 package com.example.foursoulsstatistics
 
 import android.graphics.Typeface
-import android.os.Parcelable
 import com.example.foursoulsstatistics.database.CharEntity
 import com.example.foursoulsstatistics.database.Player
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
+import java.util.*
 import java.util.stream.IntStream.range
 
 class PlayerHandler (var playerName: String, var charName: String, var charImage: Int, var soulsNum: Int, var winner: Boolean) {
@@ -66,6 +64,16 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
             // Gets the list of characters
             charNames = charList.map{charEntity -> charEntity.charName }.toTypedArray()
             // Store the names from the list of characters
+            charNames.forEach {name ->
+                name.replaceFirstChar { char ->
+                    if (char.isLowerCase()) {
+                        char.titlecase(Locale.ROOT)
+                    }
+                    else {
+                        char.toString()
+                    }
+                }
+            }
 
             playerList = players
             playerList.sortBy { it.playerName }

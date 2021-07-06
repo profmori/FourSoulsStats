@@ -20,5 +20,9 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
 
+        <!-- Make the app full screen, so backgrounds are behind the action bar -->
+        <item name="android:windowFullscreen">true</item>
+
+
     </style>
 </resources>

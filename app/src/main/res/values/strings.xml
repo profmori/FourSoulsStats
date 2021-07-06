@@ -8,27 +8,31 @@
     <string name="main_enter_data" translatable="false">Enter Game Data</string>
     <string name="main_settings_button" translatable="false">App Settings</string>
 
+    <!-- Common Strings -->
+    <string name="back_to_main">Return to Main Menu</string>
+
     <!-- Data Input Page -->
     <string name="input_title">Input Game Data</string>
     <string name="input_no_players">Number of Players:</string>
     <string name="input_default_players">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures">0</string>
-    <string name="input_continue_button">Continue To Game Input</string>
-    <string name="input_too_few">Not all data filled in</string>
+    <string name="input_continue_button">Continue To Input Results</string>
+    <string name="input_too_few">Not All Data Filled In</string>
 
     <!-- Input Recycler View Strings -->
     <string name="input_card_char_title">Character:</string>
     <string name="input_card_content_desc">Character Card</string>
     <string name="input_card_player_title">Player:</string>
-    <string name="player_menu_default">If you are seeing this, there\'s a bug</string>
+    <string name="player_menu_default">If You Are Seeing This, There\'s A Bug</string>
     <string name="add_player_1">Add</string>
-    <string name="add_player_2">to player list</string>
+    <string name="add_player_2">To Player List</string>
 
     <!-- Souls Input Page -->
-    <string name="result_continue">Input Result</string>
-    <string name="result_wrong_count">There needs to be exactly 1 winner</string>
-    <string name="result_pass_on">Game saved</string>
+    <string name="result_continue">Save Result</string>
+    <string name="result_wrong_count">There Needs To Be Exactly 1 Winner</string>
+    <string name="result_pass_on">Game Saved</string>
+    <string name="result_go_back">Change Game Setup</string>
 
     <!-- Win Page Recycler Strings -->
     <string name="win_card_player">Player:</string>
@@ -39,18 +43,23 @@
     <!-- Statistics Page -->
     <string name="stats_player_title">Player Data</string>
     <string name="stats_character_title">Character Data</string>
-    <string name="stats_back_button">Return to Main Menu</string>
+
+    <!-- Table Strings -->
+    <string name="player_table_header">Player</string>
+    <string name="character_table_header">Character</string>
+    <string name="stats_table_winrate">Win Rate</string>
+    <string name="stats_table_souls">Average Souls</string>
+    <string name="stats_table_adjusted_souls">Adjusted Souls</string>
     <string name="stats_table_entry">%.2f</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
-    <string name="settings_to_main">Return to Main Menu</string>
     <string name="settings_gold">Gold Box :</string>
     <string name="settings_plus">Four Souls+ :</string>
     <string name="settings_requiem">Requiem :</string>
     <string name="settings_warp">Warp Zones :</string>
     <string name="character_prompt">Use Characters From :</string>
     <string name="settings_alt_art">Use Character Alt Art :</string>
-    <string name="settings_readable_font">Use a Readable Font : </string>
+    <string name="settings_readable_font">Use A Readable Font :</string>
 
 </resources>

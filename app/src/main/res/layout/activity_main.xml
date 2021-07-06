@@ -7,8 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:saveEnabled="false"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/background"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/purple_200"
+
+        android:src="@drawable/border_character_back"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/mainTitle"
@@ -30,7 +40,7 @@
     <Button
         android:id="@+id/mainData"
 
-        android:layout_width="180dp"
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -38,24 +48,25 @@
         app:layout_constraintTop_toBottomOf="@+id/mainTitle"
         app:layout_constraintBottom_toBottomOf="parent"
 
+        android:textAllCaps="false"
         android:text="@string/main_enter_data"/>
 
     <Button
         android:id="@+id/mainStats"
 
-        android:layout_width="180dp"
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
-
         app:layout_constraintStart_toEndOf="@id/mainData"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/mainData"
 
+        android:textAllCaps="false"
         android:text="@string/main_stats_button"/>
 
     <Button
         android:id="@+id/mainSettings"
 
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mainData"
         app:layout_constraintBottom_toBottomOf="parent"
 
+        android:textAllCaps="false"
         android:text="@string/main_settings_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

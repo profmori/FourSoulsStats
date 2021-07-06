@@ -40,7 +40,7 @@ class EditSettings : AppCompatActivity() {
 
         val titleText = findViewById<TextView>(R.id.settingsTitle)
 
-        val fonts = SettingsHandler.setFont(this)
+        val fonts = TextHandler.setFont(this)
 
         if(titleText.typeface != fonts["title"]){
             updateFonts(gold, plus, requiem, warp, altArt, returnButton, editionTitle, titleText)
@@ -56,10 +56,7 @@ class EditSettings : AppCompatActivity() {
         returnButton.setOnClickListener {
             updateSave(gold, plus, requiem, warp, altArt, easyFont)
             // Save the new settings file
-            val backToMain = Intent(this, MainActivity::class.java)
-            // Create an intent back to the main screen
-            startActivity(backToMain)
-            // Go back to the main screen
+            finish()
         }
     }
 
@@ -80,15 +77,15 @@ class EditSettings : AppCompatActivity() {
         SettingsHandler.saveToFile(this, newMap)
     }
 
-    fun updateFonts(gold: SwitchCompat,
-                    plus: SwitchCompat,
-                    requiem: SwitchCompat,
-                    warp: SwitchCompat,
-                    altArt: SwitchCompat,
-                    returnButton: Button,
-                    editionTitle: TextView,
-                    titleText: TextView){
-        val fonts = SettingsHandler.setFont(this)
+    private fun updateFonts(gold: SwitchCompat,
+                            plus: SwitchCompat,
+                            requiem: SwitchCompat,
+                            warp: SwitchCompat,
+                            altArt: SwitchCompat,
+                            returnButton: Button,
+                            editionTitle: TextView,
+                            titleText: TextView){
+        val fonts = TextHandler.setFont(this)
         gold.typeface = fonts["body"]
         plus.typeface = fonts["body"]
         requiem.typeface = fonts["body"]
