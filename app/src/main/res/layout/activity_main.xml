@@ -15,10 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:background="@color/purple_200"
+        tools:ignore="ContentDescription"
 
-        android:src="@drawable/border_character_back"
-        android:scaleType="fitXY"/>
+        android:background="@drawable/bg_tiled_loot_back"
+
+        android:src="@drawable/bg_border_soul_back"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/mainTitle"
@@ -40,7 +42,7 @@
     <Button
         android:id="@+id/mainData"
 
-        android:layout_width="145dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
 
         app:layout_constraintStart_toStartOf="parent"

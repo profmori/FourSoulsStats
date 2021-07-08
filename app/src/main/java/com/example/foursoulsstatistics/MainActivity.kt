@@ -3,6 +3,7 @@ package com.example.foursoulsstatistics
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -16,14 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val settingsFile = getFileStreamPath("settings.txt")
-        // Gets the setting file location
-
-        if(!settingsFile.exists()) {
-        // If there is no setting file
-            SettingsHandler.initialiseSettings(this)
-            // Make a setting file
-        }
+        SettingsHandler.initialiseSettings(this)
 
         val gameDatabase = GameDataBase.getDataBase(this)
         // Get the database instance
@@ -52,6 +46,10 @@ class MainActivity : AppCompatActivity() {
         val statsButton = findViewById<Button>(R.id.mainStats)
 
         val settingsButton = findViewById<Button>(R.id.mainSettings)
+
+        val background = findViewById<ImageView>(R.id.background)
+
+        SettingsHandler.updateBackground(this, background)
 
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not

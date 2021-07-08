@@ -41,6 +41,12 @@ class PlayerTableDataAdapter(context: Context, private val tableFont: Typeface, 
         val renderedView = TextView(context)
         renderedView.gravity = Gravity.CENTER
         renderedView.typeface = tableFont
+        if (tableFont == context.resources.getFont(R.font.four_souls_body)) {
+            renderedView.textSize = 18f
+        }
+        else{
+            renderedView.textSize = 20f
+        }
         when(columnIndex){
             0 -> renderedView.text = TextHandler.capitalise(player.playerName)
             1 -> renderedView.text = context.getString(R.string.stats_table_entry).format(player.winrate)
@@ -57,13 +63,16 @@ class PlayerTableHeaderAdapter(context: Context, headerFont: Typeface, vararg he
     private var paddingTop = 30
     private var paddingRight = 20
     private var paddingBottom = 30
-    private var textSize = 15
+    private var textSize = 14
     private var typeface = headerFont
     private var gravity = Gravity.CENTER_HORIZONTAL
     private var color = context.resources.getColor(R.color.darker,context.theme)
 
     override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
         val textView = TextView(context)
+        textSize = if (typeface == context.resources.getFont(R.font.four_souls_title)) {
+            11
+        } else{ 13 }
         if (columnIndex < headers.size) {
             textView.text = headers[columnIndex]
             textView.gravity = gravity

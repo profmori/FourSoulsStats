@@ -45,6 +45,12 @@ class CharacterTableAdapter(context: Context, private val tableFont: Typeface, d
         val renderedView = TextView(context)
         renderedView.gravity = Gravity.CENTER
         renderedView.typeface = tableFont
+        if (tableFont == context.resources.getFont(R.font.four_souls_body)) {
+            renderedView.textSize = 17f
+        }
+        else{
+            renderedView.textSize = 18f
+        }
 
         when(columnIndex){
             0 -> renderedView.text = TextHandler.capitalise(character.charName)
@@ -89,6 +95,9 @@ class CharacterTableHeaderAdapter(context: Context, headerFont: Typeface, vararg
 
     override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
         val textView = TextView(context)
+        textSize = if (typeface == context.resources.getFont(R.font.four_souls_title)) {
+            10
+        } else{ 12 }
         if (columnIndex < headers.size) {
             textView.text = headers[columnIndex]
             textView.gravity = gravity

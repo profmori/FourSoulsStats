@@ -3,6 +3,7 @@ package com.example.foursoulsstatistics
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -57,6 +58,10 @@ class EnterResult : AppCompatActivity() {
 
         val returnButton = findViewById<Button>(R.id.resultsToEntry)
         // Gets the button to return to the data entry phase
+
+        val background = findViewById<ImageView>(R.id.background)
+
+        SettingsHandler.updateBackground(this, background)
 
 
         if (confirmResult.typeface != fonts["body"]){

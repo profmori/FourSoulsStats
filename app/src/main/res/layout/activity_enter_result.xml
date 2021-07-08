@@ -17,7 +17,7 @@
 
         android:background="@color/purple_200"
 
-        android:src="@drawable/border_treasure_back"
+        android:src="@drawable/bg_border_treasure_back"
         android:scaleType="fitXY" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,43 +25,45 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/enterResultsButton"
+        app:layout_constraintBottom_toTopOf="@id/buttonBar"
         android:layout_marginTop="45dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginHorizontal="20dp"/>
+        android:layout_marginHorizontal="25dp"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonBar"
 
-    <View
-        android:id="@+id/centreLine"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"/>
-
-    <Button
-        android:id="@+id/resultsToEntry"
-
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/centreLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginVertical="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="30dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        android:textAllCaps="false"
-        android:text="@string/result_go_back"/>
+        <Button
+            android:id="@+id/resultsToEntry"
 
-    <Button
-        android:id="@+id/enterResultsButton"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/enterResultsButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
 
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/centreLine"
-        android:layout_margin="20dp"
+            android:textAllCaps="false"
+            android:text="@string/result_go_back"/>
 
-        android:textAllCaps="false"
-        android:text="@string/result_continue"/>
+        <Button
+            android:id="@+id/enterResultsButton"
+
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/resultsToEntry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            android:textAllCaps="false"
+            android:text="@string/result_continue"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

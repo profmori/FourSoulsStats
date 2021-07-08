@@ -12,9 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:background="@color/purple_200"
+        tools:ignore="ContentDescription"
 
-        android:src="@drawable/border_treasure_back"
+        android:background="@drawable/bg_tiled_loot_back"
+
+        android:src="@drawable/bg_border_monster_back"
         android:scaleType="fitXY"/>
     
     <TextView
@@ -44,7 +46,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="35dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
@@ -57,10 +59,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/settingsEditionPrompt"
             app:layout_constraintBottom_toTopOf="@id/requiemSwitch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/plusSwitch"
+            app:layout_constraintStart_toStartOf="@id/settingsEditionPrompt"
+            android:layout_marginStart="10dp"
 
-            app:switchPadding="20dp"
+            app:switchPadding="5dp"
 
             android:text="@string/settings_gold" />
 
@@ -72,8 +74,9 @@
             app:layout_constraintTop_toTopOf="@id/goldSwitch"
             app:layout_constraintStart_toEndOf="@id/goldSwitch"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="30dp"
 
-            app:switchPadding="20dp"
+            app:switchPadding="5dp"
 
             android:text="@string/settings_plus" />
 
@@ -84,10 +87,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/goldSwitch"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/plusSwitch"
+            app:layout_constraintEnd_toEndOf="@id/goldSwitch"
 
-            app:switchPadding="20dp"
+            app:switchPadding="5dp"
 
             android:text="@string/settings_requiem" />
 
@@ -97,10 +99,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/requiemSwitch"
-            app:layout_constraintStart_toEndOf="@id/goldSwitch"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/plusSwitch"
 
-            app:switchPadding="20dp"
+            app:switchPadding="5dp"
 
             android:text="@string/settings_warp" />
 
@@ -112,36 +113,87 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/editionSelect"
-        app:layout_constraintBottom_toTopOf="@id/readableSwitch"
+        app:layout_constraintBottom_toTopOf="@id/borderPrompt"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="40dp"
 
         app:switchPadding="20dp"
 
         android:text="@string/settings_alt_art" />
+
+    <TextView
+        android:id="@+id/borderPrompt"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintTop_toBottomOf="@id/altSwitch"
+        app:layout_constraintBottom_toTopOf="@id/backgroundPrompt"
+
+        android:text="@string/settings_border_prompt"/>
+
+    <Spinner
+        android:id="@+id/borderSpinner"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/borderPrompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="@id/borderPrompt"
+        app:layout_constraintBottom_toBottomOf="@id/borderPrompt"
+
+        android:gravity="start"/>
+
+    <TextView
+        android:id="@+id/backgroundPrompt"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="35dp"
+        app:layout_constraintTop_toBottomOf="@id/borderPrompt"
+        app:layout_constraintBottom_toTopOf="@id/readableSwitch"
+
+        android:text="@string/settings_background_prompt"/>
+
+    <Spinner
+        android:id="@+id/backgroundSpinner"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/backgroundPrompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="@id/backgroundPrompt"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundPrompt"
+
+        android:gravity="start"/>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/readableSwitch"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/altSwitch"
+        app:layout_constraintTop_toBottomOf="@id/backgroundPrompt"
         app:layout_constraintBottom_toTopOf="@id/settingsMainButton"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="35dp"
 
         app:switchPadding="20dp"
 
         android:fontFamily="@font/roboto_regular"
         android:text="@string/settings_readable_font" />
 
-
     <Button
         android:id="@+id/settingsMainButton"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

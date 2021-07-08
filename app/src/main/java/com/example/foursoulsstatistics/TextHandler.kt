@@ -11,7 +11,7 @@ class TextHandler {
             // Creates a map for the font
             val readableFont = SettingsHandler.readSettings(context)["readable_font"]
             // Get whether the font should be readable
-            fontMap = if (readableFont == true) {
+            fontMap = if (readableFont.toBoolean()) {
                 mapOf(
                     "body" to context.resources.getFont(R.font.roboto_regular),
                     "title" to context.resources.getFont(R.font.roboto_black)

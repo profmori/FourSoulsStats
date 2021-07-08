@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -67,6 +64,10 @@ class EnterData : AppCompatActivity() {
         var playerHandlerList = PlayerHandler.makePlayerList(playerCount)
         // Create adapter passing in the number of players
 
+        val background = findViewById<ImageView>(R.id.background)
+
+        SettingsHandler.updateBackground(this, background)
+
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
 
@@ -98,7 +99,7 @@ class EnterData : AppCompatActivity() {
             playerHandlerList.forEach {
                 it.addData(characterList, playerList)
                 // Add the player and character list to all player handlers
-                it.useAlts = altArt!!
+                it.useAlts = altArt.toBoolean()
             }
 
         }
@@ -240,10 +241,10 @@ class EnterData : AppCompatActivity() {
     private fun getEditions(context: Context):Array<String>{
         val settings = SettingsHandler.readSettings(context)
         var editionArray = arrayOf("base")
-        if (settings["gold"] == true){editionArray += "gold"}
-        if (settings["plus"] == true){editionArray += "plus"}
-        if (settings["requiem"] == true){editionArray += "requiem"}
-        if (settings["warp"] == true){editionArray += "warp"}
+        if (settings["gold"].toBoolean()){editionArray += "gold"}
+        if (settings["plus"].toBoolean()){editionArray += "plus"}
+        if (settings["requiem"].toBoolean()){editionArray += "requiem"}
+        if (settings["warp"].toBoolean()){editionArray += "warp"}
         return editionArray
     }
 }

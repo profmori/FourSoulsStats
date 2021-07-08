@@ -17,7 +17,7 @@
     <string name="input_default_players">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures">0</string>
-    <string name="input_continue_button">Continue To Input Results</string>
+    <string name="input_continue_button">Input Game Results</string>
     <string name="input_too_few">Not All Data Filled In</string>
 
     <!-- Input Recycler View Strings -->
@@ -61,5 +61,14 @@
     <string name="character_prompt">Use Characters From :</string>
     <string name="settings_alt_art">Use Character Alt Art :</string>
     <string name="settings_readable_font">Use A Readable Font :</string>
+    <string name="settings_border_prompt">Border :</string>
+    <string name="settings_background_prompt">Background :</string>
 
+    <!-- Border / Background List -->
+    <string name="character_back">Character Back</string>
+    <string name="eternal_back">Eternal Back</string>
+    <string name="loot_back">Loot Back</string>
+    <string name="monster_back">Monster Back</string>
+    <string name="soul_back">Soul Back</string>
+    <string name="treasure_back">Treasure Back</string>
 </resources>

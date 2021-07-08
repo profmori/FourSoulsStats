@@ -3,6 +3,7 @@ package com.example.foursoulsstatistics
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +29,10 @@ class ViewStatistics : AppCompatActivity() {
 
         val returnButton = findViewById<Button>(R.id.statsBackButton)
         // Gets the back button
+
+        val background = findViewById<ImageView>(R.id.background)
+
+        SettingsHandler.updateBackground(this, background)
 
         if (playerTitle.typeface != fonts["body"]){
             playerTitle.typeface = fonts["body"]
@@ -65,16 +70,6 @@ class ViewStatistics : AppCompatActivity() {
         playerTable.setBackgroundColor(resources.getColor(R.color.lighter,theme))
         // Sets the table to be tints so the background comes through
 
-        val playerColumnModel = TableColumnWeightModel(4)
-        playerColumnModel.setColumnWeight(0, 5)
-        playerColumnModel.setColumnWeight(1,4)
-        playerColumnModel.setColumnWeight(2,6)
-        playerColumnModel.setColumnWeight(3,6)
-        // Sets the column width weightings
-
-        playerTable.columnModel = playerColumnModel
-        // Adds the weightings to the table
-
         val charTable = findViewById<SortableTableView<CharacterTable>>(R.id.characterTable)
         // Finds the character stats table
 
@@ -101,16 +96,6 @@ class ViewStatistics : AppCompatActivity() {
         charTable.setColumnComparator(2, CharSoulsComparator())
         charTable.setColumnComparator(3, CharAdjustedSoulsComparator())
         // Allows all the columns to be sorted
-
-        val charColumnModel = TableColumnWeightModel(4)
-        charColumnModel.setColumnWeight(0, 7)
-        charColumnModel.setColumnWeight(1,4)
-        charColumnModel.setColumnWeight(2,6)
-        charColumnModel.setColumnWeight(3,6)
-        // Sets the column width weightings
-
-        charTable.columnModel = charColumnModel
-        // Applies the weightings
 
         val gameDatabase = GameDataBase.getDataBase(this)
         // Get the database instance
