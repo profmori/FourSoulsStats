@@ -26,9 +26,10 @@ data class CharEntity(
 // Table to store the individual game details
 data class Game(
     @PrimaryKey(autoGenerate = false)
-    val gameID: Long,
+    val gameID: String,
     val playerNo: Int,
-    val treasureNo: Int
+    val treasureNo: Int,
+    val uploaded: Boolean
 )
 
 @Entity(tableName = "game_instances")
@@ -36,9 +37,10 @@ data class Game(
 data class GameInstance(
     @PrimaryKey(autoGenerate = true)
     val instanceID: Int,
-    val gameID: Long,
+    val gameID: String,
     val playerName: String,
     val charName: String,
+    val eternal: String?,
     val souls: Int,
     val winner: Boolean
 )

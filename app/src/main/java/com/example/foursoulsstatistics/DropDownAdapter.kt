@@ -10,11 +10,20 @@ import android.widget.TextView
 class DropDownAdapter(context: Context, dropdownArray: Array<String>, val font: Typeface):
     ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dropdownArray) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = super.getView(position, convertView, parent)
+        var view = super.getView(position, convertView, parent)
+        view = updateView(view)
+        return view
+    }
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var view: View = super.getDropDownView(position, convertView, parent)
+        view = updateView(view)
+        return view
+    }
+    private fun updateView(view: View): View{
         val textView = view.findViewById<TextView>(android.R.id.text1)
-        textView.typeface = font
         val textString = textView.text.toString()
         textView.text = TextHandler.capitalise(textString)
+        textView.typeface = font
         return view
     }
 }

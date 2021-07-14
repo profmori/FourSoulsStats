@@ -19,9 +19,10 @@ class SettingsHandler {
                 // Create a new file
                 val settings = mapOf(
                     "gold" to "true",
-                    "plus" to "false",
+                    "plus" to "true",
                     "requiem" to "false",
                     "warp" to "false",
+                    "promo" to "false",
                     "alt_art" to "true",
                     "readable_font" to "false",
                     "background" to "loot_back",

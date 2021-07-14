@@ -24,6 +24,10 @@ interface GameDAO {
     suspend fun addGame(game: Game)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // Overwrite when upating the game database
+    suspend fun updateGame(game: Game)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     // Add a game instance, identical entries should be replaced
     suspend fun addGameInstance(gameInstance: GameInstance)
 
@@ -48,6 +52,14 @@ interface GameDAO {
     // Gets all the games data table
     suspend fun getGames(): Array<Game>
 
+    @Query("SELECT * FROM games WHERE uploaded = 0")
+    suspend fun getUploadGames(): Array<Game>
+
+
+    @Query("SELECT * FROM game_instances WHERE eternal NOT null")
+    // Gets all the eternals with the game data of their games
+    suspend fun getEternalList(): Array<GameInstance>
+
     @Transaction
     @Query("SELECT * FROM players WHERE playerName = :playerName")
     // Gets player game data
@@ -61,5 +73,5 @@ interface GameDAO {
     @Transaction
     @Query("SELECT * FROM games WHERE gameID = :gameID")
     // Gets data for a single game
-    suspend fun getGameWithInstance(gameID: Long): Array<GameWithInstance>
+    suspend fun getGameWithInstance(gameID: String): Array<GameWithInstance>
 }

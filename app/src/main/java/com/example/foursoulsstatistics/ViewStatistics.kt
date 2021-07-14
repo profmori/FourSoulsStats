@@ -158,9 +158,18 @@ class ViewStatistics : AppCompatActivity() {
 
         returnButton.setOnClickListener {
         // When the return button is clicked
-            finish()
-            // Go back to the last page
+            val backToMain = Intent(this, MainActivity::class.java)
+            // Create an intent back to the main screen
+            backToMain.putExtra("from","statistics")
+            startActivity(backToMain)
+            // Go back to the main screen
         }
+    }
 
+    override fun onBackPressed() {
+        val returnButton = findViewById<Button>(R.id.statsBackButton)
+        // Get the return button
+        returnButton.performClick()
+        // Clicks the button
     }
 }

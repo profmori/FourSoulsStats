@@ -76,7 +76,10 @@ class CharacterList {
             CharEntity("steven", R.drawable.steven, null, "warp"),
             CharEntity("the knight", R.drawable.knight, null, "warp"),
             CharEntity("the silent", R.drawable.silent, null, "warp"),
-            CharEntity("yung venuz", R.drawable.yung_venuz, null, "warp")
+            CharEntity("yung venuz", R.drawable.yung_venuz, null, "warp"),
+
+            //Tapeworm Promo Character
+            CharEntity("tapeworm",R.drawable.tapeworm, null, "promo")
         )
     }
 }

@@ -24,6 +24,7 @@
     <string name="input_card_char_title">Character:</string>
     <string name="input_card_content_desc">Character Card</string>
     <string name="input_card_player_title">Player:</string>
+    <string name="input_card_eternal_title">Eternal:</string>
     <string name="player_menu_default">If You Are Seeing This, There\'s A Bug</string>
     <string name="add_player_1">Add</string>
     <string name="add_player_2">To Player List</string>
@@ -58,7 +59,7 @@
     <string name="settings_plus">Four Souls+ :</string>
     <string name="settings_requiem">Requiem :</string>
     <string name="settings_warp">Warp Zones :</string>
-    <string name="character_prompt">Use Characters From :</string>
+    <string name="edition_prompt">Use Cards From :</string>
     <string name="settings_alt_art">Use Character Alt Art :</string>
     <string name="settings_readable_font">Use A Readable Font :</string>
     <string name="settings_border_prompt">Border :</string>
@@ -71,4 +72,5 @@
     <string name="monster_back">Monster Back</string>
     <string name="soul_back">Soul Back</string>
     <string name="treasure_back">Treasure Back</string>
+    <string name="settings_promo">Promo Cards</string>
 </resources>

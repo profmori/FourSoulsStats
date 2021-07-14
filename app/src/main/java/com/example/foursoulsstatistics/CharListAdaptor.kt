@@ -6,19 +6,22 @@ import android.text.SpannableString
 import android.text.style.TypefaceSpan
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.database.ItemList
 
 
 class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<CharListAdaptor.ViewHolder>() {
 
     private var nameAdded: Boolean = false
     // Initialises the name added boolean
+
+    private var itemList = emptyArray<String>()
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -33,6 +36,10 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Access the player selection entry in code
         val playerPrompt: TextView = itemView.findViewById(R.id.playerSelectText)
         // Access the player entry prompt
+        val eternalEntry: AutoCompleteTextView = itemView.findViewById(R.id.eternalTextEntry)
+        // Access the player selection entry in code
+        val eternalPrompt: TextView = itemView.findViewById(R.id.eternalSelectText)
+        // Access the eternal entry prompt
 
     }
 
@@ -40,6 +47,10 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharListAdaptor.ViewHolder {
         val context = parent.context
         // Gets the context of the view
+
+        itemList = ItemList.getItems(context)
+        // Gets the list of items
+
         val inflater = LayoutInflater.from(context)
         // Inflate the custom layout
         val contactView = inflater.inflate(R.layout.char_select_layout, parent, false)
@@ -66,15 +77,27 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         val playerEntry = viewHolder.playerEntry
         // Gets the player entry box
         val playerPrompt = viewHolder.playerPrompt
+        // Gets the player entry prompt
+
+        val eternalEntry = viewHolder.eternalEntry
+        // Gets the eternal entry box
+        val eternalPrompt = viewHolder.eternalPrompt
+        // Gets the eternal entry prompt
 
         if(playerEntry.typeface != fonts["body"]){
             playerPrompt.typeface = fonts["body"]
             playerEntry.typeface = fonts["body"]
             charPrompt.typeface = fonts["body"]
             charEntry.typeface = fonts["body"]
+            eternalPrompt.typeface = fonts["body"]
+            eternalEntry.typeface = fonts["body"]
         }
 
-        updateView(playerHandler,background,playerEntry, charEntry)
+        eternalEntry.isEnabled = false
+        eternalEntry.visibility = INVISIBLE
+        eternalPrompt.visibility = INVISIBLE
+
+        updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
 
         charEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
         // When the character entry box loses or gains focus
@@ -89,40 +112,101 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                 }
                 playerHandler.updateCharacter(newChar)
                 // Update the player to store their new character
-                updateView(playerHandler,background,playerEntry,charEntry)
+                updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
             }
             else{
-                val cDropDown = playerHandler.charNames
-                cDropDown.sort()
-                val charAdapter = DropDownAdapter(charEntry.context, cDropDown, fonts["body"]!!)
-                // Creates an array adapter to hold the character list
-                charEntry.setAdapter(charAdapter)
-                // Sets the adapter for this list
+                updateView(
+                    playerHandler,
+                    background,
+                    playerEntry,
+                    charEntry,
+                    eternalPrompt,
+                    eternalEntry
+                )
             }
         }
 
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-        // When the character entry box loses or gains focus
-        if (!hasFocus) {
-            // If it has just lost focus
-            val input = playerEntry.text.toString()
-            if ((input.lowercase() !in playerHandler.playerNames) and (input != "")) {
-                // If the entered value is not valid
-                createPlayerPopup(playerEntry, playerHandler, input, background, charEntry)
-                // Gives the option to add a new player
+            // When the character entry box loses or gains focus
+            if (!hasFocus) {
+                // If it has just lost focus
+                val input = playerEntry.text.toString().trim()
+                if ((input.lowercase() !in playerHandler.playerNames) and (input != "")) {
+                    // If the entered value is not valid
+                    createPlayerPopup(
+                        playerEntry,
+                        playerHandler,
+                        input,
+                        background,
+                        charEntry,
+                        eternalPrompt,
+                        eternalEntry
+                    )
+                    // Gives the option to add a new player
+                } else {
+                    playerHandler.playerName = input.lowercase()
+                    // Update the player to store their new character
+                    updateView(
+                        playerHandler,
+                        background,
+                        playerEntry,
+                        charEntry,
+                        eternalPrompt,
+                        eternalEntry
+                    )
+                }
+            } else if (hasFocus and nameAdded) {
+                // If the player list has been updated since this was first run, and this is now being focused (text entered)
+                updateView(
+                    playerHandler,
+                    background,
+                    playerEntry,
+                    charEntry,
+                    eternalPrompt,
+                    eternalEntry
+                )
+                nameAdded = false
+            }else{
+                updateView(
+                    playerHandler,
+                    background,
+                    playerEntry,
+                    charEntry,
+                    eternalPrompt,
+                    eternalEntry
+                )
+            }
+        }
+
+        eternalEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+            // When the character entry box loses or gains focus
+            if (!hasFocus) {
+                // If it has just lost focus
+                val eternalInput = eternalEntry.text.toString().lowercase()
+                var newEternal = eternalInput
+                if ((eternalInput != "") and !itemList.contains(eternalInput)) {
+                    // If the entered value is not valid
+                    newEternal = findClosest(eternalInput, itemList)
+                    // Find the closest text value
+                }
+                println(newEternal)
+                playerHandler.eternal = if(newEternal == ""){ null }
+                                        else { newEternal.lowercase() }
+                // Update the player to store their new character
+                updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
+                eternalEntry.setText(TextHandler.capitalise(newEternal))
             }
             else{
-                playerHandler.playerName = input.lowercase()
-                // Update the player to store their new character
-                updateView(playerHandler,background,playerEntry,charEntry)
+                updateView(
+                    playerHandler,
+                    background,
+                    playerEntry,
+                    charEntry,
+                    eternalPrompt,
+                    eternalEntry
+                )
             }
         }
-        else if (hasFocus and nameAdded){
-        // If the player list has been updated since this was first run, and this is now being focused (text entered)
-            updateView(playerHandler,background, playerEntry,charEntry)
-            nameAdded = false
-        }
-    }
 }
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
@@ -158,7 +242,9 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         playerHandler: PlayerHandler,
         inputText: String,
         background: ImageView,
-        charEntry: AutoCompleteTextView
+        charEntry: AutoCompleteTextView,
+        eternalPrompt: TextView,
+        eternalEntry: AutoCompleteTextView
     ) {
     // When the player does not match an existing player this is called
         nameAdded = false
@@ -208,14 +294,21 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                 playerHandler.playerName = newText.lowercase()
                 // Update the stored player to the new value
             }
-            updateView(playerHandler,background,playerEntry,charEntry)
+            updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
             // Update the recycler view
          }
         newPlayerPopup.show()
         // Show the pop-up menu
     }
 
-    private fun updateView(playerHandler: PlayerHandler, background: ImageView, playerEntry: AutoCompleteTextView, charEntry: AutoCompleteTextView){
+    private fun updateView(
+        playerHandler: PlayerHandler,
+        background: ImageView,
+        playerEntry: AutoCompleteTextView,
+        charEntry: AutoCompleteTextView,
+        eternalPrompt: TextView,
+        eternalEntry: AutoCompleteTextView
+    ){
 
         background.setImageResource(playerHandler.charImage)
         // Set the image to the stored player image
@@ -237,5 +330,21 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Sets the adapter for this list
         charEntry.setText(TextHandler.capitalise(playerHandler.charName))
         // Fill in the character name if this is an update
+
+        if (playerHandler.charName == "eden"){
+            eternalEntry.isEnabled = true
+            eternalEntry.visibility = VISIBLE
+            eternalPrompt.visibility = VISIBLE
+            val eternalAdapter = DropDownAdapter(charEntry.context, itemList, playerHandler.fonts["body"]!!)
+            // Creates an array adapter to hold the item list
+            eternalEntry.setAdapter(eternalAdapter)
+            // Sets the adapter for this list
+        }
+        else{
+            eternalEntry.isEnabled = false
+            eternalEntry.visibility = INVISIBLE
+            eternalPrompt.visibility = INVISIBLE
+
+        }
     }
 }

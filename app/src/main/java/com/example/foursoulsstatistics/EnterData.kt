@@ -180,9 +180,17 @@ class EnterData : AppCompatActivity() {
         returnButton.setOnClickListener {
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
+            backToMain.putExtra("from","data_entry")
             startActivity(backToMain)
             // Go back to the main screen
         }
+    }
+
+    override fun onBackPressed() {
+        val returnButton = findViewById<Button>(R.id.inputToMain)
+        // Get the return button
+        returnButton.performClick()
+        // Clicks the button
     }
 
     private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: String){
@@ -190,8 +198,9 @@ class EnterData : AppCompatActivity() {
         // Say you can move on
         for (p in playerHandlerList) {
         // Iterate through all players
-            if ((p.playerName == "") or (p.charName == "")) {
-            // If something is not entered
+            if (((p.playerName == "") or (p.charName == "")) or
+                    (p.charName == "eden") and (p.eternal == null)){
+            // If something is not entered correctly
                 moveOn = false
                 // You can no longer move on
                 break
@@ -206,15 +215,18 @@ class EnterData : AppCompatActivity() {
             var playerNameList = emptyArray<String>()
             var charNameList = emptyArray<String>()
             var charImageList = intArrayOf()
+            var eternalList = emptyArray<String?>()
             for(p in playerHandlerList){
                 playerNameList += arrayOf(p.playerName)
                 charNameList += arrayOf(p.charName)
                 charImageList += intArrayOf(p.charImage)
+                eternalList += arrayOf(p.eternal)
             }
             enterResult.putExtra("names",playerNameList)
             enterResult.putExtra("chars",charNameList)
             enterResult.putExtra("images",charImageList)
             enterResult.putExtra("treasures",gameTreasures)
+            enterResult.putExtra("eternals", eternalList)
             // Creates an extra parameter which passes the number of treasures to the results page
             val handler = playerHandlerList.map{playerHandler -> playerHandler.playerName}.toTypedArray()
             val list = playerList.map{player -> player.playerName }
@@ -245,6 +257,7 @@ class EnterData : AppCompatActivity() {
         if (settings["plus"].toBoolean()){editionArray += "plus"}
         if (settings["requiem"].toBoolean()){editionArray += "requiem"}
         if (settings["warp"].toBoolean()){editionArray += "warp"}
+        if (settings["promo"].toBoolean()){editionArray += "promo"}
         return editionArray
     }
 }

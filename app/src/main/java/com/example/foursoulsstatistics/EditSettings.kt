@@ -59,6 +59,10 @@ class EditSettings : AppCompatActivity() {
         warp.isChecked = currentSettings["warp"].toBoolean()
         // Match warp zone settings
 
+        val promo = findViewById<SwitchCompat>(R.id.promoSwitch)
+        warp.isChecked = currentSettings["promo"].toBoolean()
+        // Match promo settings
+        
         val altArt = findViewById<SwitchCompat>(R.id.altSwitch)
         altArt.isChecked = currentSettings["alt_art"].toBoolean()
         // Match alt art settings
@@ -90,7 +94,7 @@ class EditSettings : AppCompatActivity() {
 
         if(titleText.typeface != fonts["title"]){
         // If they are not already used, use them
-            updateFonts(gold, plus, requiem, warp, altArt, borderText, borderSpinner, backgroundText, backgroundSpinner, returnButton, editionTitle, titleText)
+            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner, backgroundText, backgroundSpinner, returnButton, editionTitle, titleText)
         }
 
         borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -100,7 +104,7 @@ class EditSettings : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                currentSettings = updateSave(gold,plus, requiem, warp, altArt, easyFont, borderSpinner, backgroundSpinner)
+                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
                 SettingsHandler.updateBackground(borderSpinner.context, backgroundImage)
             }
 
@@ -115,7 +119,7 @@ class EditSettings : AppCompatActivity() {
                 id: Long
             ) {
                 backgroundSpinner.setSelection(position)
-                currentSettings = updateSave(gold,plus, requiem, warp, altArt, easyFont, borderSpinner, backgroundSpinner)
+                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
                 SettingsHandler.updateBackground(backgroundSpinner.context, backgroundImage)
             }
 
@@ -124,25 +128,34 @@ class EditSettings : AppCompatActivity() {
 
         easyFont.setOnCheckedChangeListener { _, _ ->
         // When the font slider is changed
-            currentSettings = updateSave(gold, plus, requiem, warp, altArt, easyFont, borderSpinner, backgroundSpinner)
-            updateFonts(gold, plus, requiem, warp, altArt, borderText, borderSpinner, backgroundText, backgroundSpinner, returnButton, editionTitle, titleText)
+            currentSettings = updateSave(gold, plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
+            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner, backgroundText, backgroundSpinner, returnButton, editionTitle, titleText)
             // Change all the fonts
         }
 
         returnButton.setOnClickListener {
         // When the return button is clicked
-            currentSettings = updateSave(gold, plus, requiem, warp, altArt, easyFont, borderSpinner, backgroundSpinner)
+            updateSave(gold, plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
             // Save the new settings file
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
+            backToMain.putExtra("from","settings")
             startActivity(backToMain)
         }
+    }
+
+    override fun onBackPressed() {
+        val returnButton = findViewById<Button>(R.id.settingsMainButton)
+        // Get the return button
+        returnButton.performClick()
+        // Clicks the button
     }
 
     private fun updateSave(gold: SwitchCompat,
                            plus: SwitchCompat,
                            requiem: SwitchCompat,
                            warp: SwitchCompat,
+                           promo: SwitchCompat,
                            altArt: SwitchCompat,
                            easyFont: SwitchCompat,
                            borderSpinner: Spinner,
@@ -152,6 +165,7 @@ class EditSettings : AppCompatActivity() {
             "plus" to plus.isChecked.toString(),
             "requiem" to requiem.isChecked.toString(),
             "warp" to warp.isChecked.toString(),
+            "promo" to promo.isChecked.toString(),
             "alt_art" to altArt.isChecked.toString(),
             "readable_font" to easyFont.isChecked.toString(),
             "border" to borderList[borderSpinner.selectedItem.toString()]!!,
@@ -167,6 +181,7 @@ class EditSettings : AppCompatActivity() {
                             plus: SwitchCompat,
                             requiem: SwitchCompat,
                             warp: SwitchCompat,
+                            promo: SwitchCompat,
                             altArt: SwitchCompat,
                             borderText: TextView,
                             borderSpinner: Spinner,
@@ -180,6 +195,7 @@ class EditSettings : AppCompatActivity() {
         plus.typeface = fonts["body"]
         requiem.typeface = fonts["body"]
         warp.typeface = fonts["body"]
+        promo.typeface = fonts["body"]
         altArt.typeface = fonts["body"]
         returnButton.typeface = fonts["body"]
         editionTitle.typeface = fonts["body"]

@@ -9,34 +9,48 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.foursoulsstatistics.database.CharacterList
 import com.example.foursoulsstatistics.database.GameDataBase
+import com.example.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
+
+    var source: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        SettingsHandler.initialiseSettings(this)
+        source = intent.getStringExtra("from")
 
-        val gameDatabase = GameDataBase.getDataBase(this)
-        // Get the database instance
-        val gameDao = gameDatabase.gameDAO
-        // Get the database access object
-        val charList = CharacterList.charList
-        // Gets the char list from the characters list class
+        if(source == null){
+            OnlineDataHandler.saveGames(this)
+            // Save any unsaved games
 
-        lifecycleScope.launch {
-            val currentChars = gameDao.getFullCharacterList()
-            // Gets the current character database
-            for (char in charList) {
-                // Iterates through the characters
-                if (!currentChars.contains(char)) {
-                    // If the character is not already in the database
-                    gameDao.updateCharacter(char)
-                    // Add the character, replacing existing versions
+            SettingsHandler.initialiseSettings(this)
+            // Create settings file if there is none
+
+            val gameDatabase = GameDataBase.getDataBase(this)
+            // Get the database instance
+            val gameDao = gameDatabase.gameDAO
+            // Get the database access object
+            val charList = CharacterList.charList
+            // Gets the char list from the characters list class
+
+            lifecycleScope.launch {
+                val currentChars = gameDao.getFullCharacterList()
+                // Gets the current character database
+                for (char in charList) {
+                    // Iterates through the characters
+                    if (!currentChars.contains(char)) {
+                        // If the character is not already in the database
+                        gameDao.updateCharacter(char)
+                        // Add the character, replacing existing versions
+                    }
                 }
             }
+        }else if(source == "enter_result"){
+            OnlineDataHandler.saveGames(this)
+            // Save any unsaved games
         }
 
         val titleText = findViewById<TextView>(R.id.mainTitle)
@@ -80,8 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val source = intent.getStringExtra("from")
-        if (source != "EnterResult"){
+        if (source != "enter_result") {
             finish()
         }
     }

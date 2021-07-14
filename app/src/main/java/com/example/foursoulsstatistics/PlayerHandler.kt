@@ -6,7 +6,7 @@ import com.example.foursoulsstatistics.database.Player
 import java.util.*
 import java.util.stream.IntStream.range
 
-class PlayerHandler (var playerName: String, var charName: String, var charImage: Int, var soulsNum: Int, var winner: Boolean) {
+class PlayerHandler (var playerName: String, var charName: String, var charImage: Int, var eternal: String?, var soulsNum: Int, var winner: Boolean) {
 
     var charList = emptyArray<CharEntity>()
     var charNames = emptyArray<String>()
@@ -24,7 +24,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
             // Creates the array
             for (i in range(1, playerNum + 1)) {
                 // Iterates through every player in the array
-                players += (PlayerHandler("", "", R.drawable.blank_char,0, false))
+                players += (PlayerHandler("", "", R.drawable.blank_char,null, 0, false))
                 // Add a player with no name or character and a blank character image
             }
             return players
@@ -40,7 +40,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                 // If the number of players has increased
                 for (i in range(currentLength, playerNum)) {
                     // For the number of extra players
-                    newPlayerList += PlayerHandler("", "", R.drawable.blank_char, 0, false)
+                    newPlayerList += PlayerHandler("", "", R.drawable.blank_char, null,0, false)
                     // Add a player with no name or character and a blank character image
                     newPlayerList.last().fonts = playerList[0].fonts
                     newPlayerList.last().useAlts = playerList[0].useAlts
@@ -97,6 +97,9 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                         arrayOf(currentChar.image, currentChar.imageAlt).random()!!
                     // Select a random character image
                 }
+            }
+            else{
+                charImage = R.drawable.blank_char
             }
         }
     }

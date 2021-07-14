@@ -50,7 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
 
-            android:text="@string/character_prompt"/>
+            android:text="@string/edition_prompt"/>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/goldSwitch"
@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/goldSwitch"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/promoSwitch"
             app:layout_constraintEnd_toEndOf="@id/goldSwitch"
 
             app:switchPadding="5dp"
@@ -104,6 +104,19 @@
             app:switchPadding="5dp"
 
             android:text="@string/settings_warp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/promoSwitch"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/requiemSwitch"
+            app:layout_constraintStart_toStartOf="@id/goldSwitch"
+            app:layout_constraintEnd_toEndOf="@id/plusSwitch"
+
+            app:switchPadding="5dp"
+
+            android:text="@string/settings_promo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,7 +158,11 @@
         app:layout_constraintTop_toTopOf="@id/borderPrompt"
         app:layout_constraintBottom_toBottomOf="@id/borderPrompt"
 
-        android:gravity="start"/>
+        android:gravity="start"
+
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:dropDownHeight="60sp"
+        android:dropDownVerticalOffset="20dp"/>
 
     <TextView
         android:id="@+id/backgroundPrompt"
@@ -171,7 +188,11 @@
         app:layout_constraintTop_toTopOf="@id/backgroundPrompt"
         app:layout_constraintBottom_toBottomOf="@id/backgroundPrompt"
 
-        android:gravity="start"/>
+        android:gravity="start"
+
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:dropDownHeight="60sp"
+        android:dropDownVerticalOffset="20dp"/>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/readableSwitch"
