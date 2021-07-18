@@ -1,11 +1,22 @@
 package com.example.foursoulsstatistics
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import com.example.foursoulsstatistics.custom_adapters.DropDownAdapter
+import com.example.foursoulsstatistics.data_handlers.SettingsHandler
+import com.example.foursoulsstatistics.data_handlers.TextHandler
+import com.example.foursoulsstatistics.database.CharacterList
+import com.example.foursoulsstatistics.database.GameDataBase
+import com.example.foursoulsstatistics.online_database.OnlineDataHandler
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EditSettings : AppCompatActivity() {
 
@@ -79,6 +90,32 @@ class EditSettings : AppCompatActivity() {
         val backgroundSpinner = findViewById<Spinner>(R.id.backgroundSpinner)
         // Get the background line
 
+        val online = findViewById<SwitchCompat>(R.id.onlineSwitch)
+        online.isChecked = currentSettings["online"].toBoolean()
+        // Match the online saving behaviour
+
+        val groupPrompt = findViewById<TextView>(R.id.groupIDPrompt)
+        val groupEntry = findViewById<EditText>(R.id.groupIDEntry)
+        val groupExplain = findViewById<TextView>(R.id.groupIDExplanation)
+        // Gets the group id prompts
+        val oldId = currentSettings["groupID"]
+        groupEntry.setText(oldId)
+        // Get the current id and set the group entry to the current group id
+        var existingIds = emptyArray<String>()
+        // Initialises as an empty array
+        CoroutineScope(Dispatchers.IO).launch {
+        // Running asynchronously
+            existingIds = OnlineDataHandler.getGroupIDs()
+            // Gets the existing ids in the online database
+        }
+
+        if(!currentSettings["online"].toBoolean()){
+            groupPrompt.visibility = View.GONE
+            groupEntry.visibility = View.GONE
+            groupExplain.visibility = View.GONE
+            // If the player is not uploading hide the  group id entry
+        }
+
         val returnButton = findViewById<Button>(R.id.settingsMainButton)
         // Get the return button
 
@@ -94,53 +131,120 @@ class EditSettings : AppCompatActivity() {
 
         if(titleText.typeface != fonts["title"]){
         // If they are not already used, use them
-            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner, backgroundText, backgroundSpinner, returnButton, editionTitle, titleText)
+            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
+                backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
+                groupPrompt, groupEntry, groupExplain)
         }
 
         borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        // When a border item is selected
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long
-            ) {
-                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
+                id: Long) {
+                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
+                    borderSpinner, backgroundSpinner, online, groupEntry)
+                // Update the current settings
                 SettingsHandler.updateBackground(borderSpinner.context, backgroundImage)
+                // Update the background image
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         backgroundSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        // When a background is selected
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long
-            ) {
-                backgroundSpinner.setSelection(position)
-                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
+                id: Long) {
+                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
+                    borderSpinner, backgroundSpinner, online, groupEntry)
+                // Update the current settings
                 SettingsHandler.updateBackground(backgroundSpinner.context, backgroundImage)
+                // Update the background image
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         easyFont.setOnCheckedChangeListener { _, _ ->
         // When the font slider is changed
-            currentSettings = updateSave(gold, plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
-            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner, backgroundText, backgroundSpinner, returnButton, editionTitle, titleText)
+            currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
+                borderSpinner, backgroundSpinner, online, groupEntry)
+            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
+                backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
+                groupPrompt, groupEntry, groupExplain)
             // Change all the fonts
+        }
+
+        online.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+            // If the online switch is showing
+                groupPrompt.visibility = View.VISIBLE
+                groupEntry.visibility = View.VISIBLE
+                groupExplain.visibility = View.VISIBLE
+                // Make all prompts visible
+            }else{
+            // If the switch is off
+                groupPrompt.visibility = View.GONE
+                groupEntry.visibility = View.GONE
+                groupExplain.visibility = View.GONE
+                // Hide all prompts, and ignore the space
+            }
         }
 
         returnButton.setOnClickListener {
         // When the return button is clicked
-            updateSave(gold, plus, requiem, warp, promo, altArt, easyFont, borderSpinner, backgroundSpinner)
+            currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
+                borderSpinner, backgroundSpinner, online, groupEntry)
             // Save the new settings file
+            val newID = groupEntry.text.toString().uppercase()
+            if (newID !in existingIds) {
+                OnlineDataHandler.saveGroupID(newID)
+                // Save the group id online
+            }
+            if (newID != oldId){
+                val dataBase = GameDataBase.getDataBase(this)
+                val gameDao = dataBase.gameDAO
+                CoroutineScope(Dispatchers.IO).launch {
+                    dataBase.clearAllTables()
+                    for (char in CharacterList.charList) {
+                        // Iterates through the characters
+                        gameDao.updateCharacter(char)
+                        // Add the character, replacing existing versions
+                    }
+                }
+            }
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
             backToMain.putExtra("from","settings")
             startActivity(backToMain)
+        }
+
+        groupEntry.setOnFocusChangeListener { view, hasFocus ->
+            if(!hasFocus){
+            // If the edit text has lost focus
+                if (groupEntry.text.length < 6){
+                // If the entry is too short
+                    val shortSnackbar = Snackbar.make(view,R.string.settings_invalid_group,Snackbar.LENGTH_LONG)
+                    // Create the snackbar
+                    shortSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
+                    // Set the font of the snackbar
+                    shortSnackbar.show()
+                    // Show the snackbar
+                    groupEntry.setText(currentSettings["groupID"])
+                    // Reset the text in the edit text
+                }
+                else if (groupEntry.text.toString().uppercase() in existingIds){
+                    val existsSnackbar = Snackbar.make(view,R.string.settings_duplicate_group,Snackbar.LENGTH_LONG)
+                    // Create the snackbar
+                    existsSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
+                    // Set the font of the snackbar
+                    existsSnackbar.show()
+                    // Show the snackbar
+                }
+            }
         }
     }
 
@@ -159,7 +263,9 @@ class EditSettings : AppCompatActivity() {
                            altArt: SwitchCompat,
                            easyFont: SwitchCompat,
                            borderSpinner: Spinner,
-                            backgroundSpinner: Spinner): Map<String, String>{
+                           backgroundSpinner: Spinner,
+                           online: SwitchCompat,
+                           groupID: EditText): Map<String, String>{
         val newMap = mapOf(
             "gold" to gold.isChecked.toString(),
             "plus" to plus.isChecked.toString(),
@@ -169,9 +275,11 @@ class EditSettings : AppCompatActivity() {
             "alt_art" to altArt.isChecked.toString(),
             "readable_font" to easyFont.isChecked.toString(),
             "border" to borderList[borderSpinner.selectedItem.toString()]!!,
-            "background" to backgroundList[backgroundSpinner.selectedItem.toString()]!!
+            "background" to backgroundList[backgroundSpinner.selectedItem.toString()]!!,
+            "online" to online.isChecked.toString(),
+            "groupID" to groupID.text.toString().uppercase(),
+            "first_open" to "false"
         )
-        println(newMap)
         // Save all the values to a map
         return SettingsHandler.saveToFile(this, newMap)
         // Save the map
@@ -189,7 +297,11 @@ class EditSettings : AppCompatActivity() {
                             backgroundSpinner: Spinner,
                             returnButton: Button,
                             editionTitle: TextView,
-                            titleText: TextView){
+                            titleText: TextView,
+                            online : SwitchCompat,
+                            groupPrompt : TextView,
+                            groupEntry: EditText,
+                            groupExplain: TextView){
         val fonts = TextHandler.setFont(this)
         gold.typeface = fonts["body"]
         plus.typeface = fonts["body"]
@@ -202,6 +314,10 @@ class EditSettings : AppCompatActivity() {
         titleText.typeface = fonts["title"]
         borderText.typeface = fonts["body"]
         backgroundText.typeface = fonts["body"]
+        online.typeface = fonts["body"]
+        groupPrompt.typeface = fonts["body"]
+        groupEntry.typeface = fonts["body"]
+        groupExplain.typeface = fonts["body"]
         // Update all the static fonts
 
         val spinnerItems = SettingsHandler.getBackground(this)
@@ -217,4 +333,13 @@ class EditSettings : AppCompatActivity() {
         backgroundSpinner.setSelection(backgroundAdapter.getPosition(spinnerItems["background"]), false)
         // Update the background dropdown adapters while keeping the same background
     }
+}
+
+fun Snackbar.changeFont(font: Typeface)
+// Add a snackbar change font function
+{
+    val tv = view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+    // Create a textview of the text
+    tv.typeface = font
+    // Set the typeface to the font
 }

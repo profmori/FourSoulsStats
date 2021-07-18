@@ -1,8 +1,9 @@
-package com.example.foursoulsstatistics
+package com.example.foursoulsstatistics.data_handlers
 
 import android.content.Context
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.foursoulsstatistics.R
 
 class SettingsHandler {
 
@@ -18,6 +19,8 @@ class SettingsHandler {
                 settingsFile.createNewFile()
                 // Create a new file
                 val settings = mapOf(
+                    "groupID" to (100000 until 1000000).random().toString(),
+                    "online" to "true",
                     "gold" to "true",
                     "plus" to "true",
                     "requiem" to "false",
@@ -26,7 +29,8 @@ class SettingsHandler {
                     "alt_art" to "true",
                     "readable_font" to "false",
                     "background" to "loot_back",
-                    "border" to "monster_back"
+                    "border" to "monster_back",
+                    "first_open" to "true"
                 )
                 // Set the settings
 
@@ -125,6 +129,17 @@ class SettingsHandler {
                 "treasure_back" -> context.resources.getString(R.string.treasure_back)
                 else -> context. resources.getString(R.string.loot_back)
             }
+        }
+
+        fun getEditions(context: Context):Array<String>{
+            val settings = readSettings(context)
+            var editionArray = arrayOf("base")
+            if (settings["gold"].toBoolean()){editionArray += "gold"}
+            if (settings["plus"].toBoolean()){editionArray += "plus"}
+            if (settings["requiem"].toBoolean()){editionArray += "requiem"}
+            if (settings["warp"].toBoolean()){editionArray += "warp"}
+            if (settings["promo"].toBoolean()){editionArray += "promo"}
+            return editionArray
         }
     }
 }

@@ -64,6 +64,8 @@
     <string name="settings_readable_font">Use A Readable Font :</string>
     <string name="settings_border_prompt">Border :</string>
     <string name="settings_background_prompt">Background :</string>
+    <string name="settings_invalid_group">Input group ID was too short and has been reset</string>
+    <string name="settings_duplicate_group">Input group ID already exists. If this is not your group, use another ID</string>
 
     <!-- Border / Background List -->
     <string name="character_back">Character Back</string>

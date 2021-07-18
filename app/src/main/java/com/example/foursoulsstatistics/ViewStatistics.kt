@@ -7,9 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.foursoulsstatistics.data_handlers.SettingsHandler
+import com.example.foursoulsstatistics.data_handlers.TextHandler
 import com.example.foursoulsstatistics.database.*
 import de.codecrafters.tableview.SortableTableView
-import de.codecrafters.tableview.model.TableColumnWeightModel
 import kotlinx.coroutines.launch
 
 
@@ -76,7 +77,8 @@ class ViewStatistics : AppCompatActivity() {
         charTable.columnCount = 4
         // Sets the number of columns
 
-        val charHeader = arrayOf(resources.getString(R.string.character_table_header),
+        val charHeader = arrayOf(
+            resources.getString(R.string.character_table_header),
             resources.getString(R.string.stats_table_winrate),
             resources.getString(R.string.stats_table_souls),
             resources.getString(R.string.stats_table_adjusted_souls)
@@ -108,12 +110,20 @@ class ViewStatistics : AppCompatActivity() {
         var characterData = emptyArray<CharacterTable>()
         // Empty array to store chraracter data
 
+        var characters = emptyArray<CharEntity>()
+        // Create an empty list of all characters
+
+        val edition = SettingsHandler.getEditions(this)
+        // Get the current editions from settings
+
         lifecycleScope.launch {
         // As a coroutine
             val players = gameDao.getPlayers()
             // Get all players
-            val characters = gameDao.getFullCharacterList()
-            // Get all characters
+
+            edition.forEach { characters += gameDao.getCharacterList(it) }
+            // Create a list of all cahracters in the used editions
+
             val games = gameDao.getGames()
             // Get all games
 

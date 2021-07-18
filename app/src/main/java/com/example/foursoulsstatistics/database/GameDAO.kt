@@ -7,7 +7,7 @@ import androidx.room.*
 interface GameDAO {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    // If there is a user which already exists don't do anything
+    // If there is a player which already exists don't do anything
     suspend fun addPlayer(player: Player)
     // Uses a suspended function for co-routine usage, allows for list of players to be added
 
@@ -19,8 +19,8 @@ interface GameDAO {
     // If the same character is updated replace it
     suspend fun updateCharacter(character: CharEntity)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    // Should never happen
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    // If the same game is added, ignore repeats
     suspend fun addGame(game: Game)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

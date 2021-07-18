@@ -2,8 +2,7 @@ package com.example.foursoulsstatistics.database
 
 import android.content.Context
 import com.example.foursoulsstatistics.R
-import com.example.foursoulsstatistics.SettingsHandler
-import java.io.InputStream
+import com.example.foursoulsstatistics.data_handlers.SettingsHandler
 
 class ItemList {
 // A class to store all the current class data and update necessary characters

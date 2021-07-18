@@ -1,4 +1,4 @@
-package com.example.foursoulsstatistics
+package com.example.foursoulsstatistics.custom_adapters
 
 import android.os.Build
 import android.text.Spannable
@@ -13,6 +13,9 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.data_handlers.PlayerHandler
+import com.example.foursoulsstatistics.R
+import com.example.foursoulsstatistics.data_handlers.TextHandler
 import com.example.foursoulsstatistics.database.ItemList
 
 
@@ -44,7 +47,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
     }
 
     // Usually involves inflating a layout from XML and returning the holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharListAdaptor.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         // Gets the context of the view
 
@@ -59,7 +62,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
     }
 
     // Involves populating data into the item through holder
-    override fun onBindViewHolder(viewHolder: CharListAdaptor.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         // Get the data model based on position
 
         val playerHandler: PlayerHandler = playerHandlerList[position]
@@ -127,7 +130,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         }
 
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            // When the character entry box loses or gains focus
+            // When the player entry box loses or gains focus
             if (!hasFocus) {
                 // If it has just lost focus
                 val input = playerEntry.text.toString().trim()
@@ -339,12 +342,15 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
             // Creates an array adapter to hold the item list
             eternalEntry.setAdapter(eternalAdapter)
             // Sets the adapter for this list
+            var eternal = playerHandler.eternal
+            if (eternal.isNullOrEmpty()){eternal = ""}
+            eternalEntry.setText(TextHandler.capitalise(eternal))
         }
         else{
             eternalEntry.isEnabled = false
             eternalEntry.visibility = INVISIBLE
             eternalPrompt.visibility = INVISIBLE
-
+            playerHandler.eternal = null
         }
     }
 }

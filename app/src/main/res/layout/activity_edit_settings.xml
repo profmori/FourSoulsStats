@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:focusable="true"
+    android:focusableInTouchMode ="true"
+
     tools:context=".EditSettings">
 
     <ImageView
@@ -18,7 +22,7 @@
 
         android:src="@drawable/bg_border_monster_back"
         android:scaleType="fitXY"/>
-    
+
     <TextView
         android:id="@+id/settingsTitle"
 
@@ -33,12 +37,70 @@
         android:fontFamily="@font/four_souls_title"
         android:textSize="30sp" />
 
+    <TextView
+        android:id="@+id/groupIDPrompt"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
+        app:layout_constraintBottom_toTopOf="@id/onlineSwitch"
+
+        android:text="Group ID:"/>
+
+    <EditText
+        android:id="@+id/groupIDEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toEndOf="@id/groupIDPrompt"
+        app:layout_constraintTop_toTopOf="@id/groupIDPrompt"
+        app:layout_constraintBottom_toBottomOf="@id/groupIDPrompt"
+        android:layout_marginHorizontal="10dp"
+
+        android:ems="4"
+        android:maxLength="6"
+
+        android:background="@drawable/number_rectangle"
+        android:textAlignment="center"
+        android:inputType="textCapCharacters"/>
+
+    <TextView
+        android:id="@+id/groupIDExplanation"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintStart_toEndOf="@id/groupIDEntry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/groupIDPrompt"
+        app:layout_constraintBottom_toBottomOf="@id/groupIDPrompt"
+
+        android:text="This must be 6 Characters Long"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/onlineSwitch"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/groupIDPrompt"
+        app:layout_constraintBottom_toTopOf="@id/editionSelect"
+        android:layout_marginStart="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:switchPadding="20dp"
+
+        android:text="Sync Online: "/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editionSelect"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/settingsTitle"
+        app:layout_constraintTop_toBottomOf="@id/onlineSwitch"
         app:layout_constraintBottom_toTopOf="@id/altSwitch">
 
         <TextView

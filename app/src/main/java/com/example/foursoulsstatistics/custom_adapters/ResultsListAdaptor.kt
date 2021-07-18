@@ -1,4 +1,4 @@
-package com.example.foursoulsstatistics
+package com.example.foursoulsstatistics.custom_adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.data_handlers.PlayerHandler
+import com.example.foursoulsstatistics.R
+import com.example.foursoulsstatistics.data_handlers.TextHandler
 
 
 class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : RecyclerView.Adapter<ResultsListAdaptor.ViewHolder>() {
@@ -28,7 +31,7 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
     }
 
     // Usually involves inflating a layout from XML and returning the holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsListAdaptor.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         // Gets the context of the view
         val inflater = LayoutInflater.from(context)
@@ -40,7 +43,7 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
     }
 
     // Involves populating data into the item through holder
-    override fun onBindViewHolder(viewHolder: ResultsListAdaptor.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         // Get the data model based on position
 
         val playerHandler: PlayerHandler = playerList[position]

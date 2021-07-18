@@ -1,6 +1,7 @@
-package com.example.foursoulsstatistics
+package com.example.foursoulsstatistics.data_handlers
 
 import android.graphics.Typeface
+import com.example.foursoulsstatistics.R
 import com.example.foursoulsstatistics.database.CharEntity
 import com.example.foursoulsstatistics.database.Player
 import java.util.*

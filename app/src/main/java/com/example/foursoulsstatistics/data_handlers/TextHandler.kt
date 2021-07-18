@@ -1,7 +1,8 @@
-package com.example.foursoulsstatistics
+package com.example.foursoulsstatistics.data_handlers
 
 import android.content.Context
 import android.graphics.Typeface
+import com.example.foursoulsstatistics.R
 
 class TextHandler {
     companion object{

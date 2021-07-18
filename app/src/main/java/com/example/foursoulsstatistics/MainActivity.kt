@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.foursoulsstatistics.data_handlers.SettingsHandler
+import com.example.foursoulsstatistics.data_handlers.TextHandler
 import com.example.foursoulsstatistics.database.CharacterList
 import com.example.foursoulsstatistics.database.GameDataBase
 import com.example.foursoulsstatistics.online_database.OnlineDataHandler
@@ -23,11 +25,14 @@ class MainActivity : AppCompatActivity() {
         source = intent.getStringExtra("from")
 
         if(source == null){
+            SettingsHandler.initialiseSettings(this)
+            // Create settings file if there is none
+
             OnlineDataHandler.saveGames(this)
             // Save any unsaved games
 
-            SettingsHandler.initialiseSettings(this)
-            // Create settings file if there is none
+            OnlineDataHandler.getGroupGames(this)
+            // Get any new online saved games
 
             val gameDatabase = GameDataBase.getDataBase(this)
             // Get the database instance
@@ -51,19 +56,20 @@ class MainActivity : AppCompatActivity() {
         }else if(source == "enter_result"){
             OnlineDataHandler.saveGames(this)
             // Save any unsaved games
+        }else if(source == "settings"){
+            OnlineDataHandler.getGroupGames(this)
         }
 
         val titleText = findViewById<TextView>(R.id.mainTitle)
-
         val dataButton = findViewById<Button>(R.id.mainData)
-
         val statsButton = findViewById<Button>(R.id.mainStats)
-
         val settingsButton = findViewById<Button>(R.id.mainSettings)
+        // Get all the main elements
 
         val background = findViewById<ImageView>(R.id.background)
-
+        // Gets the background image view
         SettingsHandler.updateBackground(this, background)
+        // Updates the background
 
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
@@ -94,8 +100,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+    // When the back button is pressed
         if (source != "enter_result") {
+        // If you have not come from the results screen
             finish()
+            // Act normally
         }
     }
 }

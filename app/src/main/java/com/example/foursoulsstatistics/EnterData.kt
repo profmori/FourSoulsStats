@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foursoulsstatistics.custom_adapters.CharListAdaptor
+import com.example.foursoulsstatistics.data_handlers.PlayerHandler
+import com.example.foursoulsstatistics.data_handlers.SettingsHandler
+import com.example.foursoulsstatistics.data_handlers.TextHandler
 import com.example.foursoulsstatistics.database.CharEntity
 import com.example.foursoulsstatistics.database.GameDAO
 import com.example.foursoulsstatistics.database.GameDataBase
@@ -73,6 +77,7 @@ class EnterData : AppCompatActivity() {
 
         playerHandlerList.forEach {
             it.fonts = fonts
+            // Sets the fonts of each player handler
         }
 
         var adapter = CharListAdaptor(playerHandlerList)
@@ -87,7 +92,8 @@ class EnterData : AppCompatActivity() {
         gameDao = gameDatabase.gameDAO
         // Get the database access object
 
-        val edition = getEditions(this)
+        val edition = SettingsHandler.getEditions(this)
+        // Get the current editions from settings
 
         val altArt = SettingsHandler.readSettings(this)["alt_art"]
         lifecycleScope.launch {
@@ -100,6 +106,7 @@ class EnterData : AppCompatActivity() {
                 it.addData(characterList, playerList)
                 // Add the player and character list to all player handlers
                 it.useAlts = altArt.toBoolean()
+                // Set the player handler flag for using alt art correctly
             }
 
         }
@@ -248,16 +255,5 @@ class EnterData : AppCompatActivity() {
             errorToast.show()
             // Show the error toast
         }
-    }
-
-    private fun getEditions(context: Context):Array<String>{
-        val settings = SettingsHandler.readSettings(context)
-        var editionArray = arrayOf("base")
-        if (settings["gold"].toBoolean()){editionArray += "gold"}
-        if (settings["plus"].toBoolean()){editionArray += "plus"}
-        if (settings["requiem"].toBoolean()){editionArray += "requiem"}
-        if (settings["warp"].toBoolean()){editionArray += "warp"}
-        if (settings["promo"].toBoolean()){editionArray += "promo"}
-        return editionArray
     }
 }
