@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@id/settingsTitle"
         app:layout_constraintBottom_toTopOf="@id/onlineSwitch"
 
-        android:text="Group ID:"/>
+        android:text="@string/settings_group_id"/>
 
     <EditText
         android:id="@+id/groupIDEntry"
@@ -61,6 +61,7 @@
 
         android:ems="4"
         android:maxLength="6"
+        android:imeOptions="actionDone"
 
         android:background="@drawable/number_rectangle"
         android:textAlignment="center"
@@ -78,7 +79,7 @@
         app:layout_constraintTop_toTopOf="@id/groupIDPrompt"
         app:layout_constraintBottom_toBottomOf="@id/groupIDPrompt"
 
-        android:text="This must be 6 Characters Long"/>
+        android:text="@string/settings_group_id_explain"/>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/onlineSwitch"
@@ -93,7 +94,7 @@
 
         app:switchPadding="20dp"
 
-        android:text="Sync Online: "/>
+        android:text="@string/settings_online_sync"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editionSelect"

@@ -62,11 +62,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             android:textAllCaps="false"
-            android:text="@string/result_continue"
-
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:text="@string/result_continue" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -49,7 +49,7 @@
         android:completionThreshold="0"
         android:labelFor="@id/playerTextEntry"
         android:inputType="textNoSuggestions"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
 
         style="@style/Widget.AppCompat.Spinner.DropDown"
         android:dropDownHeight="60sp"
@@ -82,7 +82,7 @@
         android:completionThreshold="0"
         android:labelFor="@id/charTextEntry"
         android:inputType="textNoSuggestions"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
 
         style="@style/Widget.AppCompat.Spinner.DropDown"
         android:dropDownHeight="60sp"
@@ -114,7 +114,7 @@
         android:completionThreshold="1"
         android:labelFor="@id/eternalTextEntry"
         android:inputType="textNoSuggestions"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
 
         style="@style/Widget.AppCompat.Spinner.DropDown"
         android:dropDownHeight="60sp"

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -123,6 +125,20 @@ class EnterData : AppCompatActivity() {
             // Update them
         }
 
+        playerNo.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken,0)
+                // Hide the keyboard
+                playerNo.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
         playerNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 // After the text in the player number field is changed
@@ -157,6 +173,20 @@ class EnterData : AppCompatActivity() {
                 playerNo.setText("")
                 // Clear the input
             }
+        }
+
+        treasureNo.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken,0)
+                // Hide the keyboard
+                treasureNo.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
         treasureNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->

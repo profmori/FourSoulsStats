@@ -15,8 +15,34 @@
 
         android:contentDescription="@string/input_card_content_desc"
         android:adjustViewBounds="true"
-        android:src="@drawable/harlot_alt"/>
+        android:src="@drawable/eden"/>
 
+    <TextView
+        android:id="@+id/winEdenItemText"
+
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="@id/winCharImage"
+        app:layout_constraintBottom_toBottomOf="@id/winCharImage"
+        app:layout_constraintVertical_bias="0.87"
+        app:layout_constraintStart_toStartOf="@id/winCharImage"
+        app:layout_constraintEnd_toEndOf="@id/winCharImage"
+
+        android:textSize="11sp"
+        android:text="@string/win_starting_item" />
+
+    <TextView
+        android:id="@+id/winEdenItem"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="@id/winCharImage"
+        app:layout_constraintBottom_toBottomOf="@id/winCharImage"
+        app:layout_constraintVertical_bias="0.91"
+        app:layout_constraintStart_toStartOf="@id/winCharImage"
+        app:layout_constraintEnd_toEndOf="@id/winCharImage"
+
+        android:textSize="15sp"
+        android:text="Void"/>
     <TextView
         android:id="@+id/winPlayerName"
 
@@ -63,7 +89,8 @@
             android:importantForAutofill="no"
             android:ems="2"
             android:inputType="number"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:imeOptions="actionDone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

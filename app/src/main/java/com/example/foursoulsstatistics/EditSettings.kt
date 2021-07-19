@@ -1,12 +1,16 @@
 package com.example.foursoulsstatistics
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import com.example.foursoulsstatistics.custom_adapters.ChangeGroupDialog
 import com.example.foursoulsstatistics.custom_adapters.DropDownAdapter
 import com.example.foursoulsstatistics.data_handlers.SettingsHandler
 import com.example.foursoulsstatistics.data_handlers.TextHandler
@@ -17,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class EditSettings : AppCompatActivity() {
 
@@ -73,7 +78,7 @@ class EditSettings : AppCompatActivity() {
         val promo = findViewById<SwitchCompat>(R.id.promoSwitch)
         warp.isChecked = currentSettings["promo"].toBoolean()
         // Match promo settings
-        
+
         val altArt = findViewById<SwitchCompat>(R.id.altSwitch)
         altArt.isChecked = currentSettings["alt_art"].toBoolean()
         // Match alt art settings
@@ -104,12 +109,12 @@ class EditSettings : AppCompatActivity() {
         var existingIds = emptyArray<String>()
         // Initialises as an empty array
         CoroutineScope(Dispatchers.IO).launch {
-        // Running asynchronously
+            // Running asynchronously
             existingIds = OnlineDataHandler.getGroupIDs()
             // Gets the existing ids in the online database
         }
 
-        if(!currentSettings["online"].toBoolean()){
+        if (!currentSettings["online"].toBoolean()) {
             groupPrompt.visibility = View.GONE
             groupEntry.visibility = View.GONE
             groupExplain.visibility = View.GONE
@@ -126,67 +131,81 @@ class EditSettings : AppCompatActivity() {
 
         SettingsHandler.updateBackground(this, backgroundImage)
 
-        val fonts = TextHandler.setFont(this)
+        var fonts = TextHandler.setFont(this)
         // Get the current fonts
 
-        if(titleText.typeface != fonts["title"]){
-        // If they are not already used, use them
-            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
+        if (titleText.typeface != fonts["title"]) {
+            // If they are not already used, use them
+            updateFonts(
+                gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
                 backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
-                groupPrompt, groupEntry, groupExplain)
+                groupPrompt, groupEntry, groupExplain
+            )
         }
 
-        borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-        // When a border item is selected
+        borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            // When a border item is selected
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long) {
-                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
-                    borderSpinner, backgroundSpinner, online, groupEntry)
+                id: Long
+            ) {
+                currentSettings = updateSave(
+                    gold, plus, requiem, warp, promo, altArt, easyFont,
+                    borderSpinner, backgroundSpinner, online, groupEntry
+                )
                 // Update the current settings
                 SettingsHandler.updateBackground(borderSpinner.context, backgroundImage)
                 // Update the background image
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        backgroundSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-        // When a background is selected
+        backgroundSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            // When a background is selected
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long) {
-                currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
-                    borderSpinner, backgroundSpinner, online, groupEntry)
+                id: Long
+            ) {
+                currentSettings = updateSave(
+                    gold, plus, requiem, warp, promo, altArt, easyFont,
+                    borderSpinner, backgroundSpinner, online, groupEntry
+                )
                 // Update the current settings
                 SettingsHandler.updateBackground(backgroundSpinner.context, backgroundImage)
                 // Update the background image
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         easyFont.setOnCheckedChangeListener { _, _ ->
-        // When the font slider is changed
-            currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry)
-            updateFonts(gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
+            // When the font slider is changed
+            currentSettings = updateSave(
+                gold, plus, requiem, warp, promo, altArt, easyFont,
+                borderSpinner, backgroundSpinner, online, groupEntry
+            )
+            updateFonts(
+                gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
                 backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
-                groupPrompt, groupEntry, groupExplain)
+                groupPrompt, groupEntry, groupExplain
+            )
             // Change all the fonts
         }
 
         online.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-            // If the online switch is showing
+            if (isChecked) {
+                // If the online switch is showing
                 groupPrompt.visibility = View.VISIBLE
                 groupEntry.visibility = View.VISIBLE
                 groupExplain.visibility = View.VISIBLE
                 // Make all prompts visible
-            }else{
-            // If the switch is off
+            } else {
+                // If the switch is off
                 groupPrompt.visibility = View.GONE
                 groupEntry.visibility = View.GONE
                 groupExplain.visibility = View.GONE
@@ -195,16 +214,18 @@ class EditSettings : AppCompatActivity() {
         }
 
         returnButton.setOnClickListener {
-        // When the return button is clicked
-            currentSettings = updateSave(gold,plus, requiem, warp, promo, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry)
+            // When the return button is clicked
+            currentSettings = updateSave(
+                gold, plus, requiem, warp, promo, altArt, easyFont,
+                borderSpinner, backgroundSpinner, online, groupEntry
+            )
             // Save the new settings file
             val newID = groupEntry.text.toString().uppercase()
             if (newID !in existingIds) {
                 OnlineDataHandler.saveGroupID(newID)
                 // Save the group id online
             }
-            if (newID != oldId){
+            if (newID != oldId) {
                 val dataBase = GameDataBase.getDataBase(this)
                 val gameDao = dataBase.gameDAO
                 CoroutineScope(Dispatchers.IO).launch {
@@ -218,16 +239,31 @@ class EditSettings : AppCompatActivity() {
             }
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
-            backToMain.putExtra("from","settings")
+            backToMain.putExtra("from", "settings")
             startActivity(backToMain)
         }
 
+        groupEntry.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken,0)
+                // Hide the keyboard
+                groupEntry.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
         groupEntry.setOnFocusChangeListener { view, hasFocus ->
-            if(!hasFocus){
-            // If the edit text has lost focus
-                if (groupEntry.text.length < 6){
-                // If the entry is too short
-                    val shortSnackbar = Snackbar.make(view,R.string.settings_invalid_group,Snackbar.LENGTH_LONG)
+            if (!hasFocus) {
+                // If the edit text has lost focus
+                if (groupEntry.text.length < 6) {
+                    // If the entry is too short
+                    val shortSnackbar =
+                        Snackbar.make(view, R.string.settings_invalid_group, Snackbar.LENGTH_LONG)
                     // Create the snackbar
                     shortSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
                     // Set the font of the snackbar
@@ -235,14 +271,27 @@ class EditSettings : AppCompatActivity() {
                     // Show the snackbar
                     groupEntry.setText(currentSettings["groupID"])
                     // Reset the text in the edit text
-                }
-                else if (groupEntry.text.toString().uppercase() in existingIds){
-                    val existsSnackbar = Snackbar.make(view,R.string.settings_duplicate_group,Snackbar.LENGTH_LONG)
-                    // Create the snackbar
-                    existsSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
-                    // Set the font of the snackbar
-                    existsSnackbar.show()
-                    // Show the snackbar
+                } else {
+                    if (groupEntry.text.toString().uppercase() in existingIds) {
+                        val existsSnackbar = Snackbar.make(
+                            view,
+                            R.string.settings_duplicate_group,
+                            Snackbar.LENGTH_LONG
+                        )
+                        // Create the snackbar
+                        existsSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
+                        // Set the font of the snackbar
+                        existsSnackbar.show()
+                        // Show the snackbar
+                    }
+
+                    if (groupEntry.text.toString().uppercase() != oldId) {
+                        fonts = TextHandler.setFont(this)
+                        val entryDialog =
+                            ChangeGroupDialog(this, groupEntry, oldId!!, fonts["body"]!!)
+                        entryDialog.show(supportFragmentManager, "groupID")
+
+                    }
                 }
             }
         }

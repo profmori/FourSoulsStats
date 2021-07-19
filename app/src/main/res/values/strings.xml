@@ -7,6 +7,8 @@
     <string name="main_stats_button" translatable="false">View Statistics</string>
     <string name="main_enter_data" translatable="false">Enter Game Data</string>
     <string name="main_settings_button" translatable="false">App Settings</string>
+    <string name="main_thanks_button">Thanks</string>
+    <string name="main_error_button">Issues / Suggestions</string>
 
     <!-- Common Strings -->
     <string name="back_to_main">Return to Main Menu</string>
@@ -40,6 +42,7 @@
     <string name="win_card_souls">Souls:</string>
     <string name="win_card_winner">Winner:</string>
     <string name="win_card_default_souls">0</string>
+    <string name="win_starting_item">Starting Item:</string>
 
     <!-- Statistics Page -->
     <string name="stats_player_title">Player Data</string>
@@ -59,13 +62,21 @@
     <string name="settings_plus">Four Souls+ :</string>
     <string name="settings_requiem">Requiem :</string>
     <string name="settings_warp">Warp Zones :</string>
+    <string name="settings_promo">Promo Cards</string>
+    <string name="settings_online_sync">Sync Online:</string>
     <string name="edition_prompt">Use Cards From :</string>
     <string name="settings_alt_art">Use Character Alt Art :</string>
     <string name="settings_readable_font">Use A Readable Font :</string>
     <string name="settings_border_prompt">Border :</string>
     <string name="settings_background_prompt">Background :</string>
+
+    <string name="settings_group_id">Group ID:</string>
+    <string name="settings_group_id_explain">This must be 6 Characters Long</string>
     <string name="settings_invalid_group">Input group ID was too short and has been reset</string>
     <string name="settings_duplicate_group">Input group ID already exists. If this is not your group, use another ID</string>
+    <string name="settings_overwrite_data">Changing group ID will delete any games not uploaded</string>
+    <string name="settings_confirm_overwrite">Change Group ID</string>
+    <string name="settings_cancel_overwrite">Reset Group ID</string>
 
     <!-- Border / Background List -->
     <string name="character_back">Character Back</string>
@@ -74,5 +85,4 @@
     <string name="monster_back">Monster Back</string>
     <string name="soul_back">Soul Back</string>
     <string name="treasure_back">Treasure Back</string>
-    <string name="settings_promo">Promo Cards</string>
 </resources>

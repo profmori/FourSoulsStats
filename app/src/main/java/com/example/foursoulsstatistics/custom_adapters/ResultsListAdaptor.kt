@@ -1,8 +1,11 @@
 package com.example.foursoulsstatistics.custom_adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,6 +23,10 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
         // for any view that will be set as you render a row
         val charImage: ImageView = itemView.findViewById(R.id.winCharImage)!!
         // Allows the background image to be set in code
+        val itemText: TextView = itemView.findViewById(R.id.winEdenItemText)
+        // Access the starting item text
+        val eternalText: TextView = itemView.findViewById(R.id.winEdenItem)
+        // Access the eternal text
         val playerName: TextView = itemView.findViewById(R.id.winPlayerName)
         // Access the player name
         val soulsText: TextView = itemView.findViewById(R.id.winSoulPrompt)
@@ -79,11 +86,38 @@ class ResultsListAdaptor(private val playerList: Array<PlayerHandler>) : Recycle
         val winnerTick = viewHolder.winnerCheck
         // Gets the winner tick box
 
+        val itemText = viewHolder.itemText
+        // Get the item text box
+
+        val eternalText = viewHolder.eternalText
+        // Get the eternal text box
+
+        if(playerHandler.eternal.isNullOrBlank()){
+            itemText.visibility = View.INVISIBLE
+            eternalText.visibility = View.INVISIBLE
+        }else{
+            eternalText.text = playerHandler.eternal
+        }
+
         if(playerEntry.typeface != fonts["body"]){
             playerEntry.typeface = fonts["body"]
             soulsBox.typeface = fonts["body"]
             winnerTick.typeface = fonts["body"]
             soulsText.typeface = fonts["body"]
+        }
+
+        soulsBox.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken,0)
+                // Hide the keyboard
+                soulsBox.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
         soulsBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->

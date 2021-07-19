@@ -1,5 +1,6 @@
 package com.example.foursoulsstatistics.custom_adapters
 
+import android.content.Context
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -8,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -87,7 +90,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         val eternalPrompt = viewHolder.eternalPrompt
         // Gets the eternal entry prompt
 
-        if(playerEntry.typeface != fonts["body"]){
+        if (playerEntry.typeface != fonts["body"]) {
             playerPrompt.typeface = fonts["body"]
             playerEntry.typeface = fonts["body"]
             charPrompt.typeface = fonts["body"]
@@ -100,24 +103,45 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
         eternalEntry.visibility = INVISIBLE
         eternalPrompt.visibility = INVISIBLE
 
-        updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
+        updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry)
+
+        charEntry.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                // Hide the keyboard
+                charEntry.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
+        }
 
         charEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-        // When the character entry box loses or gains focus
+            // When the character entry box loses or gains focus
             if (!hasFocus) {
-            // If it has just lost focus
+                // If it has just lost focus
                 val charInput = charEntry.text.toString()
                 var newChar = charInput
                 if ((charInput != "") and !playerHandler.charNames.contains(charInput)) {
-                // If the entered value is not valid
+                    // If the entered value is not valid
                     newChar = findClosest(charInput, playerHandler.charNames)
                     // Find the closest text value
                 }
                 playerHandler.updateCharacter(newChar)
                 // Update the player to store their new character
-                updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
-            }
-            else{
+                updateView(
+                    playerHandler,
+                    background,
+                    playerEntry,
+                    charEntry,
+                    eternalPrompt,
+                    eternalEntry
+                )
+            } else {
                 updateView(
                     playerHandler,
                     background,
@@ -127,6 +151,21 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalEntry
                 )
             }
+        }
+
+        playerEntry.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                // Hide the keyboard
+                playerEntry.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
@@ -169,7 +208,7 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalEntry
                 )
                 nameAdded = false
-            }else{
+            } else {
                 updateView(
                     playerHandler,
                     background,
@@ -179,6 +218,21 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalEntry
                 )
             }
+        }
+
+        eternalEntry.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                // Hide the keyboard
+                eternalEntry.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
         eternalEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
@@ -193,13 +247,22 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     // Find the closest text value
                 }
                 println(newEternal)
-                playerHandler.eternal = if(newEternal == ""){ null }
-                                        else { newEternal.lowercase() }
+                playerHandler.eternal = if (newEternal == "") {
+                    null
+                } else {
+                    newEternal.lowercase()
+                }
                 // Update the player to store their new character
-                updateView(playerHandler,background,playerEntry, charEntry, eternalPrompt, eternalEntry)
+                updateView(
+                    playerHandler,
+                    background,
+                    playerEntry,
+                    charEntry,
+                    eternalPrompt,
+                    eternalEntry
+                )
                 eternalEntry.setText(TextHandler.capitalise(newEternal))
-            }
-            else{
+            } else {
                 updateView(
                     playerHandler,
                     background,
@@ -210,7 +273,8 @@ class CharListAdaptor(private val playerHandlerList: Array<PlayerHandler>) : Rec
                 )
             }
         }
-}
+    }
+
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return playerHandlerList.size
