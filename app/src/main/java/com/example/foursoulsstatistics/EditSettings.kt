@@ -76,7 +76,7 @@ class EditSettings : AppCompatActivity() {
         // Match warp zone settings
 
         val promo = findViewById<SwitchCompat>(R.id.promoSwitch)
-        warp.isChecked = currentSettings["promo"].toBoolean()
+        promo.isChecked = currentSettings["promo"].toBoolean()
         // Match promo settings
 
         val altArt = findViewById<SwitchCompat>(R.id.altSwitch)

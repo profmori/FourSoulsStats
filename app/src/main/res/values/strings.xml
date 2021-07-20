@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Overall App Information -->
     <string name="app_name" translatable="false">Four Souls Stats</string>
 
@@ -85,4 +85,12 @@
     <string name="monster_back">Monster Back</string>
     <string name="soul_back">Soul Back</string>
     <string name="treasure_back">Treasure Back</string>
+
+    <!-- Thanks Screen -->
+    <string name="thanks_title" tools:ignore="TypographyEllipsis">Thanks To ...</string>
+    <string name="thanks_fonts">Four Souls fonts (font-souls) created by <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a></string>
+    <string name="thanks_backgrounds">Backgrounds and blank character card from images created by
+        <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
+            u/Koretex_</a> for the Four Souls Reddit</string>
+    <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me.</string>
 </resources>

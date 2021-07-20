@@ -1,6 +1,7 @@
 package com.example.foursoulsstatistics
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -17,53 +18,69 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    var source: String? = null
+    private var source: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         source = intent.getStringExtra("from")
+        // Get which view you are coming from
 
-        if(source == null){
-            SettingsHandler.initialiseSettings(this)
-            // Create settings file if there is none
+        when (source) {
+            null -> {
+                SettingsHandler.initialiseSettings(this)
+                // Create settings file if there is none
 
-            OnlineDataHandler.saveGames(this)
-            // Save any unsaved games
+                if (SettingsHandler.readSettings(this)["online"].toBoolean()) {
+                    OnlineDataHandler.saveGames(this)
+                    // Save any unsaved games
 
-            OnlineDataHandler.getGroupGames(this)
-            // Get any new online saved games
+                    OnlineDataHandler.getGroupGames(this)
+                    // Get any new online saved games
 
-            val gameDatabase = GameDataBase.getDataBase(this)
-            // Get the database instance
-            val gameDao = gameDatabase.gameDAO
-            // Get the database access object
-            val charList = CharacterList.charList
-            // Gets the char list from the characters list class
+                    val gameDatabase = GameDataBase.getDataBase(this)
+                    // Get the database instance
+                    val gameDao = gameDatabase.gameDAO
+                    // Get the database access object
+                    val charList = CharacterList.charList
+                    // Gets the char list from the characters list class
 
-            lifecycleScope.launch {
-                val currentChars = gameDao.getFullCharacterList()
-                // Gets the current character database
-                for (char in charList) {
-                    // Iterates through the characters
-                    if (!currentChars.contains(char)) {
-                        // If the character is not already in the database
-                        gameDao.updateCharacter(char)
-                        // Add the character, replacing existing versions
+                    lifecycleScope.launch {
+                        val currentChars = gameDao.getFullCharacterList()
+                        // Gets the current character database
+                        for (char in charList) {
+                            // Iterates through the characters
+                            if (!currentChars.contains(char)) {
+                                // If the character is not already in the database
+                                gameDao.updateCharacter(char)
+                                // Add the character, replacing existing versions
+                            }
+                        }
                     }
                 }
             }
-        }else if(source == "enter_result"){
-            OnlineDataHandler.saveGames(this)
-            // Save any unsaved games
-        }else if(source == "settings"){
-            OnlineDataHandler.getGroupGames(this)
+
+            "enter_result" -> {
+                if (SettingsHandler.readSettings(this)["online"].toBoolean()) {
+                    OnlineDataHandler.saveGames(this)
+                    // Save any unsaved games
+                }
+            }
+
+            "settings" -> {
+                if (SettingsHandler.readSettings(this)["online"].toBoolean()) {
+                    OnlineDataHandler.getGroupGames(this)
+                    // Get any games not stored locally
+                }
+            }
         }
 
         val titleText = findViewById<TextView>(R.id.mainTitle)
         val dataButton = findViewById<Button>(R.id.mainData)
         val statsButton = findViewById<Button>(R.id.mainStats)
         val settingsButton = findViewById<Button>(R.id.mainSettings)
+        val thanksButton = findViewById<Button>(R.id.mainThanks)
+        val issuesButton = findViewById<Button>(R.id.mainReport)
         // Get all the main elements
 
         val background = findViewById<ImageView>(R.id.background)
@@ -80,6 +97,8 @@ class MainActivity : AppCompatActivity() {
             dataButton.typeface = fonts["body"]
             statsButton.typeface = fonts["body"]
             settingsButton.typeface = fonts["body"]
+            thanksButton.typeface = fonts["body"]
+            issuesButton.typeface = fonts["body"]
             // Update them
         }
 
@@ -96,6 +115,19 @@ class MainActivity : AppCompatActivity() {
         settingsButton.setOnClickListener {
             val goToSettings = Intent(this, EditSettings::class.java)
             startActivity(goToSettings)
+        }
+
+
+        thanksButton.setOnClickListener {
+            val thanksScreen = Intent(this, ShowThanks::class.java)
+            startActivity(thanksScreen)
+        }
+
+        issuesButton.setOnClickListener {
+            val issuesLink = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/profmori/FourSoulsStats/issues"))
+            // Go to the link
+            startActivity(issuesLink)
+            // Actually go
         }
     }
 

@@ -4,6 +4,8 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foursoulsstatistics.R
+import com.example.foursoulsstatistics.online_database.OnlineDataHandler
+import kotlinx.coroutines.*
 
 class SettingsHandler {
 
@@ -18,24 +20,38 @@ class SettingsHandler {
 
                 settingsFile.createNewFile()
                 // Create a new file
-                val settings = mapOf(
-                    "groupID" to (100000 until 1000000).random().toString(),
-                    "online" to "true",
-                    "gold" to "true",
-                    "plus" to "true",
-                    "requiem" to "false",
-                    "warp" to "false",
-                    "promo" to "false",
-                    "alt_art" to "true",
-                    "readable_font" to "false",
-                    "background" to "loot_back",
-                    "border" to "monster_back",
-                    "first_open" to "true"
-                )
-                // Set the settings
+                CoroutineScope(Dispatchers.IO).launch {
+                // In a coroutine
+                    val existingIDs = OnlineDataHandler.getGroupIDs()
+                    // Get any existing ids
+                    var randID = (100000 until 1000000).random().toString()
+                    // Generate a random 6 digit number
 
-                saveToFile(context, settings)
-                // Save the settings file
+                    while (existingIDs.contains(randID)){
+                    // If the random number is already an id
+                        randID = (100000 until 1000000).random().toString()
+                        // Generate a new 6 digit number
+                    }
+
+                    val settings = mapOf(
+                        "groupID" to randID,
+                        "online" to "true",
+                        "gold" to "false",
+                        "plus" to "false",
+                        "requiem" to "false",
+                        "warp" to "false",
+                        "promo" to "false",
+                        "alt_art" to "true",
+                        "readable_font" to "false",
+                        "background" to "loot_back",
+                        "border" to "monster_back",
+                        "first_open" to "true"
+                    )
+                    // Set the settings
+
+                    saveToFile(context, settings)
+                    // Save the settings file
+                }
             }
         }
 

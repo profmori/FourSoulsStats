@@ -83,7 +83,7 @@
     <Button
         android:id="@+id/mainThanks"
 
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
     <Button
         android:id="@+id/mainReport"
 
-        android:layout_width="160dp"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
 
         app:layout_constraintEnd_toEndOf="parent"

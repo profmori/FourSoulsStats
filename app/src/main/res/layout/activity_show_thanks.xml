@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowThanks">
+
+    <ImageView
+        android:id="@+id/background"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:ignore="ContentDescription"
+
+        android:background="@drawable/bg_tiled_loot_back"
+
+        android:src="@drawable/bg_border_soul_back"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/thanksTitle"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="30dp"
+
+        android:text="@string/thanks_title"
+        android:fontFamily="@font/four_souls_title"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/thanksFont"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="40dp"
+
+        app:layout_constraintTop_toBottomOf="@id/thanksTitle"
+        app:layout_constraintBottom_toTopOf="@id/thanksBackgrounds"
+
+        android:text="@string/thanks_fonts"
+        android:textColorLink="@color/purple_500"/>
+
+    <TextView
+        android:id="@+id/thanksBackgrounds"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="40dp"
+
+        app:layout_constraintTop_toBottomOf="@id/thanksFont"
+        app:layout_constraintBottom_toTopOf="@id/thanksFriends"
+
+        android:text="@string/thanks_backgrounds"
+        android:textColorLink="@color/purple_500"/>
+
+    <TextView
+        android:id="@+id/thanksFriends"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="40dp"
+
+        app:layout_constraintTop_toBottomOf="@id/thanksBackgrounds"
+        app:layout_constraintBottom_toTopOf="@id/thanksMainButton"
+
+        android:text="@string/thanks_friends" />
+
+    <Button
+        android:id="@+id/thanksMainButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:textAllCaps="false"
+        android:text="@string/back_to_main"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
