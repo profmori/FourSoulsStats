@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -28,8 +29,10 @@
         app:layout_constraintStart_toStartOf="@id/winCharImage"
         app:layout_constraintEnd_toEndOf="@id/winCharImage"
 
+        tools:ignore="SmallSp"
         android:textSize="11sp"
-        android:text="@string/win_starting_item" />
+        android:fontFamily="@font/four_souls_body"
+        android:text="@string/win_starting_item"/>
 
     <TextView
         android:id="@+id/winEdenItem"
@@ -42,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="@id/winCharImage"
 
         android:textSize="15sp"
-        android:text="Void"/>
+        android:fontFamily="@font/four_souls_body"/>
     <TextView
         android:id="@+id/winPlayerName"
 
