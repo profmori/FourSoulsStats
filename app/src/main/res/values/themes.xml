@@ -15,8 +15,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
         <!-- Add Custom Font As Default -->
-        <item name="android:fontFamily">@font/four_souls_body</item>
-        <!-- Font Souls created by AssisrMatheus, Blank Char created by u/Koretex_ -->
+        <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/black</item>
 

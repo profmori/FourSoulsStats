@@ -1,21 +1,15 @@
 package com.example.foursoulsstatistics
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.foursoulsstatistics.data_handlers.SettingsHandler
 import com.example.foursoulsstatistics.data_handlers.TextHandler
-import com.example.foursoulsstatistics.database.CharacterList
-import com.example.foursoulsstatistics.database.GameDataBase
-import com.example.foursoulsstatistics.online_database.OnlineDataHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 
 class ShowThanks : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +41,9 @@ class ShowThanks : AppCompatActivity() {
             thanksFriends.typeface = fonts["body"]
             // Update them
         }
+
+        thanksFriends.visibility = View.GONE
+        // Hides this so my friends don't see it while testing :)
 
         thanksFont.movementMethod = LinkMovementMethod.getInstance()
         thanksBG.movementMethod = LinkMovementMethod.getInstance()

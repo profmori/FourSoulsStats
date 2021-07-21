@@ -16,41 +16,43 @@ class SettingsHandler {
             // Get the settings file
 
             if(!settingsFile.exists()) {
-            // If there is no settings file
+                // If there is no settings file
 
                 settingsFile.createNewFile()
                 // Create a new file
-                CoroutineScope(Dispatchers.IO).launch {
-                // In a coroutine
-                    val existingIDs = OnlineDataHandler.getGroupIDs()
-                    // Get any existing ids
-                    var randID = (100000 until 1000000).random().toString()
-                    // Generate a random 6 digit number
+                runBlocking {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        // In a coroutine
+                        val existingIDs = OnlineDataHandler.getGroupIDs()
+                        // Get any existing ids
+                        var randID = (100000 until 1000000).random().toString()
+                        // Generate a random 6 digit number
 
-                    while (existingIDs.contains(randID)){
-                    // If the random number is already an id
-                        randID = (100000 until 1000000).random().toString()
-                        // Generate a new 6 digit number
+                        while (existingIDs.contains(randID)) {
+                            // If the random number is already an id
+                            randID = (100000 until 1000000).random().toString()
+                            // Generate a new 6 digit number
+                        }
+
+                        val settings = mapOf(
+                            "groupID" to randID,
+                            "online" to "true",
+                            "gold" to "false",
+                            "plus" to "false",
+                            "requiem" to "false",
+                            "warp" to "false",
+                            "promo" to "false",
+                            "alt_art" to "true",
+                            "readable_font" to "false",
+                            "background" to "loot_back",
+                            "border" to "monster_back",
+                            "first_open" to "true"
+                        )
+                        // Set the settings
+
+                        saveToFile(context, settings)
+                        // Save the settings file
                     }
-
-                    val settings = mapOf(
-                        "groupID" to randID,
-                        "online" to "true",
-                        "gold" to "false",
-                        "plus" to "false",
-                        "requiem" to "false",
-                        "warp" to "false",
-                        "promo" to "false",
-                        "alt_art" to "true",
-                        "readable_font" to "false",
-                        "background" to "loot_back",
-                        "border" to "monster_back",
-                        "first_open" to "true"
-                    )
-                    // Set the settings
-
-                    saveToFile(context, settings)
-                    // Save the settings file
                 }
             }
         }

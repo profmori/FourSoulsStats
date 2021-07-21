@@ -93,4 +93,22 @@
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
             u/Koretex_</a> for the Four Souls Reddit</string>
     <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me.</string>
+
+    <!-- Tutorial Lines -->
+    <string name="tutorial_dismiss">OK</string>
+    <string name="tutorial_data">Input game data using this button</string>
+    <string name="tutorial_stats">View your group\'s statistics using this button</string>
+    <string name="tutorial_settings">Use this button to customise your app experience.
+        \n This allows you to choose many things, including online capabilities and app appearance.</string>
+    <string name="tutorial_issues">Use this button to report any issues you have, or bugs you find.
+        \n Note that this will require a GitHub account</string>
+    <string name="tutorial_group_id">Use this line to input your group\'s unique id, or create a new one.
+        \n This will be used to allow for different devices to sync the same games, and is required even if you remain offline</string>
+    <string name="tutorial_online">This switch controls whether or not your group data will be stored online.
+        \n It is still important to set your group id, as changing it will reset your recorded games, even when offline</string>
+    <string name="tutorial_edition">Select which editions of the game you want to use cards from</string>
+    <string name="alt_art">Have a chance for the Requiem Kickstarter alt art cards to be shown instead of the original art</string>
+    <string name="tutorial_background">Use this to select the background of the app</string>
+    <string name="tutorial_border">Use this to select the border of the app</string>
+    <string name="tutorial_readable_font">Use more readable fonts, rather than the Four Souls fonts</string>
 </resources>

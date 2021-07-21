@@ -14,6 +14,9 @@ import com.example.foursoulsstatistics.database.CharacterList
 import com.example.foursoulsstatistics.database.GameDataBase
 import com.example.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.launch
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +34,13 @@ class MainActivity : AppCompatActivity() {
                 SettingsHandler.initialiseSettings(this)
                 // Create settings file if there is none
 
-                if (SettingsHandler.readSettings(this)["online"].toBoolean()) {
+                val settings = SettingsHandler.readSettings(this)
+
+                if(settings["first_open"].toBoolean()){
+                    runTutorial()
+                }
+
+                if (settings["online"].toBoolean()) {
                     OnlineDataHandler.saveGames(this)
                     // Save any unsaved games
 
@@ -129,6 +138,59 @@ class MainActivity : AppCompatActivity() {
             startActivity(issuesLink)
             // Actually go
         }
+    }
+
+    fun runTutorial(){
+
+        val config = ShowcaseConfig()
+        config.delay = 100
+        // Delay between each showcase view
+
+        val dataButton = findViewById<Button>(R.id.mainData)
+        val statsButton = findViewById<Button>(R.id.mainStats)
+        val settingsButton = findViewById<Button>(R.id.mainSettings)
+        val issuesButton = findViewById<Button>(R.id.mainReport)
+        // Get the buttons
+
+        val sequence = MaterialShowcaseSequence(this, System.currentTimeMillis().toString())
+
+        sequence.setConfig(config)
+
+        val data = MaterialShowcaseView.Builder(this)
+            .setTarget(dataButton)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_data))
+            .build()
+
+        val stats = MaterialShowcaseView.Builder(this)
+            .setTarget(statsButton)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_stats))
+            .build()
+
+        val settings = MaterialShowcaseView.Builder(this)
+            .setTarget(settingsButton)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_settings))
+            .build()
+
+        val issues = MaterialShowcaseView.Builder(this)
+            .setTarget(issuesButton)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_issues))
+            .build()
+
+        sequence.addSequenceItem(data)
+        sequence.addSequenceItem(stats)
+        sequence.addSequenceItem(settings)
+        sequence.addSequenceItem(issues)
+
+        sequence.setOnItemDismissedListener { itemView, _ ->
+            if(itemView == issues)
+                settingsButton.performClick()
+        }
+
+        sequence.start()
     }
 
     override fun onBackPressed() {

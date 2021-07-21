@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.foursoulsstatistics.custom_adapters.ChangeGroupDialog
 import com.example.foursoulsstatistics.custom_adapters.DropDownAdapter
 import com.example.foursoulsstatistics.data_handlers.SettingsHandler
@@ -21,6 +22,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 
 
 class EditSettings : AppCompatActivity() {
@@ -37,6 +41,13 @@ class EditSettings : AppCompatActivity() {
 
         var currentSettings = SettingsHandler.readSettings(this)
         // Gets the current settings
+        
+        var firstOpen = currentSettings["first_open"].toBoolean()
+
+        if (firstOpen){
+            runTutorial()
+            firstOpen = false
+        }
 
         borderList = mapOf(
             resources.getString(R.string.character_back) to "character_back",
@@ -153,8 +164,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 currentSettings = updateSave(
                     gold, plus, requiem, warp, promo, altArt, easyFont,
-                    borderSpinner, backgroundSpinner, online, groupEntry
-                )
+                    borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
                 // Update the current settings
                 SettingsHandler.updateBackground(borderSpinner.context, backgroundImage)
                 // Update the background image
@@ -173,8 +183,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 currentSettings = updateSave(
                     gold, plus, requiem, warp, promo, altArt, easyFont,
-                    borderSpinner, backgroundSpinner, online, groupEntry
-                )
+                    borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
                 // Update the current settings
                 SettingsHandler.updateBackground(backgroundSpinner.context, backgroundImage)
                 // Update the background image
@@ -187,8 +196,7 @@ class EditSettings : AppCompatActivity() {
             // When the font slider is changed
             currentSettings = updateSave(
                 gold, plus, requiem, warp, promo, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry
-            )
+                borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
             updateFonts(
                 gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
                 backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
@@ -217,8 +225,7 @@ class EditSettings : AppCompatActivity() {
             // When the return button is clicked
             currentSettings = updateSave(
                 gold, plus, requiem, warp, promo, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry
-            )
+                borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
             // Save the new settings file
             val newID = groupEntry.text.toString().uppercase()
             if (newID !in existingIds) {
@@ -297,6 +304,99 @@ class EditSettings : AppCompatActivity() {
         }
     }
 
+    fun runTutorial(){
+
+        val config = ShowcaseConfig()
+        config.delay = 100
+        // Delay between each showcase view
+
+        val editionSelect = findViewById<ConstraintLayout>(R.id.editionSelect)
+        // Get editions area
+
+        val altArt = findViewById<SwitchCompat>(R.id.altSwitch)
+        // Get alt art switch
+
+        val easyFont = findViewById<SwitchCompat>(R.id.readableSwitch)
+        // Match readability switch
+
+        val borderLine = findViewById<TextView>(R.id.borderPrompt)
+        // Get the border line
+
+        val backgroundLine = findViewById<TextView>(R.id.backgroundPrompt)
+        // Get the background line
+
+        val online = findViewById<SwitchCompat>(R.id.onlineSwitch)
+        // Match the online saving behaviour
+
+        val groupLine = findViewById<TextView>(R.id.groupIDExplanation)
+        // Gets the group id input
+
+        val sequence = MaterialShowcaseSequence(this, System.currentTimeMillis().toString())
+
+        sequence.setConfig(config)
+
+        val edition = MaterialShowcaseView.Builder(this)
+            .setTarget(editionSelect)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_edition))
+            .withRectangleShape(true)
+            .build()
+
+        val altSwitch = MaterialShowcaseView.Builder(this)
+            .setTarget(altArt)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.alt_art))
+            .withRectangleShape(true)
+            .build()
+
+        val easySwitch = MaterialShowcaseView.Builder(this)
+            .setTarget(easyFont)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_readable_font))
+            .withRectangleShape(true)
+            .build()
+
+        val border = MaterialShowcaseView.Builder(this)
+            .setTarget(borderLine)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_border))
+            .withRectangleShape(true)
+            .build()
+
+        val background = MaterialShowcaseView.Builder(this)
+            .setTarget(backgroundLine)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_background))
+            .withRectangleShape(true)
+            .build()
+
+        val onlineSwitch = MaterialShowcaseView.Builder(this)
+            .setTarget(online)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_online))
+            .withRectangleShape(true)
+            .build()
+
+        val groupID = MaterialShowcaseView.Builder(this)
+            .setTarget(groupLine)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_group_id))
+            .withRectangleShape(true)
+            .build()
+
+
+        sequence.addSequenceItem(groupID)
+        sequence.addSequenceItem(onlineSwitch)
+        sequence.addSequenceItem(edition)
+        sequence.addSequenceItem(altSwitch)
+        sequence.addSequenceItem(border)
+        sequence.addSequenceItem(background)
+
+        sequence.addSequenceItem(easySwitch)
+
+        sequence.start()
+    }
+
     override fun onBackPressed() {
         val returnButton = findViewById<Button>(R.id.settingsMainButton)
         // Get the return button
@@ -314,7 +414,8 @@ class EditSettings : AppCompatActivity() {
                            borderSpinner: Spinner,
                            backgroundSpinner: Spinner,
                            online: SwitchCompat,
-                           groupID: EditText): Map<String, String>{
+                           groupID: EditText,
+                           firstOpen: Boolean): Map<String, String>{
         val newMap = mapOf(
             "gold" to gold.isChecked.toString(),
             "plus" to plus.isChecked.toString(),
@@ -327,7 +428,7 @@ class EditSettings : AppCompatActivity() {
             "background" to backgroundList[backgroundSpinner.selectedItem.toString()]!!,
             "online" to online.isChecked.toString(),
             "groupID" to groupID.text.toString().uppercase(),
-            "first_open" to "false"
+            "first_open" to firstOpen.toString()
         )
         // Save all the values to a map
         return SettingsHandler.saveToFile(this, newMap)
