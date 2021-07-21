@@ -31,14 +31,13 @@ class MainActivity : AppCompatActivity() {
 
         when (source) {
             null -> {
+
                 SettingsHandler.initialiseSettings(this)
                 // Create settings file if there is none
 
                 val settings = SettingsHandler.readSettings(this)
 
-                if(settings["first_open"].toBoolean()){
-                    runTutorial()
-                }
+                runTutorial()
 
                 if (settings["online"].toBoolean()) {
                     OnlineDataHandler.saveGames(this)
@@ -152,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         val issuesButton = findViewById<Button>(R.id.mainReport)
         // Get the buttons
 
-        val sequence = MaterialShowcaseSequence(this, System.currentTimeMillis().toString())
+        val sequence = MaterialShowcaseSequence(this, "open_tutorial")
 
         sequence.setConfig(config)
 

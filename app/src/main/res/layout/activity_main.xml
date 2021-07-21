@@ -19,7 +19,7 @@
 
         android:background="@drawable/bg_tiled_loot_back"
 
-        android:src="@drawable/bg_border_soul_back"
+        android:src="@drawable/bg_border_monster_back"
         android:scaleType="fitXY" />
 
     <TextView
