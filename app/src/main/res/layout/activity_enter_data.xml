@@ -142,7 +142,7 @@
         <Button
             android:id="@+id/inputToMain"
 
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/inputContinueButton"
@@ -155,7 +155,7 @@
         <Button
             android:id="@+id/inputContinueButton"
 
-            android:layout_width="155dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

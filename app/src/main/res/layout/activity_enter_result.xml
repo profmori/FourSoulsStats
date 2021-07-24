@@ -41,7 +41,7 @@
         <Button
             android:id="@+id/resultsToEntry"
 
-            android:layout_width="160dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/enterResultsButton"
@@ -54,7 +54,7 @@
         <Button
             android:id="@+id/enterResultsButton"
 
-            android:layout_width="110dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/resultsToEntry"
             app:layout_constraintEnd_toEndOf="parent"

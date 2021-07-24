@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foursoulsstatistics">
+    package="com.profmori.foursoulsstatistics">
 
     <application
         android:icon="@mipmap/launcher_icon"
@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FourSoulsStatistics">
-        <activity android:name=".ShowThanks"></activity>
+        <activity android:name=".ShowThanks" />
         <activity
             android:name=".EditSettings"
             android:windowSoftInputMode="adjustPan" />

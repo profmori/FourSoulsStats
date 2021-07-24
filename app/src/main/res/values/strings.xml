@@ -4,14 +4,14 @@
 
     <!-- Main Page -->
     <string name="main_title" translatable="false">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
-    <string name="main_stats_button" translatable="false">View Statistics</string>
-    <string name="main_enter_data" translatable="false">Enter Game Data</string>
-    <string name="main_settings_button" translatable="false">App Settings</string>
+    <string name="main_stats_button" translatable="false">View \n Statistics</string>
+    <string name="main_enter_data" translatable="false">Enter \n Game Data</string>
+    <string name="main_settings_button" translatable="false">App \n Settings</string>
     <string name="main_thanks_button">Thanks</string>
-    <string name="main_error_button">Issues / Suggestions</string>
+    <string name="main_error_button">Issues /\n Suggestions</string>
 
     <!-- Common Strings -->
-    <string name="back_to_main">Return to Main Menu</string>
+    <string name="back_to_main">Return to \n Main Menu</string>
 
     <!-- Data Input Page -->
     <string name="input_title">Input Game Data</string>
@@ -19,7 +19,7 @@
     <string name="input_default_players">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures">0</string>
-    <string name="input_continue_button">Input Game Results</string>
+    <string name="input_continue_button">Input Game \n Results</string>
     <string name="input_too_few">Not All Data Filled In</string>
 
     <!-- Input Recycler View Strings -->
@@ -32,10 +32,10 @@
     <string name="add_player_2">To Player List</string>
 
     <!-- Souls Input Page -->
-    <string name="result_continue">Save Result</string>
+    <string name="result_continue">Save \n Result</string>
     <string name="result_wrong_count">There Needs To Be Exactly 1 Winner</string>
     <string name="result_pass_on">Game Saved</string>
-    <string name="result_go_back">Change Game Setup</string>
+    <string name="result_go_back">Change \n Game Setup</string>
 
     <!-- Win Page Recycler Strings -->
     <string name="win_card_player">Player:</string>
@@ -92,7 +92,8 @@
     <string name="thanks_backgrounds">Backgrounds and blank character card from images created by
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
             u/Koretex_</a> for the Four Souls Reddit</string>
-    <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me.</string>
+    <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me.
+        \n And also for immediately finding a bug</string>
 
     <!-- Tutorial Lines -->
     <string name="tutorial_dismiss">OK</string>
