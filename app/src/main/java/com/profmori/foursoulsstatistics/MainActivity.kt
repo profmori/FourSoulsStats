@@ -13,6 +13,8 @@ import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharacterList
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
                     OnlineDataHandler.getGroupGames(this)
                     // Get any new online saved games
+                }
 
                     val gameDatabase = GameDataBase.getDataBase(this)
                     // Get the database instance
@@ -53,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                     val charList = CharacterList.charList
                     // Gets the char list from the characters list class
 
-                    lifecycleScope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         val currentChars = gameDao.getFullCharacterList()
                         // Gets the current character database
                         for (char in charList) {
@@ -65,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }
             }
 
             "enter_result" -> {

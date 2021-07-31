@@ -40,7 +40,7 @@ class CharacterList {
             // Tainted Characters
             CharEntity("the baleful", R.drawable.baleful, null, "requiem"),
             CharEntity("the benighted", R.drawable.benighted, null, "requiem"),
-            CharEntity("the broken", R.drawable.broken, R.drawable.broken_alt, "requiem"),
+            CharEntity("the broken", R.drawable.broken, null, "requiem"),
             CharEntity("the capricious", R.drawable.capricious, R.drawable.capricious_alt, "requiem"),
             CharEntity("the curdled", R.drawable.curdled, null, "requiem"),
             CharEntity("the dauntless", R.drawable.dauntless, null, "requiem"),

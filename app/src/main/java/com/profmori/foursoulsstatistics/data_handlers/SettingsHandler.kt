@@ -25,13 +25,20 @@ class SettingsHandler {
                         // In a coroutine
                         val existingIDs = OnlineDataHandler.getGroupIDs()
                         // Get any existing ids
-                        var randID = (100000 until 1000000).random().toString()
-                        // Generate a random 6 digit number
+                        val charPool : List<Char> = ('A'..'Z') + ('0'..'9')
+                        var randID = (1..6)
+                            .map { kotlin.random.Random.nextInt(0, charPool.size) }
+                            .map(charPool::get)
+                            .joinToString("")
+                        // Generate a random 6 length string
 
                         while (existingIDs.contains(randID)) {
-                            // If the random number is already an id
-                            randID = (100000 until 1000000).random().toString()
-                            // Generate a new 6 digit number
+                            // If the random string is already an id
+                            randID = (1..6)
+                                .map { kotlin.random.Random.nextInt(0, charPool.size) }
+                                .map(charPool::get)
+                                .joinToString("")
+                            // Generate a new random 6 length string
                         }
 
                         val settings = mapOf(
