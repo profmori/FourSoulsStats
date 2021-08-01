@@ -31,6 +31,10 @@ interface GameDAO {
     // Add a game instance, identical entries should be replaced
     suspend fun addGameInstance(gameInstance: GameInstance)
 
+    @Delete
+    suspend fun deleteCharacter(character: CharEntity)
+    // Remove the selected character from the database
+
     @Query("SELECT * FROM players")
     // The SQL query the function should call
     suspend fun getPlayers(): Array<Player>

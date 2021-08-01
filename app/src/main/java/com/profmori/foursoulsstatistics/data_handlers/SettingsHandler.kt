@@ -49,6 +49,7 @@ class SettingsHandler {
                             "requiem" to "false",
                             "warp" to "false",
                             "promo" to "false",
+                            "custom" to "false",
                             "alt_art" to "true",
                             "readable_font" to "false",
                             "background" to "loot_back",
@@ -164,6 +165,7 @@ class SettingsHandler {
             if (settings["requiem"].toBoolean()){editionArray += "requiem"}
             if (settings["warp"].toBoolean()){editionArray += "warp"}
             if (settings["promo"].toBoolean()){editionArray += "promo"}
+            if (settings["custom"].toBoolean()){editionArray += "custom"}
             return editionArray
         }
     }

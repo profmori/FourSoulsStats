@@ -32,15 +32,12 @@ class ShowThanks : AppCompatActivity() {
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
 
-        if (titleText.typeface != fonts["title"]){
-            // If the fonts are wrong
-            titleText.typeface = fonts["title"]
-            returnButton.typeface = fonts["body"]
-            thanksFont.typeface = fonts["body"]
-            thanksBG.typeface = fonts["body"]
-            thanksFriends.typeface = fonts["body"]
-            // Update them
-        }
+        titleText.typeface = fonts["title"]
+        returnButton.typeface = fonts["body"]
+        thanksFont.typeface = fonts["body"]
+        thanksBG.typeface = fonts["body"]
+        thanksFriends.typeface = fonts["body"]
+        // Update the fonts
 
         thanksFont.movementMethod = LinkMovementMethod.getInstance()
         thanksBG.movementMethod = LinkMovementMethod.getInstance()

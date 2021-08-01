@@ -101,16 +101,13 @@ class MainActivity : AppCompatActivity() {
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not
 
-        if (titleText.typeface != fonts["title"]){
-        // If the fonts are wrong
-            titleText.typeface = fonts["title"]
-            dataButton.typeface = fonts["body"]
-            statsButton.typeface = fonts["body"]
-            settingsButton.typeface = fonts["body"]
-            thanksButton.typeface = fonts["body"]
-            issuesButton.typeface = fonts["body"]
-            // Update them
-        }
+        titleText.typeface = fonts["title"]
+        dataButton.typeface = fonts["body"]
+        statsButton.typeface = fonts["body"]
+        settingsButton.typeface = fonts["body"]
+        thanksButton.typeface = fonts["body"]
+        issuesButton.typeface = fonts["body"]
+        // Update the fonts
 
         dataButton.setOnClickListener {
             val goToData = Intent(this, EnterData::class.java)
@@ -119,6 +116,8 @@ class MainActivity : AppCompatActivity() {
 
         statsButton.setOnClickListener {
             val goToStats = Intent(this, ViewStatistics::class.java)
+            // val goToStats = Intent(this, ViewPlayerStats::class.java)
+            // Temp line for testing
             startActivity(goToStats)
         }
 

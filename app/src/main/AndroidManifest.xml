@@ -8,6 +8,8 @@
         android:roundIcon="@mipmap/launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FourSoulsStatistics">
+        <activity android:name=".CustomCardEntry"></activity>
+        <activity android:name=".ViewPlayerStats" />
         <activity android:name=".ShowThanks" />
         <activity
             android:name=".EditSettings"

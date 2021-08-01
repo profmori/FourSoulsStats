@@ -90,6 +90,10 @@ class EditSettings : AppCompatActivity() {
         promo.isChecked = currentSettings["promo"].toBoolean()
         // Match promo settings
 
+        val custom = findViewById<SwitchCompat>(R.id.customSwitch)
+        custom.isChecked = currentSettings["custom"].toBoolean()
+        val customButton = findViewById<Button>(R.id.customButton)
+
         val altArt = findViewById<SwitchCompat>(R.id.altSwitch)
         altArt.isChecked = currentSettings["alt_art"].toBoolean()
         // Match alt art settings
@@ -132,6 +136,12 @@ class EditSettings : AppCompatActivity() {
             // If the player is not uploading hide the  group id entry
         }
 
+        if(!currentSettings["custom"].toBoolean()){
+            customButton.visibility = View.GONE
+        }
+        // If custom cards are not being used, hide the input button
+
+
         val returnButton = findViewById<Button>(R.id.settingsMainButton)
         // Get the return button
 
@@ -142,17 +152,10 @@ class EditSettings : AppCompatActivity() {
 
         SettingsHandler.updateBackground(this, backgroundImage)
 
-        var fonts = TextHandler.setFont(this)
-        // Get the current fonts
-
-        if (titleText.typeface != fonts["title"]) {
-            // If they are not already used, use them
-            updateFonts(
-                gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
-                backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
-                groupPrompt, groupEntry, groupExplain
-            )
-        }
+        updateFonts(titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, gold,
+            plus, requiem, warp, promo, custom, customButton, altArt, borderText, borderSpinner,
+            backgroundText, backgroundSpinner, returnButton)
+        // Use them
 
         borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             // When a border item is selected
@@ -163,7 +166,7 @@ class EditSettings : AppCompatActivity() {
                 id: Long
             ) {
                 currentSettings = updateSave(
-                    gold, plus, requiem, warp, promo, altArt, easyFont,
+                    gold, plus, requiem, warp, promo, custom, altArt, easyFont,
                     borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
                 // Update the current settings
                 SettingsHandler.updateBackground(borderSpinner.context, backgroundImage)
@@ -182,7 +185,7 @@ class EditSettings : AppCompatActivity() {
                 id: Long
             ) {
                 currentSettings = updateSave(
-                    gold, plus, requiem, warp, promo, altArt, easyFont,
+                    gold, plus, requiem, warp, promo, custom, altArt, easyFont,
                     borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
                 // Update the current settings
                 SettingsHandler.updateBackground(backgroundSpinner.context, backgroundImage)
@@ -195,13 +198,11 @@ class EditSettings : AppCompatActivity() {
         easyFont.setOnCheckedChangeListener { _, _ ->
             // When the font slider is changed
             currentSettings = updateSave(
-                gold, plus, requiem, warp, promo, altArt, easyFont,
+                gold, plus, requiem, warp, promo, custom, altArt, easyFont,
                 borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
-            updateFonts(
-                gold, plus, requiem, warp, promo, altArt, borderText, borderSpinner,
-                backgroundText, backgroundSpinner, returnButton, editionTitle, titleText, online,
-                groupPrompt, groupEntry, groupExplain
-            )
+            updateFonts(titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, gold,
+                plus, requiem, warp, promo, custom, customButton, altArt, borderText, borderSpinner,
+                backgroundText, backgroundSpinner, returnButton)
             // Change all the fonts
         }
 
@@ -221,10 +222,22 @@ class EditSettings : AppCompatActivity() {
             }
         }
 
+        custom.setOnCheckedChangeListener{_, isChecked ->
+            if (isChecked) {customButton.visibility = View.VISIBLE}
+            // Show the custom entry button if custom cards are enabled
+            else {customButton.visibility = View.GONE}
+            // Hide it otherwise
+        }
+
+        customButton.setOnClickListener {
+            val customIntent = Intent(this, CustomCardEntry::class.java)
+            startActivity(customIntent)
+        }
+
         returnButton.setOnClickListener {
             // When the return button is clicked
             currentSettings = updateSave(
-                gold, plus, requiem, warp, promo, altArt, easyFont,
+                gold, plus, requiem, warp, promo, custom, altArt, easyFont,
                 borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
             // Save the new settings file
             val newID = groupEntry.text.toString().uppercase()
@@ -248,6 +261,7 @@ class EditSettings : AppCompatActivity() {
             // Create an intent back to the main screen
             backToMain.putExtra("from", "settings")
             startActivity(backToMain)
+            // Go back to the main menu
         }
 
         groupEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -293,7 +307,7 @@ class EditSettings : AppCompatActivity() {
                     }
 
                     if (groupEntry.text.toString().uppercase() != oldId) {
-                        fonts = TextHandler.setFont(this)
+                        val fonts = TextHandler.setFont(this)
                         val entryDialog =
                             ChangeGroupDialog(this, groupEntry, oldId!!, fonts["body"]!!)
                         entryDialog.show(supportFragmentManager, "groupID")
@@ -304,7 +318,7 @@ class EditSettings : AppCompatActivity() {
         }
     }
 
-    fun runTutorial(){
+    private fun runTutorial(){
 
         val config = ShowcaseConfig()
         config.delay = 100
@@ -409,6 +423,7 @@ class EditSettings : AppCompatActivity() {
                            requiem: SwitchCompat,
                            warp: SwitchCompat,
                            promo: SwitchCompat,
+                           custom: SwitchCompat,
                            altArt: SwitchCompat,
                            easyFont: SwitchCompat,
                            borderSpinner: Spinner,
@@ -422,6 +437,7 @@ class EditSettings : AppCompatActivity() {
             "requiem" to requiem.isChecked.toString(),
             "warp" to warp.isChecked.toString(),
             "promo" to promo.isChecked.toString(),
+            "custom" to custom.isChecked.toString(),
             "alt_art" to altArt.isChecked.toString(),
             "readable_font" to easyFont.isChecked.toString(),
             "border" to borderList[borderSpinner.selectedItem.toString()]!!,
@@ -435,39 +451,53 @@ class EditSettings : AppCompatActivity() {
         // Save the map
     }
 
-    private fun updateFonts(gold: SwitchCompat,
-                            plus: SwitchCompat,
-                            requiem: SwitchCompat,
-                            warp: SwitchCompat,
-                            promo: SwitchCompat,
-                            altArt: SwitchCompat,
-                            borderText: TextView,
-                            borderSpinner: Spinner,
-                            backgroundText: TextView,
-                            backgroundSpinner: Spinner,
-                            returnButton: Button,
-                            editionTitle: TextView,
-                            titleText: TextView,
-                            online : SwitchCompat,
-                            groupPrompt : TextView,
-                            groupEntry: EditText,
-                            groupExplain: TextView){
+    private fun updateFonts(
+        titleText: TextView,
+        groupPrompt : TextView,
+        groupEntry: EditText,
+        groupExplain: TextView,
+        online : SwitchCompat,
+        editionTitle: TextView,
+        gold: SwitchCompat,
+        plus: SwitchCompat,
+        requiem: SwitchCompat,
+        warp: SwitchCompat,
+        promo: SwitchCompat,
+        custom: SwitchCompat,
+        customButton: Button,
+        altArt: SwitchCompat,
+        borderText: TextView,
+        borderSpinner: Spinner,
+        backgroundText: TextView,
+        backgroundSpinner: Spinner,
+        returnButton: Button){
         val fonts = TextHandler.setFont(this)
+
+        titleText.typeface = fonts["title"]
+
+        groupPrompt.typeface = fonts["body"]
+        groupEntry.typeface = fonts["body"]
+        groupExplain.typeface = fonts["body"]
+
+        online.typeface = fonts["body"]
+
+        editionTitle.typeface = fonts["body"]
         gold.typeface = fonts["body"]
         plus.typeface = fonts["body"]
         requiem.typeface = fonts["body"]
         warp.typeface = fonts["body"]
         promo.typeface = fonts["body"]
+
+        custom.typeface = fonts["body"]
+        customButton.typeface = fonts["body"]
+
         altArt.typeface = fonts["body"]
-        returnButton.typeface = fonts["body"]
-        editionTitle.typeface = fonts["body"]
-        titleText.typeface = fonts["title"]
+
         borderText.typeface = fonts["body"]
         backgroundText.typeface = fonts["body"]
-        online.typeface = fonts["body"]
-        groupPrompt.typeface = fonts["body"]
-        groupEntry.typeface = fonts["body"]
-        groupExplain.typeface = fonts["body"]
+
+        returnButton.typeface = fonts["body"]
+
         // Update all the static fonts
 
         val spinnerItems = SettingsHandler.getBackground(this)

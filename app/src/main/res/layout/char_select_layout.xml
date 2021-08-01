@@ -19,7 +19,7 @@
         android:contentDescription="@string/input_card_content_desc"
         android:adjustViewBounds="true"
 
-        app:tint="@color/lighter"
+        app:tint="@color/light"
         android:tintMode="src_atop"
 
         android:src="@drawable/eden"/>

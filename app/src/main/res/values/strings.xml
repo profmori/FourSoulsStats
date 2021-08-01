@@ -58,17 +58,6 @@
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
-    <string name="settings_gold">Gold Box :</string>
-    <string name="settings_plus">Four Souls+ :</string>
-    <string name="settings_requiem">Requiem :</string>
-    <string name="settings_warp">Warp Zones :</string>
-    <string name="settings_promo">Promo Cards</string>
-    <string name="settings_online_sync">Sync Online:</string>
-    <string name="edition_prompt">Use Cards From :</string>
-    <string name="settings_alt_art">Use Character Alt Art :</string>
-    <string name="settings_readable_font">Use A Readable Font :</string>
-    <string name="settings_border_prompt">Border :</string>
-    <string name="settings_background_prompt">Background :</string>
 
     <string name="settings_group_id">Group ID:</string>
     <string name="settings_group_id_explain">This must be 6 Characters Long</string>
@@ -77,6 +66,25 @@
     <string name="settings_overwrite_data">Changing group ID will delete any games not uploaded</string>
     <string name="settings_confirm_overwrite">Change Group ID</string>
     <string name="settings_cancel_overwrite">Reset Group ID</string>
+
+    <string name="settings_online_sync">Sync Online:</string>
+
+    <string name="edition_prompt">Use Cards From :</string>
+    <string name="settings_gold">Gold Box :</string>
+    <string name="settings_plus">Four Souls+ :</string>
+    <string name="settings_requiem">Requiem :</string>
+    <string name="settings_warp">Warp Zones :</string>
+    <string name="settings_promo">Promo Cards</string>
+
+    <string name="settings_custom">Custom Cards</string>
+    <string name="settings_enter_custom">Add \n Cards</string>
+
+    <string name="settings_alt_art">Use Character Alt Art :</string>
+
+    <string name="settings_border_prompt">Border :</string>
+    <string name="settings_background_prompt">Background :</string>
+
+    <string name="settings_readable_font">Use A Readable Font :</string>
 
     <!-- Border / Background List -->
     <string name="character_back">Character Back</string>
@@ -112,4 +120,14 @@
     <string name="tutorial_background">Use this to select the background of the app</string>
     <string name="tutorial_border">Use this to select the border of the app</string>
     <string name="tutorial_readable_font">Use more readable fonts, rather than the Four Souls fonts</string>
+
+    <!-- Player Stats Page -->
+    <string name="player_stats_title">Player Statistics</string>
+    <string name="custom_title">Custom Cards</string>
+    <string name="custom_add_char">Add Character</string>
+    <string name="custom_cancel">Cancel</string>
+    <array name="temp_slider">
+        <item>0.0</item>
+        <item>3.0</item>
+    </array>
 </resources>

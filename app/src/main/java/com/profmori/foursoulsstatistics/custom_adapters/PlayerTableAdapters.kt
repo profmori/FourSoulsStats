@@ -1,4 +1,4 @@
-package com.profmori.foursoulsstatistics.database
+package com.profmori.foursoulsstatistics.custom_adapters
 
 import android.content.Context
 import android.graphics.Typeface
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
+import com.profmori.foursoulsstatistics.database.Game
+import com.profmori.foursoulsstatistics.database.PlayerWithInstance
 import de.codecrafters.tableview.TableDataAdapter
 import de.codecrafters.tableview.TableHeaderAdapter
 
@@ -17,8 +19,10 @@ class PlayerTable(var playerName: String, var winrate: Double, var soulsAvg: Dou
         // Gets name from the data array
         val instances = data[0].gameInstances
         // Gets valid game instances from the array
-        playedGames = instances.size
-        // Gets the number of played games from the instances
+        val gamesList = games.map { game -> game.gameID }
+        // Get the list of selected games
+        playedGames = 0
+        // Initialises played games counter
         var wins = 0.0
         // Initialise the number of wins
         var souls = 0.0
@@ -26,16 +30,21 @@ class PlayerTable(var playerName: String, var winrate: Double, var soulsAvg: Dou
         var adjSouls = 0.0
         // Initialise the adjusted number of souls
         instances.forEach {
-            if(it.winner){ wins += 1}
-            // If the player won the instance increment their win counter
-            souls += it.souls
-            // Increment the soul counter
-            val currGame = games.map{game -> game.gameID}.indexOf(it.gameID)
-            // Gets the current game id
-            val gameSize = games[currGame].playerNo
-            // Gets the size of the game based on the game ID
-            adjSouls += it.souls * gameSize
-            // Increments the adjusted number of souls
+            if (gamesList.contains(it.gameID)) {
+                playedGames += 1
+                if (it.winner) {
+                    wins += 1
+                }
+                // If the player won the instance increment their win counter
+                souls += it.souls
+                // Increment the soul counter
+                val currGame = games.map { game -> game.gameID }.indexOf(it.gameID)
+                // Gets the current game id
+                val gameSize = games[currGame].playerNo
+                // Gets the size of the game based on the game ID
+                adjSouls += it.souls * gameSize
+                // Increments the adjusted number of souls
+            }
         }
         winrate = wins / playedGames
         // Calculates the winrate

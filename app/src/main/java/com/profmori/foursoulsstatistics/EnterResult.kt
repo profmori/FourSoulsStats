@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.profmori.foursoulsstatistics.custom_adapters.ResultsListAdaptor
+import com.profmori.foursoulsstatistics.custom_adapters.ResultsListAdapter
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -38,7 +38,7 @@ class EnterResult : AppCompatActivity() {
         var playerList = emptyArray<PlayerHandler>()
         // Cretes the empty player handler list
 
-        for (i in range(0,playerNames.size)){
+        for (i in (0 until playerNames.size)){
         // Iterates through all players
             playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],0,false)
             // Adds the player
@@ -59,7 +59,7 @@ class EnterResult : AppCompatActivity() {
         val playerRecycler = findViewById<RecyclerView>(R.id.winPlayerList)
         // Find the recycler view
 
-        val playerAdapter = ResultsListAdaptor(playerList)
+        val playerAdapter = ResultsListAdapter(playerList)
         // Create the adapter for the results list
 
         playerRecycler.adapter = playerAdapter
@@ -79,13 +79,9 @@ class EnterResult : AppCompatActivity() {
         SettingsHandler.updateBackground(this, background)
         // Update the background
 
-
-        if (confirmResult.typeface != fonts["body"]){
-            // If the fonts are wrong
-            confirmResult.typeface = fonts["body"]
-            returnButton.typeface = fonts["body"]
-            // Update them
-        }
+        confirmResult.typeface = fonts["body"]
+        returnButton.typeface = fonts["body"]
+        // Update the fonts
 
         confirmResult.setOnClickListener {
             // When the button is pressed

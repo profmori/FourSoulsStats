@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.profmori.foursoulsstatistics.custom_adapters.CharListAdaptor
+import com.profmori.foursoulsstatistics.custom_adapters.CharListAdapter
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -82,7 +82,7 @@ class EnterData : AppCompatActivity() {
             // Sets the fonts of each player handler
         }
 
-        var adapter = CharListAdaptor(playerHandlerList)
+        var adapter = CharListAdapter(playerHandlerList)
         // Attach the adapter to the recyclerview to populate items
         charRecycler.adapter = adapter
         // Set layout manager to position the items
@@ -113,17 +113,14 @@ class EnterData : AppCompatActivity() {
 
         }
 
-        if(playerNo.typeface != fonts["body"]){
-        // If the fonts are wrong
-            playerNo.typeface = fonts["body"]
-            playerPrompt.typeface = fonts["body"]
-            treasureNo.typeface = fonts["body"]
-            treasurePrompt.typeface = fonts["body"]
-            titleView.typeface = fonts["title"]
-            continueButton.typeface = fonts["body"]
-            returnButton.typeface = fonts["body"]
-            // Update them
-        }
+        playerNo.typeface = fonts["body"]
+        playerPrompt.typeface = fonts["body"]
+        treasureNo.typeface = fonts["body"]
+        treasurePrompt.typeface = fonts["body"]
+        titleView.typeface = fonts["title"]
+        continueButton.typeface = fonts["body"]
+        returnButton.typeface = fonts["body"]
+        // Update the fonts
 
         playerNo.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -153,16 +150,16 @@ class EnterData : AppCompatActivity() {
                     playerNo.setText(playerCount.toString())
                     // Rewrite the text field to show this
                 } finally {
-                    if (playerCount < 1) {
+                    if (playerCount < 2) {
                         // If the user tries to input something invalid
-                        playerCount = 1
+                        playerCount = 2
                         // Set the player count to 1
                         playerNo.setText(playerCount.toString())
                         // Rewrite the text field to show this
                     }
                     playerHandlerList = PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
                     // Makes a player list based on the number of players
-                    adapter = CharListAdaptor(playerHandlerList)
+                    adapter = CharListAdapter(playerHandlerList)
                     // Creates the recycler view adapter for this
                     charRecycler.adapter = adapter
                     // Creates the recycler view

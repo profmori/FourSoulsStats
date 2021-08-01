@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.profmori.foursoulsstatistics.custom_adapters.*
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.*
@@ -35,11 +36,9 @@ class ViewStatistics : AppCompatActivity() {
 
         SettingsHandler.updateBackground(this, background)
 
-        if (playerTitle.typeface != fonts["body"]){
-            playerTitle.typeface = fonts["body"]
-            charTitle.typeface = fonts["body"]
-            returnButton.typeface = fonts["body"]
-        }
+        playerTitle.typeface = fonts["body"]
+        charTitle.typeface = fonts["body"]
+        returnButton.typeface = fonts["body"]
         // Set all button and title fonts
 
         val playerTable = findViewById<SortableTableView<PlayerTable>>(R.id.playerTable)
@@ -67,7 +66,7 @@ class ViewStatistics : AppCompatActivity() {
         playerTable.setColumnComparator(3, AdjustedSoulsComparator())
         // Allows all the columns to be sorted correctly
 
-        playerTable.setHeaderBackgroundColor(resources.getColor(R.color.darker,theme))
+        playerTable.setHeaderBackgroundColor(resources.getColor(R.color.dark,theme))
         playerTable.setBackgroundColor(resources.getColor(R.color.lighter,theme))
         // Sets the table to be tints so the background comes through
 
@@ -89,7 +88,7 @@ class ViewStatistics : AppCompatActivity() {
         // Creates the header adapter
         charTable.headerAdapter = charHeaderAdapter
 
-        charTable.setHeaderBackgroundColor(resources.getColor(R.color.darker,theme))
+        charTable.setHeaderBackgroundColor(resources.getColor(R.color.dark,theme))
         charTable.setBackgroundColor(resources.getColor(R.color.lighter,theme))
         // Sets the table backgrounds as tints
 
