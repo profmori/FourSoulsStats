@@ -230,6 +230,9 @@ class EditSettings : AppCompatActivity() {
         }
 
         customButton.setOnClickListener {
+            updateSave(
+                gold, plus, requiem, warp, promo, custom, altArt, easyFont,
+                borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
             val customIntent = Intent(this, CustomCardEntry::class.java)
             startActivity(customIntent)
         }

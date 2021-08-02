@@ -23,7 +23,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
             // Function to make the original array of players
             var players = emptyArray<PlayerHandler>()
             // Creates the array
-            for (i in range(1, playerNum + 1)) {
+            for (i in (1 until playerNum + 1)) {
                 // Iterates through every player in the array
                 players += (PlayerHandler("", "", R.drawable.blank_char,null, 0, false))
                 // Add a player with no name or character and a blank character image
@@ -39,7 +39,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
             // Gets the length of the player list
             if (currentLength < playerNum) {
                 // If the number of players has increased
-                for (i in range(currentLength, playerNum)) {
+                for (i in (currentLength until playerNum)) {
                     // For the number of extra players
                     newPlayerList += PlayerHandler("", "", R.drawable.blank_char, null,0, false)
                     // Add a player with no name or character and a blank character image

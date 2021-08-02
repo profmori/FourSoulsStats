@@ -17,7 +17,7 @@ data class Player(
 data class CharEntity(
     @PrimaryKey(autoGenerate = false)
     val charName: String,
-    val image: Int,
+    var image: Int,
     val imageAlt: Int?,
     val edition: String
 )

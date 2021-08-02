@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.ItemList
 
@@ -377,9 +378,13 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         eternalEntry: AutoCompleteTextView
     ){
 
-        background.setImageResource(playerHandler.charImage)
-        // Set the image to the stored player image
-
+        if (playerHandler.charImage > -1) {
+            background.setImageResource(playerHandler.charImage)
+            // Set the image to the stored player image
+        }else{
+            background.setImageBitmap(ImageHandler.returnImage(background.context, playerHandler.charName))
+            // Set the image to a custom bitmap
+        }
         val pDropDown = playerHandler.playerNames
         pDropDown.sort()
         val playerAdaptor = DropDownAdapter(playerEntry.context, pDropDown, playerHandler.fonts["body"]!!)

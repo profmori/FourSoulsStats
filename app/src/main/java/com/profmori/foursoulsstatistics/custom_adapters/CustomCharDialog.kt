@@ -14,7 +14,7 @@ import com.profmori.foursoulsstatistics.CustomCardEntry
 import com.profmori.foursoulsstatistics.R
 
 
-class CustomCharDialog(private val ctxt: Context, private var returnInterface: CustomCardEntry.confirmInterface, private val font: Typeface): DialogFragment() {
+class CustomCharDialog(private val ctxt: Context, private var returnInterface: CustomCardEntry.ConfirmInterface, private val font: Typeface): DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -25,6 +25,8 @@ class CustomCharDialog(private val ctxt: Context, private var returnInterface: C
             // Set up the input
 
             val textInput = textInputView.findViewById<EditText>(R.id.customCharacterName)
+
+            textInput.typeface = font
 
             builder.setView(textInputView)
                 .setPositiveButton(R.string.custom_add_char){ _, _ ->

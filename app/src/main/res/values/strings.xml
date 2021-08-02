@@ -126,6 +126,7 @@
     <string name="custom_title">Custom Cards</string>
     <string name="custom_add_char">Add Character</string>
     <string name="custom_cancel">Cancel</string>
+    <string name="custom_add_item">Add Item</string>
     <array name="temp_slider">
         <item>0.0</item>
         <item>3.0</item>

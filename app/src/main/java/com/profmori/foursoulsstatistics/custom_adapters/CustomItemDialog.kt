@@ -14,7 +14,7 @@ import com.profmori.foursoulsstatistics.CustomCardEntry
 import com.profmori.foursoulsstatistics.R
 
 
-class CustomItemDialog(private val ctxt: Context, private var returnInterface: CustomCardEntry.confirmInterface, private val font: Typeface): DialogFragment() {
+class CustomItemDialog(private val ctxt: Context, private var returnInterface: CustomCardEntry.ConfirmInterface, private val font: Typeface): DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -26,8 +26,10 @@ class CustomItemDialog(private val ctxt: Context, private var returnInterface: C
 
             val textInput = textInputView.findViewById<EditText>(R.id.customItemName)
 
+            textInput.typeface = font
+
             builder.setView(textInputView)
-                .setPositiveButton(R.string.custom_add_char){ _, _ ->
+                .setPositiveButton(R.string.custom_add_item){ _, _ ->
                     returnInterface.onTextEntered(textInput.text.toString())
                 }
                 .setNegativeButton(R.string.custom_cancel) { _, _ ->}
