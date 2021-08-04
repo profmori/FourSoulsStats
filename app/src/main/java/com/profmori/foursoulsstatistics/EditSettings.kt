@@ -312,8 +312,9 @@ class EditSettings : AppCompatActivity() {
                     if (groupEntry.text.toString().uppercase() != oldId) {
                         val fonts = TextHandler.setFont(this)
                         val entryDialog =
-                            ChangeGroupDialog(this, groupEntry, oldId!!, fonts["body"]!!)
+                            ChangeGroupDialog(groupEntry, oldId!!, fonts["body"]!!)
                         entryDialog.show(supportFragmentManager, "groupID")
+                        // Create and show the confirmation to change the group ID
 
                     }
                 }
@@ -408,10 +409,10 @@ class EditSettings : AppCompatActivity() {
         sequence.addSequenceItem(altSwitch)
         sequence.addSequenceItem(border)
         sequence.addSequenceItem(background)
-
         sequence.addSequenceItem(easySwitch)
-
+        // Put the tutorial sequence together
         sequence.start()
+        // Run the tutorial
     }
 
     override fun onBackPressed() {

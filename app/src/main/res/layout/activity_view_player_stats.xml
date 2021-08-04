@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/playerStatsTitle"
         android:layout_margin="20dp"
 
-        android:text="Filter By:"/>
+        android:text="@string/player_stats_filter"/>
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/playerSlider"

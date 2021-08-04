@@ -18,7 +18,8 @@
         android:background="@color/purple_200"
 
         android:src="@drawable/bg_border_treasure_back"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/inputTitle"

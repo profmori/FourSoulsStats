@@ -1,4 +1,4 @@
-package com.profmori.foursoulsstatistics.database
+package com.profmori.foursoulsstatistics.custom_adapters
 
 import android.content.Context
 import android.graphics.Typeface
@@ -6,8 +6,11 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
+import com.profmori.foursoulsstatistics.database.CharacterWithInstance
+import com.profmori.foursoulsstatistics.database.Game
 import de.codecrafters.tableview.TableDataAdapter
 import de.codecrafters.tableview.TableHeaderAdapter
 
@@ -66,7 +69,7 @@ class CharacterTableAdapter(context: Context, private val tableFont: Typeface, d
         // Centres the text
         renderedView.typeface = tableFont
         // Sets the table typeface
-        if (tableFont == context.resources.getFont(R.font.four_souls_body)) {
+        if (tableFont == ResourcesCompat.getFont(context, R.font.four_souls_body)){
         // If it is the four souls font
             renderedView.textSize = 17f
             // Changes the text size
@@ -109,8 +112,7 @@ class CharacterTableAdapter(context: Context, private val tableFont: Typeface, d
     }
 }
 
-class CharacterTableHeaderAdapter(context: Context, headerFont: Typeface, vararg headers: String) : TableHeaderAdapter(context) {
-    private val headers: Array<String?> = headers as Array<String?>
+class CharacterTableHeaderAdapter(context: Context, headerFont: Typeface, private val headers: Array<String>) : TableHeaderAdapter(context) {
     private var paddingLeft = 20
     private var paddingTop = 30
     private var paddingRight = 20
@@ -121,9 +123,10 @@ class CharacterTableHeaderAdapter(context: Context, headerFont: Typeface, vararg
     // Sets basic parameters
 
     override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
+
         val textView = TextView(context)
         // Gets the text view of the table cell
-        textSize = if (typeface == context.resources.getFont(R.font.four_souls_title)) {
+        textSize = if (typeface == ResourcesCompat.getFont(context, R.font.four_souls_title)) {
         // If the font is the four souls font
             10
         } else{ 12 }
@@ -146,6 +149,7 @@ class CharacterComparator: Comparator<CharacterTable>{
     override fun compare(char1: CharacterTable, char2: CharacterTable): Int {
         val name1 = char1.charName
         val name2 = char2.charName
+        // Compares characters by name
         return name1.compareTo(name2)
     }
 }
@@ -154,6 +158,7 @@ class CharWinrateComparator: Comparator<CharacterTable>{
     override fun compare(char1: CharacterTable, char2: CharacterTable): Int {
         val winrate1 = char1.winrate
         val winrate2 = char2.winrate
+        // Compare characters by winrate
         return winrate2.compareTo(winrate1)
     }
 }
@@ -162,6 +167,7 @@ class CharSoulsComparator: Comparator<CharacterTable>{
     override fun compare(char1: CharacterTable, char2: CharacterTable): Int {
         val souls1 = char1.soulsAvg
         val souls2 = char2.soulsAvg
+        // Compare characters by souls
         return souls2.compareTo(souls1)
     }
 }
@@ -170,6 +176,7 @@ class CharAdjustedSoulsComparator: Comparator<CharacterTable>{
     override fun compare(char1: CharacterTable, char2: CharacterTable): Int {
         val souls1 = char1.adjustedSouls
         val souls2 = char2.adjustedSouls
+        // Compare characters by average souls
         return souls2.compareTo(souls1)
     }
 }

@@ -5,7 +5,6 @@ import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.Player
 import java.util.*
-import java.util.stream.IntStream.range
 
 class PlayerHandler (var playerName: String, var charName: String, var charImage: Int, var eternal: String?, var soulsNum: Int, var winner: Boolean) {
 
@@ -78,7 +77,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
 
             playerList = players
             playerList.sortBy { it.playerName }
-            // Gets the list of players
+            // Gets the sorted list of players
             playerNames = playerList.map{player -> player.playerName }.toTypedArray()
             // Stores the names of the players from the list of players
 
@@ -101,6 +100,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
             }
             else{
                 charImage = R.drawable.blank_char
+                // If you can't find an image, use the blank image
             }
         }
     }

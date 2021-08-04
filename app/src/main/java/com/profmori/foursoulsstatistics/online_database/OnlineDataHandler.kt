@@ -147,11 +147,13 @@ class OnlineDataHandler {
             // Add it as an online group id object
         }
 
-        fun generateOnlineName(instance: GameInstance):String{
+        private fun generateOnlineName(instance: GameInstance):String{
             val obfName =  instance.playerName.toCharArray().map { c -> c.code }
                 .joinToString("")
+            // Create the obfuscated name from the player's name
 
             return instance.gameID.substring(7) + obfName
+            // Set the online id to the timecode followed by the obfuscated player
 
         }
     }

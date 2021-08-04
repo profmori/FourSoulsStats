@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 
@@ -14,7 +15,7 @@ import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharEntity
 
 
-class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val font: Typeface, val activity: CustomCardEntry) : RecyclerView.Adapter<CustomCharListAdapter.ViewHolder>() {
+class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val font: Typeface, private val activity: CustomCardEntry) : RecyclerView.Adapter<CustomCharListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -27,8 +28,9 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         // Allows the button to be accessed in code
         val line: ConstraintLayout = itemView.findViewById(R.id.customListLine)
         // Allows the line to be accessed in code
-        val dark = listItemView.resources.getDrawable(R.color.darker)
-        val light = listItemView.resources.getDrawable(R.color.lighter)
+        val dark = ContextCompat.getDrawable(listItemView.context, R.color.darker)
+        val light = ContextCompat.getDrawable(listItemView.context, R.color.lighter)
+        // Get the dark and light colours for rows
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -58,6 +60,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         val scale = 0.4F
         imageButton.scaleX = scale
         imageButton.scaleY = scale
+        // Scale the image so it's a reasonable size
 
         val line = viewHolder.line
         // Get the line of the view
@@ -66,36 +69,45 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
             0 -> line.background = viewHolder.dark
             1 -> line.background = viewHolder.light
         }
+        // Set lines to alternate colours
 
         val entry = TextHandler.capitalise(cardList[position].charName)
-
+        // Get the text entry
 
         textItem.text = entry
+        // Set the text
 
         textItem.typeface = font
         closeButton.typeface = font
-
-        imageButton.setOnClickListener {
-            activity.currentChar = position
-            activity.testButton.performClick()
-        }
+        // Set the typeface for the text and the close button
 
         closeButton.setOnClickListener {
+            // When the close button is clicked
             val newList = cardList.toMutableList()
             newList.removeAt(position)
             cardList = newList.toTypedArray()
+            // Remove the item from the card list
             notifyItemRemoved(position)
+            // Update the recycler view
         }
-
+        imageButton.setOnClickListener {
+            // When the image button is pressed
+            activity.currentChar = position
+            // Set a variable of this position in the parent
+            activity.imageChangeButton.performClick()
+            // Press and invisible button to open the image selection from the parent
+            // This is a hacky workaround but it gets the job done
+        }
     }
 
     fun getItems(): Array<CharEntity>{
         return cardList
+        // Return the list of characters
     }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return cardList.size
-        // Returns the player list size element
+        // Returns the character list size element
     }
 }

@@ -65,7 +65,9 @@
 
         android:background="@drawable/number_rectangle"
         android:textAlignment="center"
-        android:inputType="textCapCharacters"/>
+        android:inputType="textCapCharacters"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/groupIDExplanation"

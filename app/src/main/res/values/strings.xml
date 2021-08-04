@@ -86,6 +86,18 @@
 
     <string name="settings_readable_font">Use A Readable Font :</string>
 
+    <!-- Custom Card Input Screen -->
+    <string name="custom_title">Custom Cards</string>
+    <string name="custom_cancel">Cancel</string>
+    <string name="custom_characters">Custom Characters</string>
+    <string name="custom_add_character">Add Character</string>
+    <string name="custom_items">Custom Items</string>
+    <string name="custom_add_item">Add Item</string>
+    <string name="custom_back_to_settings">Back To Settings</string>
+    <string name="custom_card_x">X</string>
+    <string name="custom_character">Custom Character</string>
+    <string name="custom_item">Custom Item</string>
+
     <!-- Border / Background List -->
     <string name="character_back">Character Back</string>
     <string name="eternal_back">Eternal Back</string>
@@ -123,10 +135,8 @@
 
     <!-- Player Stats Page -->
     <string name="player_stats_title">Player Statistics</string>
-    <string name="custom_title">Custom Cards</string>
-    <string name="custom_add_char">Add Character</string>
-    <string name="custom_cancel">Cancel</string>
-    <string name="custom_add_item">Add Item</string>
+    <string name="player_stats_filter">Filter By:</string>
+
     <array name="temp_slider">
         <item>0.0</item>
         <item>3.0</item>

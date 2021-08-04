@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.profmori.foursoulsstatistics.custom_adapters.*
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
@@ -55,7 +56,7 @@ class ViewStatistics : AppCompatActivity() {
         )
         // Sets the table headers for the player table
 
-        val playerHeaderAdapter = PlayerTableHeaderAdapter (this, fonts["title"]!!, *playerHeader)
+        val playerHeaderAdapter = PlayerTableHeaderAdapter (this, fonts["title"]!!, playerHeader)
         // Creates the header adapter
         playerTable.headerAdapter = playerHeaderAdapter
         // Applies the header adapter
@@ -66,8 +67,8 @@ class ViewStatistics : AppCompatActivity() {
         playerTable.setColumnComparator(3, AdjustedSoulsComparator())
         // Allows all the columns to be sorted correctly
 
-        playerTable.setHeaderBackgroundColor(resources.getColor(R.color.dark,theme))
-        playerTable.setBackgroundColor(resources.getColor(R.color.lighter,theme))
+        playerTable.setHeaderBackgroundColor(ContextCompat.getColor(this, R.color.dark))
+        playerTable.setBackgroundColor(ContextCompat.getColor(this, R.color.lighter))
         // Sets the table to be tints so the background comes through
 
         val charTable = findViewById<SortableTableView<CharacterTable>>(R.id.characterTable)
@@ -84,12 +85,12 @@ class ViewStatistics : AppCompatActivity() {
         )
         // Sets all the header strings
 
-        val charHeaderAdapter = CharacterTableHeaderAdapter (this, fonts["title"]!!, *charHeader)
+        val charHeaderAdapter = CharacterTableHeaderAdapter (this, fonts["title"]!!, charHeader)
         // Creates the header adapter
         charTable.headerAdapter = charHeaderAdapter
 
-        charTable.setHeaderBackgroundColor(resources.getColor(R.color.dark,theme))
-        charTable.setBackgroundColor(resources.getColor(R.color.lighter,theme))
+        charTable.setHeaderBackgroundColor(ContextCompat.getColor(this, R.color.dark))
+        charTable.setBackgroundColor(ContextCompat.getColor(this, R.color.lighter))
         // Sets the table backgrounds as tints
 
         charTable.setColumnComparator(0, CharacterComparator())
@@ -107,7 +108,7 @@ class ViewStatistics : AppCompatActivity() {
         // Empty array to store player data
 
         var characterData = emptyArray<CharacterTable>()
-        // Empty array to store chraracter data
+        // Empty array to store character data
 
         var characters = emptyArray<CharEntity>()
         // Create an empty list of all characters
@@ -121,7 +122,7 @@ class ViewStatistics : AppCompatActivity() {
             // Get all players
 
             edition.forEach { characters += gameDao.getCharacterList(it) }
-            // Create a list of all cahracters in the used editions
+            // Create a list of all characters in the used editions
 
             val games = gameDao.getGames()
             // Get all games

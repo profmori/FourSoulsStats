@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
 
             android:inputType="textNoSuggestions"
-            android:hint="Custom Item"
+            android:hint="@string/custom_item"
             android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

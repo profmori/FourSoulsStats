@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.Game
@@ -67,7 +68,7 @@ class PlayerTableDataAdapter(context: Context, private val tableFont: Typeface, 
         // Centres the text
         renderedView.typeface = tableFont
         // Sets the table typeface
-        if (tableFont == context.resources.getFont(R.font.four_souls_body)) {
+        if (tableFont == ResourcesCompat.getFont(context, R.font.four_souls_body)) {
             // If it is the four souls font
             renderedView.textSize = 18f
             // Changes the text size
@@ -88,8 +89,7 @@ class PlayerTableDataAdapter(context: Context, private val tableFont: Typeface, 
     }
 }
 
-class PlayerTableHeaderAdapter(context: Context, headerFont: Typeface, vararg headers: String) : TableHeaderAdapter(context) {
-    private val headers: Array<String?> = headers as Array<String?>
+class PlayerTableHeaderAdapter(context: Context, headerFont: Typeface, private val headers: Array<String>) : TableHeaderAdapter(context) {
     private var paddingLeft = 20
     private var paddingTop = 30
     private var paddingRight = 20
@@ -101,7 +101,7 @@ class PlayerTableHeaderAdapter(context: Context, headerFont: Typeface, vararg he
 
     override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
         val textView = TextView(context)
-        textSize = if (typeface == context.resources.getFont(R.font.four_souls_title)) {
+        textSize = if (typeface == ResourcesCompat.getFont(context, R.font.four_souls_title)) {
         // If the font is the four souls font
             11
         } else{ 13 }
@@ -124,6 +124,7 @@ class PlayerComparator: Comparator<PlayerTable>{
     override fun compare(player1: PlayerTable, player2: PlayerTable): Int {
         val name1 = player1.playerName
         val name2 = player2.playerName
+        // Sort by player name
         return name1.compareTo(name2)
     }
 }
@@ -132,6 +133,7 @@ class WinrateComparator: Comparator<PlayerTable>{
     override fun compare(player1: PlayerTable, player2: PlayerTable): Int {
         val winrate1 = player1.winrate
         val winrate2 = player2.winrate
+        // Sort by player winrate
         return winrate2.compareTo(winrate1)
     }
 }
@@ -140,6 +142,7 @@ class SoulsComparator: Comparator<PlayerTable>{
     override fun compare(player1: PlayerTable, player2: PlayerTable): Int {
         val souls1 = player1.soulsAvg
         val souls2 = player2.soulsAvg
+        // Sort by player souls
         return souls2.compareTo(souls1)
     }
 }
@@ -148,6 +151,7 @@ class AdjustedSoulsComparator: Comparator<PlayerTable>{
     override fun compare(player1: PlayerTable, player2: PlayerTable): Int {
         val souls1 = player1.adjustedSouls
         val souls2 = player2.adjustedSouls
+        // SOrt by player adjusted souls
         return souls2.compareTo(souls1)
     }
 }

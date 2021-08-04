@@ -8,22 +8,30 @@ import androidx.appcompat.app.AppCompatActivity
 class ImageHandler {
 
     companion object{
-        fun returnImage(context : Context, imageName : String): Bitmap {
+        fun returnImage(context: Context, imageName: String): Bitmap {
             val filePath = "$imageName.png"
+            // Find the image save file path
             val bitmapFile = context.getFileStreamPath(filePath)
+            // Get the filestream of the image
             val bitmapBytes = bitmapFile.readBytes()
-            val bitmap = BitmapFactory.decodeByteArray(bitmapBytes,0,bitmapBytes.size)
-            return bitmap
+            // Read the data
+            return BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
+            // Return the bitmap
         }
 
         fun writeImage(context: Context, imageName: String, imageBitmap: Bitmap){
             val filePath = "$imageName.png"
+            // Find the image save file path
             val bitmapFile = context.getFileStreamPath(filePath)
+            // Get the filestream of the image
             if(!bitmapFile.exists()){
+            // if the file doesn't exist
                 bitmapFile.createNewFile()
+                // Create a blank file
             }
             context.openFileOutput(filePath,AppCompatActivity.MODE_PRIVATE).use{
                 imageBitmap.compress(Bitmap.CompressFormat.PNG,95,it)
+                // Write the compressed image
             }
         }
     }

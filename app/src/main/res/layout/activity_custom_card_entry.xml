@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="20dp"
 
-        android:text="Custom Characters"/>
+        android:text="@string/custom_characters"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customCharacters"
@@ -67,10 +67,10 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
-        android:text="Add Character"/>
+        android:text="@string/custom_add_character"/>
 
     <Button
-        android:id="@+id/test"
+        android:id="@+id/customImageChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" />
@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
 
-        android:text="Custom Items"/>
+        android:text="@string/custom_items"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customItems"
@@ -116,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
-        android:text="Add Item"/>
+        android:text="@string/custom_add_item"/>
 
     <Button
         android:id="@+id/backToSettings"
@@ -128,7 +128,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="30dp"
         android:textAllCaps="false"
-        android:text="Back To Settings"/>
+        android:text="@string/custom_back_to_settings"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

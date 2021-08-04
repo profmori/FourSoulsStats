@@ -122,6 +122,7 @@ class SettingsHandler {
                 "loot_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_loot_back)
                 "treasure_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_treasure_back)
             }
+            // Set the background
 
             when(settings["border"]){
                 "character_back" -> backgroundView.setImageResource(R.drawable.bg_border_character_back)
@@ -131,18 +132,24 @@ class SettingsHandler {
                 "soul_back" -> backgroundView.setImageResource(R.drawable.bg_border_soul_back)
                 "treasure_back" -> backgroundView.setImageResource(R.drawable.bg_border_treasure_back)
             }
+            // Set the border
 
             backgroundView.scaleType = ImageView.ScaleType.FIT_XY
+            // Make everything scale correctly
         }
         fun getBackground(context: Context): Map<String, String>{
             val settings = readSettings(context)
+            // Read the settings
             val background = setFromKey(context, settings["background"]!!)
+            // Set the background text from the key
 
             val border = setFromKey(context, settings["border"]!!)
+            // Set the foreground text from the key
 
             return mapOf(
                 "background" to background,
                 "border" to border)
+            // Return a map of the text
         }
 
         private fun setFromKey(context: Context, key: String): String{
@@ -153,12 +160,14 @@ class SettingsHandler {
                 "monster_back" -> context.resources.getString(R.string.monster_back)
                 "soul_back" -> context.resources.getString(R.string.soul_back)
                 "treasure_back" -> context.resources.getString(R.string.treasure_back)
-                else -> context. resources.getString(R.string.loot_back)
+                else -> ""
             }
+            // Use a when statement on all the possible text options
         }
 
         fun getEditions(context: Context):Array<String>{
             val settings = readSettings(context)
+            // Get the settings
             var editionArray = arrayOf("base")
             if (settings["gold"].toBoolean()){editionArray += "gold"}
             if (settings["plus"].toBoolean()){editionArray += "plus"}
@@ -166,6 +175,7 @@ class SettingsHandler {
             if (settings["warp"].toBoolean()){editionArray += "warp"}
             if (settings["promo"].toBoolean()){editionArray += "promo"}
             if (settings["custom"].toBoolean()){editionArray += "custom"}
+            // Check every setting and add the right editions
             return editionArray
         }
     }

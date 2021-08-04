@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharacterList
@@ -140,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun runTutorial(){
+    private fun runTutorial(){
 
         val config = ShowcaseConfig()
         config.delay = 100

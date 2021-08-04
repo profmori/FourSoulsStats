@@ -1,5 +1,6 @@
 package com.profmori.foursoulsstatistics.custom_adapters
 
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -23,8 +26,9 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
         // Allows the button to be accessed in code
         val line: ConstraintLayout = itemView.findViewById(R.id.customListLine)
         // Allows the line to be accessed in code
-        val dark = listItemView.resources.getDrawable(R.color.darker)
-        val light = listItemView.resources.getDrawable(R.color.lighter)
+        val dark = ContextCompat.getDrawable(listItemView.context, R.color.darker)
+        val light = ContextCompat.getDrawable(listItemView.context, R.color.lighter)
+        // Get the dark and light colours for rows
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -55,31 +59,38 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
             0 -> line.background = viewHolder.dark
             1 -> line.background = viewHolder.light
         }
+        // Set lines to alternate colours
 
         val entry = TextHandler.capitalise(cardList[position])
+        // Get the text entry
 
         textItem.text = entry
+        // Set the text
 
         textItem.typeface = font
         closeButton.typeface = font
+        // Set the typeface for the text and the close button
 
         closeButton.setOnClickListener {
+        // When the close button is clicked
             val newList = cardList.toMutableList()
             newList.removeAt(position)
             cardList = newList.toTypedArray()
+            // Remove the item from the card list
             notifyItemRemoved(position)
-
+            // Update the recycler view
         }
 
     }
 
     fun getItems(): Array<String>{
         return cardList
+        // Return the list of custom items
     }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return cardList.size
-        // Returns the player list size element
+        // Returns the card list size element
     }
 }

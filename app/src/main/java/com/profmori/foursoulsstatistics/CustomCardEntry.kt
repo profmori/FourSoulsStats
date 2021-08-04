@@ -33,19 +33,24 @@ class CustomCardEntry : AppCompatActivity() {
 
     interface ConfirmInterface {
         fun onTextEntered(text: String)
+        // Create an interface which runs an editable function
     }
 
-    lateinit var testButton: Button
+    lateinit var imageChangeButton: Button
+    // Allows the invisible test button to be set outside this class
     var currentChar = -1
+    // Sets the current character being edited to -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_card_entry)
 
         val fonts = TextHandler.setFont(this)
+        // Set the fonts
 
         val characterRecycler = findViewById<RecyclerView>(R.id.customCharacters)
         val itemRecycler = findViewById<RecyclerView>(R.id.customItems)
+        // Get the two list recycler views
 
         val title = findViewById<TextView>(R.id.customTitle)
         val charTitle = findViewById<TextView>(R.id.customCharacterTitle)
@@ -53,9 +58,11 @@ class CustomCardEntry : AppCompatActivity() {
         val itemTitle = findViewById<TextView>(R.id.customItemTitle)
         val itemButton = findViewById<Button>(R.id.customAddItem)
         val returnButton = findViewById<Button>(R.id.backToSettings)
+        // get all the used buttons
 
-        testButton = findViewById(R.id.test)
-        testButton.visibility = View.GONE
+        imageChangeButton = findViewById(R.id.customImageChange)
+        imageChangeButton.visibility = View.GONE
+        // Get and hide the image change button
 
         title.typeface = fonts["title"]
         charTitle.typeface = fonts["body"]
@@ -66,18 +73,21 @@ class CustomCardEntry : AppCompatActivity() {
         // Set all the fonts
 
         val background = findViewById<ImageView>(R.id.background)
-
         SettingsHandler.updateBackground(this, background)
+        // Set the background image
 
         val dataBase = GameDataBase.getDataBase(this)
         val gameDao = dataBase.gameDAO
+        // Access the database
 
         var charAdapter = CustomCharListAdapter(emptyArray(),fonts["body"]!!,this)
-
+        // Create the list adapter
         var charList = emptyArray<CharEntity>()
+        // Create the empty custom character list
 
         CoroutineScope(Dispatchers.IO).launch {
             charList = gameDao.getCharacterList("custom")
+            // Get the custom characters
 
             charAdapter = CustomCharListAdapter(charList, fonts["body"]!!,this@CustomCardEntry)
             // Attach the adapter to the recyclerview to populate items
@@ -93,16 +103,15 @@ class CustomCardEntry : AppCompatActivity() {
             try {
                 val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     ImageDecoder.decodeBitmap(
-                        ImageDecoder.createSource(
-                            this.contentResolver,
-                            imageURI
-                        )
+                        ImageDecoder.createSource(this.contentResolver, imageURI)
                     )
                 } else {
                     MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
                 }
+                // Get the image from the URI
 
                 ImageHandler.writeImage(this, chars[currentChar].charName, image)
+                // Store the image in local storage
 
                 chars += arrayOf(
                     CharEntity(
@@ -112,7 +121,9 @@ class CustomCardEntry : AppCompatActivity() {
                         "custom"
                     )
                 )
+                // Add the character to the end of the list
                 chars.removeAt(currentChar)
+                // Remove the old version
                 charAdapter = CustomCharListAdapter(
                     chars.toTypedArray(),
                     fonts["body"]!!,
@@ -124,8 +135,9 @@ class CustomCardEntry : AppCompatActivity() {
             }catch (e: NullPointerException) {}
         }
 
-        testButton.setOnClickListener {
+        imageChangeButton.setOnClickListener {
             getContent.launch("image/*")
+            // Launch a call of an image
         }
 
         val itemList = ItemList.readCustom(this)
@@ -155,13 +167,14 @@ class CustomCardEntry : AppCompatActivity() {
                 }
             }
             val entryDialog =
-                CustomCharDialog(this, returnInterface, fonts["body"]!!)
+                CustomCharDialog(returnInterface, fonts["body"]!!)
             entryDialog.show(supportFragmentManager, "newChar")
+            // Create and show the new character input
         }
 
         itemButton.setOnClickListener {
             var items = itemAdapter.getItems()
-            // Get the current list of characters
+            // Get the current list of items
             val returnInterface = object : ConfirmInterface{
                 override fun onTextEntered(text: String) {
                     items += arrayOf(text.lowercase().trim())
@@ -174,8 +187,9 @@ class CustomCardEntry : AppCompatActivity() {
                 }
             }
             val entryDialog =
-                CustomItemDialog(this, returnInterface, fonts["body"]!!)
+                CustomItemDialog(returnInterface, fonts["body"]!!)
             entryDialog.show(supportFragmentManager, "newItem")
+            // Create and show the new item input
         }
 
 

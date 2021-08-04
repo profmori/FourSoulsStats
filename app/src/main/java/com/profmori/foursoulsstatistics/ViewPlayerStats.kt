@@ -72,7 +72,7 @@ class ViewPlayerStats : AppCompatActivity() {
         }
     }
 
-    fun createTable(playerRange: List<Float>, treasureRange: List<Float>){
+    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>){
         val playerTable = findViewById<SortableTableView<PlayerTable>>(R.id.playerTable)
         // Finds the player stats table
 
@@ -90,7 +90,7 @@ class ViewPlayerStats : AppCompatActivity() {
         )
         // Sets the table headers for the player table
 
-        val playerHeaderAdapter = PlayerTableHeaderAdapter (this, fonts["title"]!!, *playerHeader)
+        val playerHeaderAdapter = PlayerTableHeaderAdapter (this, fonts["title"]!!, playerHeader)
         // Creates the header adapter
         playerTable.headerAdapter = playerHeaderAdapter
         // Applies the header adapter

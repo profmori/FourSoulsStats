@@ -103,6 +103,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         eternalEntry.isEnabled = false
         eternalEntry.visibility = INVISIBLE
         eternalPrompt.visibility = INVISIBLE
+        // Hide all the eternal item field
 
         updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry)
 
@@ -142,6 +143,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalPrompt,
                     eternalEntry
                 )
+                // Update the stored character
             } else {
                 updateView(
                     playerHandler,
@@ -151,6 +153,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalPrompt,
                     eternalEntry
                 )
+                // Update the image shown
             }
         }
 
@@ -187,6 +190,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     )
                     // Gives the option to add a new player
                 } else {
+                    // If an existing player was entered
                     playerHandler.playerName = input.lowercase()
                     // Update the player to store their new character
                     updateView(
@@ -197,6 +201,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                         eternalPrompt,
                         eternalEntry
                     )
+                    // Update the shown images
                 }
             } else if (hasFocus and nameAdded) {
                 // If the player list has been updated since this was first run, and this is now being focused (text entered)
@@ -208,7 +213,9 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalPrompt,
                     eternalEntry
                 )
+                // Update the shown image
                 nameAdded = false
+                // The name hasn't been added yet
             } else {
                 updateView(
                     playerHandler,
@@ -218,6 +225,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     eternalPrompt,
                     eternalEntry
                 )
+                // Update the view
             }
         }
 
@@ -247,11 +255,13 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
                     newEternal = findClosest(eternalInput, itemList)
                     // Find the closest text value
                 }
-                println(newEternal)
                 playerHandler.eternal = if (newEternal == "") {
+                    // If the new eternal is empty
                     null
+                    // The eternal is null
                 } else {
                     newEternal.lowercase()
+                    // Lowercase the input
                 }
                 // Update the player to store their new character
                 updateView(

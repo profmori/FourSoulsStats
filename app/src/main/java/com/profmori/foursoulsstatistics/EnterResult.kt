@@ -18,7 +18,6 @@ import com.profmori.foursoulsstatistics.database.GameInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.stream.IntStream.range
 
 class EnterResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +35,9 @@ class EnterResult : AppCompatActivity() {
         // Get the right font type (readable or not)
 
         var playerList = emptyArray<PlayerHandler>()
-        // Cretes the empty player handler list
+        // Creates the empty player handler list
 
-        for (i in (0 until playerNames.size)){
+        for (i in (playerNames.indices)){
         // Iterates through all players
             playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],0,false)
             // Adds the player
