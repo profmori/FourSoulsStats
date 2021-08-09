@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.custom_adapters.ResultsListAdapter
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -45,7 +46,7 @@ class EnterResult : AppCompatActivity() {
             // Updates the stored font
         }
 
-        val treasureCount = intent.getStringExtra("treasures") as String
+        val treasureCount = intent.getIntExtra("treasures",0)
         // Pull the count of treasures from the intent pass as a string
 
         val timeCode = System.currentTimeMillis()
@@ -67,11 +68,18 @@ class EnterResult : AppCompatActivity() {
         playerRecycler.layoutManager = GridLayoutManager(this, 2)
         // Lay the recycler out as a grid
 
-        val confirmResult: Button = findViewById(R.id.enterResultsButton)
+        val confirmResult = findViewById<Button>(R.id.enterResultsButton)
         // Finds the button to confirm the results
 
         val returnButton = findViewById<Button>(R.id.resultsToEntry)
         // Gets the button to return to the data entry phase
+
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
+
+        confirmResult.setBackgroundResource(buttonBG)
+        returnButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
 
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background view
@@ -119,20 +127,32 @@ class EnterResult : AppCompatActivity() {
 
         returnButton.setOnClickListener {
         // If the back button is clicked
-            finish()
-            // Just go back
+            val enterData = Intent(this,EnterData::class.java)
+            enterData.putExtra("names",playerNames)
+            enterData.putExtra("chars",charNames)
+            enterData.putExtra("images",charImages)
+            enterData.putExtra("treasures",treasureCount)
+            enterData.putExtra("eternals", eternals)
+            // Creates an extra parameter which passes data back to the data entry page
+            startActivity(enterData)
         }
-
     }
 
-    private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: String) {
+    override fun onBackPressed() {
+        val returnButton = findViewById<Button>(R.id.resultsToEntry)
+        // Get the return button
+        returnButton.performClick()
+        // Clicks the button
+    }
+
+    private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: Int) {
     // Function to save the game
         val gameDatabase: GameDataBase = GameDataBase.getDataBase(this)
         // Gets the game database
         val gameDao = gameDatabase.gameDAO
         // Gets the database access object
 
-        val game = Game(gameId, playerList.size, treasureCount.toInt(), false)
+        val game = Game(gameId, playerList.size, treasureCount, false)
         // Creates a game variable to store this game
 
         CoroutineScope(Dispatchers.IO).launch {

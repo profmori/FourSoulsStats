@@ -3,14 +3,14 @@
     android:id="@+id/customListLine"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/darker"
+    android:background="@color/dark"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/customListText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="@string/player_menu_default"
+        android:text="@string/error_placeholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/changeImageButton"
         app:layout_constraintTop_toTopOf="parent"

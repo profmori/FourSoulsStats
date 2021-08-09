@@ -72,6 +72,14 @@ class CustomCardEntry : AppCompatActivity() {
         returnButton.typeface = fonts["body"]
         // Set all the fonts
 
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
+
+        charButton.setBackgroundResource(buttonBG)
+        itemButton.setBackgroundResource(buttonBG)
+        returnButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
+
         val background = findViewById<ImageView>(R.id.background)
         SettingsHandler.updateBackground(this, background)
         // Set the background image

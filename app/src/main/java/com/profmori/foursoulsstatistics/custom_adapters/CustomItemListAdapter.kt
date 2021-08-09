@@ -1,6 +1,5 @@
 package com.profmori.foursoulsstatistics.custom_adapters
 
-import android.content.res.Resources
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -26,7 +24,7 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
         // Allows the button to be accessed in code
         val line: ConstraintLayout = itemView.findViewById(R.id.customListLine)
         // Allows the line to be accessed in code
-        val dark = ContextCompat.getDrawable(listItemView.context, R.color.darker)
+        val dark = ContextCompat.getDrawable(listItemView.context, R.color.dark)
         val light = ContextCompat.getDrawable(listItemView.context, R.color.lighter)
         // Get the dark and light colours for rows
     }

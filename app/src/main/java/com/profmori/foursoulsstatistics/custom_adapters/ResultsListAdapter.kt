@@ -1,6 +1,7 @@
 package com.profmori.foursoulsstatistics.custom_adapters
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,10 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
 
@@ -21,7 +23,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
-        val charImage: ImageView = itemView.findViewById(R.id.winCharImage)!!
+        val charImage: ImageView = itemView.findViewById(R.id.winCharImage)
         // Allows the background image to be set in code
         val itemText: TextView = itemView.findViewById(R.id.winEdenItemText)
         // Access the starting item text
@@ -31,9 +33,9 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         // Access the player name
         val soulsText: TextView = itemView.findViewById(R.id.winSoulPrompt)
         // Access the prompt to say souls
-        val soulsCount: EditText = itemView.findViewById(R.id.winSoulNumber)
+        val soulsCount: EditText = itemView.findViewById(R.id.winSoulEntry)
         // Access the player selection entry in code
-        val winnerCheck: CheckBox = itemView.findViewById(R.id.winnerCheckbox)
+        val winnerCheck: CheckBox = itemView.findViewById(R.id.winWinnerCheck)
         // Access the winner checkbox in code
     }
 
@@ -43,7 +45,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         // Gets the context of the view
         val inflater = LayoutInflater.from(context)
         // Inflate the custom layout
-        val contactView = inflater.inflate(R.layout.win_entry_layout, parent, false)
+        val contactView = inflater.inflate(R.layout.enter_result_char, parent, false)
         // Return a new holder instance
 
         return ViewHolder(contactView)
@@ -97,14 +99,14 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
             eternalText.visibility = View.INVISIBLE
         }else{
             eternalText.text = playerHandler.eternal
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 1, 11, 1, TypedValue.COMPLEX_UNIT_PT)
+            // Autoscale the eternal text
         }
 
-        if(playerEntry.typeface != fonts["body"]){
-            playerEntry.typeface = fonts["body"]
-            soulsBox.typeface = fonts["body"]
-            winnerTick.typeface = fonts["body"]
-            soulsText.typeface = fonts["body"]
-        }
+        playerEntry.typeface = fonts["body"]
+        soulsBox.typeface = fonts["body"]
+        winnerTick.typeface = fonts["body"]
+        soulsText.typeface = fonts["body"]
 
         soulsBox.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

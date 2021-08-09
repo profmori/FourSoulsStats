@@ -28,7 +28,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         // Allows the button to be accessed in code
         val line: ConstraintLayout = itemView.findViewById(R.id.customListLine)
         // Allows the line to be accessed in code
-        val dark = ContextCompat.getDrawable(listItemView.context, R.color.darker)
+        val dark = ContextCompat.getDrawable(listItemView.context, R.color.dark)
         val light = ContextCompat.getDrawable(listItemView.context, R.color.lighter)
         // Get the dark and light colours for rows
     }

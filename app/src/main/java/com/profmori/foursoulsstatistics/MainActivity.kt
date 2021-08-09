@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharacterList
@@ -108,15 +109,26 @@ class MainActivity : AppCompatActivity() {
         issuesButton.typeface = fonts["body"]
         // Update the fonts
 
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
+
+        dataButton.setBackgroundResource(buttonBG)
+        statsButton.setBackgroundResource(buttonBG)
+        settingsButton.setBackgroundResource(buttonBG)
+        thanksButton.setBackgroundResource(buttonBG)
+        issuesButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
+
         dataButton.setOnClickListener {
             val goToData = Intent(this, EnterData::class.java)
             startActivity(goToData)
         }
 
         statsButton.setOnClickListener {
-            val goToStats = Intent(this, ViewStatistics::class.java)
+            //val goToStats = Intent(this, ViewStatistics::class.java)
+            val goToStats = Intent(this, EditGames::class.java)
             // val goToStats = Intent(this, ViewPlayerStats::class.java)
-            // Temp line for testing
+            // Temp lines for testing
             startActivity(goToStats)
         }
 

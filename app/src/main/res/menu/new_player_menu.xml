@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/addName"
-        android:title="@string/player_menu_default" />
+        android:title="@string/error_placeholder" />
 </menu>

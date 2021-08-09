@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@id/thanksBackgrounds"
 
         android:text="@string/thanks_fonts"
-        android:textColorLink="@color/purple_500"/>
+        android:textColorLink="@color/grey"/>
 
     <TextView
         android:id="@+id/thanksBackgrounds"
@@ -61,7 +61,7 @@
         app:layout_constraintBottom_toTopOf="@id/thanksFriends"
 
         android:text="@string/thanks_backgrounds"
-        android:textColorLink="@color/purple_500"/>
+        android:textColorLink="@color/grey"/>
 
     <TextView
         android:id="@+id/thanksFriends"
@@ -77,7 +77,7 @@
 
         android:text="@string/thanks_friends" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/thanksMainButton"
 
         android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
-        android:text="@string/back_to_main"/>
+        android:text="@string/back_to_main_1"/>
 
 
 

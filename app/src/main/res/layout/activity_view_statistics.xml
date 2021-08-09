@@ -43,7 +43,7 @@
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="35dp"
 
-        android:divider="@color/dark"
+        android:divider="@color/darker"
         android:dividerHeight="1dp" />
 
     <View
@@ -79,10 +79,10 @@
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="35dp"
 
-        android:divider="@color/dark"
+        android:divider="@color/darker"
         android:dividerHeight="1dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/statsBackButton"
 
         android:layout_width="wrap_content"
@@ -93,6 +93,6 @@
         android:layout_margin="30dp"
 
         android:textAllCaps="false"
-        android:text="@string/back_to_main"/>
+        android:text="@string/back_to_main_1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

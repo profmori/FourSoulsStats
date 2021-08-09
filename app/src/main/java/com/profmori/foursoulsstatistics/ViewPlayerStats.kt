@@ -102,7 +102,7 @@ class ViewPlayerStats : AppCompatActivity() {
         // Allows all the columns to be sorted correctly
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            playerTable.setHeaderBackgroundColor(resources.getColor(R.color.dark,theme))
+            playerTable.setHeaderBackgroundColor(resources.getColor(R.color.darker,theme))
             playerTable.setBackgroundColor(resources.getColor(R.color.lighter,theme))
             // Sets the table to be tints so the background comes through
         }

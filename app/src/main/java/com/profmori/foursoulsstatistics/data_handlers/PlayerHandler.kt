@@ -1,7 +1,12 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
 import android.graphics.Typeface
+import android.view.View
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.TextView
 import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
 import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.Player
 import java.util.*

@@ -39,11 +39,13 @@
         android:textAlignment="center"
         android:textSize="30sp"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainData"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:background="@drawable/button_event"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/mainStats"
@@ -54,7 +56,7 @@
         android:textAllCaps="false"
         android:text="@string/main_enter_data"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainStats"
 
         android:layout_width="wrap_content"
@@ -66,7 +68,7 @@
         android:textAllCaps="false"
         android:text="@string/main_stats_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainSettings"
 
         android:layout_width="wrap_content"
@@ -80,11 +82,13 @@
         android:textAllCaps="false"
         android:text="@string/main_settings_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainThanks"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
+        android:background="@drawable/button_event"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/mainReport"
@@ -94,7 +98,7 @@
         android:textAllCaps="false"
         android:text="@string/main_thanks_button"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainReport"
 
         android:layout_width="wrap_content"

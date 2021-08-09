@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.profmori.foursoulsstatistics.custom_adapters.*
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.*
@@ -33,9 +34,16 @@ class ViewStatistics : AppCompatActivity() {
         val returnButton = findViewById<Button>(R.id.statsBackButton)
         // Gets the back button
 
-        val background = findViewById<ImageView>(R.id.background)
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
 
+        returnButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
+
+        val background = findViewById<ImageView>(R.id.background)
+        // Get the background image view
         SettingsHandler.updateBackground(this, background)
+        // Update the background
 
         playerTitle.typeface = fonts["body"]
         charTitle.typeface = fonts["body"]
@@ -67,7 +75,7 @@ class ViewStatistics : AppCompatActivity() {
         playerTable.setColumnComparator(3, AdjustedSoulsComparator())
         // Allows all the columns to be sorted correctly
 
-        playerTable.setHeaderBackgroundColor(ContextCompat.getColor(this, R.color.dark))
+        playerTable.setHeaderBackgroundColor(ContextCompat.getColor(this, R.color.darker))
         playerTable.setBackgroundColor(ContextCompat.getColor(this, R.color.lighter))
         // Sets the table to be tints so the background comes through
 
@@ -89,7 +97,7 @@ class ViewStatistics : AppCompatActivity() {
         // Creates the header adapter
         charTable.headerAdapter = charHeaderAdapter
 
-        charTable.setHeaderBackgroundColor(ContextCompat.getColor(this, R.color.dark))
+        charTable.setHeaderBackgroundColor(ContextCompat.getColor(this, R.color.darker))
         charTable.setBackgroundColor(ContextCompat.getColor(this, R.color.lighter))
         // Sets the table backgrounds as tints
 

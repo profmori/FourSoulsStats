@@ -36,16 +36,20 @@
 
     <TextView
         android:id="@+id/winEdenItem"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+
+        android:layout_width="144dp"
+        android:layout_height="15dp"
         app:layout_constraintTop_toTopOf="@id/winCharImage"
         app:layout_constraintBottom_toBottomOf="@id/winCharImage"
-        app:layout_constraintVertical_bias="0.91"
+        app:layout_constraintVertical_bias="0.92"
         app:layout_constraintStart_toStartOf="@id/winCharImage"
         app:layout_constraintEnd_toEndOf="@id/winCharImage"
+        android:layout_marginHorizontal="30dp"
 
         android:textSize="15sp"
-        android:fontFamily="@font/four_souls_body"/>
+        android:fontFamily="@font/four_souls_body"
+        android:textAlignment="center"/>
+
     <TextView
         android:id="@+id/winPlayerName"
 
@@ -58,7 +62,7 @@
         android:text="@string/win_card_player"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/winSoulEntry"
+        android:id="@+id/winSoulLine"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,10 +81,10 @@
             android:text="@string/win_card_souls"/>
 
         <EditText
-            android:id="@+id/winSoulNumber"
+            android:id="@+id/winSoulEntry"
 
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="22dp"
             app:layout_constraintStart_toEndOf="@id/winSoulPrompt"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="10dp"
@@ -88,7 +92,7 @@
             android:background="@drawable/number_rectangle"
 
             android:text="@string/win_card_default_souls"
-            android:labelFor="@id/winSoulNumber"
+            android:labelFor="@id/winSoulEntry"
             android:importantForAutofill="no"
             android:ems="2"
             android:inputType="number"
@@ -98,13 +102,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CheckBox
-            android:id="@+id/winnerCheckbox"
+            android:id="@+id/winWinnerCheck"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/winCharImage"
             app:layout_constraintEnd_toEndOf="@id/winCharImage"
-            app:layout_constraintTop_toBottomOf="@id/winSoulEntry"
+            app:layout_constraintTop_toBottomOf="@id/winSoulLine"
 
             android:layoutDirection="rtl"
             android:buttonTint="@color/black"

@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.custom_adapters.CharListAdapter
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -20,6 +21,7 @@ import com.profmori.foursoulsstatistics.database.GameDAO
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.database.Player
 import kotlinx.coroutines.launch
+import java.lang.NullPointerException
 
 class EnterData : AppCompatActivity() {
 
@@ -39,36 +41,64 @@ class EnterData : AppCompatActivity() {
         setContentView(R.layout.activity_enter_data)
         // Set the layout for the data page
 
-        val charRecycler = findViewById<RecyclerView>(R.id.playerList)
+        var fromResults = true
+        var playerNames = emptyArray<String>()
+        var charNames = emptyArray<String>()
+        var charImages = intArrayOf()
+        var eternals = emptyArray<String?>()
+
+        try {
+            playerNames = intent.getStringArrayExtra("names") as Array<String>
+            charNames = intent.getStringArrayExtra("chars") as Array<String>
+            charImages = intent.getIntArrayExtra("images") as IntArray
+            eternals = intent.getStringArrayExtra("eternals") as Array<String?>
+            // Get feedback from results if it exists
+        }catch (e: NullPointerException){
+            fromResults = false
+        }
+
+        val charRecycler = findViewById<RecyclerView>(R.id.inputCharList)
         // Find the recycler view
 
-        val playerNo = findViewById<EditText>(R.id.playerNumber)
+        val playerNo = findViewById<EditText>(R.id.inputPlayerNumber)
         // Get the player number input box
 
-        val playerPrompt = findViewById<TextView>(R.id.playerPrompt)
+        val playerPrompt = findViewById<TextView>(R.id.inputPlayerPrompt)
 
-        val treasureNo = findViewById<EditText>(R.id.treasureNumber)
+        val treasureNo = findViewById<EditText>(R.id.inputTreasureNumber)
         // Get the treasure number input box
 
-        val treasurePrompt = findViewById<TextView>(R.id.treasurePrompt)
+        val treasurePrompt = findViewById<TextView>(R.id.inputTreasurePrompt)
         // Gets the treasure prompt
 
         val titleView = findViewById<TextView>(R.id.inputTitle)
         // Gets the title
 
-        var gameTreasures = treasureNo.text.toString()
+        var gameTreasures = treasureNo.text.toString().toInt()
+        // Get the number of treasures
 
         var playerCount = playerNo.text.toString().toInt()
         // Get the number of players in the game from the player number
 
-        val continueButton = findViewById<Button>(R.id.inputContinueButton)
+        val continueButton = findViewById<Button>(R.id.inputGameResults)
         // Gets the button to continue
 
         val returnButton = findViewById<Button>(R.id.inputToMain)
         // Gets the button to return to the main menu
 
-        var playerHandlerList = PlayerHandler.makePlayerList(playerCount)
-        // Create adapter passing in the number of players
+        var playerHandlerList = emptyArray<PlayerHandler>()
+
+        if (fromResults){
+        // If data has been input
+            for (i in (playerNames.indices)){
+                // Iterates through all players
+                playerHandlerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],0,false)
+                // Adds the player
+            }
+        }else{
+            playerHandlerList = PlayerHandler.makePlayerList(playerCount)
+            // Create adapter passing in the number of players
+        }
 
         val background = findViewById<ImageView>(R.id.background)
 
@@ -122,6 +152,13 @@ class EnterData : AppCompatActivity() {
         returnButton.typeface = fonts["body"]
         // Update the fonts
 
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
+
+        continueButton.setBackgroundResource(buttonBG)
+        returnButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
+
         playerNo.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
@@ -154,9 +191,9 @@ class EnterData : AppCompatActivity() {
                         // If the user tries to input something invalid
                         playerCount = 2
                         // Set the player count to 1
-                        playerNo.setText(playerCount.toString())
-                        // Rewrite the text field to show this
                     }
+                    playerNo.setText(playerCount.toString())
+                    // Rewrite the text field to show this
                     playerHandlerList = PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
                     // Makes a player list based on the number of players
                     adapter = CharListAdapter(playerHandlerList)
@@ -191,11 +228,11 @@ class EnterData : AppCompatActivity() {
             // After the number of treasures has been input
                 if (treasureNo.text.toString() == "") {
                 // If the field is blank
-                    treasureNo.setText(gameTreasures)
+                    treasureNo.setText(gameTreasures.toString())
                     // Set the field to the existing number of treasures
                 }
                 else{
-                    gameTreasures = treasureNo.text.toString()
+                    gameTreasures = treasureNo.text.toString().toInt()
                     // Otherwise store the new number of treasures
                 }
             }
@@ -227,7 +264,7 @@ class EnterData : AppCompatActivity() {
         // Clicks the button
     }
 
-    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: String){
+    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int){
         var moveOn = true
         // Say you can move on
         for (p in playerHandlerList) {

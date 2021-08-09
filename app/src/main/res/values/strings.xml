@@ -1,17 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Overall App Information -->
-    <string name="app_name" translatable="false">Four Souls Stats</string>
-
-    <!-- Main Page -->
-    <string name="main_title" translatable="false">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
-    <string name="main_stats_button" translatable="false">View \n Statistics</string>
-    <string name="main_enter_data" translatable="false">Enter \n Game Data</string>
-    <string name="main_settings_button" translatable="false">App \n Settings</string>
-    <string name="main_thanks_button">Thanks</string>
-    <string name="main_error_button">Issues /\n Suggestions</string>
+    <string name="app_name">Four Souls Stats</string>
 
     <!-- Common Strings -->
-    <string name="back_to_main">Return to \n Main Menu</string>
+    <string name="error_placeholder">If You Are Seeing This, There\'s A Bug</string>
+    <string name="back_to_main_1">Return to Main Menu</string>
+    <string name="back_to_main_2">Return to \n Main Menu</string>
+    <array name="temp_slider">
+        <item>0.0</item>
+        <item>3.0</item>
+    </array>
+
+    <!-- Main Page -->
+    <string name="main_title">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
+    <string name="main_stats_button">View \n Statistics</string>
+    <string name="main_enter_data">Enter \n Game Data</string>
+    <string name="main_settings_button">App \n Settings</string>
+    <string name="main_thanks_button">Thanks</string>
+    <string name="main_error_button">Issues /\n Suggestions</string>
 
     <!-- Data Input Page -->
     <string name="input_title">Input Game Data</string>
@@ -27,7 +33,6 @@
     <string name="input_card_content_desc">Character Card</string>
     <string name="input_card_player_title">Player:</string>
     <string name="input_card_eternal_title">Eternal:</string>
-    <string name="player_menu_default">If You Are Seeing This, There\'s A Bug</string>
     <string name="add_player_1">Add</string>
     <string name="add_player_2">To Player List</string>
 
@@ -74,10 +79,10 @@
     <string name="settings_plus">Four Souls+ :</string>
     <string name="settings_requiem">Requiem :</string>
     <string name="settings_warp">Warp Zones :</string>
-    <string name="settings_promo">Promo Cards</string>
+    <string name="settings_promo">Promo :</string>
 
-    <string name="settings_custom">Custom Cards</string>
-    <string name="settings_enter_custom">Add \n Cards</string>
+    <string name="settings_custom">Custom :</string>
+    <string name="settings_enter_custom">Add Custom Cards</string>
 
     <string name="settings_alt_art">Use Character Alt Art :</string>
 
@@ -109,7 +114,7 @@
     <!-- Thanks Screen -->
     <string name="thanks_title" tools:ignore="TypographyEllipsis">Thanks To ...</string>
     <string name="thanks_fonts">Four Souls fonts (font-souls) created by <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a></string>
-    <string name="thanks_backgrounds">Backgrounds and blank character card from images created by
+    <string name="thanks_backgrounds">Backgrounds, buttons and blank character card from images created by
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
             u/Koretex_</a> for the Four Souls Reddit</string>
     <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me.
@@ -137,8 +142,13 @@
     <string name="player_stats_title">Player Statistics</string>
     <string name="player_stats_filter">Filter By:</string>
 
-    <array name="temp_slider">
-        <item>0.0</item>
-        <item>3.0</item>
-    </array>
+    <!-- Game Editing Pages -->
+    <string name="edit_title">Edit / Remove Games</string>
+    <string name="edit_select_game">Select A Game To Edit:</string>
+
+    <!-- Game Editing / Removal Page -->
+    <string name="adjust_title">Edit Game</string>
+    <string name="adjust_submit">Submit Change</string>
+    <string name="adjust_delete">Delete Game</string>
+
 </resources>

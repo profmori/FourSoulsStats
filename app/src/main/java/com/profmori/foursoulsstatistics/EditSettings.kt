@@ -19,6 +19,7 @@ import com.profmori.foursoulsstatistics.database.CharacterList
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import com.google.android.material.snackbar.Snackbar
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -149,8 +150,16 @@ class EditSettings : AppCompatActivity() {
         // Get the title
 
         val backgroundImage = findViewById<ImageView>(R.id.background)
-
+        // Get the background image
         SettingsHandler.updateBackground(this, backgroundImage)
+        // Update it
+
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
+
+        customButton.setBackgroundResource(buttonBG)
+        returnButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
 
         updateFonts(titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, gold,
             plus, requiem, warp, promo, custom, customButton, altArt, borderText, borderSpinner,

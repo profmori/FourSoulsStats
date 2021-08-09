@@ -87,7 +87,7 @@
         android:layout_marginVertical="30dp"
         android:layout_marginHorizontal="35dp"
 
-        android:divider="@color/dark"
+        android:divider="@color/darker"
         android:dividerHeight="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

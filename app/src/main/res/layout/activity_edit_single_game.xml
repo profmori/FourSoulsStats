@@ -2,12 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/inputContainer"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".EnterData">
+    tools:context=".EditSingleGame">
 
     <ImageView
         android:id="@+id/background"
@@ -31,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="30dp"
 
-        android:text="@string/input_title"
+        android:text="@string/adjust_title"
         android:fontFamily="@font/four_souls_title"
         android:textSize="30sp" />
 
@@ -57,7 +54,7 @@
             android:text="@string/input_no_players" />
 
         <EditText
-            android:id="@+id/inputPlayerNumber"
+            android:id="@+id/adjustPlayerNumber"
 
             android:layout_width="wrap_content"
             android:layout_height="22dp"
@@ -70,7 +67,7 @@
             android:background="@drawable/number_rectangle"
 
             android:text="@string/input_default_players"
-            android:labelFor="@id/inputPlayerNumber"
+            android:labelFor="@id/adjustPlayerNumber"
             android:importantForAutofill="no"
             android:ems="2"
             android:inputType="number"
@@ -127,45 +124,37 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/inputTreasureLine"
-        app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
+        app:layout_constraintBottom_toTopOf="@id/inputGameResults"
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="30dp">
     </androidx.recyclerview.widget.RecyclerView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/inputButtonBar"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/inputToMain"
 
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/inputGameResults"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="30dp"
+            android:layout_marginStart="35dp"
 
             android:textAllCaps="false"
-            android:text="@string/back_to_main_2"/>
+            android:text="@string/adjust_submit"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/inputGameResults"
 
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/inputToMain"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginVertical="30dp"
+            android:layout_marginEnd="35dp"
 
             android:textAllCaps="false"
-            android:text="@string/input_continue_button"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="@string/adjust_delete"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

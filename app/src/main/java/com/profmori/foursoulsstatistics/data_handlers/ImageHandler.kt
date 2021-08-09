@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
+import com.profmori.foursoulsstatistics.R
 
 class ImageHandler {
 
@@ -33,6 +34,16 @@ class ImageHandler {
                 imageBitmap.compress(Bitmap.CompressFormat.PNG,95,it)
                 // Write the compressed image
             }
+        }
+
+        fun setButtonImage():Int{
+            val backgroundList = arrayOf(
+                R.drawable.button_event,
+                R.drawable.button_item,
+                R.drawable.button_loot
+            )
+            val randPos = (backgroundList.indices).random()
+            return backgroundList[randPos]
         }
     }
 }

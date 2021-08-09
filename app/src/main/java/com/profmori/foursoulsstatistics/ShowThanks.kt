@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
@@ -22,6 +23,11 @@ class ShowThanks : AppCompatActivity() {
         val thanksFriends = findViewById<TextView>(R.id.thanksFriends)
         // Get all the main elements
 
+        val buttonBG = ImageHandler.setButtonImage()
+        // Get a random button from the possible options
+
+        returnButton.setBackgroundResource(buttonBG)
+        // Set all the buttons to the same background
 
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image view
