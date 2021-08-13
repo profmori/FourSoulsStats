@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 
@@ -54,6 +55,8 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         val closeButton = viewHolder.closeButton
         // Get the close button
 
+        closeButton.typeface = ResourcesCompat.getFont(textItem.context, R.font.four_souls_title)!!
+
         val imageButton = viewHolder.imageButton
         // Get the image selection button
 
@@ -78,8 +81,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         // Set the text
 
         textItem.typeface = font
-        closeButton.typeface = font
-        // Set the typeface for the text and the close button
+        // Set the typeface for the text
 
         closeButton.setOnClickListener {
             // When the close button is clicked
@@ -88,6 +90,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
             cardList = newList.toTypedArray()
             // Remove the item from the card list
             notifyItemRemoved(position)
+            notifyItemRangeChanged(position,cardList.size)
             // Update the recycler view
         }
         imageButton.setOnClickListener {

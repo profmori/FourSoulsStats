@@ -18,8 +18,26 @@
         android:scaleType="fitXY"
         tools:ignore="ContentDescription" />
 
+    <Button
+        android:id="@+id/adjustExitButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="@id/adjustTitle"
+        app:layout_constraintBottom_toBottomOf="@id/adjustTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"
+
+        android:padding="0dp"
+        android:background="@color/clear"
+
+        android:text="@string/common_x"
+        android:fontFamily="@font/four_souls_title"
+        android:textColor="@color/black"/>
+
     <TextView
-        android:id="@+id/inputTitle"
+        android:id="@+id/adjustTitle"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,14 +51,14 @@
         android:textSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/inputPlayerLine"
+        android:id="@+id/adjustPlayerLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/inputTitle"
+        app:layout_constraintTop_toBottomOf="@id/adjustTitle"
         android:layout_margin="10dp">
 
         <TextView
-            android:id="@+id/inputPlayerPrompt"
+            android:id="@+id/adjustPlayerPrompt"
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -58,7 +76,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="22dp"
-            app:layout_constraintStart_toEndOf="@id/inputPlayerPrompt"
+            app:layout_constraintStart_toEndOf="@id/adjustPlayerPrompt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintTop_toTopOf="parent"
@@ -77,14 +95,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/inputTreasureLine"
+        android:id="@+id/adjustTreasureLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/inputPlayerLine"
+        app:layout_constraintTop_toBottomOf="@id/adjustPlayerLine"
         android:layout_margin="10dp">
 
         <TextView
-            android:id="@+id/inputTreasurePrompt"
+            android:id="@+id/adjustTreasurePrompt"
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -97,14 +115,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/inputTreasureNumber"
+            android:id="@+id/adjustTreasureNumber"
 
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@id/inputTreasurePrompt"
+            app:layout_constraintStart_toEndOf="@id/adjustTreasurePrompt"
             app:layout_constraintTop_toTopOf="parent"
 
             android:background="@drawable/number_rectangle"
@@ -120,38 +138,38 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/inputCharList"
+        android:id="@+id/adjustCharList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/inputTreasureLine"
-        app:layout_constraintBottom_toTopOf="@id/inputGameResults"
+        app:layout_constraintTop_toBottomOf="@+id/adjustTreasureLine"
+        app:layout_constraintBottom_toTopOf="@id/adjustDeleteGame"
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="30dp">
     </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/inputToMain"
+            android:id="@+id/adjustSubmit"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/inputGameResults"
+            app:layout_constraintEnd_toStartOf="@id/adjustDeleteGame"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginVertical="30dp"
+            android:layout_marginVertical="35dp"
             android:layout_marginStart="35dp"
 
             android:textAllCaps="false"
             android:text="@string/adjust_submit"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/inputGameResults"
+            android:id="@+id/adjustDeleteGame"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/inputToMain"
+            app:layout_constraintTop_toTopOf="@id/adjustSubmit"
+            app:layout_constraintBottom_toBottomOf="@id/adjustSubmit"
+            app:layout_constraintStart_toEndOf="@id/adjustSubmit"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginVertical="30dp"
             android:layout_marginEnd="35dp"
 
             android:textAllCaps="false"

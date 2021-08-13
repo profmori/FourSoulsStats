@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
@@ -63,11 +64,13 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         val background = viewHolder.charImage
         // Get the background image
 
-        val charImage = playerHandler.charImage
-        // Select the character image
-
-        background.setImageResource(charImage)
-        // Set the image to the stored player
+        if (playerHandler.charImage > -1) {
+            background.setImageResource(playerHandler.charImage)
+            // Set the image to the stored player image
+        }else{
+            background.setImageBitmap(ImageHandler.returnImage(background.context, playerHandler.charName))
+            // Set the image to a custom bitmap
+        }
 
         val playerEntry = viewHolder.playerName
         // Gets the character entry input box

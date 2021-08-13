@@ -1,16 +1,16 @@
 package com.profmori.foursoulsstatistics.custom_adapters
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Typeface
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.profmori.foursoulsstatistics.R
 
-class ChangeGroupDialog(private val groupEntry: EditText, private val oldID: String, private val font: Typeface): DialogFragment() {
+class ExitGameEdit(val parent: Activity, val font: Typeface): DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -19,20 +19,20 @@ class ChangeGroupDialog(private val groupEntry: EditText, private val oldID: Str
             // Create the dialog
             val titleText = TextView(context)
             // Create the title text object
-            titleText.setText(R.string.settings_overwrite_data)
+            titleText.setText(R.string.adjust_confirm_exit)
             titleText.typeface = font
             // Set the title text and font
             //titleText.textSize = 20f
             builder.setCustomTitle(titleText)
-                .setPositiveButton(R.string.settings_confirm_overwrite){ _, _ ->
+                .setPositiveButton(R.string.adjust_ignore_changes){ _, _ ->
+                    parent.finish()
+                }
+                // When you click ignore changes
+                .setNegativeButton(R.string.adjust_cancel_exit
+                ) { _, _ ->
                     dismiss()
                 }
-                // When you click change just close the dialog
-                .setNegativeButton(R.string.settings_cancel_overwrite
-                ) { _, _ ->
-                    groupEntry.setText(oldID)
-                }
-                // When you click the reset button set it to the old id
+                // When you click the cancel button do nothing
             val dialog = builder.create()
             // Create the AlertDialog object and return it
 

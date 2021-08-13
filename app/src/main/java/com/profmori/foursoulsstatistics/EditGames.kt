@@ -1,5 +1,6 @@
 package com.profmori.foursoulsstatistics
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -57,6 +58,11 @@ class EditGames : AppCompatActivity() {
         gameList.layoutManager = LinearLayoutManager(this@EditGames)
         // Lay it out as a list
 
+        returnButton.setOnClickListener {
+            val backToMain = Intent(this, MainActivity::class.java)
+            startActivity(backToMain)
+        }
+
         val gameDatabase = GameDataBase.getDataBase(this)
         // Get the database instance
         val gameDao = gameDatabase.gameDAO
@@ -75,5 +81,12 @@ class EditGames : AppCompatActivity() {
             gameList.layoutManager = LinearLayoutManager(this@EditGames)
             // Lay it out as a list
         }
+    }
+
+    override fun onBackPressed() {
+        // When the back button is pressed
+        val returnButton = findViewById<Button>(R.id.editBackButton)
+        returnButton.performClick()
+        // Press the return button
     }
 }

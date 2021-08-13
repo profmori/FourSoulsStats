@@ -130,13 +130,6 @@ class EditSettings : AppCompatActivity() {
             // Gets the existing ids in the online database
         }
 
-        if (!currentSettings["online"].toBoolean()) {
-            groupPrompt.visibility = View.GONE
-            groupEntry.visibility = View.GONE
-            groupExplain.visibility = View.GONE
-            // If the player is not uploading hide the  group id entry
-        }
-
         if(!currentSettings["custom"].toBoolean()){
             customButton.visibility = View.GONE
         }
@@ -215,22 +208,6 @@ class EditSettings : AppCompatActivity() {
             // Change all the fonts
         }
 
-        online.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // If the online switch is showing
-                groupPrompt.visibility = View.VISIBLE
-                groupEntry.visibility = View.VISIBLE
-                groupExplain.visibility = View.VISIBLE
-                // Make all prompts visible
-            } else {
-                // If the switch is off
-                groupPrompt.visibility = View.GONE
-                groupEntry.visibility = View.GONE
-                groupExplain.visibility = View.GONE
-                // Hide all prompts, and ignore the space
-            }
-        }
-
         custom.setOnCheckedChangeListener{_, isChecked ->
             if (isChecked) {customButton.visibility = View.VISIBLE}
             // Show the custom entry button if custom cards are enabled
@@ -261,12 +238,9 @@ class EditSettings : AppCompatActivity() {
                 val dataBase = GameDataBase.getDataBase(this)
                 val gameDao = dataBase.gameDAO
                 CoroutineScope(Dispatchers.IO).launch {
-                    dataBase.clearAllTables()
-                    for (char in CharacterList.charList) {
-                        // Iterates through the characters
-                        gameDao.updateCharacter(char)
-                        // Add the character, replacing existing versions
-                    }
+                    gameDao.clearGames()
+                    gameDao.clearGameInstances()
+                    // Clear existing data which will be replaced in the main thread
                 }
             }
             val backToMain = Intent(this, MainActivity::class.java)

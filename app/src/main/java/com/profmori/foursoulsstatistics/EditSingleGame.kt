@@ -5,25 +5,27 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.profmori.foursoulsstatistics.custom_adapters.DeleteGameEdit
 import com.profmori.foursoulsstatistics.custom_adapters.EditGameAdapter
+import com.profmori.foursoulsstatistics.custom_adapters.ExitGameEdit
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharEntity
+import com.profmori.foursoulsstatistics.database.Game
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.database.GameInstance
+import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class EditSingleGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +38,14 @@ class EditSingleGame : AppCompatActivity() {
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not)
 
-        val titleText = findViewById<TextView>(R.id.inputTitle)
-        val playerPrompt = findViewById<TextView>(R.id.inputPlayerPrompt)
+        val titleText = findViewById<TextView>(R.id.adjustTitle)
+        val playerPrompt = findViewById<TextView>(R.id.adjustPlayerPrompt)
         val playerNo = findViewById<EditText>(R.id.adjustPlayerNumber)
-        val treasurePrompt = findViewById<TextView>(R.id.inputTreasurePrompt)
-        val treasureNo = findViewById<EditText>(R.id.inputTreasureNumber)
-        val submitButton = findViewById<Button>(R.id.inputToMain)
-        val deleteButton = findViewById<Button>(R.id.inputGameResults)
+        val treasurePrompt = findViewById<TextView>(R.id.adjustTreasurePrompt)
+        val treasureNo = findViewById<EditText>(R.id.adjustTreasureNumber)
+        val submitButton = findViewById<Button>(R.id.adjustSubmit)
+        val deleteButton = findViewById<Button>(R.id.adjustDeleteGame)
+        val exitButton = findViewById<Button>(R.id.adjustExitButton)
         // Get all the text based elements
 
         titleText.typeface = fonts["title"]
@@ -70,11 +73,12 @@ class EditSingleGame : AppCompatActivity() {
         val gameDao = gameDatabase.gameDAO
         // Gets the database access object
 
-        val playerRecycler = findViewById<RecyclerView>(R.id.inputCharList)
+        val playerRecycler = findViewById<RecyclerView>(R.id.adjustCharList)
         // Find the recycler view
 
         val edition = SettingsHandler.getEditions(this)
         val altArt = SettingsHandler.readSettings(this)["alt_art"].toBoolean()
+        val online = SettingsHandler.readSettings(this)["online"].toBoolean()
 
         var playerAdapter = EditGameAdapter(emptyArray())
         // Create an empty adapter for the results list
@@ -82,6 +86,10 @@ class EditSingleGame : AppCompatActivity() {
         // Lay the recycler out as a grid
         playerRecycler.adapter = playerAdapter
         // Attach the adapter to the player recycler
+
+
+        var playerHandlerList = emptyArray<PlayerHandler>()
+        // Creates the empty player handler list
 
         CoroutineScope(Dispatchers.IO).launch{
             val game = gameDao.getGame(gameID!!)
@@ -104,13 +112,12 @@ class EditSingleGame : AppCompatActivity() {
             val gameInstances = gameDao.getGameWithInstance(gameID)
             // Get the game instance
             var currResults = emptyArray<GameInstance>()
+            // Create 2 lists for the current and original results
             gameInstances.forEach {
                 currResults += it.gameInstances.toTypedArray()
             }
             // Get the list of all instances
 
-            var playerHandlerList = emptyArray<PlayerHandler>()
-            // Creates the empty player handler list
             val playerList = gameDao.getPlayers()
             // Get the full list of players
 
@@ -235,9 +242,132 @@ class EditSingleGame : AppCompatActivity() {
                         // Clear the text field
                     }
                 }
+
+                exitButton.setOnClickListener {
+                    if(checkSame(currResults, playerHandlerList)
+                        and (game.treasureNo == treasureNo.text.toString().toInt())){
+                    // If the player data and treasure number hasn't changed
+                        finish()
+                        // Go back to the page before
+                    }else{
+                        val exitDialog =
+                            ExitGameEdit(this@EditSingleGame, fonts["body"]!!)
+                        exitDialog.show(supportFragmentManager, "exitGame")
+                        // Create and show the confirmation to exit the editing
+                    }
+                }
+
+                submitButton.setOnClickListener{
+                    val players = playerHandlerList.map{player -> player.playerName}
+                    val chars = playerHandlerList.map{player -> player.charName}
+                    val winners = playerHandlerList.map { player -> player.winner }
+                    if ((Collections.frequency(winners,true) == 1)
+                        and (!players.contains(""))
+                        and (!chars.contains(""))
+                            ) {
+                        // If there is exactly one winner and all data is entered
+                        if (!checkSame(currResults, playerHandlerList)
+                            or (game.treasureNo != treasureNo.text.toString().toInt())
+                        ) {
+                            // If the data has been changed
+                            CoroutineScope(Dispatchers.IO).launch {
+                                gameDao.clearSingleGame(gameID)
+                                gameDao.clearSingleGameInstance(gameID)
+                                // Clear the old versions of the data
+                                val newGame = Game(
+                                    gameID,
+                                    playerNo.text.toString().toInt(),
+                                    treasureNo.text.toString().toInt(),
+                                    game.uploaded
+                                )
+                                // Create a new game with the new data
+                                gameDao.addGame(newGame)
+                                // Add the new game
+                                if (online) {
+                                    OnlineDataHandler.deleteOnlineGameInstances(gameID)
+                                }
+                                // Delete any online games if online connectivity is enabled
+                                playerHandlerList.forEach {
+                                    // For all the players in the player list
+                                    val newGameInstance = GameInstance(
+                                        0,
+                                        gameID,
+                                        it.playerName,
+                                        it.charName,
+                                        it.eternal,
+                                        it.soulsNum,
+                                        it.winner
+                                    )
+                                    // Create the new game instance
+                                    gameDao.addGameInstance(newGameInstance)
+                                    // Add the game instance to the database
+                                    if (online) {
+                                        OnlineDataHandler.saveOnlineGameInstance(
+                                            newGame,
+                                            newGameInstance
+                                        )
+                                    }
+                                    // If online saving is allowed update the online database as well
+                                }
+                            }
+                        }
+                        finish()
+                        // Exit the page
+                    }else{
+                        val errorToast = Toast.makeText(this@EditSingleGame, R.string.adjust_incorrect_data, Toast.LENGTH_LONG)
+                        // Create the error message toast
+                        errorToast.show()
+                        // Show the error toast
+                    }
+                }
+
+                deleteButton.setOnClickListener {
+                    val deleteDialog =
+                        DeleteGameEdit(gameID, this@EditSingleGame, fonts["body"]!!)
+                    deleteDialog.show(supportFragmentManager, "deleteGame")
+                    // Create and show the confirmation to exit the editing
+                }
             }
-
         }
+    }
 
+    private fun checkSame(original: Array<GameInstance>, new: Array<PlayerHandler>): Boolean{
+        if(original.size == new.size){
+        // If the number of players has changed
+            val newPlayers = new.map { player -> player.playerName }
+            val newChars = new.map { player -> player.charName }
+            val newEternals = new.map { player -> player.eternal }
+            val newSouls = new.map { player -> player.soulsNum }
+            val newWinners = new.map { player -> player.winner }
+            // Extract all the relevant information from the data
+            original.forEach {
+                if(newPlayers.contains(it.playerName)){
+                    val currIndex = newPlayers.indexOf(it.playerName)
+                    if ((newChars[currIndex] != it.charName)
+                        or (newEternals[currIndex] != it.eternal)
+                        or (newSouls[currIndex] != it.souls)
+                        or (newWinners[currIndex] != it.winner)
+                    ){
+                    // If something is different
+                        return false
+                    }
+                }else{
+                // If the current player isn't in the new game
+                    return false
+                }
+            }
+        }else{
+        // If the number of players has changed
+            return false
+        }
+        // If none of the if statements have forced a false return, the data hasn't changed
+        return true
+    }
+
+    override fun onBackPressed() {
+        // WHen the back button is pressed
+        val exitButton = findViewById<Button>(R.id.adjustExitButton)
+        exitButton.performClick()
+        // Press the exit button
     }
 }

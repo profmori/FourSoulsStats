@@ -66,8 +66,7 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
         // Set the text
 
         textItem.typeface = font
-        closeButton.typeface = font
-        // Set the typeface for the text and the close button
+        // Set the typeface for the text
 
         closeButton.setOnClickListener {
         // When the close button is clicked
@@ -76,6 +75,7 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
             cardList = newList.toTypedArray()
             // Remove the item from the card list
             notifyItemRemoved(position)
+            notifyItemRangeChanged(position,cardList.size)
             // Update the recycler view
         }
 

@@ -352,4 +352,8 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         return playerHandlerList.size
         // Returns the player list size element
     }
+
+    fun returnData(): Array<PlayerHandler>{
+        return playerHandlerList
+    }
 }

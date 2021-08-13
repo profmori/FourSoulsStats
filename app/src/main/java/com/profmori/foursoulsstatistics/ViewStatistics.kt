@@ -143,8 +143,11 @@ class ViewStatistics : AppCompatActivity() {
                 // Get all game instances that player has played
                 newPlayerTable.setData(playerInstanceArray,games)
                 // Update the data
-                playerData += arrayOf(newPlayerTable)
-                // Add it to the array
+                if(!newPlayerTable.adjustedSouls.isNaN()){
+                // If the data is valid
+                    playerData += arrayOf(newPlayerTable)
+                    // Add it to the array
+                }
             }
 
             characters.forEach {

@@ -141,8 +141,11 @@ class ViewPlayerStats : AppCompatActivity() {
                 // Get all game instances that player has played
                 newPlayerTable.setData(playerInstanceArray, selectedGames)
                 // Update the data
-                playerData += arrayOf(newPlayerTable)
-                // Add it to the array
+                if(!newPlayerTable.winrate.isNaN()){
+                    // If the data is valid
+                    playerData += arrayOf(newPlayerTable)
+                    // Add it to the array
+                }
             }
 
             val playerDataAdapter =

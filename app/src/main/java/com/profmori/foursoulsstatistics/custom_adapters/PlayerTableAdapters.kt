@@ -78,12 +78,17 @@ class PlayerTableDataAdapter(context: Context, private val tableFont: Typeface, 
             renderedView.textSize = 20f
             // Changes the text size
         }
-        when(columnIndex){
-            0 -> renderedView.text = TextHandler.capitalise(player.playerName)
-            1 -> renderedView.text = context.getString(R.string.stats_table_entry).format(player.winrate)
-            2 -> renderedView.text = context.getString(R.string.stats_table_entry).format(player.soulsAvg)
-            3 -> renderedView.text = context.getString(R.string.stats_table_entry).format(player.adjustedSouls)
-            // Sets the column value based on its column
+        if(player.winrate > -1) {
+            when (columnIndex) {
+                0 -> renderedView.text = TextHandler.capitalise(player.playerName)
+                1 -> renderedView.text =
+                    context.getString(R.string.stats_table_entry).format(player.winrate)
+                2 -> renderedView.text =
+                    context.getString(R.string.stats_table_entry).format(player.soulsAvg)
+                3 -> renderedView.text =
+                    context.getString(R.string.stats_table_entry).format(player.adjustedSouls)
+                // Sets the column value based on its column
+            }
         }
         return renderedView
     }

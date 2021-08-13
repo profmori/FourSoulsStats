@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         val titleText = findViewById<TextView>(R.id.mainTitle)
         val dataButton = findViewById<Button>(R.id.mainData)
         val statsButton = findViewById<Button>(R.id.mainStats)
+        val editButton = findViewById<Button>(R.id.mainEdit)
         val settingsButton = findViewById<Button>(R.id.mainSettings)
         val thanksButton = findViewById<Button>(R.id.mainThanks)
         val issuesButton = findViewById<Button>(R.id.mainReport)
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
         titleText.typeface = fonts["title"]
         dataButton.typeface = fonts["body"]
         statsButton.typeface = fonts["body"]
+        editButton.typeface = fonts["body"]
         settingsButton.typeface = fonts["body"]
         thanksButton.typeface = fonts["body"]
         issuesButton.typeface = fonts["body"]
@@ -114,6 +116,7 @@ class MainActivity : AppCompatActivity() {
 
         dataButton.setBackgroundResource(buttonBG)
         statsButton.setBackgroundResource(buttonBG)
+        editButton.setBackgroundResource(buttonBG)
         settingsButton.setBackgroundResource(buttonBG)
         thanksButton.setBackgroundResource(buttonBG)
         issuesButton.setBackgroundResource(buttonBG)
@@ -125,11 +128,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         statsButton.setOnClickListener {
-            //val goToStats = Intent(this, ViewStatistics::class.java)
-            val goToStats = Intent(this, EditGames::class.java)
+            val goToStats = Intent(this, ViewStatistics::class.java)
             // val goToStats = Intent(this, ViewPlayerStats::class.java)
             // Temp lines for testing
             startActivity(goToStats)
+        }
+
+        editButton.setOnClickListener {
+            val goToEdit = Intent(this, EditGames::class.java)
+            startActivity(goToEdit)
         }
 
         settingsButton.setOnClickListener {

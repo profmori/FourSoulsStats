@@ -1,6 +1,7 @@
 package com.profmori.foursoulsstatistics.database
 
 import androidx.room.*
+import com.profmori.foursoulsstatistics.online_database.OnlineGameInstance
 
 @Dao
 //Data Access object for operations on the game database
@@ -24,7 +25,7 @@ interface GameDAO {
     suspend fun addGame(game: Game)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    // Overwrite when upating the game database
+    // Overwrite when updating the game database
     suspend fun updateGame(game: Game)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -34,6 +35,22 @@ interface GameDAO {
     @Delete
     suspend fun deleteCharacter(character: CharEntity)
     // Remove the selected character from the database
+
+    @Query("DELETE FROM games")
+    suspend fun clearGames()
+    // Clear out the games table
+
+    @Query("DELETE FROM games WHERE gameID = :gameID")
+    suspend fun clearSingleGame(gameID: String)
+    // Delete the given game
+
+    @Query("DELETE FROM game_instances")
+    suspend fun clearGameInstances()
+    // Clear out the game instances table
+
+    @Query("DELETE FROM game_instances WHERE gameID = :gameID")
+    suspend fun clearSingleGameInstance(gameID: String)
+    // Remove the game instances for the given game ID
 
     @Query("SELECT * FROM players")
     // The SQL query the function should call
@@ -63,10 +80,12 @@ interface GameDAO {
     @Query("SELECT * FROM games WHERE uploaded = 0")
     suspend fun getUploadGames(): Array<Game>
 
-
     @Query("SELECT * FROM game_instances WHERE eternal NOT null")
     // Gets all the eternals with the game data of their games
     suspend fun getEternalList(): Array<GameInstance>
+
+    @Query("SELECT * FROM game_instances WHERE gameID = :gameID AND playerName = :player AND charName = :character")
+    suspend fun findGameInstance(gameID: String, player: String, character: String) : GameInstance
 
     @Transaction
     @Query("SELECT * FROM players WHERE playerName = :playerName")

@@ -102,6 +102,12 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                         arrayOf(currentChar.image, currentChar.imageAlt).random()!!
                     // Select a random character image
                 }
+                if(charName == "eden"){
+                    var imageArray = arrayOf(R.drawable.eden)
+                    if (useAlts){imageArray += arrayOf(R.drawable.eden_alt_1,R.drawable.eden_alt_2)}
+                    if (charNames.contains("tapeworm")){imageArray += arrayOf(R.drawable.eden_promo_b,R.drawable.eden_promo_g)}
+                    charImage = imageArray.random()
+                }
             }
             else{
                 charImage = R.drawable.blank_char

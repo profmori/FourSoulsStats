@@ -52,6 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mainTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.4"
+        android:layout_marginStart="35dp"
 
         android:textAllCaps="false"
         android:text="@string/main_enter_data"/>
@@ -64,9 +65,25 @@
         app:layout_constraintStart_toEndOf="@id/mainData"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/mainData"
+        android:layout_marginEnd="35dp"
 
         android:textAllCaps="false"
         android:text="@string/main_stats_button"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/mainEdit"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mainSettings"
+        app:layout_constraintTop_toBottomOf="@+id/mainData"
+        app:layout_constraintBottom_toTopOf="@id/mainThanks"
+        android:layout_marginStart="35dp"
+
+        android:textAllCaps="false"
+        android:text="@string/main_edit_button"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainSettings"
@@ -74,10 +91,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mainEdit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainData"
         app:layout_constraintBottom_toTopOf="@id/mainThanks"
+        android:layout_marginEnd="35dp"
 
         android:textAllCaps="false"
         android:text="@string/main_settings_button"/>
@@ -91,9 +109,10 @@
         android:background="@drawable/button_event"
 
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mainReport"
         app:layout_constraintTop_toTopOf="@id/mainReport"
         app:layout_constraintBottom_toBottomOf="@id/mainReport"
-        android:layout_margin="35dp"
+        android:layout_marginStart="35dp"
 
         android:textAllCaps="false"
         android:text="@string/main_thanks_button"/>
@@ -104,9 +123,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        app:layout_constraintStart_toEndOf="@id/mainThanks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="35dp"
 
         android:textAllCaps="false"
         android:text="@string/main_error_button"/>

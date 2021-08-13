@@ -1,16 +1,17 @@
 package com.profmori.foursoulsstatistics.online_database
 
 import android.content.Context
-import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
-import com.profmori.foursoulsstatistics.database.Game
-import com.profmori.foursoulsstatistics.database.GameDataBase
-import com.profmori.foursoulsstatistics.database.GameInstance
-import com.profmori.foursoulsstatistics.database.Player
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
+import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
+import com.profmori.foursoulsstatistics.database.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.lang.NullPointerException
 
 class OnlineDataHandler {
 
@@ -20,8 +21,6 @@ class OnlineDataHandler {
             // Read the current settings
             if (settings["online"].toBoolean()) {
             // If the user has allowed data to be uploaded
-                val onlineDB = Firebase.firestore.collection("game_instances")
-                // Get the online game database
                 val localDB = GameDataBase.getDataBase(context)
                 // Get the local database
                 val localDAO = localDB.gameDAO
@@ -37,22 +36,7 @@ class OnlineDataHandler {
                         gameInstances.forEach { gameInstance ->
                             gameInstance.gameInstances.forEach { instance ->
                             // Iterates through each game instance
-
-                                val docName = generateOnlineName(instance)
-                                val newOnlineGameInstance = OnlineGameInstance(
-                                // Creates a new online game instance
-                                    instance.gameID.subSequence(0, 6).toString(),
-                                    instance.gameID,
-                                    game.playerNo,
-                                    game.treasureNo,
-                                    instance.playerName,
-                                    instance.charName,
-                                    instance.eternal,
-                                    instance.souls,
-                                    instance.winner
-                                )
-                                onlineDB.document(docName).set(newOnlineGameInstance).await()
-                                // Add the game instance to the online database
+                                saveOnlineGameInstance(game, instance)
                             }
                         }
                         val updatedGame = Game(game.gameID, game.playerNo, game.treasureNo, true)
@@ -62,6 +46,37 @@ class OnlineDataHandler {
                     }
                 }
             }
+        }
+
+        suspend fun deleteOnlineGameInstances(gameID: String){
+            val onlineDB = Firebase.firestore.collection("game_instances")
+            // Get the online database
+            val onlineQuery = onlineDB.whereEqualTo("gameID", gameID).get().await()
+            // Get all the game instances of the game
+            onlineQuery.documents.forEach { document ->
+                document.reference.delete()
+            }
+
+        }
+
+        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance){
+            val onlineDB = Firebase.firestore.collection("game_instances")
+            // Get the online game database
+            val docName = generateOnlineName(gameInstance)
+            val newOnlineGameInstance = OnlineGameInstance(
+            // Creates a new online game instance
+                gameInstance.gameID.subSequence(0, 6).toString(),
+                gameInstance.gameID,
+                game.playerNo,
+                game.treasureNo,
+                gameInstance.playerName,
+                gameInstance.charName,
+                gameInstance.eternal,
+                gameInstance.souls,
+                gameInstance.winner
+            )
+            onlineDB.document(docName).set(newOnlineGameInstance).await()
+            // Add the game instance to the online database
         }
 
         fun getGroupGames(context: Context) {
@@ -91,31 +106,53 @@ class OnlineDataHandler {
                         (gameInstance.eternal != "") and (gameInstance.souls != -1)
                     ) {
                     // If the game instance had all entries valid
+                        var instanceId: Int
+                        // Initialise the instance id variable
                         if (!localGames.contains(gameInstance.gameID)) {
-                        // If the game is not stored locally
+                            // If the game is not stored locally
                             localDAO.addPlayer(Player(gameInstance.playerName))
                             // Try to add the player to the database
-                            localDAO.addGameInstance(
-                            // Add the game instance to the local database
-                                GameInstance(
-                                    0,
+                            localDAO.addCharacter(
+                                CharEntity(
+                                    gameInstance.charName,
+                                    R.drawable.blank_char,
+                                    null,
+                                    "custom"
+                                )
+                            )
+                            // Add any custom characters that don't exist
+                            instanceId = 0
+                        }else{
+                            try {
+                                instanceId = localDAO.findGameInstance(
                                     gameInstance.gameID,
                                     gameInstance.playerName,
-                                    gameInstance.charName,
-                                    gameInstance.eternal,
-                                    gameInstance.souls,
-                                    gameInstance.winner
-                                )
-                            )
-
-                            localDAO.addGame(
-                            // Try to add the game to the local database
-                                Game(
-                                    gameInstance.gameID, gameInstance.gameSize,
-                                    gameInstance.treasureNum, true
-                                )
-                            )
+                                    gameInstance.charName
+                                ).instanceID
+                            }catch(e: NullPointerException){
+                                instanceId = 0
+                            }
                         }
+                        localDAO.addGameInstance(
+                        // Add / update the game instance to the local database
+                            GameInstance(
+                                instanceId,
+                                gameInstance.gameID,
+                                gameInstance.playerName,
+                                gameInstance.charName,
+                                gameInstance.eternal,
+                                gameInstance.souls,
+                                gameInstance.winner
+                            )
+                        )
+
+                        localDAO.updateGame(
+                        // Add / update the stored game in the local database
+                            Game(
+                                gameInstance.gameID, gameInstance.gameSize,
+                                gameInstance.treasureNum, true
+                            )
+                        )
                     }
                 }
             }

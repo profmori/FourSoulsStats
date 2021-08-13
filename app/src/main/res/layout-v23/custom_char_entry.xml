@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/clear"
-        android:text="@string/custom_card_x"
+        android:text="@string/common_x"
         android:textColor="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

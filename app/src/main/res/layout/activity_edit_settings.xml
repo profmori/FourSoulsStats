@@ -95,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"
 
         app:switchPadding="20dp"
-        app:thumbTint="@drawable/switch_thumb"
+        android:thumb="@drawable/switch_thumb"
         app:trackTint="@drawable/switch_track"
 
         android:text="@string/settings_online_sync"/>
@@ -129,9 +129,8 @@
             app:layout_constraintBottom_toTopOf="@id/requiemSwitch"
             app:layout_constraintStart_toStartOf="@id/settingsEditionPrompt"
             android:layout_marginStart="10dp"
-
-            app:switchPadding="5dp"
-            app:thumbTint="@drawable/switch_thumb"
+            
+            android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
             android:text="@string/settings_gold" />
@@ -146,8 +145,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="30dp"
 
-            app:switchPadding="5dp"
-            app:thumbTint="@drawable/switch_thumb"
+            android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
             android:text="@string/settings_plus" />
@@ -160,9 +158,8 @@
             app:layout_constraintTop_toBottomOf="@id/goldSwitch"
             app:layout_constraintBottom_toTopOf="@id/promoSwitch"
             app:layout_constraintEnd_toEndOf="@id/goldSwitch"
-
-            app:switchPadding="5dp"
-            app:thumbTint="@drawable/switch_thumb"
+            
+            android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
             android:text="@string/settings_requiem" />
@@ -175,8 +172,7 @@
             app:layout_constraintTop_toTopOf="@id/requiemSwitch"
             app:layout_constraintEnd_toEndOf="@id/plusSwitch"
 
-            app:switchPadding="5dp"
-            app:thumbTint="@drawable/switch_thumb"
+            android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
             android:text="@string/settings_warp" />
@@ -189,8 +185,8 @@
             app:layout_constraintTop_toBottomOf="@id/requiemSwitch"
             app:layout_constraintEnd_toEndOf="@id/goldSwitch"
 
-            app:switchPadding="5dp"
-            app:thumbTint="@drawable/switch_thumb"
+            
+            android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
             android:text="@string/settings_promo" />
@@ -203,8 +199,8 @@
             app:layout_constraintTop_toBottomOf="@id/requiemSwitch"
             app:layout_constraintEnd_toEndOf="@id/plusSwitch"
 
-            app:switchPadding="5dp"
-            app:thumbTint="@drawable/switch_thumb"
+            
+            android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
             android:text="@string/settings_custom" />
@@ -239,7 +235,7 @@
         android:layout_marginHorizontal="40dp"
 
         app:switchPadding="20dp"
-        app:thumbTint="@drawable/switch_thumb"
+        android:thumb="@drawable/switch_thumb"
         app:trackTint="@drawable/switch_track"
 
         android:text="@string/settings_alt_art" />
@@ -316,8 +312,8 @@
         android:layout_marginBottom="5dp"
 
         app:switchPadding="20dp"
-        app:thumbTint="@drawable/switch_thumb"
-        app:trackTint="@drawable/switch_track"
+        android:thumb="@drawable/switch_thumb"
+            app:trackTint="@drawable/switch_track"
 
         android:fontFamily="@font/roboto_regular"
         android:text="@string/settings_readable_font" />

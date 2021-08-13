@@ -6,6 +6,7 @@
     <string name="error_placeholder">If You Are Seeing This, There\'s A Bug</string>
     <string name="back_to_main_1">Return to Main Menu</string>
     <string name="back_to_main_2">Return to \n Main Menu</string>
+    <string name="common_x">X</string>
     <array name="temp_slider">
         <item>0.0</item>
         <item>3.0</item>
@@ -15,6 +16,7 @@
     <string name="main_title">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
     <string name="main_stats_button">View \n Statistics</string>
     <string name="main_enter_data">Enter \n Game Data</string>
+    <string name="main_edit_button">Edit \n Games</string>
     <string name="main_settings_button">App \n Settings</string>
     <string name="main_thanks_button">Thanks</string>
     <string name="main_error_button">Issues /\n Suggestions</string>
@@ -99,7 +101,6 @@
     <string name="custom_items">Custom Items</string>
     <string name="custom_add_item">Add Item</string>
     <string name="custom_back_to_settings">Back To Settings</string>
-    <string name="custom_card_x">X</string>
     <string name="custom_character">Custom Character</string>
     <string name="custom_item">Custom Item</string>
 
@@ -150,5 +151,12 @@
     <string name="adjust_title">Edit Game</string>
     <string name="adjust_submit">Submit Change</string>
     <string name="adjust_delete">Delete Game</string>
+    <string name="adjust_confirm_exit">Exiting will reset any changes made. \n Do you want to continue?</string>
+    <string name="adjust_ignore_changes">Exit Without Saving</string>
+    <string name="adjust_cancel_exit">Go Back To Editing</string>
+    <string name="adjust_incorrect_data">Data Input Incorrectly, Make Sure All Fields Are Filled And There Is Only One Winner</string>
+    <string name="adjust_cancel_delete">Cancel</string>
+    <string name="adjust_confirm_delete">Delete</string>
+    <string name="adjust_check_delete">Deleting this game is permanent and cannot be undone \n Are you sure you want to delete this game?</string>
 
 </resources>
