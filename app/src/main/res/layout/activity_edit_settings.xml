@@ -230,7 +230,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/editionSelect"
-        app:layout_constraintBottom_toTopOf="@id/borderPrompt"
+        app:layout_constraintBottom_toTopOf="@id/backgroundGroup"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="40dp"
 
@@ -240,72 +240,79 @@
 
         android:text="@string/settings_alt_art" />
 
-    <TextView
-        android:id="@+id/borderPrompt"
-
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backgroundGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="40dp"
         app:layout_constraintTop_toBottomOf="@id/altSwitch"
-        app:layout_constraintBottom_toTopOf="@id/backgroundPrompt"
+        app:layout_constraintBottom_toTopOf="@id/readableSwitch">
 
-        android:text="@string/settings_border_prompt"/>
+        <TextView
+            android:id="@+id/borderPrompt"
 
-    <Spinner
-        android:id="@+id/borderSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="40dp"
+            app:layout_constraintTop_toTopOf="parent"
 
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/borderPrompt"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@id/borderPrompt"
-        app:layout_constraintBottom_toBottomOf="@id/borderPrompt"
+            android:text="@string/settings_border_prompt"/>
 
-        android:gravity="start"
+        <Spinner
+            android:id="@+id/borderSpinner"
 
-        style="@style/Widget.AppCompat.Spinner.DropDown"
-        android:dropDownHeight="60sp"
-        android:dropDownVerticalOffset="20dp"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/borderPrompt"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/borderPrompt"
+            app:layout_constraintBottom_toBottomOf="@id/borderPrompt"
 
-    <TextView
-        android:id="@+id/backgroundPrompt"
+            android:gravity="start"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="35dp"
-        app:layout_constraintTop_toBottomOf="@id/borderPrompt"
-        app:layout_constraintBottom_toTopOf="@id/readableSwitch"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:dropDownHeight="60sp"
+            android:dropDownVerticalOffset="20dp"/>
 
-        android:text="@string/settings_background_prompt"/>
+        <TextView
+            android:id="@+id/backgroundPrompt"
 
-    <Spinner
-        android:id="@+id/backgroundSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/borderPrompt"
+            app:layout_constraintTop_toBottomOf="@id/borderPrompt"
+            android:layout_marginTop="10dp"
 
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/backgroundPrompt"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@id/backgroundPrompt"
-        app:layout_constraintBottom_toBottomOf="@id/backgroundPrompt"
+            android:text="@string/settings_background_prompt"/>
 
-        android:gravity="start"
+        <Spinner
+            android:id="@+id/backgroundSpinner"
 
-        style="@style/Widget.AppCompat.Spinner.DropDown"
-        android:dropDownHeight="60sp"
-        android:dropDownVerticalOffset="20dp"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/backgroundPrompt"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/backgroundPrompt"
+            app:layout_constraintBottom_toBottomOf="@id/backgroundPrompt"
+
+            android:gravity="start"
+
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:dropDownHeight="60sp"
+            android:dropDownVerticalOffset="20dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/readableSwitch"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/backgroundPrompt"
+        app:layout_constraintTop_toBottomOf="@id/backgroundGroup"
         app:layout_constraintBottom_toTopOf="@id/settingsMainButton"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="35dp"
@@ -315,7 +322,7 @@
         android:thumb="@drawable/switch_thumb"
             app:trackTint="@drawable/switch_track"
 
-        android:fontFamily="@font/roboto_regular"
+        android:fontFamily="@font/atkinson_hyperlegible_regular"
         android:text="@string/settings_readable_font" />
 
     <androidx.appcompat.widget.AppCompatButton

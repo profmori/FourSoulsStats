@@ -42,9 +42,6 @@ class MainActivity : AppCompatActivity() {
                 runTutorial()
 
                 if (settings["online"].toBoolean()) {
-                    OnlineDataHandler.saveGames(this)
-                    // Save any unsaved games
-
                     OnlineDataHandler.getGroupGames(this)
                     // Get any new online saved games
                 }

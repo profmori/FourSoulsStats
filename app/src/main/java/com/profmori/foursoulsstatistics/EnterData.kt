@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.profmori.foursoulsstatistics.custom_adapters.CharListAdapter
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
@@ -47,16 +48,6 @@ class EnterData : AppCompatActivity() {
         var charImages = intArrayOf()
         var eternals = emptyArray<String?>()
 
-        try {
-            playerNames = intent.getStringArrayExtra("names") as Array<String>
-            charNames = intent.getStringArrayExtra("chars") as Array<String>
-            charImages = intent.getIntArrayExtra("images") as IntArray
-            eternals = intent.getStringArrayExtra("eternals") as Array<String?>
-            // Get feedback from results if it exists
-        }catch (e: NullPointerException){
-            fromResults = false
-        }
-
         val charRecycler = findViewById<RecyclerView>(R.id.inputCharList)
         // Find the recycler view
 
@@ -76,6 +67,19 @@ class EnterData : AppCompatActivity() {
 
         var gameTreasures = treasureNo.text.toString().toInt()
         // Get the number of treasures
+
+        try {
+            playerNames = intent.getStringArrayExtra("names") as Array<String>
+            charNames = intent.getStringArrayExtra("chars") as Array<String>
+            charImages = intent.getIntArrayExtra("images") as IntArray
+            eternals = intent.getStringArrayExtra("eternals") as Array<String?>
+            gameTreasures = intent.getIntExtra("treasures", 0)
+            playerNo.setText(playerNames.size.toString())
+            treasureNo.setText(gameTreasures.toString())
+            // Get feedback from results if it exists and set the player and treasure numbers
+        }catch (e: NullPointerException){
+            fromResults = false
+        }
 
         var playerCount = playerNo.text.toString().toInt()
         // Get the number of players in the game from the player number
@@ -244,7 +248,7 @@ class EnterData : AppCompatActivity() {
         }
 
         continueButton.setOnClickListener {
-            tryMoveOn(playerHandlerList,gameTreasures)
+            tryMoveOn(playerHandlerList,gameTreasures, background)
             // Try to move to the next screen
         }
 
@@ -264,7 +268,7 @@ class EnterData : AppCompatActivity() {
         // Clicks the button
     }
 
-    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int){
+    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, view: View){
         var moveOn = true
         // Say you can move on
         for (p in playerHandlerList) {
@@ -314,10 +318,13 @@ class EnterData : AppCompatActivity() {
 
         } else {
         // If you cannot move on
-            val errorToast = Toast.makeText(this, R.string.input_too_few, Toast.LENGTH_LONG)
-            // Create the error message toast
-            errorToast.show()
-            // Show the error toast
+            val errorSnackbar =
+                Snackbar.make(view,  R.string.input_too_few, Snackbar.LENGTH_LONG)
+            // Create the snackbar
+            errorSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
+            // Set the font of the snackbar
+            errorSnackbar.show()
+            // Show the snackbar
         }
     }
 }

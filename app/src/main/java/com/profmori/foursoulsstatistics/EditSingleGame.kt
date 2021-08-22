@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.profmori.foursoulsstatistics.custom_adapters.DeleteGameEdit
 import com.profmori.foursoulsstatistics.custom_adapters.EditGameAdapter
 import com.profmori.foursoulsstatistics.custom_adapters.ExitGameEdit
@@ -314,10 +315,13 @@ class EditSingleGame : AppCompatActivity() {
                         finish()
                         // Exit the page
                     }else{
-                        val errorToast = Toast.makeText(this@EditSingleGame, R.string.adjust_incorrect_data, Toast.LENGTH_LONG)
-                        // Create the error message toast
-                        errorToast.show()
-                        // Show the error toast
+                        val errorSnackbar =
+                            Snackbar.make(background,  R.string.adjust_incorrect_data, Snackbar.LENGTH_LONG)
+                        // Create the snackbar
+                        errorSnackbar.changeFont(TextHandler.setFont(this@EditSingleGame)["body"]!!)
+                        // Set the font of the snackbar
+                        errorSnackbar.show()
+                        // Show the snackbar
                     }
                 }
 

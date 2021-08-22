@@ -38,13 +38,13 @@
     <string name="add_player_1">Add</string>
     <string name="add_player_2">To Player List</string>
 
-    <!-- Souls Input Page -->
+    <!-- Results Page -->
     <string name="result_continue">Save \n Result</string>
     <string name="result_wrong_count">There Needs To Be Exactly 1 Winner</string>
     <string name="result_pass_on">Game Saved</string>
     <string name="result_go_back">Change \n Game Setup</string>
 
-    <!-- Win Page Recycler Strings -->
+    <!-- Results Page Recycler Strings -->
     <string name="win_card_player">Player:</string>
     <string name="win_card_souls">Souls:</string>
     <string name="win_card_winner">Winner:</string>
@@ -156,7 +156,7 @@
     <string name="adjust_cancel_exit">Go Back To Editing</string>
     <string name="adjust_incorrect_data">Data Input Incorrectly, Make Sure All Fields Are Filled And There Is Only One Winner</string>
     <string name="adjust_cancel_delete">Cancel</string>
-    <string name="adjust_confirm_delete">Delete</string>
+    <string name="adjust_confirm_delete">Confirm</string>
     <string name="adjust_check_delete">Deleting this game is permanent and cannot be undone \n Are you sure you want to delete this game?</string>
 
 </resources>

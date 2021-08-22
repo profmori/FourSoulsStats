@@ -15,8 +15,8 @@ class TextHandler {
             // Get whether the font should be readable
             fontMap = if (readableFont.toBoolean()){
                 mapOf(
-                    "body" to ResourcesCompat.getFont(context, R.font.roboto_regular)!!,
-                    "title" to ResourcesCompat.getFont(context, R.font.roboto_black)!!
+                    "body" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_regular)!!,
+                    "title" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_bold)!!
                 )
                 // Use the readable fonts
             } else {

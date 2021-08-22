@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.profmori.foursoulsstatistics.custom_adapters.ResultsListAdapter
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
@@ -118,10 +119,13 @@ class EnterResult : AppCompatActivity() {
             }
             else{
             // If you cannot move on
-                val errorToast = Toast.makeText(this, R.string.result_wrong_count, Toast.LENGTH_LONG)
-                // Create the error message toast
-                errorToast.show()
-                // Show the error toast
+                val errorSnackbar =
+                    Snackbar.make(background,  R.string.result_wrong_count, Snackbar.LENGTH_LONG)
+                // Create the snackbar
+                errorSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
+                // Set the font of the snackbar
+                errorSnackbar.show()
+                // Show the snackbar
             }
         }
 

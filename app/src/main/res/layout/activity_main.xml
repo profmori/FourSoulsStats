@@ -37,7 +37,7 @@
         android:fontFamily="@font/four_souls_title"
         android:text="@string/main_title"
         android:textAlignment="center"
-        android:textSize="30sp"/>
+        android:textSize="35sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainData"

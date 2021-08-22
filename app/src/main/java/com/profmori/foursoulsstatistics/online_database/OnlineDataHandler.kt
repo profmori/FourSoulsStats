@@ -92,8 +92,11 @@ class OnlineDataHandler {
             // Gets the local DAO
             CoroutineScope(Dispatchers.IO).launch {
             // Launch a coroutine
-                val localGames = localDAO.getGames().map { game -> game.gameID }
-                // Get all games stored locally by id
+                saveGames(context)
+                // Save any games which aren't saved
+                localDAO.clearGameInstances()
+                localDAO.clearGames()
+                // Clear any local games
                 val onlineQuery = onlineDB.whereEqualTo("groupID", groupID).get().await()
                 // Get all the games of the group
                 onlineQuery.documents.forEach { document ->
@@ -106,37 +109,22 @@ class OnlineDataHandler {
                         (gameInstance.eternal != "") and (gameInstance.souls != -1)
                     ) {
                     // If the game instance had all entries valid
-                        var instanceId: Int
-                        // Initialise the instance id variable
-                        if (!localGames.contains(gameInstance.gameID)) {
-                            // If the game is not stored locally
-                            localDAO.addPlayer(Player(gameInstance.playerName))
-                            // Try to add the player to the database
-                            localDAO.addCharacter(
-                                CharEntity(
-                                    gameInstance.charName,
-                                    R.drawable.blank_char,
-                                    null,
-                                    "custom"
-                                )
+                        localDAO.addPlayer(Player(gameInstance.playerName))
+                        // Try to add the player to the database
+                        localDAO.addCharacter(
+                            CharEntity(
+                                gameInstance.charName,
+                                R.drawable.blank_char,
+                                null,
+                                "custom"
                             )
-                            // Add any custom characters that don't exist
-                            instanceId = 0
-                        }else{
-                            try {
-                                instanceId = localDAO.findGameInstance(
-                                    gameInstance.gameID,
-                                    gameInstance.playerName,
-                                    gameInstance.charName
-                                ).instanceID
-                            }catch(e: NullPointerException){
-                                instanceId = 0
-                            }
-                        }
+                        )
+                        // Add any custom characters that don't exist
+
                         localDAO.addGameInstance(
                         // Add / update the game instance to the local database
                             GameInstance(
-                                instanceId,
+                                0,
                                 gameInstance.gameID,
                                 gameInstance.playerName,
                                 gameInstance.charName,

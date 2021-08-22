@@ -102,7 +102,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
             eternalText.visibility = View.INVISIBLE
         }else{
             eternalText.text = playerHandler.eternal
-            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 1, 11, 1, TypedValue.COMPLEX_UNIT_PT)
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 5, 7, 1, TypedValue.COMPLEX_UNIT_PT)
             // Autoscale the eternal text
         }
 
