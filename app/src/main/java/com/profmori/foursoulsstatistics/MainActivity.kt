@@ -163,6 +163,7 @@ class MainActivity : AppCompatActivity() {
 
         val dataButton = findViewById<Button>(R.id.mainData)
         val statsButton = findViewById<Button>(R.id.mainStats)
+        val editButton = findViewById<Button>(R.id.mainEdit)
         val settingsButton = findViewById<Button>(R.id.mainSettings)
         val issuesButton = findViewById<Button>(R.id.mainReport)
         // Get the buttons
@@ -183,6 +184,12 @@ class MainActivity : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_stats))
             .build()
 
+        val edit = MaterialShowcaseView.Builder(this)
+            .setTarget(editButton)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_edit))
+            .build()
+
         val settings = MaterialShowcaseView.Builder(this)
             .setTarget(settingsButton)
             .setDismissText(resources.getString(R.string.tutorial_dismiss))
@@ -197,6 +204,7 @@ class MainActivity : AppCompatActivity() {
 
         sequence.addSequenceItem(data)
         sequence.addSequenceItem(stats)
+        sequence.addSequenceItem(edit)
         sequence.addSequenceItem(settings)
         sequence.addSequenceItem(issues)
 

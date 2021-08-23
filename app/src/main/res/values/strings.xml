@@ -125,6 +125,8 @@
     <string name="tutorial_dismiss">OK</string>
     <string name="tutorial_data">Input game data using this button</string>
     <string name="tutorial_stats">View your group\'s statistics using this button</string>
+    <string name="tutorial_edit">Use this button to edit previously entered games to amend any mistakes made.
+        You can also remove games from the play history entirely</string>
     <string name="tutorial_settings">Use this button to customise your app experience.
         \n This allows you to choose many things, including online capabilities and app appearance.</string>
     <string name="tutorial_issues">Use this button to report any issues you have, or bugs you find.

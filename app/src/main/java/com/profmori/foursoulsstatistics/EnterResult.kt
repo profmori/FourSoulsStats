@@ -52,8 +52,14 @@ class EnterResult : AppCompatActivity() {
 
         val timeCode = System.currentTimeMillis()
         // Get the current time for a unique game identifier
-        val groupID = SettingsHandler.readSettings(this)["groupID"]
+        var groupID = SettingsHandler.readSettings(this)["groupID"]
         // Get the unique group identifier
+        if (groupID != null) {
+            if(groupID.contains('O',true)){
+                groupID = groupID.replace('O','0',true)
+            }
+        }
+        // Get rid of any o characters for 0 in legacy group ids
         val gameId = groupID + timeCode.toString()
         // Makes the game id out of the timecode and the unique identifier
 

@@ -279,6 +279,10 @@ class EditSettings : AppCompatActivity() {
                     groupEntry.setText(currentSettings["groupID"])
                     // Reset the text in the edit text
                 } else {
+                    val id = groupEntry.text.toString().uppercase()
+                    if(id.contains('O',true)){
+                        groupEntry.setText(id.replace('O','0',true))
+                    }
                     if (groupEntry.text.toString().uppercase() in existingIds) {
                         val existsSnackbar = Snackbar.make(
                             view,

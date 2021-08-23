@@ -31,6 +31,10 @@ class SettingsHandler {
                             .map(charPool::get)
                             .joinToString("")
                         // Generate a random 6 length string
+                        if(randID.contains('O',true)){
+                            randID = randID.replace('O','0',true)
+                        }
+                        // Get rid of any o characters for 0
 
                         while (existingIDs.contains(randID)) {
                             // If the random string is already an id
@@ -39,6 +43,10 @@ class SettingsHandler {
                                 .map(charPool::get)
                                 .joinToString("")
                             // Generate a new random 6 length string
+                            if(randID.contains('O',true)){
+                                randID = randID.replace('O','0',true)
+                            }
+                            // Get rid of any o characters for 0
                         }
 
                         val settings = mapOf(
