@@ -3,10 +3,14 @@ package com.profmori.foursoulsstatistics
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -33,15 +37,19 @@ class MainActivity : AppCompatActivity() {
 
         when (source) {
             null -> {
-
                 SettingsHandler.initialiseSettings(this)
                 // Create settings file if there is none
 
                 val settings = SettingsHandler.readSettings(this)
 
                 runTutorial()
+                // Show the tutorial
 
                 if (settings["online"].toBoolean()) {
+
+                    signIn()
+                    // Try to sign in
+
                     OnlineDataHandler.getGroupGames(this)
                     // Get any new online saved games
                 }
@@ -214,6 +222,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         sequence.start()
+    }
+
+    private fun signIn(){
+        val auth = Firebase.auth
+        auth.signInAnonymously()
+            .addOnCompleteListener() { task ->
+                if (!task.isSuccessful) {
+                // If you fail to sign in, try again
+                    signIn()
+                }
+            }
     }
 
     override fun onBackPressed() {

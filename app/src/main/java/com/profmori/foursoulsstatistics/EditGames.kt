@@ -15,6 +15,7 @@ import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.GameDataBase
+import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.launch
 
 class EditGames : AppCompatActivity() {
@@ -70,6 +71,10 @@ class EditGames : AppCompatActivity() {
 
         lifecycleScope.launch {
             // As a coroutine
+            if (SettingsHandler.readSettings(this@EditGames)["online"].toBoolean()) {
+                OnlineDataHandler.getGroupGames(this@EditGames)
+                // Get any new online saved games
+            }
             val games = gameDao.getGames()
             // Get all games
             val idList = games.map { game -> game.gameID }.toTypedArray()

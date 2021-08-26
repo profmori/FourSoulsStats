@@ -1,6 +1,7 @@
 package com.profmori.foursoulsstatistics.online_database
 
 import android.content.Context
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -80,6 +81,7 @@ class OnlineDataHandler {
         }
 
         fun getGroupGames(context: Context) {
+
             val settings = SettingsHandler.readSettings(context)
             // Read the current settings
             val groupID = settings["groupID"]
