@@ -8,8 +8,8 @@
     <string name="back_to_main_2">Return to \n Main Menu</string>
     <string name="common_x">X</string>
     <array name="temp_slider">
-        <item>0.0</item>
-        <item>3.0</item>
+        <item>2.0</item>
+        <item>7.0</item>
     </array>
 
     <!-- Main Page -->
@@ -51,9 +51,16 @@
     <string name="win_card_default_souls">0</string>
     <string name="win_starting_item">Starting Item:</string>
 
-    <!-- Statistics Page -->
+    <!-- Statistics Pages -->
     <string name="stats_player_title">Player Data</string>
     <string name="stats_character_title">Character Data</string>
+    <string name="stats_treasures">Treasures:</string>
+    <string name="stats_players">Players:</string>
+    <string name="stats_filter">Filter By:</string>
+    <string name="stats_return">Return To Stats</string>
+
+    <!-- Player Stats Page -->
+    <string name="player_stats_title">Player Statistics</string>
 
     <!-- Table Strings -->
     <string name="player_table_header">Player</string>
@@ -140,10 +147,6 @@
     <string name="tutorial_background">Use this to select the background of the app</string>
     <string name="tutorial_border">Use this to select the border of the app</string>
     <string name="tutorial_readable_font">Use more readable fonts, rather than the Four Souls fonts</string>
-
-    <!-- Player Stats Page -->
-    <string name="player_stats_title">Player Statistics</string>
-    <string name="player_stats_filter">Filter By:</string>
 
     <!-- Game Editing Pages -->
     <string name="edit_title">Edit / Remove Games</string>

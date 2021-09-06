@@ -13,6 +13,7 @@ import com.profmori.foursoulsstatistics.database.Game
 import com.profmori.foursoulsstatistics.database.PlayerWithInstance
 import de.codecrafters.tableview.TableDataAdapter
 import de.codecrafters.tableview.TableHeaderAdapter
+import kotlin.properties.Delegates
 
 class PlayerTable(var playerName: String, var winrate: Double, var soulsAvg: Double, private var playedGames: Int, var adjustedSouls: Double){
     fun setData(data: Array<PlayerWithInstance>, games: Array<Game>){
@@ -99,7 +100,7 @@ class PlayerTableHeaderAdapter(context: Context, headerFont: Typeface, private v
     private var paddingTop = 30
     private var paddingRight = 20
     private var paddingBottom = 30
-    private var textSize = 14
+    private var textSize = 10
     private var typeface = headerFont
     private var gravity = Gravity.CENTER_HORIZONTAL
     // Sets basic parameters
@@ -109,7 +110,7 @@ class PlayerTableHeaderAdapter(context: Context, headerFont: Typeface, private v
         textSize = if (typeface == ResourcesCompat.getFont(context, R.font.four_souls_title)) {
         // If the font is the four souls font
             11
-        } else{ 13 }
+        } else{ 12 }
         // If the font is the readable font
 
         if (columnIndex < headers.size) {

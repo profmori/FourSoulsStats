@@ -133,9 +133,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         statsButton.setOnClickListener {
-            val goToStats = Intent(this, ViewStatistics::class.java)
-            // val goToStats = Intent(this, ViewPlayerStats::class.java)
-            // Temp lines for testing
+            //val goToStats = Intent(this, ViewStatistics::class.java)
+            val goToStats = Intent(this, ViewPlayerStats::class.java)
+            // Temp line for testing
             startActivity(goToStats)
         }
 

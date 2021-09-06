@@ -1,14 +1,16 @@
 package com.profmori.foursoulsstatistics
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.RangeSlider
 import com.profmori.foursoulsstatistics.custom_adapters.*
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.*
@@ -26,49 +28,91 @@ class ViewPlayerStats : AppCompatActivity() {
         // Gets the player title
 
         val filterText = findViewById<TextView>(R.id.filtersHeader)
+        // Get the filter text
+
+        val treasureText = findViewById<TextView>(R.id.treasureTitle)
+        val playerText = findViewById<TextView>(R.id.playerTitle)
+        // Get the treasure texts
+
+        val backButton = findViewById<Button>(R.id.playerToStats)
+        val buttonBG = ImageHandler.setButtonImage()
+        backButton.setBackgroundResource(buttonBG)
+        // Get the button and set the image
 
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image
 
         SettingsHandler.updateBackground(this, background)
+        // Set the background image
 
         playerTitle.typeface = fonts["title"]
+        filterText.typeface = fonts["body"]
+        playerText.typeface = fonts["body"]
+        treasureText.typeface = fonts["body"]
+        backButton.typeface = fonts["body"]
         // Set all button and title fonts
 
-        val treasureSlider = findViewById<RangeSlider>(R.id.treasureSlider)
-
         val playerSlider = findViewById<RangeSlider>(R.id.playerSlider)
+        val treasureSlider = findViewById<RangeSlider>(R.id.treasureSlider)
+        // Get the sliders
 
         lifecycleScope.launch {
             val gameDatabase = GameDataBase.getDataBase(this@ViewPlayerStats)
             val gameDao = gameDatabase.gameDAO
             val gamesList = gameDao.getGames()
+            // Get a list of games
 
             val treasures = gamesList.map { game -> game.treasureNo }
+            // Get the list of treasure numbers
             val minTreasure = treasures.minOrNull()!!.toFloat()
-            val maxTreasure = treasures.minOrNull()!!.toFloat()
+            val maxTreasure = treasures.maxOrNull()!!.toFloat()
+            // Get the range of treasure values
             treasureSlider.valueFrom = minTreasure
             treasureSlider.valueTo = maxTreasure
+            // Set the slider limits
             treasureSlider.values = listOf(minTreasure,maxTreasure)
+            // Set the current settings to the limits
             if(minTreasure == maxTreasure){
+                treasureText.visibility = View.GONE
                 treasureSlider.visibility = View.GONE
             }
+            // If there is no range, don't allow this to be modified
 
             val players = gamesList.map{game -> game.playerNo }
+            // Get the list of player numbers
             val minPlayer = players.minOrNull()!!.toFloat()
-            val maxPlayer = players.minOrNull()!!.toFloat()
+            val maxPlayer = players.maxOrNull()!!.toFloat()
+            // Get the minimum and maximum number of players
             playerSlider.valueFrom = minPlayer
             playerSlider.valueTo = maxPlayer
+            // Set the limits of the slider
             playerSlider.values = listOf(minPlayer,maxPlayer)
+            // Set the current slider values to the limit
             if(minPlayer == maxPlayer){
+                playerText.visibility = View.GONE
                 playerSlider.visibility = View.GONE
             }
+            // If there is no range, don't allow this to be modified
 
             if((minPlayer == maxPlayer) and (minTreasure == maxTreasure)){
                 filterText.visibility = View.GONE
             }
+            // If there is nothing to filter, don't show filter text
+
+            playerSlider.addOnChangeListener { _, _, _ ->
+                createTable(playerSlider.values, treasureSlider.values)
+                // Create the table with the up to date data
+            }
+            // When the player slider is changed update the table
+
+            treasureSlider.addOnChangeListener { _, _, _ ->
+                createTable(playerSlider.values, treasureSlider.values)
+                // Create the table with the up to date data
+            }
+            // When the treasure slider is changed update the table
 
             createTable(playerSlider.values, treasureSlider.values)
+            // Create the table with the up to date data
         }
     }
 
