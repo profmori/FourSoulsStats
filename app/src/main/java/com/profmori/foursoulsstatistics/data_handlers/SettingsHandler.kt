@@ -23,7 +23,7 @@ class SettingsHandler {
                 runBlocking {
                     CoroutineScope(Dispatchers.IO).launch {
                         // In a coroutine
-                        val existingIDs = OnlineDataHandler.getGroupIDs()
+                        val existingIDs = OnlineDataHandler.getGroupIDs(context)
                         // Get any existing ids
                         val charPool : List<Char> = ('A'..'Z') + ('0'..'9')
                         var randID = (1..6)
@@ -118,6 +118,11 @@ class SettingsHandler {
                 // Add it to the map as a key-value pair
             }
 
+            if(settingMap.isEmpty()){
+                settingsFile.delete()
+                initialiseSettings(context)
+            }
+
             return settingMap
             // Return the updated map
         }
@@ -168,7 +173,7 @@ class SettingsHandler {
                 "monster_back" -> context.resources.getString(R.string.monster_back)
                 "soul_back" -> context.resources.getString(R.string.soul_back)
                 "treasure_back" -> context.resources.getString(R.string.treasure_back)
-                else -> ""
+                else -> context. resources.getString(R.string.loot_back)
             }
             // Use a when statement on all the possible text options
         }

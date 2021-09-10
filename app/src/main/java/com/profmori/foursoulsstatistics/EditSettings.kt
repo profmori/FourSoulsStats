@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
+import java.lang.Integer.max
 
 
 class EditSettings : AppCompatActivity() {
@@ -117,7 +119,7 @@ class EditSettings : AppCompatActivity() {
 
         val groupPrompt = findViewById<TextView>(R.id.groupIDPrompt)
         val groupEntry = findViewById<EditText>(R.id.groupIDEntry)
-        val groupExplain = findViewById<TextView>(R.id.groupIDExplanation)
+        var groupExplain = findViewById<TextView>(R.id.groupIDExplanation)
         // Gets the group id prompts
         val oldId = currentSettings["groupID"]
         groupEntry.setText(oldId)
@@ -126,7 +128,7 @@ class EditSettings : AppCompatActivity() {
         // Initialises as an empty array
         CoroutineScope(Dispatchers.IO).launch {
             // Running asynchronously
-            existingIds = OnlineDataHandler.getGroupIDs()
+            existingIds = OnlineDataHandler.getGroupIDs(this@EditSettings)
             // Gets the existing ids in the online database
         }
 
@@ -134,7 +136,6 @@ class EditSettings : AppCompatActivity() {
             customButton.visibility = View.GONE
         }
         // If custom cards are not being used, hide the input button
-
 
         val returnButton = findViewById<Button>(R.id.settingsMainButton)
         // Get the return button

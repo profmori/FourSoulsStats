@@ -2,10 +2,7 @@ package com.profmori.foursoulsstatistics
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,14 +74,24 @@ class EditGames : AppCompatActivity() {
             }
             val games = gameDao.getGames()
             // Get all games
-            val idList = games.map { game -> game.gameID }.toTypedArray()
-            // Create a list of all game ids
-            listAdapter = GamesListAdapter(idList,buttonBG, fonts["body"]!!)
-            // Create the list adapter
-            gameList.adapter = listAdapter
-            // Attach the adapter to the game list
-            gameList.layoutManager = LinearLayoutManager(this@EditGames)
-            // Lay it out as a list
+            if(games.isNotEmpty()){
+                val idList = games.map { game -> game.gameID }.toTypedArray()
+                // Create a list of all game ids
+                listAdapter = GamesListAdapter(idList,buttonBG, fonts["body"]!!)
+                // Create the list adapter
+                gameList.adapter = listAdapter
+                // Attach the adapter to the game list
+                gameList.layoutManager = LinearLayoutManager(this@EditGames)
+                // Lay it out as a list
+            }else{
+                val passToast = Toast.makeText(this@EditGames, R.string.edit_no_games, Toast.LENGTH_LONG)
+                // Create the error message toast
+                passToast.show()
+                // Show the error toast
+                returnButton.performClick()
+                // Press the back button
+            }
+
         }
     }
 

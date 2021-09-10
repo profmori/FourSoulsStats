@@ -74,7 +74,7 @@
     <string name="settings_title">Settings</string>
 
     <string name="settings_group_id">Group ID:</string>
-    <string name="settings_group_id_explain">This must be 6 Characters Long</string>
+    <string name="settings_group_id_explain">Group ID must contain 6 letters, numbers or symbols</string>
     <string name="settings_invalid_group">Input group ID was too short and has been reset</string>
     <string name="settings_duplicate_group">Input group ID already exists. If this is not your group, use another ID</string>
     <string name="settings_overwrite_data">Changing group ID will delete any games not uploaded</string>
@@ -151,6 +151,7 @@
     <!-- Game Editing Pages -->
     <string name="edit_title">Edit / Remove Games</string>
     <string name="edit_select_game">Select A Game To Edit:</string>
+    <string name="edit_no_games">No Games Found To Edit</string>
 
     <!-- Game Editing / Removal Page -->
     <string name="adjust_title">Edit Game</string>

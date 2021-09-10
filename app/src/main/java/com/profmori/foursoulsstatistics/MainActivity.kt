@@ -1,6 +1,7 @@
 package com.profmori.foursoulsstatistics
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
@@ -20,6 +23,7 @@ import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
@@ -35,8 +39,12 @@ class MainActivity : AppCompatActivity() {
         source = intent.getStringExtra("from")
         // Get which view you are coming from
 
+        signIn()
+        // Try to sign in to the database
+
         when (source) {
             null -> {
+
                 SettingsHandler.initialiseSettings(this)
                 // Create settings file if there is none
 
@@ -46,9 +54,6 @@ class MainActivity : AppCompatActivity() {
                 // Show the tutorial
 
                 if (settings["online"].toBoolean()) {
-
-                    signIn()
-                    // Try to sign in
 
                     OnlineDataHandler.getGroupGames(this)
                     // Get any new online saved games
@@ -225,14 +230,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun signIn(){
-        val auth = Firebase.auth
-        auth.signInAnonymously()
-            .addOnCompleteListener() { task ->
-                if (!task.isSuccessful) {
-                // If you fail to sign in, try again
-                    signIn()
+        runBlocking {
+            val auth = Firebase.auth
+            auth.signInAnonymously()
+                .addOnCompleteListener() { task ->
+                    if (!task.isSuccessful) {
+                        // If you fail to sign in, try again
+                        signIn()
+                    }
                 }
-            }
+        }
     }
 
     override fun onBackPressed() {

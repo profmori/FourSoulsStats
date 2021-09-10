@@ -1,6 +1,7 @@
 package com.profmori.foursoulsstatistics.online_database
 
 import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -13,6 +14,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.lang.NullPointerException
+import androidx.core.content.ContextCompat.getSystemService
+
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
+import android.os.Build
+import androidx.core.content.ContextCompat
+
 
 class OnlineDataHandler {
 
@@ -81,87 +90,103 @@ class OnlineDataHandler {
         }
 
         fun getGroupGames(context: Context) {
-
-            val settings = SettingsHandler.readSettings(context)
-            // Read the current settings
-            val groupID = settings["groupID"]
-            // Get the id of the group
-            val onlineDB = Firebase.firestore.collection("game_instances")
-            // Get the online database
-            val localDB = GameDataBase.getDataBase(context)
-            // Gets the local database
-            val localDAO = localDB.gameDAO
-            // Gets the local DAO
-            CoroutineScope(Dispatchers.IO).launch {
-            // Launch a coroutine
-                saveGames(context)
-                // Save any games which aren't saved
-                localDAO.clearGameInstances()
-                localDAO.clearGames()
-                // Clear any local games
-                val onlineQuery = onlineDB.whereEqualTo("groupID", groupID).get().await()
-                // Get all the games of the group
-                onlineQuery.documents.forEach { document ->
-                    val gameInstance = document.toObject<OnlineGameInstance>()!!
-                    // Creates the online game instance object from the online database entry
-                    if (
-                        (gameInstance.groupID != "") and (gameInstance.gameID != "") and
-                        (gameInstance.gameSize != 0) and (gameInstance.treasureNum != -1) and
-                        (gameInstance.playerName != "") and (gameInstance.charName != "") and
-                        (gameInstance.eternal != "") and (gameInstance.souls != -1)
-                    ) {
-                    // If the game instance had all entries valid
-                        localDAO.addPlayer(Player(gameInstance.playerName))
-                        // Try to add the player to the database
-                        localDAO.addCharacter(
-                            CharEntity(
-                                gameInstance.charName,
-                                R.drawable.blank_char,
-                                null,
-                                "custom"
+            if (checkWifi(context)) {
+                val settings = SettingsHandler.readSettings(context)
+                // Read the current settings
+                val groupID = settings["groupID"]
+                // Get the id of the group
+                val onlineDB = Firebase.firestore.collection("game_instances")
+                // Get the online database
+                val localDB = GameDataBase.getDataBase(context)
+                // Gets the local database
+                val localDAO = localDB.gameDAO
+                // Gets the local DAO
+                CoroutineScope(Dispatchers.IO).launch {
+                    // Launch a coroutine
+                    saveGames(context)
+                    // Save any games which aren't saved
+                    localDAO.clearGameInstances()
+                    localDAO.clearGames()
+                    // Clear any local games
+                    val onlineQuery = onlineDB.whereEqualTo("groupID", groupID).get().await()
+                    // Get all the games of the group
+                    onlineQuery.documents.forEach { document ->
+                        val gameInstance = document.toObject<OnlineGameInstance>()!!
+                        // Creates the online game instance object from the online database entry
+                        if (
+                            (gameInstance.groupID != "") and (gameInstance.gameID != "") and
+                            (gameInstance.gameSize != 0) and (gameInstance.treasureNum != -1) and
+                            (gameInstance.playerName != "") and (gameInstance.charName != "") and
+                            (gameInstance.eternal != "") and (gameInstance.souls != -1)
+                        ) {
+                            // If the game instance had all entries valid
+                            localDAO.addPlayer(Player(gameInstance.playerName))
+                            // Try to add the player to the database
+                            localDAO.addCharacter(
+                                CharEntity(
+                                    gameInstance.charName,
+                                    R.drawable.blank_char,
+                                    null,
+                                    "custom"
+                                )
                             )
-                        )
-                        // Add any custom characters that don't exist
+                            // Add any custom characters that don't exist
 
-                        localDAO.addGameInstance(
-                        // Add / update the game instance to the local database
-                            GameInstance(
-                                0,
-                                gameInstance.gameID,
-                                gameInstance.playerName,
-                                gameInstance.charName,
-                                gameInstance.eternal,
-                                gameInstance.souls,
-                                gameInstance.winner
+                            localDAO.addGameInstance(
+                                // Add / update the game instance to the local database
+                                GameInstance(
+                                    0,
+                                    gameInstance.gameID,
+                                    gameInstance.playerName,
+                                    gameInstance.charName,
+                                    gameInstance.eternal,
+                                    gameInstance.souls,
+                                    gameInstance.winner
+                                )
                             )
-                        )
 
-                        localDAO.updateGame(
-                        // Add / update the stored game in the local database
-                            Game(
-                                gameInstance.gameID, gameInstance.gameSize,
-                                gameInstance.treasureNum, true
+                            localDAO.updateGame(
+                                // Add / update the stored game in the local database
+                                Game(
+                                    gameInstance.gameID, gameInstance.gameSize,
+                                    gameInstance.treasureNum, true
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
         }
 
-        suspend fun getGroupIDs(): Array<String> {
+        private fun checkWifi(context: Context): Boolean {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val network = connectivityManager.activeNetworkInfo as NetworkInfo
+            if (network.isConnected()) {
+                val wifi = network.type == ConnectivityManager.TYPE_WIFI
+                if (wifi) {
+                    return true
+                }
+            }
+            return false
+        }
+
+        suspend fun getGroupIDs(context: Context): Array<String> {
         // Get the list of all group ids
             var idList = emptyArray<String>()
             // Create an empty list
-            val onlineDatabase = Firebase.firestore.collection("group_ids")
-            // Access the online database
-            val groupIDs = onlineDatabase.get().await()
-            // Get all data from the database
-            groupIDs.documents.forEach {
-            // Iterate through each id
-                val idObject = it.toObject<OnlineGroupID>()!!
-                // Create an online group id object
-                idList += arrayOf(idObject.id)
-                // Add it to the list of ids
+            if(checkWifi(context)) {
+                val onlineDatabase = Firebase.firestore.collection("group_ids")
+                // Access the online database
+                val groupIDs = onlineDatabase.get().await()
+                // Get all data from the database
+                groupIDs.documents.forEach {
+                    // Iterate through each id
+                    val idObject = it.toObject<OnlineGroupID>()!!
+                    // Create an online group id object
+                    idList += arrayOf(idObject.id)
+                    // Add it to the list of ids
+                }
             }
             return idList
             // Return the id list
