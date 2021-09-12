@@ -6,7 +6,7 @@
     <string name="error_placeholder">If You Are Seeing This, There\'s A Bug</string>
     <string name="back_to_main_1">Return to Main Menu</string>
     <string name="back_to_main_2">Return to \n Main Menu</string>
-    <string name="common_x">X</string>
+    <string name="common_x" translatable="false">X</string>
     <array name="temp_slider">
         <item>2.0</item>
         <item>7.0</item>
@@ -24,9 +24,9 @@
     <!-- Data Input Page -->
     <string name="input_title">Input Game Data</string>
     <string name="input_no_players">Number of Players:</string>
-    <string name="input_default_players">4</string>
+    <string name="input_default_players" translatable="false">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
-    <string name="input_default_treasures">0</string>
+    <string name="input_default_treasures" translatable="false">0</string>
     <string name="input_continue_button">Input Game \n Results</string>
     <string name="input_too_few">Not All Data Filled In</string>
 
@@ -100,6 +100,12 @@
 
     <string name="settings_readable_font">Use A Readable Font :</string>
 
+    <string name="settings_clear_data">Clear All\nStored Data</string>
+    <string name="settings_delete_data">Are you sure you want to delete all data? \n This will remove any names, games and custom characters not used by your currently selected group. Any games not uploaded will be lost forever.</string>
+    <string name="settings_cancel_delete">Keep Data</string>
+    <string name="settings_confirm_delete">Delete Data</string>
+    <string name="settings_reset_tutorial">Reset\nTutorial</string>
+
     <!-- Custom Card Input Screen -->
     <string name="custom_title">Custom Cards</string>
     <string name="custom_cancel">Cancel</string>
@@ -147,6 +153,7 @@
     <string name="tutorial_background">Use this to select the background of the app</string>
     <string name="tutorial_border">Use this to select the border of the app</string>
     <string name="tutorial_readable_font">Use more readable fonts, rather than the Four Souls fonts</string>
+    <string name="tutorial_clear_button">Use the clear button to remove all saved data on this device. Any games not saved online will be lost forever</string>
 
     <!-- Game Editing Pages -->
     <string name="edit_title">Edit / Remove Games</string>
@@ -163,6 +170,6 @@
     <string name="adjust_incorrect_data">Data Input Incorrectly, Make Sure All Fields Are Filled And There Is Only One Winner</string>
     <string name="adjust_cancel_delete">Cancel</string>
     <string name="adjust_confirm_delete">Confirm</string>
-    <string name="adjust_check_delete">Deleting this game is permanent and cannot be undone \n Are you sure you want to delete this game?</string>
+    <string name="adjust_check_delete">Deleting a game is permanent and cannot be undone \n Are you sure you want to delete this game?</string>
 
 </resources>

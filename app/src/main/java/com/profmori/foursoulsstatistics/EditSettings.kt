@@ -1,34 +1,32 @@
 package com.profmori.foursoulsstatistics
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
 import com.profmori.foursoulsstatistics.custom_adapters.ChangeGroupDialog
+import com.profmori.foursoulsstatistics.custom_adapters.ConfirmDeleteDialog
 import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
+import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
-import com.profmori.foursoulsstatistics.database.CharacterList
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
-import com.google.android.material.snackbar.Snackbar
-import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
-import java.lang.Integer.max
-
 
 class EditSettings : AppCompatActivity() {
 
@@ -44,13 +42,6 @@ class EditSettings : AppCompatActivity() {
 
         var currentSettings = SettingsHandler.readSettings(this)
         // Gets the current settings
-        
-        var firstOpen = currentSettings["first_open"].toBoolean()
-
-        if (firstOpen){
-            runTutorial()
-            firstOpen = false
-        }
 
         borderList = mapOf(
             resources.getString(R.string.character_back) to "character_back",
@@ -119,8 +110,9 @@ class EditSettings : AppCompatActivity() {
 
         val groupPrompt = findViewById<TextView>(R.id.groupIDPrompt)
         val groupEntry = findViewById<EditText>(R.id.groupIDEntry)
-        var groupExplain = findViewById<TextView>(R.id.groupIDExplanation)
+        val groupExplain = findViewById<TextView>(R.id.groupIDExplanation)
         // Gets the group id prompts
+
         val oldId = currentSettings["groupID"]
         groupEntry.setText(oldId)
         // Get the current id and set the group entry to the current group id
@@ -140,6 +132,12 @@ class EditSettings : AppCompatActivity() {
         val returnButton = findViewById<Button>(R.id.settingsMainButton)
         // Get the return button
 
+        val clearButton = findViewById<Button>(R.id.clearButton)
+        // Gets the button to clear data
+
+        val tutorialButton = findViewById<Button>(R.id.tutorialButton)
+        // Get the button to reset the tutorial
+
         val titleText = findViewById<TextView>(R.id.settingsTitle)
         // Get the title
 
@@ -152,13 +150,24 @@ class EditSettings : AppCompatActivity() {
         // Get a random button from the possible options
 
         customButton.setBackgroundResource(buttonBG)
+        clearButton.setBackgroundResource(buttonBG)
+        tutorialButton.setBackgroundResource(buttonBG)
         returnButton.setBackgroundResource(buttonBG)
         // Set all the buttons to the same background
 
         updateFonts(titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, gold,
             plus, requiem, warp, promo, custom, customButton, altArt, borderText, borderSpinner,
-            backgroundText, backgroundSpinner, returnButton)
+            backgroundText, backgroundSpinner, clearButton, tutorialButton, returnButton)
         // Use them
+
+        val scrollView = findViewById<ScrollView>(R.id.scrollView)
+        // Finds the scrolling view
+
+        scrollView.scrollTo(0,0)
+        // Move to the top of the scroll view
+
+        runTutorial()
+        // Run the tutorial
 
         borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             // When a border item is selected
@@ -170,7 +179,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 currentSettings = updateSave(
                     gold, plus, requiem, warp, promo, custom, altArt, easyFont,
-                    borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
+                    borderSpinner, backgroundSpinner, online, groupEntry)
                 // Update the current settings
                 SettingsHandler.updateBackground(borderSpinner.context, backgroundImage)
                 // Update the background image
@@ -189,7 +198,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 currentSettings = updateSave(
                     gold, plus, requiem, warp, promo, custom, altArt, easyFont,
-                    borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
+                    borderSpinner, backgroundSpinner, online, groupEntry)
                 // Update the current settings
                 SettingsHandler.updateBackground(backgroundSpinner.context, backgroundImage)
                 // Update the background image
@@ -202,10 +211,10 @@ class EditSettings : AppCompatActivity() {
             // When the font slider is changed
             currentSettings = updateSave(
                 gold, plus, requiem, warp, promo, custom, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
+                borderSpinner, backgroundSpinner, online, groupEntry)
             updateFonts(titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, gold,
                 plus, requiem, warp, promo, custom, customButton, altArt, borderText, borderSpinner,
-                backgroundText, backgroundSpinner, returnButton)
+                backgroundText, backgroundSpinner, clearButton, tutorialButton, returnButton)
             // Change all the fonts
         }
 
@@ -219,16 +228,30 @@ class EditSettings : AppCompatActivity() {
         customButton.setOnClickListener {
             updateSave(
                 gold, plus, requiem, warp, promo, custom, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
+                borderSpinner, backgroundSpinner, online, groupEntry)
             val customIntent = Intent(this, CustomCardEntry::class.java)
             startActivity(customIntent)
         }
+
+        clearButton.setOnClickListener {
+            val fonts = TextHandler.setFont(this)
+            val clearDialog =
+                ConfirmDeleteDialog(this, fonts["body"]!!)
+            clearDialog.show(supportFragmentManager, "clearData")
+            // Create and show the confirmation to change the group ID
+        }
+
+        tutorialButton.setOnClickListener {
+            MaterialShowcaseView.resetAll(this)
+            returnButton.performClick()
+        }
+
 
         returnButton.setOnClickListener {
             // When the return button is clicked
             currentSettings = updateSave(
                 gold, plus, requiem, warp, promo, custom, altArt, easyFont,
-                borderSpinner, backgroundSpinner, online, groupEntry, firstOpen)
+                borderSpinner, backgroundSpinner, online, groupEntry)
             // Save the new settings file
             val newID = groupEntry.text.toString().uppercase()
             if (newID !in existingIds) {
@@ -325,19 +348,28 @@ class EditSettings : AppCompatActivity() {
         val easyFont = findViewById<SwitchCompat>(R.id.readableSwitch)
         // Match readability switch
 
-        val borderLine = findViewById<TextView>(R.id.borderPrompt)
+        val borderLine = findViewById<ConstraintLayout>(R.id.borderGroup)
         // Get the border line
 
-        val backgroundLine = findViewById<TextView>(R.id.backgroundPrompt)
+        val backgroundLine = findViewById<ConstraintLayout>(R.id.backgroundGroup)
         // Get the background line
 
         val online = findViewById<SwitchCompat>(R.id.onlineSwitch)
         // Match the online saving behaviour
 
-        val groupLine = findViewById<TextView>(R.id.groupIDExplanation)
+        val groupLine = findViewById<TextView>(R.id.groupIDEntry)
         // Gets the group id input
 
-        val sequence = MaterialShowcaseSequence(this, System.currentTimeMillis().toString())
+        val clearButton = findViewById<Button>(R.id.clearButton)
+        // Gets the button to clear data
+
+        val tutorialButton = findViewById<Button>(R.id.tutorialButton)
+        // Get the button to reset the tutorial
+
+        val scrollView = findViewById<ScrollView>(R.id.scrollView)
+        // Get the scroll view so the view can be automatically scrolled
+
+        val sequence = MaterialShowcaseSequence(this, "settings")
 
         sequence.setConfig(config)
 
@@ -390,6 +422,12 @@ class EditSettings : AppCompatActivity() {
             .withRectangleShape(true)
             .build()
 
+        val clearData = MaterialShowcaseView.Builder(this)
+            .setTarget(clearButton)
+            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setContentText(resources.getString(R.string.tutorial_clear_button))
+            .build()
+
 
         sequence.addSequenceItem(groupID)
         sequence.addSequenceItem(onlineSwitch)
@@ -398,9 +436,25 @@ class EditSettings : AppCompatActivity() {
         sequence.addSequenceItem(border)
         sequence.addSequenceItem(background)
         sequence.addSequenceItem(easySwitch)
+        sequence.addSequenceItem(clearData)
         // Put the tutorial sequence together
         sequence.start()
         // Run the tutorial
+
+        sequence.setOnItemDismissedListener { itemView, _ ->
+            val yPos = when(itemView){
+                edition -> altArt.bottom
+                altSwitch -> borderLine.bottom
+                border -> backgroundLine.bottom
+                background -> easyFont.bottom
+                easySwitch -> clearButton.bottom
+                clearData -> tutorialButton.bottom
+                else ->  scrollView.scrollY
+            }
+            val objectAnimator = ObjectAnimator.ofInt(scrollView, "scrollY",scrollView.scrollY, yPos ).setDuration(1000)
+            objectAnimator.start()
+        }
+
     }
 
     override fun onBackPressed() {
@@ -421,8 +475,7 @@ class EditSettings : AppCompatActivity() {
                            borderSpinner: Spinner,
                            backgroundSpinner: Spinner,
                            online: SwitchCompat,
-                           groupID: EditText,
-                           firstOpen: Boolean): Map<String, String>{
+                           groupID: EditText): Map<String, String>{
         val newMap = mapOf(
             "gold" to gold.isChecked.toString(),
             "plus" to plus.isChecked.toString(),
@@ -435,8 +488,7 @@ class EditSettings : AppCompatActivity() {
             "border" to borderList[borderSpinner.selectedItem.toString()]!!,
             "background" to backgroundList[backgroundSpinner.selectedItem.toString()]!!,
             "online" to online.isChecked.toString(),
-            "groupID" to groupID.text.toString().uppercase(),
-            "first_open" to firstOpen.toString()
+            "groupID" to groupID.text.toString().uppercase()
         )
         // Save all the values to a map
         return SettingsHandler.saveToFile(this, newMap)
@@ -462,6 +514,8 @@ class EditSettings : AppCompatActivity() {
         borderSpinner: Spinner,
         backgroundText: TextView,
         backgroundSpinner: Spinner,
+        clearButton: Button,
+        tutorialButton: Button,
         returnButton: Button){
         val fonts = TextHandler.setFont(this)
 
@@ -487,6 +541,10 @@ class EditSettings : AppCompatActivity() {
 
         borderText.typeface = fonts["body"]
         backgroundText.typeface = fonts["body"]
+
+        clearButton.typeface = fonts["body"]
+
+        tutorialButton.typeface = fonts["body"]
 
         returnButton.typeface = fonts["body"]
 

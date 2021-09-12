@@ -12,6 +12,8 @@ class SettingsHandler {
     companion object {
         fun initialiseSettings(context: Context) {
 
+            OnlineDataHandler.signIn()
+
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Get the settings file
 

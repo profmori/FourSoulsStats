@@ -21,6 +21,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.runBlocking
 
 
 class OnlineDataHandler {
@@ -161,11 +162,13 @@ class OnlineDataHandler {
         private fun checkWifi(context: Context): Boolean {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val network = connectivityManager.activeNetworkInfo as NetworkInfo
-            if (network.isConnected()) {
-                val wifi = network.type == ConnectivityManager.TYPE_WIFI
-                if (wifi) {
-                    return true
+            val network = connectivityManager.activeNetworkInfo
+            if (network != null) {
+                if (network.isConnected()) {
+                    val wifi = network.type == ConnectivityManager.TYPE_WIFI
+                    if (wifi) {
+                        return true
+                    }
                 }
             }
             return false
@@ -190,6 +193,19 @@ class OnlineDataHandler {
             }
             return idList
             // Return the id list
+        }
+
+        fun signIn(){
+            runBlocking {
+                val auth = Firebase.auth
+                auth.signInAnonymously()
+                    .addOnCompleteListener() { task ->
+                        if (!task.isSuccessful) {
+                            // If you fail to sign in, try again
+                            signIn()
+                        }
+                    }
+            }
         }
 
         fun saveGroupID(newID: String){

@@ -1,19 +1,12 @@
 package com.profmori.foursoulsstatistics
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -23,7 +16,6 @@ import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
@@ -38,9 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         source = intent.getStringExtra("from")
         // Get which view you are coming from
-
-        signIn()
-        // Try to sign in to the database
 
         when (source) {
             null -> {
@@ -88,6 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             "settings" -> {
+                runTutorial()
                 if (SettingsHandler.readSettings(this)["online"].toBoolean()) {
                     OnlineDataHandler.getGroupGames(this)
                     // Get any games not stored locally
@@ -138,8 +128,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         statsButton.setOnClickListener {
-            //val goToStats = Intent(this, ViewStatistics::class.java)
-            val goToStats = Intent(this, ViewPlayerStats::class.java)
+            val goToStats = Intent(this, ViewStatistics::class.java)
+            //val goToStats = Intent(this, ViewPlayerStats::class.java)
             // Temp line for testing
             startActivity(goToStats)
         }
@@ -227,19 +217,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         sequence.start()
-    }
-
-    private fun signIn(){
-        runBlocking {
-            val auth = Firebase.auth
-            auth.signInAnonymously()
-                .addOnCompleteListener() { task ->
-                    if (!task.isSuccessful) {
-                        // If you fail to sign in, try again
-                        signIn()
-                    }
-                }
-        }
     }
 
     override fun onBackPressed() {
