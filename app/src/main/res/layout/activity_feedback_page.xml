@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FeedbackPage">
+
+    <ImageView
+        android:id="@+id/background"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:ignore="ContentDescription"
+
+        android:background="@drawable/bg_tiled_loot_back"
+
+        android:src="@drawable/bg_border_monster_back"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/feedbackTitle"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:text="@string/feedback_title"
+        android:fontFamily="@font/four_souls_title"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/feedbackPreference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feedbackTitle"
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/feedback_preference"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/feedbackPreference"
+        app:layout_constraintBottom_toTopOf="@id/feedbackMainButton"
+        android:layout_marginVertical="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/githubFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                android:textAllCaps="false"
+                android:text="@string/feedback_github_report"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emailBug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/githubFeedback"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp"
+
+                android:textAllCaps="false"
+                android:text="@string/feedback_bug"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emailSuggestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/emailBug"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp"
+
+                android:textAllCaps="false"
+                android:text="@string/feedback_suggestion"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emailTranslate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/emailSuggestion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp"
+
+                android:textAllCaps="false"
+                android:text="@string/feedback_translate"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/feedbackMainButton"
+
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_margin="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:textAllCaps="false"
+        android:text="@string/back_to_main_1"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

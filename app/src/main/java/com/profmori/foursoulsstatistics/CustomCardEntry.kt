@@ -13,9 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.profmori.foursoulsstatistics.custom_adapters.CustomCharDialog
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.CustomCharDialog
 import com.profmori.foursoulsstatistics.custom_adapters.CustomCharListAdapter
-import com.profmori.foursoulsstatistics.custom_adapters.CustomItemDialog
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.CustomItemDialog
 import com.profmori.foursoulsstatistics.custom_adapters.CustomItemListAdapter
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler

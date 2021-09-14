@@ -13,8 +13,8 @@ android {
         applicationId "com.profmori.foursoulsstatistics"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 9
-        versionName "2.03"
+        versionCode 10
+        versionName "2.04"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

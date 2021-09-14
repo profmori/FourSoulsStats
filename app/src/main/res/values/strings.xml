@@ -5,7 +5,7 @@
     <!-- Common Strings -->
     <string name="error_placeholder">If You Are Seeing This, There\'s A Bug</string>
     <string name="back_to_main_1">Return to Main Menu</string>
-    <string name="back_to_main_2">Return to \n Main Menu</string>
+    <string name="back_to_main_2">Return to\nMain Menu</string>
     <string name="common_x" translatable="false">X</string>
     <array name="temp_slider">
         <item>2.0</item>
@@ -14,12 +14,12 @@
 
     <!-- Main Page -->
     <string name="main_title">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
-    <string name="main_stats_button">View \n Statistics</string>
-    <string name="main_enter_data">Enter \n Game Data</string>
-    <string name="main_edit_button">Edit \n Games</string>
-    <string name="main_settings_button">App \n Settings</string>
+    <string name="main_stats_button">View\nStatistics</string>
+    <string name="main_enter_data">Enter\nGame Data</string>
+    <string name="main_edit_button">Edit\nGames</string>
+    <string name="main_settings_button">App\nSettings</string>
     <string name="main_thanks_button">Thanks</string>
-    <string name="main_error_button">Issues /\n Suggestions</string>
+    <string name="main_error_button">Feedback &amp;\nSuggestions</string>
 
     <!-- Data Input Page -->
     <string name="input_title">Input Game Data</string>
@@ -27,7 +27,7 @@
     <string name="input_default_players" translatable="false">4</string>
     <string name="input_no_treasures">Number of Starting Treasures:</string>
     <string name="input_default_treasures" translatable="false">0</string>
-    <string name="input_continue_button">Input Game \n Results</string>
+    <string name="input_continue_button">Input Game\nResults</string>
     <string name="input_too_few">Not All Data Filled In</string>
 
     <!-- Input Recycler View Strings -->
@@ -39,10 +39,10 @@
     <string name="add_player_2">To Player List</string>
 
     <!-- Results Page -->
-    <string name="result_continue">Save \n Result</string>
+    <string name="result_continue">Save\nResult</string>
     <string name="result_wrong_count">There Needs To Be Exactly 1 Winner</string>
     <string name="result_pass_on">Game Saved</string>
-    <string name="result_go_back">Change \n Game Setup</string>
+    <string name="result_go_back">Change\nGame Setup</string>
 
     <!-- Results Page Recycler Strings -->
     <string name="win_card_player">Player:</string>
@@ -51,23 +51,33 @@
     <string name="win_card_default_souls">0</string>
     <string name="win_starting_item">Starting Item:</string>
 
+    <!-- Statistics Selection Page -->
+    <string name="stats_no_local">There are no games stored for this playgroup.</string>
+    <string name="stats_no_wifi">This requires a wi-fi connection to access. Please try again later.</string>
+
     <!-- Statistics Pages -->
-    <string name="stats_player_title">Player Data</string>
-    <string name="stats_character_title">Character Data</string>
     <string name="stats_treasures">Treasures:</string>
     <string name="stats_players">Players:</string>
     <string name="stats_filter">Filter By:</string>
-    <string name="stats_return">Return To Stats</string>
+    <string name="stats_return">Return To Statistics Page</string>
+    <string name="player_stats_title">Player\nStatistics</string>
+    <string name="char_stats_title">Character\nStatistics</string>
+    <string name="eternal_stats_title">Eternal Item\nStatistics</string>
+
 
     <!-- Player Stats Page -->
-    <string name="player_stats_title">Player Statistics</string>
 
-    <!-- Table Strings -->
+
+    <!-- Character Stats Page -->
+
+    <!-- Stats Table Strings -->
     <string name="player_table_header">Player</string>
     <string name="character_table_header">Character</string>
+    <string name="eternal_table_header">Eternal Item</string>
     <string name="stats_table_winrate">Win Rate</string>
     <string name="stats_table_souls">Average Souls</string>
     <string name="stats_table_adjusted_souls">Adjusted Souls</string>
+    <string name="stats_table_played">Games Played</string>
     <string name="stats_table_entry">%.2f</string>
 
     <!-- Settings -->
@@ -101,7 +111,9 @@
     <string name="settings_readable_font">Use A Readable Font :</string>
 
     <string name="settings_clear_data">Clear All\nStored Data</string>
-    <string name="settings_delete_data">Are you sure you want to delete all data? \n This will remove any names, games and custom characters not used by your currently selected group. Any games not uploaded will be lost forever.</string>
+    <string name="settings_delete_data">Are you sure you want to delete all data?
+        \nThis will remove any names, games and custom characters not used by your currently selected group.
+        Any games not uploaded will be lost forever.</string>
     <string name="settings_cancel_delete">Keep Data</string>
     <string name="settings_confirm_delete">Delete Data</string>
     <string name="settings_reset_tutorial">Reset\nTutorial</string>
@@ -132,22 +144,27 @@
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
             u/Koretex_</a> for the Four Souls Reddit</string>
     <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me.
-        \n And also for immediately finding a bug</string>
+        \nAnd also for immediately finding a bug</string>
+    <string name="thanks_support">Any support is greatly appreciated, and can be donated using the Ko-Fi button on the right.
+        \nThis is not required, or obligatory, and I will continue to work on the app regardless, but any donations are appreciated.</string>
 
-    <!-- Tutorial Lines -->
+
+    <!-- Main Page Tutorial Lines -->
     <string name="tutorial_dismiss">OK</string>
     <string name="tutorial_data">Input game data using this button</string>
     <string name="tutorial_stats">View your group\'s statistics using this button</string>
     <string name="tutorial_edit">Use this button to edit previously entered games to amend any mistakes made.
         You can also remove games from the play history entirely</string>
     <string name="tutorial_settings">Use this button to customise your app experience.
-        \n This allows you to choose many things, including online capabilities and app appearance.</string>
-    <string name="tutorial_issues">Use this button to report any issues you have, or bugs you find.
-        \n Note that this will require a GitHub account</string>
+        \nThis allows you to choose many things, including online capabilities and app appearance.</string>
+    <string name="tutorial_issues">Use this button to report any issues you have, or bugs you find. As well as this, new suggestions can be made.
+        \nIf you would like to translate the app, any offers are greatly appreciated. This can also be done from this button.</string>
+
+    <!-- Settings Page Tutorial Lines -->
     <string name="tutorial_group_id">Use this line to input your group\'s unique id, or create a new one.
-        \n This will be used to allow for different devices to sync the same games, and is required even if you remain offline</string>
+        \nThis will be used to allow for different devices to sync the same games, and is required even if you remain offline</string>
     <string name="tutorial_online">This switch controls whether or not your group data will be stored online.
-        \n It is still important to set your group id, as changing it will reset your recorded games, even when offline</string>
+        \nIt is still important to set your group id, as changing it will reset your recorded games, even when offline</string>
     <string name="tutorial_edition">Select which editions of the game you want to use cards from</string>
     <string name="alt_art">Have a chance for the Requiem Kickstarter alt art cards to be shown instead of the original art</string>
     <string name="tutorial_background">Use this to select the background of the app</string>
@@ -164,12 +181,21 @@
     <string name="adjust_title">Edit Game</string>
     <string name="adjust_submit">Submit Change</string>
     <string name="adjust_delete">Delete Game</string>
-    <string name="adjust_confirm_exit">Exiting will reset any changes made. \n Do you want to continue?</string>
+    <string name="adjust_confirm_exit">Exiting will reset any changes made.\nDo you want to continue?</string>
     <string name="adjust_ignore_changes">Exit Without Saving</string>
     <string name="adjust_cancel_exit">Go Back To Editing</string>
     <string name="adjust_incorrect_data">Data Input Incorrectly, Make Sure All Fields Are Filled And There Is Only One Winner</string>
     <string name="adjust_cancel_delete">Cancel</string>
     <string name="adjust_confirm_delete">Confirm</string>
-    <string name="adjust_check_delete">Deleting a game is permanent and cannot be undone \n Are you sure you want to delete this game?</string>
+    <string name="adjust_check_delete">Deleting a game is permanent and cannot be undone\nAre you sure you want to delete this game?</string>
+    
+    <!-- Feedback Page -->
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_preference">The preferred method of receiving feedback is via GitHub, so please use that where possible. 
+        Otherwise, links are provided to send emails.\nTranslation offers are appreciated, and should be sent via email.</string>
+    <string name="feedback_github_report">Github Report</string>
+    <string name="feedback_bug">Email a Bug Report</string>
+    <string name="feedback_suggestion">Email a Suggestion</string>
+    <string name="feedback_translate">Offer to Translate</string>
 
 </resources>

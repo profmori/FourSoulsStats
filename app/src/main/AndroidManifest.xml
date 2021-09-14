@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.profmori.foursoulsstatistics">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:fullBackupOnly="true"
@@ -11,22 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FourSoulsStatistics">
         <activity
+            android:name=".statistics_pages.ViewCommunityEternalStats"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".statistics_pages.ViewCommunityCharacterStats"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".statistics_pages.ViewLocalCharacterStats"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FeedbackPage"
+            android:exported="true" />
+        <activity
             android:name=".EditSingleGame"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditGames"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:exported="true" />
-        <activity android:name=".CustomCardEntry"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CustomCardEntry"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".ViewPlayerStats"
+        <activity
+            android:name=".statistics_pages.ViewPlayerStats"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".ShowThanks"
+        <activity
+            android:name=".ShowThanks"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -34,7 +54,8 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ViewStatistics"
+        <activity
+            android:name=".statistics_pages.StatisticsMenu"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -50,8 +71,8 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

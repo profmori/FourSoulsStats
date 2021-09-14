@@ -1,6 +1,5 @@
 package com.profmori.foursoulsstatistics.custom_adapters
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.EditSingleGame
-import com.profmori.foursoulsstatistics.MainActivity
 import com.profmori.foursoulsstatistics.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,8 +45,7 @@ class GamesListAdapter(private var gameList: Array<String>, private val buttonBG
         val timeCode = shownGame.substring(6).toLong()
         // Extract the timecode from the gameID
 
-        @SuppressLint("SimpleDateFormat")
-        val formatter = SimpleDateFormat("dd MMMM yyyy HH:mm")
+        val formatter = SimpleDateFormat("dd MMMM yyyy HH:mm",Locale.getDefault())
         formatter.timeZone = TimeZone.getDefault()
         val time = formatter.format(timeCode)
         // Format it as a date and time

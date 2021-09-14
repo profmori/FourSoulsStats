@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.snackbar.Snackbar
-import com.profmori.foursoulsstatistics.custom_adapters.ChangeGroupDialog
-import com.profmori.foursoulsstatistics.custom_adapters.ConfirmDeleteDialog
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ChangeGroupDialog
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ConfirmDeleteDialog
 import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
@@ -336,7 +336,7 @@ class EditSettings : AppCompatActivity() {
     private fun runTutorial(){
 
         val config = ShowcaseConfig()
-        config.delay = 100
+        config.delay = 200
         // Delay between each showcase view
 
         val editionSelect = findViewById<ConstraintLayout>(R.id.editionSelect)
@@ -451,7 +451,7 @@ class EditSettings : AppCompatActivity() {
                 clearData -> tutorialButton.bottom
                 else ->  scrollView.scrollY
             }
-            val objectAnimator = ObjectAnimator.ofInt(scrollView, "scrollY",scrollView.scrollY, yPos ).setDuration(1000)
+            val objectAnimator = ObjectAnimator.ofInt(scrollView, "scrollY",scrollView.scrollY, yPos ).setDuration(500)
             objectAnimator.start()
         }
 

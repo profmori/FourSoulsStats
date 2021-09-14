@@ -1,7 +1,7 @@
 package com.profmori.foursoulsstatistics.online_database
 
 import android.content.Context
-import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -12,16 +12,8 @@ import com.profmori.foursoulsstatistics.database.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import java.lang.NullPointerException
-import androidx.core.content.ContextCompat.getSystemService
-
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.net.NetworkInfo
-import android.os.Build
-import androidx.core.content.ContextCompat
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 
 class OnlineDataHandler {
@@ -57,6 +49,38 @@ class OnlineDataHandler {
                     }
                 }
             }
+        }
+
+        suspend fun getAllGames(context: Context): Array<OnlineGameInstance>{
+            var games = emptyArray<OnlineGameInstance>()
+            // Creates an object to store all the games every played
+            if (checkWifi(context)) {
+                val onlineDB = Firebase.firestore.collection("game_instances")
+                // Get the online database
+                val readAll = onlineDB.whereNotEqualTo("groupID","").get().await()
+                // Creates a query to read all games where the group id exists
+                readAll.documents.forEach { document ->
+                    games += arrayOf(document.toObject<OnlineGameInstance>()!!)
+                    // Adds all game instances to the list
+                }
+            }
+            return games
+        }
+
+        suspend fun getAllEternals(context: Context): Array<OnlineGameInstance>{
+            var games = emptyArray<OnlineGameInstance>()
+            // Creates an object to store all the games every played
+            if (checkWifi(context)) {
+                val onlineDB = Firebase.firestore.collection("game_instances")
+                // Get the online database
+                val allEternals = onlineDB.whereNotEqualTo("eternal",null).get().await()
+                // Creates a query to read all games where the eternal is not null
+                allEternals.documents.forEach { document ->
+                    games += arrayOf(document.toObject<OnlineGameInstance>()!!)
+                    // Adds all game instances with eternals to the list
+                }
+            }
+            return games
         }
 
         suspend fun deleteOnlineGameInstances(gameID: String){
@@ -159,12 +183,12 @@ class OnlineDataHandler {
             }
         }
 
-        private fun checkWifi(context: Context): Boolean {
+        fun checkWifi(context: Context): Boolean {
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val network = connectivityManager.activeNetworkInfo
             if (network != null) {
-                if (network.isConnected()) {
+                if (network.isConnected) {
                     val wifi = network.type == ConnectivityManager.TYPE_WIFI
                     if (wifi) {
                         return true
@@ -199,7 +223,7 @@ class OnlineDataHandler {
             runBlocking {
                 val auth = Firebase.auth
                 auth.signInAnonymously()
-                    .addOnCompleteListener() { task ->
+                    .addOnCompleteListener { task ->
                         if (!task.isSuccessful) {
                             // If you fail to sign in, try again
                             signIn()

@@ -1,7 +1,6 @@
 package com.profmori.foursoulsstatistics
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -13,6 +12,7 @@ import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharacterList
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
+import com.profmori.foursoulsstatistics.statistics_pages.StatisticsMenu
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -128,9 +128,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         statsButton.setOnClickListener {
-            val goToStats = Intent(this, ViewStatistics::class.java)
-            //val goToStats = Intent(this, ViewPlayerStats::class.java)
-            // Temp line for testing
+            val goToStats = Intent(this, StatisticsMenu::class.java)
             startActivity(goToStats)
         }
 
@@ -151,17 +149,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         issuesButton.setOnClickListener {
-            val issuesLink = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/profmori/FourSoulsStats/issues"))
-            // Go to the link
-            startActivity(issuesLink)
-            // Actually go
+            val issuesPage = Intent(this, FeedbackPage::class.java)
+            startActivity(issuesPage)
         }
     }
 
     private fun runTutorial(){
 
         val config = ShowcaseConfig()
-        config.delay = 100
+        config.delay = 200
         // Delay between each showcase view
 
         val dataButton = findViewById<Button>(R.id.mainData)

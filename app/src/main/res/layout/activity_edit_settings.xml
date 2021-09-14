@@ -239,6 +239,7 @@
                 android:thumb="@drawable/switch_thumb"
                 app:trackTint="@drawable/switch_track"
 
+                android:gravity="center_vertical"
                 android:text="@string/settings_alt_art" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
