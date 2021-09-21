@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
+import com.profmori.foursoulsstatistics.data_handlers.RecyclerHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
 
@@ -60,6 +61,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         // Set item views based on your player
 
         val fonts = playerHandler.fonts
+        // Get the fonts used for the button
 
         val background = viewHolder.charImage
         // Get the background image
@@ -83,10 +85,8 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         val soulsBox = viewHolder.soulsCount
         // Gets the soul input box
 
-        var soulNumber = soulsBox.text.toString().toInt()
-        // Gets the soul input field
-
         val soulsText = viewHolder.soulsText
+        // Gets the soul prompt for the user
 
         val winnerTick = viewHolder.winnerCheck
         // Gets the winner tick box
@@ -98,10 +98,13 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         // Get the eternal text box
 
         if(playerHandler.eternal.isNullOrBlank()){
+        // If there is no eternal
             itemText.visibility = View.INVISIBLE
             eternalText.visibility = View.INVISIBLE
+            // Hide the item and eternal text
         }else{
             eternalText.text = playerHandler.eternal
+            // Set the eternal to the correct string
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 5, 7, 1, TypedValue.COMPLEX_UNIT_PT)
             // Autoscale the eternal text
         }
@@ -110,6 +113,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         soulsBox.typeface = fonts["body"]
         winnerTick.typeface = fonts["body"]
         soulsText.typeface = fonts["body"]
+        // Set all the fonts for the entries correctly
 
         soulsBox.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -126,37 +130,9 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         }
 
         soulsBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val oldSoulNumber = soulNumber
-                try{
-                    soulNumber = soulsBox.text.toString().toInt()
-                    // Try and set the soul number from the text input
-                }
-                catch (e: NumberFormatException){
-                // If the input cannot be made into a number
-                    soulNumber = oldSoulNumber
-                    // Use the old soul number
-                }
-                finally {
-                    playerHandler.soulsNum = soulNumber
-                    soulsBox.setText(playerHandler.soulsNum.toString())
-                    // Fill the text box back in
-                    if (soulNumber >= 4) {
-                    // If there are more than four souls
-                        winnerTick.isChecked = true
-                        // Assume this person has won
-                    } else if (winnerTick.isChecked) {
-                    // If they have less than four souls and have been marked as winner
-                        winnerTick.isChecked = false
-                        // Remove their winner status
-                    }
-                }
-            }
-            else if(soulNumber == 0){
-            // If they have no souls on input
-                soulsBox.setText("")
-                // Clear the souls box
-            }
+        // When the soul input box changes focus
+            RecyclerHandler.enterSouls(hasFocus,soulsBox, winnerTick, playerHandler)
+            // Handles all the logic for the souls entry box
         }
 
         winnerTick.setOnCheckedChangeListener { _, _ ->

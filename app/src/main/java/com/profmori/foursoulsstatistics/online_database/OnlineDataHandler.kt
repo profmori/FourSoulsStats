@@ -19,55 +19,49 @@ import kotlinx.coroutines.tasks.await
 class OnlineDataHandler {
 
     companion object {
-        fun saveGames(context: Context) {
-            val settings = SettingsHandler.readSettings(context)
-            // Read the current settings
-            if (settings["online"].toBoolean()) {
-            // If the user has allowed data to be uploaded
-                val localDB = GameDataBase.getDataBase(context)
-                // Get the local database
-                val localDAO = localDB.gameDAO
-                // Get the local DAO
-                CoroutineScope(Dispatchers.IO).launch {
-                // Launch a coroutine
-                    val unsavedGames = localDAO.getUploadGames()
-                    // Get the list of games which are local only
-                    unsavedGames.forEach { game ->
-                    // Iterates through each unsaved game
-                        val gameInstances = localDAO.getGameWithInstance(game.gameID)
-                        // Get the list of instances for this game
-                        gameInstances.forEach { gameInstance ->
-                            gameInstance.gameInstances.forEach { instance ->
-                            // Iterates through each game instance
-                                saveOnlineGameInstance(game, instance)
-                            }
-                        }
-                        val updatedGame = Game(game.gameID, game.playerNo, game.treasureNo, true)
-                        // Create the updated game object
-                        localDAO.updateGame(updatedGame)
-                        // Update the game to be marked as uploaded
+        fun checkWifi(context: Context): Boolean {
+            // This is magic off the internet and will probably break in the future
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val network = connectivityManager.activeNetworkInfo
+            if (network != null) {
+                if (network.isConnected) {
+                    val wifi = network.type == ConnectivityManager.TYPE_WIFI
+                    if (wifi) {
+                        return true
                     }
                 }
             }
+            return false
         }
 
-        suspend fun getAllGames(context: Context): Array<OnlineGameInstance>{
-            var games = emptyArray<OnlineGameInstance>()
-            // Creates an object to store all the games every played
-            if (checkWifi(context)) {
-                val onlineDB = Firebase.firestore.collection("game_instances")
-                // Get the online database
-                val readAll = onlineDB.whereNotEqualTo("groupID","").get().await()
-                // Creates a query to read all games where the group id exists
-                readAll.documents.forEach { document ->
-                    games += arrayOf(document.toObject<OnlineGameInstance>()!!)
-                    // Adds all game instances to the list
-                }
+        suspend fun deleteOnlineGameInstances(gameID: String){
+            signIn()
+            // Sign into the database
+            val onlineDB = Firebase.firestore.collection("game_instances")
+            // Get the online database
+            val onlineQuery = onlineDB.whereEqualTo("gameID", gameID).get().await()
+            // Get all the game instances of the game
+            onlineQuery.documents.forEach { document ->
+                document.reference.delete()
+                // Delete each instance
             }
-            return games
+
+        }
+
+        private fun generateOnlineName(instance: GameInstance):String{
+            val obfName =  instance.playerName.toCharArray().map { c -> c.code }
+                .joinToString("")
+            // Create the obfuscated name from the player's name
+
+            return instance.gameID.substring(7) + obfName
+            // Set the online id to the timecode followed by the obfuscated player
+
         }
 
         suspend fun getAllEternals(context: Context): Array<OnlineGameInstance>{
+            signIn()
+            // Sign into the database
             var games = emptyArray<OnlineGameInstance>()
             // Creates an object to store all the games every played
             if (checkWifi(context)) {
@@ -83,38 +77,27 @@ class OnlineDataHandler {
             return games
         }
 
-        suspend fun deleteOnlineGameInstances(gameID: String){
-            val onlineDB = Firebase.firestore.collection("game_instances")
-            // Get the online database
-            val onlineQuery = onlineDB.whereEqualTo("gameID", gameID).get().await()
-            // Get all the game instances of the game
-            onlineQuery.documents.forEach { document ->
-                document.reference.delete()
+        suspend fun getAllGames(context: Context): Array<OnlineGameInstance>{
+            signIn()
+            // Sign into the database
+            var games = emptyArray<OnlineGameInstance>()
+            // Creates an object to store all the games every played
+            if (checkWifi(context)) {
+                val onlineDB = Firebase.firestore.collection("game_instances")
+                // Get the online database
+                val readAll = onlineDB.whereNotEqualTo("groupID","").get().await()
+                // Creates a query to read all games where the group id exists
+                readAll.documents.forEach { document ->
+                    games += arrayOf(document.toObject<OnlineGameInstance>()!!)
+                    // Adds all game instances to the list
+                }
             }
-
-        }
-
-        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance){
-            val onlineDB = Firebase.firestore.collection("game_instances")
-            // Get the online game database
-            val docName = generateOnlineName(gameInstance)
-            val newOnlineGameInstance = OnlineGameInstance(
-            // Creates a new online game instance
-                gameInstance.gameID.subSequence(0, 6).toString(),
-                gameInstance.gameID,
-                game.playerNo,
-                game.treasureNo,
-                gameInstance.playerName,
-                gameInstance.charName,
-                gameInstance.eternal,
-                gameInstance.souls,
-                gameInstance.winner
-            )
-            onlineDB.document(docName).set(newOnlineGameInstance).await()
-            // Add the game instance to the online database
+            return games
         }
 
         fun getGroupGames(context: Context) {
+            signIn()
+            // Sign into the database
             if (checkWifi(context)) {
                 val settings = SettingsHandler.readSettings(context)
                 // Read the current settings
@@ -183,26 +166,12 @@ class OnlineDataHandler {
             }
         }
 
-        fun checkWifi(context: Context): Boolean {
-            val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val network = connectivityManager.activeNetworkInfo
-            if (network != null) {
-                if (network.isConnected) {
-                    val wifi = network.type == ConnectivityManager.TYPE_WIFI
-                    if (wifi) {
-                        return true
-                    }
-                }
-            }
-            return false
-        }
-
         suspend fun getGroupIDs(context: Context): Array<String> {
-        // Get the list of all group ids
+            // Get the list of all group ids
             var idList = emptyArray<String>()
             // Create an empty list
             if(checkWifi(context)) {
+                // If you are connected to wifi
                 val onlineDatabase = Firebase.firestore.collection("group_ids")
                 // Access the online database
                 val groupIDs = onlineDatabase.get().await()
@@ -219,10 +188,78 @@ class OnlineDataHandler {
             // Return the id list
         }
 
+        fun saveGames(context: Context) {
+            signIn()
+            // Sign into the database
+            val settings = SettingsHandler.readSettings(context)
+            // Read the current settings
+            if (settings["online"].toBoolean()) {
+            // If the user has allowed data to be uploaded
+                val localDB = GameDataBase.getDataBase(context)
+                // Get the local database
+                val localDAO = localDB.gameDAO
+                // Get the local DAO
+                CoroutineScope(Dispatchers.IO).launch {
+                // Launch a coroutine
+                    val unsavedGames = localDAO.getUploadGames()
+                    // Get the list of games which are local only
+                    unsavedGames.forEach { game ->
+                    // Iterates through each unsaved game
+                        val gameInstances = localDAO.getGameWithInstance(game.gameID)
+                        // Get the list of instances for this game
+                        gameInstances.forEach { gameInstance ->
+                            gameInstance.gameInstances.forEach { instance ->
+                            // Iterates through each game instance
+                                saveOnlineGameInstance(game, instance)
+                                // Save the online game instance
+                            }
+                        }
+                        val updatedGame = Game(game.gameID, game.playerNo, game.treasureNo, true)
+                        // Create the updated game object
+                        localDAO.updateGame(updatedGame)
+                        // Update the game to be marked as uploaded
+                    }
+                }
+            }
+        }
+
+        fun saveGroupID(newID: String){
+            val id = SettingsHandler.sanitiseGroupID(newID)
+            // Sanitise the id so it doesn't contain ambiguos characters
+            val onlineDatabase = Firebase.firestore.collection("group_ids")
+            // Get the online database
+            onlineDatabase.add(OnlineGroupID(id))
+            // Add it as an online group id object
+        }
+
+        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance){
+            signIn()
+            // Sign into the database
+            val onlineDB = Firebase.firestore.collection("game_instances")
+            // Get the online game database
+            val docName = generateOnlineName(gameInstance)
+            val newOnlineGameInstance = OnlineGameInstance(
+                // Creates a new online game instance
+                gameInstance.gameID.subSequence(0, 6).toString(),
+                gameInstance.gameID,
+                game.playerNo,
+                game.treasureNo,
+                gameInstance.playerName,
+                gameInstance.charName,
+                gameInstance.eternal,
+                gameInstance.souls,
+                gameInstance.winner
+            )
+            onlineDB.document(docName).set(newOnlineGameInstance).await()
+            // Add the game instance to the online database
+        }
+
         fun signIn(){
             runBlocking {
                 val auth = Firebase.auth
+                // Get the firebase authorisation
                 auth.signInAnonymously()
+                    // Sign in anonymously
                     .addOnCompleteListener { task ->
                         if (!task.isSuccessful) {
                             // If you fail to sign in, try again
@@ -230,23 +267,6 @@ class OnlineDataHandler {
                         }
                     }
             }
-        }
-
-        fun saveGroupID(newID: String){
-            val onlineDatabase = Firebase.firestore.collection("group_ids")
-            // Get the online database
-            onlineDatabase.add(OnlineGroupID(newID))
-            // Add it as an online group id object
-        }
-
-        private fun generateOnlineName(instance: GameInstance):String{
-            val obfName =  instance.playerName.toCharArray().map { c -> c.code }
-                .joinToString("")
-            // Create the obfuscated name from the player's name
-
-            return instance.gameID.substring(7) + obfName
-            // Set the online id to the timecode followed by the obfuscated player
-
         }
     }
 }

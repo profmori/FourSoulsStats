@@ -110,6 +110,7 @@ class CustomCardEntry : AppCompatActivity() {
             // Get the current list of characters
             try {
                 val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    // Uses a different method to find the image based on the android version
                     ImageDecoder.decodeBitmap(
                         ImageDecoder.createSource(this.contentResolver, imageURI)
                     )
@@ -141,14 +142,16 @@ class CustomCardEntry : AppCompatActivity() {
                 characterRecycler.adapter = charAdapter
                 // Set layout manager to position the items
             }catch (e: NullPointerException) {}
+            // If there's a null pointer do nothing
         }
 
         imageChangeButton.setOnClickListener {
             getContent.launch("image/*")
-            // Launch a call of an image
+            // Launch a call of an image when the invisible button is clicked
         }
 
         val itemList = ItemList.readCustom(this)
+        // Gets the list of custom items
         var itemAdapter = CustomItemListAdapter(itemList, fonts["body"]!!)
         // Attach the adapter to the recyclerview to populate items
         itemRecycler.adapter = itemAdapter
@@ -167,7 +170,7 @@ class CustomCardEntry : AppCompatActivity() {
                         null,
                         "custom"
                     ))
-                    // Add the new item
+                    // Add the new custom character
                     charAdapter = CustomCharListAdapter(chars, fonts["body"]!!,this@CustomCardEntry)
                     // Attach the adapter to the recyclerview to populate items
                     characterRecycler.adapter = charAdapter
@@ -188,6 +191,7 @@ class CustomCardEntry : AppCompatActivity() {
                     items += arrayOf(text.lowercase().trim())
                     // Add the new item
                     items.sort()
+                    // Sort the item list alphabetically
                     itemAdapter = CustomItemListAdapter(items, fonts["body"]!!)
                     // Attach the adapter to the recyclerview to populate items
                     itemRecycler.adapter = itemAdapter
@@ -207,15 +211,17 @@ class CustomCardEntry : AppCompatActivity() {
             val items = itemAdapter.getItems()
             // Get the current list of items
             ItemList.writeCustom(this,items)
+            // Add all the custom items to the item list so they can be accessed later
 
             CoroutineScope(Dispatchers.IO).launch {
                 charList.forEach {
-                // Iterate through all the current custom characters
+                // Iterate through all the currently saved custom characters
                     if (chars.contains(it)){
-                    // If it hasn't been removed
+                    // If the new custom character list still includes that character
                         val charPos = chars.indexOf(it)
+                        // Get the index of the currently chosen character in the new custom character lsit
                         chars.removeAt(charPos)
-                        // Remove it from the character list
+                        // Remove it from the new custom character list
                     }
                     else{
                         gameDao.deleteCharacter(it)
@@ -223,7 +229,7 @@ class CustomCardEntry : AppCompatActivity() {
                     }
                 }
                 chars.forEach {
-                // For all the remaining characters
+                // For all the remaining characters which do not exist in the database
                     gameDao.addCharacter(it)
                     // Add the character to the database
                 }

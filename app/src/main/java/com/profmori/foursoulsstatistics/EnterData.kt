@@ -42,12 +42,6 @@ class EnterData : AppCompatActivity() {
         setContentView(R.layout.activity_enter_data)
         // Set the layout for the data page
 
-        var fromResults = true
-        var playerNames = emptyArray<String>()
-        var charNames = emptyArray<String>()
-        var charImages = intArrayOf()
-        var eternals = emptyArray<String?>()
-
         val charRecycler = findViewById<RecyclerView>(R.id.inputCharList)
         // Find the recycler view
 
@@ -68,6 +62,20 @@ class EnterData : AppCompatActivity() {
         var gameTreasures = treasureNo.text.toString().toInt()
         // Get the number of treasures
 
+        val background = findViewById<ImageView>(R.id.background)
+        // Get the background of the page
+
+        SettingsHandler.updateBackground(this, background)
+        // Set it from the settings file
+
+        var fromResults = true
+        // By default assume you have come from the result entry page
+        var playerNames = emptyArray<String>()
+        var charNames = emptyArray<String>()
+        var charImages = intArrayOf()
+        var eternals = emptyArray<String?>()
+        // Create lists to store all of the results data
+
         try {
             playerNames = intent.getStringArrayExtra("names") as Array<String>
             charNames = intent.getStringArrayExtra("chars") as Array<String>
@@ -78,7 +86,9 @@ class EnterData : AppCompatActivity() {
             treasureNo.setText(gameTreasures.toString())
             // Get feedback from results if it exists and set the player and treasure numbers
         }catch (e: NullPointerException){
+            // If an error is thrown because this data was not passed
             fromResults = false
+            // You haven't come from the results page
         }
 
         var playerCount = playerNo.text.toString().toInt()
@@ -91,6 +101,7 @@ class EnterData : AppCompatActivity() {
         // Gets the button to return to the main menu
 
         var playerHandlerList = emptyArray<PlayerHandler>()
+        // Create an empty list of player handlers to hold the entered players
 
         if (fromResults){
         // If data has been input
@@ -104,12 +115,8 @@ class EnterData : AppCompatActivity() {
             // Create adapter passing in the number of players
         }
 
-        val background = findViewById<ImageView>(R.id.background)
-
-        SettingsHandler.updateBackground(this, background)
-
         val fonts = TextHandler.setFont(this)
-        // Get the right font type (readable or not
+        // Get the right font type (readable or not)
 
         playerHandlerList.forEach {
             it.fonts = fonts
@@ -255,7 +262,7 @@ class EnterData : AppCompatActivity() {
         returnButton.setOnClickListener {
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
-            backToMain.putExtra("from","data_entry")
+            backToMain.putExtra("from","enter_data")
             startActivity(backToMain)
             // Go back to the main screen
         }
@@ -291,25 +298,32 @@ class EnterData : AppCompatActivity() {
             var charNameList = emptyArray<String>()
             var charImageList = intArrayOf()
             var eternalList = emptyArray<String?>()
+            // Store all of the relevant data in separate lists since PlayerHandler cannot be passed as an extra
             for(p in playerHandlerList){
                 playerNameList += arrayOf(p.playerName)
                 charNameList += arrayOf(p.charName)
                 charImageList += intArrayOf(p.charImage)
                 eternalList += arrayOf(p.eternal)
             }
+            // Add all of the data
+
             enterResult.putExtra("names",playerNameList)
             enterResult.putExtra("chars",charNameList)
             enterResult.putExtra("images",charImageList)
             enterResult.putExtra("treasures",gameTreasures)
             enterResult.putExtra("eternals", eternalList)
-            // Creates an extra parameter which passes the number of treasures to the results page
-            val handler = playerHandlerList.map{playerHandler -> playerHandler.playerName}.toTypedArray()
-            val list = playerList.map{player -> player.playerName }
+            // Creates a set of extra parameters which passes all the data to the results page
+            val dbPlayers = playerList.map{ player -> player.playerName }
+            // Gets the list of players stored in the database
             lifecycleScope.launch {
-                for (h in handler) {
-                    if (!list.contains(h)) {
-                        val player = Player(h)
-                        gameDao.addPlayer(player)
+                for (player in playerNameList) {
+                    // Iterates through all added players
+                    if (!dbPlayers.contains(player)) {
+                        // If the current player is not in the database
+                        val dbPlayer = Player(player)
+                        // Create a player object to store the new player
+                        gameDao.addPlayer(dbPlayer)
+                        // Add the new player to the database
                     }
                 }
             }

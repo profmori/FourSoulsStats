@@ -1,12 +1,7 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
 import android.graphics.Typeface
-import android.view.View
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
-import android.widget.TextView
 import com.profmori.foursoulsstatistics.R
-import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
 import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.Player
 import java.util.*
@@ -19,7 +14,9 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
     var playerNames = emptyArray<String>()
     // Creates variables for all the stored data about characters and players
     var fonts = emptyMap<String, Typeface>()
+    // Global font variable
     var useAlts = true
+    // Variable for whether or not to use alternate art
 
 
     companion object {
@@ -39,6 +36,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
         fun updatePlayerList(playerList: Array<PlayerHandler>, playerNum: Int): Array<PlayerHandler> {
             // Function to update the number of players without resetting the recycler
             val newPlayerList = playerList.toMutableList()
+            // Creates a mutable list that can be reduced or increased in length
             val currentLength = playerList.size
             // Gets the length of the player list
             if (currentLength < playerNum) {
@@ -48,8 +46,11 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                     newPlayerList += PlayerHandler("", "", R.drawable.blank_char, null,0, false)
                     // Add a player with no name or character and a blank character image
                     newPlayerList.last().fonts = playerList[0].fonts
+                    // Set the new player font correctly
                     newPlayerList.last().useAlts = playerList[0].useAlts
+                    // Match the alternate art setting
                     newPlayerList.last().addData(playerList[0].charList,playerList[0].playerList)
+                    // Add the existing player and character lists to the new player handler
                 }
             } else {
                 // If the number of players has not increased
@@ -63,55 +64,53 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
             // Returns the updated list of players
         }
     }
-        fun addData(chars: Array<CharEntity>, players: Array<Player>){
+
+    fun addData(chars: Array<CharEntity>, players: Array<Player>){
             charList = chars
+            // Get the list of characters from the input
             charList.sortBy{it.charName}
-            // Gets the list of characters
+            // Sorts the character list alphabetically
             charNames = charList.map{charEntity -> charEntity.charName }.toTypedArray()
             // Store the names from the list of characters
-            charNames.forEach {name ->
-                name.replaceFirstChar { char ->
-                    if (char.isLowerCase()) {
-                        char.titlecase(Locale.ROOT)
-                    }
-                    else {
-                        char.toString()
-                    }
-                }
-            }
 
             playerList = players
+            // Gets the list of players from the input
             playerList.sortBy { it.playerName }
             // Gets the sorted list of players
             playerNames = playerList.map{player -> player.playerName }.toTypedArray()
             // Stores the names of the players from the list of players
-
         }
 
     fun updateCharacter(newName: String){
         if (charName != newName) {
+            // If the character name has changed
             charName = newName
+            // The character name is now the new name
             val pos = charNames.indexOf(charName)
+            // Find where the character name is stored
             if (pos >= 0) {
+            // if the character has an index (it exists)
                 val currentChar = charList[pos]
+                // Get the current character
                 charImage = currentChar.image
                 // Set the image to the basic value
                 if ((currentChar.imageAlt != null) and useAlts) {
-                    // If there is an alternate image
+                    // If there is an alternate image, and the player wants the chance to use alterante art
                     charImage =
                         arrayOf(currentChar.image, currentChar.imageAlt).random()!!
                     // Select a random character image
                 }
                 if(charName == "eden"){
+                // If Eden is selected
                     var imageArray = arrayOf(R.drawable.eden)
+                    // The basic eden image is always an option
                     if (useAlts){imageArray += arrayOf(R.drawable.eden_alt_1,R.drawable.eden_alt_2)}
+                    // Adds the 2 alt art Eden cards if alternate arts are an option
                     if (charNames.contains("tapeworm")){imageArray += arrayOf(R.drawable.eden_promo_b,R.drawable.eden_promo_g)}
+                    // Adds the 2 promo eden cards if tapeworm is included in the characters (proxy for promos being included)
                     charImage = imageArray.random()
+                    // Picks a random Eden card
                 }
-            }
-            else{
-                charImage = R.drawable.blank_char
-                // If you can't find an image, use the blank image
             }
         }
     }

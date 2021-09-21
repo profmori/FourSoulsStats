@@ -20,10 +20,13 @@ class CustomItemDialog(private var returnInterface: CustomCardEntry.ConfirmInter
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
-            val textInputView = LayoutInflater.from(context).inflate(R.layout.new_item_dialog, view as ViewGroup?, false)
+            val textInputView = LayoutInflater.from(context).inflate(R.layout.new_custom_dialog, view as ViewGroup?, false)
             // Set up the input
 
-            val textInput = textInputView.findViewById<EditText>(R.id.customItemName)
+            val textInput = textInputView.findViewById<EditText>(R.id.customName)
+            // Get the input field of the custom item
+            textInput.hint = resources.getString(R.string.custom_item)
+            // Sets the hint to be appropriate
 
             textInput.typeface = font
             // Set the text input font

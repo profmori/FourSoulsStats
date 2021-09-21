@@ -1,4 +1,4 @@
-package com.profmori.foursoulsstatistics.custom_adapters
+package com.profmori.foursoulsstatistics.custom_adapters.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -30,7 +30,6 @@ class DeleteGameEdit(val gameID: String, val parent: Activity, val font: Typefac
             titleText.setText(R.string.adjust_check_delete)
             titleText.typeface = font
             // Set the title text and font
-            //titleText.textSize = 20f
             builder.setCustomTitle(titleText)
                 .setPositiveButton(R.string.adjust_confirm_delete){ _, _ ->
                     CoroutineScope(Dispatchers.IO).launch {

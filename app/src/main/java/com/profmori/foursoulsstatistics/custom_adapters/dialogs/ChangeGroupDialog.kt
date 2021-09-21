@@ -22,7 +22,6 @@ class ChangeGroupDialog(private val groupEntry: EditText, private val oldID: Str
             titleText.setText(R.string.settings_overwrite_data)
             titleText.typeface = font
             // Set the title text and font
-            //titleText.textSize = 20f
             builder.setCustomTitle(titleText)
                 .setPositiveButton(R.string.settings_confirm_overwrite){ _, _ ->
                     dismiss()

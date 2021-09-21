@@ -1,4 +1,4 @@
-package com.profmori.foursoulsstatistics.custom_adapters
+package com.profmori.foursoulsstatistics.custom_adapters.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -22,7 +22,6 @@ class ExitGameEdit(val parent: Activity, val font: Typeface): DialogFragment() {
             titleText.setText(R.string.adjust_confirm_exit)
             titleText.typeface = font
             // Set the title text and font
-            //titleText.textSize = 20f
             builder.setCustomTitle(titleText)
                 .setPositiveButton(R.string.adjust_ignore_changes){ _, _ ->
                     parent.finish()

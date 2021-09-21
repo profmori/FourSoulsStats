@@ -41,6 +41,7 @@ class GamesListAdapter(private var gameList: Array<String>, private val buttonBG
         // Get the text entry item
 
         val shownGame = gameList[position]
+        // Gets the game being shown from the game list
 
         val timeCode = shownGame.substring(6).toLong()
         // Extract the timecode from the gameID

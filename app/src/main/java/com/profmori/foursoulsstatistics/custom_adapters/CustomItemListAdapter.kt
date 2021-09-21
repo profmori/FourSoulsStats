@@ -81,14 +81,14 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
 
     }
 
-    fun getItems(): Array<String>{
-        return cardList
-        // Return the list of custom items
-    }
-
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return cardList.size
         // Returns the card list size element
+    }
+
+    fun getItems(): Array<String>{
+        return cardList
+        // Return the list of custom items
     }
 }

@@ -103,14 +103,15 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         }
     }
 
+    override fun getItemCount(): Int {
+        return cardList.size
+        // Returns the character list size element
+    }
+
     fun getItems(): Array<CharEntity>{
         return cardList
         // Return the list of characters
     }
 
     // Returns the total count of items in the list
-    override fun getItemCount(): Int {
-        return cardList.size
-        // Returns the character list size element
-    }
 }

@@ -89,7 +89,7 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         val soulsCount = viewHolder.soulsCount
         // Gets the soul input box
 
-        var soulNumber = playerHandler.soulsNum
+        val soulNumber = playerHandler.soulsNum
         // Gets the soul number
         soulsCount.setText(soulNumber.toString())
         // Sets the soul number to be accurate
@@ -119,6 +119,7 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         soulsCount.typeface = fonts["body"]
 
         winnerTick.typeface = fonts["body"]
+        // Sets the font for all the different prompts and fields in the card
 
         playerEntry.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -137,50 +138,8 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         playerEntry.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             // When the player entry box loses or gains focus
-            if (!hasFocus) {
-                // If it has just lost focus
-                val input = playerEntry.text.toString().trim()
-                if ((input.lowercase() !in playerHandler.playerNames) and (input != "")) {
-                    // If the entered value is not valid
-                    RecyclerHandler.createPlayerPopup(
-                        playerEntry,
-                        playerHandler,
-                        playerHandlerList,
-                        input,
-                        background,
-                        charEntry,
-                        eternalPrompt,
-                        eternalEntry,
-                        itemList
-                    )
-                    // Gives the option to add a new player
-                } else {
-                    // If an existing player was entered
-                    playerHandler.playerName = input.lowercase()
-                    // Update the player to store their new character
-                    RecyclerHandler.updateView(
-                        playerHandler,
-                        background,
-                        playerEntry,
-                        charEntry,
-                        eternalPrompt,
-                        eternalEntry,
-                        itemList
-                    )
-                    // Update the shown images
-                }
-            } else {
-                RecyclerHandler.updateView(
-                    playerHandler,
-                    background,
-                    playerEntry,
-                    charEntry,
-                    eternalPrompt,
-                    eternalEntry,
-                    itemList
-                )
-                // Update the view
-            }
+            RecyclerHandler.enterPlayer(hasFocus, playerEntry, playerHandler, playerHandlerList, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            // Run all the logic for entering the player data
         }
 
         charEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -200,39 +159,8 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         charEntry.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             // When the character entry box loses or gains focus
-            if (!hasFocus) {
-                // If it has just lost focus
-                val charInput = charEntry.text.toString()
-                var newChar = charInput
-                if ((charInput != "") and !playerHandler.charNames.contains(charInput)) {
-                    // If the entered value is not valid
-                    newChar = RecyclerHandler.findClosest(charInput, playerHandler.charNames)
-                    // Find the closest text value
-                }
-                playerHandler.updateCharacter(newChar)
-                // Update the player to store their new character
-                RecyclerHandler.updateView(
-                    playerHandler,
-                    background,
-                    playerEntry,
-                    charEntry,
-                    eternalPrompt,
-                    eternalEntry,
-                    itemList
-                )
-                // Update the stored character
-            } else {
-                RecyclerHandler.updateView(
-                    playerHandler,
-                    background,
-                    playerEntry,
-                    charEntry,
-                    eternalPrompt,
-                    eternalEntry,
-                    itemList
-                )
-                // Update the image shown
-            }
+            RecyclerHandler.enterChar(hasFocus, playerEntry, playerHandler, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            // Run all the logic for the character data
         }
 
         eternalEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -252,45 +180,17 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         eternalEntry.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             // When the character entry box loses or gains focus
-            if (!hasFocus) {
-                // If it has just lost focus
-                val eternalInput = eternalEntry.text.toString().lowercase()
-                var newEternal = eternalInput
-                if ((eternalInput != "") and !itemList.contains(eternalInput)) {
-                    // If the entered value is not valid
-                    newEternal = RecyclerHandler.findClosest(eternalInput, itemList)
-                    // Find the closest text value
-                }
-                playerHandler.eternal = if (newEternal == "") {
-                    // If the new eternal is empty
-                    null
-                    // The eternal is null
-                } else {
-                    newEternal.lowercase()
-                    // Lowercase the input
-                }
-                // Update the player to store their new character
-                RecyclerHandler.updateView(
-                    playerHandler,
-                    background,
-                    playerEntry,
-                    charEntry,
-                    eternalPrompt,
-                    eternalEntry,
-                    itemList
-                )
-                eternalEntry.setText(TextHandler.capitalise(newEternal))
-            } else {
-                RecyclerHandler.updateView(
-                    playerHandler,
-                    background,
-                    playerEntry,
-                    charEntry,
-                    eternalPrompt,
-                    eternalEntry,
-                    itemList
-                )
-            }
+            RecyclerHandler.enterEternal(
+                hasFocus,
+                playerEntry,
+                playerHandler,
+                background,
+                charEntry,
+                eternalPrompt,
+                eternalEntry,
+                itemList
+            )
+            // Run all the logic for the eternal data
         }
 
         soulsCount.setOnEditorActionListener { view, actionId, _ ->
@@ -308,37 +208,7 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         }
 
         soulsCount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val oldSoulNumber = soulNumber
-                try{
-                    soulNumber = soulsCount.text.toString().toInt()
-                    // Try and set the soul number from the text input
-                }
-                catch (e: NumberFormatException){
-                // If the input cannot be made into a number
-                    soulNumber = oldSoulNumber
-                    // Use the old soul number
-                }
-                finally {
-                    playerHandler.soulsNum = soulNumber
-                    soulsCount.setText(playerHandler.soulsNum.toString())
-                    // Fill the text box back in
-                    if (soulNumber >= 4) {
-                    // If there are more than four souls
-                        winnerTick.isChecked = true
-                        // Assume this person has won
-                    } else if (winnerTick.isChecked) {
-                    // If they have less than four souls and have been marked as winner
-                        winnerTick.isChecked = false
-                        // Remove their winner status
-                    }
-                }
-            }
-            else if(soulNumber == 0){
-            // If they have no souls on input
-                soulsCount.setText("")
-                // Clear the souls box
-            }
+            RecyclerHandler.enterSouls(hasFocus,soulsCount, winnerTick, playerHandler)
         }
 
         winnerTick.setOnCheckedChangeListener { _, _ ->
@@ -351,9 +221,5 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
     override fun getItemCount(): Int {
         return playerHandlerList.size
         // Returns the player list size element
-    }
-
-    fun returnData(): Array<PlayerHandler>{
-        return playerHandlerList
     }
 }

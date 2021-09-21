@@ -64,12 +64,6 @@
     <string name="char_stats_title">Character\nStatistics</string>
     <string name="eternal_stats_title">Eternal Item\nStatistics</string>
 
-
-    <!-- Player Stats Page -->
-
-
-    <!-- Character Stats Page -->
-
     <!-- Stats Table Strings -->
     <string name="player_table_header">Player</string>
     <string name="character_table_header">Character</string>
@@ -184,7 +178,7 @@
     <string name="adjust_confirm_exit">Exiting will reset any changes made.\nDo you want to continue?</string>
     <string name="adjust_ignore_changes">Exit Without Saving</string>
     <string name="adjust_cancel_exit">Go Back To Editing</string>
-    <string name="adjust_incorrect_data">Data Input Incorrectly, Make Sure All Fields Are Filled And There Is Only One Winner</string>
+    <string name="adjust_incorrect_data">Input incorrect. Make sure all data is filled in correctly</string>
     <string name="adjust_cancel_delete">Cancel</string>
     <string name="adjust_confirm_delete">Confirm</string>
     <string name="adjust_check_delete">Deleting a game is permanent and cannot be undone\nAre you sure you want to delete this game?</string>

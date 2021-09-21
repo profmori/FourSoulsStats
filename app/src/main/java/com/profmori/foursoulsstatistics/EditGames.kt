@@ -30,6 +30,7 @@ class EditGames : AppCompatActivity() {
         // Gets the back button
 
         val gameList = findViewById<RecyclerView>(R.id.editGameList)
+        // Gets the handler for the list of played games
 
         val buttonBG = ImageHandler.setButtonImage()
         // Get a random button from the possible options
@@ -43,6 +44,7 @@ class EditGames : AppCompatActivity() {
         // Update the background
 
         val fonts = TextHandler.setFont(this)
+        // Get the user selected fonts
 
         editTitle.typeface = fonts["title"]
         editPrompt.typeface = fonts["body"]
@@ -57,8 +59,11 @@ class EditGames : AppCompatActivity() {
         // Lay it out as a list
 
         returnButton.setOnClickListener {
+            // When the return button is clicked
             val backToMain = Intent(this, MainActivity::class.java)
+            backToMain.putExtra("from","edit_data")
             startActivity(backToMain)
+            // Go back to the main page activity
         }
 
         val gameDatabase = GameDataBase.getDataBase(this)
@@ -77,6 +82,8 @@ class EditGames : AppCompatActivity() {
             if(games.isNotEmpty()){
                 val idList = games.map { game -> game.gameID }.toTypedArray()
                 // Create a list of all game ids
+                idList.sort()
+                // Sort the game ids so they are in chronological order
                 listAdapter = GamesListAdapter(idList,buttonBG, fonts["body"]!!)
                 // Create the list adapter
                 gameList.adapter = listAdapter

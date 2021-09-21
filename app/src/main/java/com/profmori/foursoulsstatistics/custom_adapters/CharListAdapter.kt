@@ -21,6 +21,7 @@ import com.profmori.foursoulsstatistics.database.ItemList
 class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<CharListAdapter.ViewHolder>() {
 
     private var itemList = emptyArray<String>()
+    // Create an empty array to hold the list of all items in the editions selected
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -65,6 +66,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Set item views based on your player handler
 
         val fonts = playerHandler.fonts
+        // Get the fonts the user is using
 
         val background = viewHolder.charImage
         // Get the background image
@@ -89,6 +91,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         charEntry.typeface = fonts["body"]
         eternalPrompt.typeface = fonts["body"]
         eternalEntry.typeface = fonts["body"]
+        // Set all the fonts correctly
 
         eternalEntry.isEnabled = false
         eternalEntry.visibility = INVISIBLE
@@ -96,6 +99,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Hide all the eternal item field
 
         RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
+        // Use the recycler handler class to update the all the correct views to match the list
 
         charEntry.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -114,23 +118,8 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         charEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             // When the character entry box loses or gains focus
-            if (!hasFocus) {
-                // If it has just lost focus
-                val charInput = charEntry.text.toString()
-                var newChar = charInput
-                if ((charInput != "") and !playerHandler.charNames.contains(charInput)) {
-                    // If the entered value is not valid
-                    newChar = RecyclerHandler.findClosest(charInput, playerHandler.charNames)
-                    // Find the closest text value
-                }
-                playerHandler.updateCharacter(newChar)
-                // Update the player to store their new character
-                RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
-                // Update the stored character
-            } else {
-                RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
-                // Update the image shown
-            }
+            RecyclerHandler.enterChar(hasFocus, playerEntry, playerHandler, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            // Run all the logic for the character data
         }
 
         playerEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -150,34 +139,8 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             // When the player entry box loses or gains focus
-            if (!hasFocus) {
-                // If it has just lost focus
-                val input = playerEntry.text.toString().trim()
-                if ((input.lowercase() !in playerHandler.playerNames) and (input != "")) {
-                    // If the entered value is not valid
-                    RecyclerHandler.createPlayerPopup(
-                        playerEntry,
-                        playerHandler,
-                        playerHandlerList,
-                        input,
-                        background,
-                        charEntry,
-                        eternalPrompt,
-                        eternalEntry,
-                        itemList
-                    )
-                    // Gives the option to add a new player
-                } else {
-                    // If an existing player was entered
-                    playerHandler.playerName = input.lowercase()
-                    // Update the player to store their new character
-                    RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
-                    // Update the shown images
-                }
-            } else {
-                RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
-                // Update the view
-            }
+            RecyclerHandler.enterPlayer(hasFocus, playerEntry, playerHandler, playerHandlerList, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            // Run all the logic for entering the player data
         }
 
         eternalEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -197,29 +160,17 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         eternalEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             // When the character entry box loses or gains focus
-            if (!hasFocus) {
-                // If it has just lost focus
-                val eternalInput = eternalEntry.text.toString().lowercase()
-                var newEternal = eternalInput
-                if ((eternalInput != "") and !itemList.contains(eternalInput)) {
-                    // If the entered value is not valid
-                    newEternal = RecyclerHandler.findClosest(eternalInput, itemList)
-                    // Find the closest text value
-                }
-                playerHandler.eternal = if (newEternal == "") {
-                    // If the new eternal is empty
-                    null
-                    // The eternal is null
-                } else {
-                    newEternal.lowercase()
-                    // Lowercase the input
-                }
-                // Update the player to store their new character
-                RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
-                eternalEntry.setText(TextHandler.capitalise(newEternal))
-            } else {
-                RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
-            }
+            RecyclerHandler.enterEternal(
+                hasFocus,
+                playerEntry,
+                playerHandler,
+                background,
+                charEntry,
+                eternalPrompt,
+                eternalEntry,
+                itemList
+            )
+            // Run all the logic for the eternal data
         }
     }
 

@@ -46,6 +46,7 @@ data class GameInstance(
 )
 
 data class PlayerWithInstance(
+// A relation between the player and their game instances
     @Embedded val player: Player,
     @Relation(
         parentColumn = "playerName",
@@ -55,6 +56,7 @@ data class PlayerWithInstance(
 )
 
 data class CharacterWithInstance(
+// A relation between a character and their game instances
     @Embedded val character: CharEntity,
     @Relation(
         parentColumn = "charName",
@@ -64,6 +66,7 @@ data class CharacterWithInstance(
 )
 
 data class GameWithInstance(
+// A relation between a game and the linked game instances
     @Embedded val game: Game,
     @Relation(
         parentColumn = "gameID",

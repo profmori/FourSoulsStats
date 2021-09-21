@@ -16,6 +16,22 @@ import de.codecrafters.tableview.TableDataAdapter
 import de.codecrafters.tableview.TableHeaderAdapter
 
 class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, var playedGames: Int, var adjustedSouls: Double) {
+    private fun generateMetrics(wins: Double, souls: Double, adjSouls: Double) {
+        winrate = wins / playedGames
+        // Calculates the winrate
+        soulsAvg = souls / playedGames
+        // Calculates the average souls
+        adjustedSouls = adjSouls / playedGames
+        // Calculates the average adjusted souls
+        if (playedGames == 0) {
+            // If the character is unplayed
+            winrate = -1.0
+            soulsAvg = -1.0
+            adjustedSouls = -1.0
+            // Set all values to -1
+        }
+    }
+
     fun setData(rowName: String, instances: List<GameInstance>, games: Array<Game>) {
         // Function to set the data in the character table
         name = rowName
@@ -48,13 +64,16 @@ class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, va
             }
         }
         generateMetrics(wins, souls, adjSouls)
+        // Generates all the winrates and averages from the data
     }
 
     fun setData(rowName: String, instances: Array<OnlineGameInstance>) {
         name = rowName
+        // Get the name from the input
         val gamesList = instances.filter { instance ->
             instance.charName == name
         }
+        // Filter all the games to only include those with the correct character
         playedGames = 0
         // Initialises played games counter
         var wins = 0.0
@@ -68,17 +87,23 @@ class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, va
             if (it.winner) {
                 wins += 1
             }
+            // If the character won the instance increment their win counter
             souls += it.souls
+            // Increment the soul counter
             adjSouls += it.souls * it.gameSize
+            // Increments the adjusted number of souls
         }
         generateMetrics(wins, souls, adjSouls)
+        // Generates all the winrates and averages from the data
     }
 
     fun setEternalData(rowName: String, instances: Array<OnlineGameInstance>) {
         name = rowName
+        // Get the name from the input
         val gamesList = instances.filter { instance ->
             instance.eternal == name
         }
+        // Filter all the games to only include those with the correct eternal
         playedGames = 0
         // Initialises played games counter
         var wins = 0.0
@@ -92,26 +117,14 @@ class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, va
             if (it.winner) {
                 wins += 1
             }
+            // If the character won the instance increment their win counter
             souls += it.souls
+            // Increment the soul counter
             adjSouls += it.souls * it.gameSize
+            // Increments the adjusted number of souls
         }
         generateMetrics(wins, souls, adjSouls)
-    }
-
-    private fun generateMetrics(wins: Double, souls: Double, adjSouls: Double) {
-        winrate = wins / playedGames
-        // Calculates the winrate
-        soulsAvg = souls / playedGames
-        // Calculates the average souls
-        adjustedSouls = adjSouls / playedGames
-        // Calculates the average adjusted souls
-        if (playedGames == 0) {
-            // If the character is unplayed
-            winrate = -1.0
-            soulsAvg = -1.0
-            adjustedSouls = -1.0
-            // Set all values to -1
-        }
+        // Generates all the winrates and averages from the data
     }
 }
 
@@ -141,36 +154,51 @@ class StatsTableDataAdapter(context: Context, private val tableFont: Typeface, d
         when(columnIndex){
             0 -> {
                 if(rowData.name.contains("I Can't Believe",true)){
+                    // If the entry is "I Can't Believe It's Not Butter Bean"
                     renderedView.textSize = 10f
                     // Changes the text size
                     renderedView.text = TextHandler.capitalise("\"I Can't Believe It's Not Butter Bean\"")
+                    // Sets the text since the overall string is too long
                 }else{
                     renderedView.text = TextHandler.capitalise(rowData.name)
+                    // Set the row title to the capitalised name
                 }
 
             }
             1 ->{
                 if (rowData.winrate >= 0){
+                    // If the row data is valid
                     renderedView.text = context.getString(R.string.stats_table_entry).format(rowData.winrate)
+                    // Print the winrate
                 }
                 else{
+                    // If data is invalid / -1
                     renderedView.text = ""
+                    // print a blank box
                 }
             }
             2 -> {
                 if (rowData.soulsAvg >= 0){
+                    // If the row data is valid
                     renderedView.text = context.getString(R.string.stats_table_entry).format(rowData.soulsAvg)
+                    // Print the average souls
                 }
                 else{
+                    // If data is invalid / -1
                     renderedView.text = ""
+                    // print a blank box
                 }
             }
             3 -> {
                 if (rowData.adjustedSouls >= 0){
+                    // If the row data is valid
                     renderedView.text = context.getString(R.string.stats_table_entry).format(rowData.adjustedSouls)
+                    // Print the average adjusted souls
                 }
                 else{
+                    // If data is invalid / -1
                     renderedView.text = ""
+                    // print a blank box
                 }
             }
             // Sets the column value based on its column - if the value is -1 blanks the entry
@@ -184,10 +212,13 @@ class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private va
     private var paddingTop = 30
     private var paddingRight = 20
     private var paddingBottom = 30
+    // Set outside cell padding
     private var textSize = 14
+    // Initialise text size
     private var typeface = headerFont
-    private var gravity = Gravity.CENTER_HORIZONTAL
-    // Sets basic parameters
+    // Set the font for the headers
+    private var gravity = Gravity.CENTER_VERTICAL
+    // Align the headers vertically centred
 
     override fun getHeaderView(columnIndex: Int, parentView: ViewGroup): View {
         val textView = TextView(context)

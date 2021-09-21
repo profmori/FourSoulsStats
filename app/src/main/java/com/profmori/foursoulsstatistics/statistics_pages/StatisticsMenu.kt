@@ -75,42 +75,56 @@ class StatisticsMenu : AppCompatActivity() {
             // Get all games
 
             playerButton.setOnClickListener {
+                // When the player stats button is clicked
                 if(games.isNotEmpty()){
+                    // If some games have been played
                     val playerStats = Intent(this@StatisticsMenu, ViewPlayerStats::class.java)
                     startActivity(playerStats)
+                    // Go to the player stats page
                 }else{
                     invalidGroupPopup(playerButton)
+                    // Show the popup for an invalid group
                 }
             }
 
             localCharButton.setOnClickListener {
+                // When the local character stats button is clicked
                 if(games.isNotEmpty()){
+                    // If some games have been played
                     val localChar = Intent(this@StatisticsMenu, ViewLocalCharacterStats::class.java)
                     startActivity(localChar)
+                    // Go to the local character stats page
                 }else{
                     invalidGroupPopup(localCharButton)
+                    // Show the popup for an invalid group
                 }
             }
 
             communityCharButton.setOnClickListener {
+                // When the community character stats button is clicked
                 if(OnlineDataHandler.checkWifi(this@StatisticsMenu)){
+                    // If there is a wifi connection
                     val onlineChar = Intent(this@StatisticsMenu, ViewCommunityCharacterStats::class.java)
                     startActivity(onlineChar)
+                    // Go to the community character stats page
                 }else{
                     noOnlineConnectivity(communityCharButton)
+                    // Show the popup to say there is no wifi
                 }
             }
 
             communityEternalButton.setOnClickListener {
+                // When the community eternal stats button is clicked
                 if(OnlineDataHandler.checkWifi(this@StatisticsMenu)){
+                    // If there is a wifi connection
                     val onlineEternal = Intent(this@StatisticsMenu, ViewCommunityEternalStats::class.java)
                     startActivity(onlineEternal)
+                    // Go to the community eternal stats page
                 }else{
                     noOnlineConnectivity(communityCharButton)
+                    // Show the popup to say there is no wifi
                 }
             }
-
-
         }
 
         returnButton.setOnClickListener {

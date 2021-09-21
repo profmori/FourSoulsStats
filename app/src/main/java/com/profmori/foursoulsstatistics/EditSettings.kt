@@ -158,13 +158,13 @@ class EditSettings : AppCompatActivity() {
         updateFonts(titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, gold,
             plus, requiem, warp, promo, custom, customButton, altArt, borderText, borderSpinner,
             backgroundText, backgroundSpinner, clearButton, tutorialButton, returnButton)
-        // Use them
+        // Update the fonts for every item
 
         val scrollView = findViewById<ScrollView>(R.id.scrollView)
         // Finds the scrolling view
 
         scrollView.scrollTo(0,0)
-        // Move to the top of the scroll view
+        // Move to the top of the scroll view when the settings page opens
 
         runTutorial()
         // Run the tutorial
@@ -226,15 +226,20 @@ class EditSettings : AppCompatActivity() {
         }
 
         customButton.setOnClickListener {
+            // When the custom cards button is clicked
             updateSave(
                 gold, plus, requiem, warp, promo, custom, altArt, easyFont,
                 borderSpinner, backgroundSpinner, online, groupEntry)
+            // Update the save before moving to the custom page
             val customIntent = Intent(this, CustomCardEntry::class.java)
             startActivity(customIntent)
+            // Move to the custom cards page
         }
 
         clearButton.setOnClickListener {
+        // When the button to clear all data is clicked
             val fonts = TextHandler.setFont(this)
+            // Get the font for the deletion dialog
             val clearDialog =
                 ConfirmDeleteDialog(this, fonts["body"]!!)
             clearDialog.show(supportFragmentManager, "clearData")
@@ -242,8 +247,11 @@ class EditSettings : AppCompatActivity() {
         }
 
         tutorialButton.setOnClickListener {
+        // When the tutorial reset is clicked
             MaterialShowcaseView.resetAll(this)
+            // Reset all the tutorials so they show again
             returnButton.performClick()
+            // Click the return button to save and go back to the main menu
         }
 
 
@@ -253,14 +261,18 @@ class EditSettings : AppCompatActivity() {
                 gold, plus, requiem, warp, promo, custom, altArt, easyFont,
                 borderSpinner, backgroundSpinner, online, groupEntry)
             // Save the new settings file
-            val newID = groupEntry.text.toString().uppercase()
+            val newID = SettingsHandler.sanitiseGroupID(groupEntry.text.toString().uppercase())
+            // Get the new ID from th group id input, and sanitise it to remove ambiguous characters
             if (newID !in existingIds) {
+                // If the new id doesn't exist already
                 OnlineDataHandler.saveGroupID(newID)
                 // Save the group id online
             }
             if (newID != oldId) {
+            // If the id has changed from the old one
                 val dataBase = GameDataBase.getDataBase(this)
                 val gameDao = dataBase.gameDAO
+                // Get the database access object to clear all the games
                 CoroutineScope(Dispatchers.IO).launch {
                     gameDao.clearGames()
                     gameDao.clearGameInstances()
@@ -303,11 +315,9 @@ class EditSettings : AppCompatActivity() {
                     groupEntry.setText(currentSettings["groupID"])
                     // Reset the text in the edit text
                 } else {
-                    val id = groupEntry.text.toString().uppercase()
-                    if(id.contains('O',true)){
-                        groupEntry.setText(id.replace('O','0',true))
-                    }
-                    if (groupEntry.text.toString().uppercase() in existingIds) {
+                    var id = groupEntry.text.toString().uppercase()
+                    id = SettingsHandler.sanitiseGroupID(id)
+                    if (id in existingIds) {
                         val existsSnackbar = Snackbar.make(
                             view,
                             R.string.settings_duplicate_group,
@@ -320,8 +330,9 @@ class EditSettings : AppCompatActivity() {
                         // Show the snackbar
                     }
 
-                    if (groupEntry.text.toString().uppercase() != oldId) {
+                    if (id != oldId) {
                         val fonts = TextHandler.setFont(this)
+                        // Get the font for the dialog
                         val entryDialog =
                             ChangeGroupDialog(groupEntry, oldId!!, fonts["body"]!!)
                         entryDialog.show(supportFragmentManager, "groupID")
@@ -332,6 +343,14 @@ class EditSettings : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        val returnButton = findViewById<Button>(R.id.settingsMainButton)
+        // Get the return button
+        returnButton.performClick()
+        // Clicks the button
+    }
+
 
     private fun runTutorial(){
 
@@ -370,8 +389,10 @@ class EditSettings : AppCompatActivity() {
         // Get the scroll view so the view can be automatically scrolled
 
         val sequence = MaterialShowcaseSequence(this, "settings")
+        // Creates the sequence to store all the tutorial steps
 
         sequence.setConfig(config)
+        // Configures it to the chosen settings
 
         val edition = MaterialShowcaseView.Builder(this)
             .setTarget(editionSelect)
@@ -379,6 +400,7 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_edition))
             .withRectangleShape(true)
             .build()
+        // Highlights the edition select area
 
         val altSwitch = MaterialShowcaseView.Builder(this)
             .setTarget(altArt)
@@ -386,6 +408,7 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.alt_art))
             .withRectangleShape(true)
             .build()
+        // Highlights the alt art switch
 
         val easySwitch = MaterialShowcaseView.Builder(this)
             .setTarget(easyFont)
@@ -393,6 +416,7 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_readable_font))
             .withRectangleShape(true)
             .build()
+        // Highlights the readable font switch
 
         val border = MaterialShowcaseView.Builder(this)
             .setTarget(borderLine)
@@ -400,6 +424,7 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_border))
             .withRectangleShape(true)
             .build()
+        // Highlights the border select dropdown
 
         val background = MaterialShowcaseView.Builder(this)
             .setTarget(backgroundLine)
@@ -407,6 +432,7 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_background))
             .withRectangleShape(true)
             .build()
+        // Highlights the background select dropdown
 
         val onlineSwitch = MaterialShowcaseView.Builder(this)
             .setTarget(online)
@@ -414,6 +440,7 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_online))
             .withRectangleShape(true)
             .build()
+        // Highlights the online connection switch
 
         val groupID = MaterialShowcaseView.Builder(this)
             .setTarget(groupLine)
@@ -421,13 +448,14 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_group_id))
             .withRectangleShape(true)
             .build()
+        // Highlights the group id input area
 
         val clearData = MaterialShowcaseView.Builder(this)
             .setTarget(clearButton)
             .setDismissText(resources.getString(R.string.tutorial_dismiss))
             .setContentText(resources.getString(R.string.tutorial_clear_button))
             .build()
-
+        // Highlights the button to clear all data
 
         sequence.addSequenceItem(groupID)
         sequence.addSequenceItem(onlineSwitch)
@@ -442,6 +470,7 @@ class EditSettings : AppCompatActivity() {
         // Run the tutorial
 
         sequence.setOnItemDismissedListener { itemView, _ ->
+            // When any sequence item is dismissed
             val yPos = when(itemView){
                 edition -> altArt.bottom
                 altSwitch -> borderLine.bottom
@@ -451,48 +480,13 @@ class EditSettings : AppCompatActivity() {
                 clearData -> tutorialButton.bottom
                 else ->  scrollView.scrollY
             }
+            // Get the y position of the next item
             val objectAnimator = ObjectAnimator.ofInt(scrollView, "scrollY",scrollView.scrollY, yPos ).setDuration(500)
+            // Scroll to the chosen y position in 500 milliseconds
             objectAnimator.start()
+            // Start the animation
         }
 
-    }
-
-    override fun onBackPressed() {
-        val returnButton = findViewById<Button>(R.id.settingsMainButton)
-        // Get the return button
-        returnButton.performClick()
-        // Clicks the button
-    }
-
-    private fun updateSave(gold: SwitchCompat,
-                           plus: SwitchCompat,
-                           requiem: SwitchCompat,
-                           warp: SwitchCompat,
-                           promo: SwitchCompat,
-                           custom: SwitchCompat,
-                           altArt: SwitchCompat,
-                           easyFont: SwitchCompat,
-                           borderSpinner: Spinner,
-                           backgroundSpinner: Spinner,
-                           online: SwitchCompat,
-                           groupID: EditText): Map<String, String>{
-        val newMap = mapOf(
-            "gold" to gold.isChecked.toString(),
-            "plus" to plus.isChecked.toString(),
-            "requiem" to requiem.isChecked.toString(),
-            "warp" to warp.isChecked.toString(),
-            "promo" to promo.isChecked.toString(),
-            "custom" to custom.isChecked.toString(),
-            "alt_art" to altArt.isChecked.toString(),
-            "readable_font" to easyFont.isChecked.toString(),
-            "border" to borderList[borderSpinner.selectedItem.toString()]!!,
-            "background" to backgroundList[backgroundSpinner.selectedItem.toString()]!!,
-            "online" to online.isChecked.toString(),
-            "groupID" to groupID.text.toString().uppercase()
-        )
-        // Save all the values to a map
-        return SettingsHandler.saveToFile(this, newMap)
-        // Save the map
     }
 
     private fun updateFonts(
@@ -547,7 +541,6 @@ class EditSettings : AppCompatActivity() {
         tutorialButton.typeface = fonts["body"]
 
         returnButton.typeface = fonts["body"]
-
         // Update all the static fonts
 
         val spinnerItems = SettingsHandler.getBackground(this)
@@ -562,6 +555,37 @@ class EditSettings : AppCompatActivity() {
         backgroundSpinner.adapter = backgroundAdapter
         backgroundSpinner.setSelection(backgroundAdapter.getPosition(spinnerItems["background"]), false)
         // Update the background dropdown adapters while keeping the same background
+    }
+
+    private fun updateSave(gold: SwitchCompat,
+                           plus: SwitchCompat,
+                           requiem: SwitchCompat,
+                           warp: SwitchCompat,
+                           promo: SwitchCompat,
+                           custom: SwitchCompat,
+                           altArt: SwitchCompat,
+                           easyFont: SwitchCompat,
+                           borderSpinner: Spinner,
+                           backgroundSpinner: Spinner,
+                           online: SwitchCompat,
+                           groupID: EditText): MutableMap<String, String>{
+        val newMap = mutableMapOf(
+            "gold" to gold.isChecked.toString(),
+            "plus" to plus.isChecked.toString(),
+            "requiem" to requiem.isChecked.toString(),
+            "warp" to warp.isChecked.toString(),
+            "promo" to promo.isChecked.toString(),
+            "custom" to custom.isChecked.toString(),
+            "alt_art" to altArt.isChecked.toString(),
+            "readable_font" to easyFont.isChecked.toString(),
+            "border" to borderList[borderSpinner.selectedItem.toString()]!!,
+            "background" to backgroundList[backgroundSpinner.selectedItem.toString()]!!,
+            "online" to online.isChecked.toString(),
+            "groupID" to groupID.text.toString().uppercase()
+        )
+        // Save all the values to a map
+        return SettingsHandler.saveToFile(this, newMap)
+        // Save the map
     }
 }
 

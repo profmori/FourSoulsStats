@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/customItemName"
+            android:id="@+id/customName"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
             app:layout_constraintEnd_toEndOf="parent"
 
             android:inputType="textNoSuggestions"
-            android:hint="@string/custom_item"
+            android:hint="@string/error_placeholder"
             android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

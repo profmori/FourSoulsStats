@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import com.profmori.foursoulsstatistics.CustomCardEntry
 import com.profmori.foursoulsstatistics.R
@@ -20,11 +21,14 @@ class CustomCharDialog(private var returnInterface: CustomCardEntry.ConfirmInter
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
-            val textInputView = LayoutInflater.from(context).inflate(R.layout.new_char_dialog, view as ViewGroup?, false)
+            val textInputView = LayoutInflater.from(context).inflate(R.layout.new_custom_dialog, view as ViewGroup?, false)
             // Set up the input
 
-            val textInput = textInputView.findViewById<EditText>(R.id.customCharacterName)
+            val textInput = textInputView.findViewById<EditText>(R.id.customName)
             // Find the text input box
+            textInput.hint = resources.getString(R.string.custom_character)
+            // Sets the hint to be appropriate
+
             textInput.typeface = font
             // Set the text input font
 

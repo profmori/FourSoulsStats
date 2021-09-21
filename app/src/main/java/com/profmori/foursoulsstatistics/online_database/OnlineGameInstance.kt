@@ -3,7 +3,7 @@ package com.profmori.foursoulsstatistics.online_database
 import com.google.firebase.firestore.PropertyName
 
 data class OnlineGameInstance(
-
+// The structure for the online game instance document
     @PropertyName("groupID")
     val groupID: String = "",
     @PropertyName("gameID")
@@ -25,6 +25,7 @@ data class OnlineGameInstance(
 )
 
 data class OnlineGroupID(
+// Structure for the online group id document
     @PropertyName("id")
     val id: String = ""
 )

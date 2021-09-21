@@ -55,6 +55,7 @@ class FeedbackPage : AppCompatActivity() {
         // Set all the buttons to look correct
 
         github.setOnClickListener {
+            // When the github report button is pressed
             val githubIssues = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/profmori/FourSoulsStats/issues"))
             // Create an intent for the github link
             startActivity(githubIssues)
@@ -62,31 +63,45 @@ class FeedbackPage : AppCompatActivity() {
         }
 
         bugReport.setOnClickListener {
+            // When the email bug report button is clicked
             prepareEmail("Bug Report")
+            // Create an email for the user with the bug report title
         }
 
         suggestion.setOnClickListener {
+            // When the email suggestion button is clicked
             prepareEmail("Suggestion")
+            // Create an email for the user with the suggestion title
         }
 
         translate.setOnClickListener {
+            // When the email translation button is clicked
             prepareEmail("Translation Offer")
+            // Create an email for the user with the translation offer title
         }
 
         returnButton.setOnClickListener {
+            // When the return button is clicked
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
             backToMain.putExtra("from", "feedback")
+            // Tell the main page where this has come from
             startActivity(backToMain)
+            // Go to the main activity page
         }
     }
 
     private fun prepareEmail(emailType: String){
+        // General function to create an email
         val date = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(System.currentTimeMillis())
+        // Get the current date in the form day/month/year
         val subject = "$emailType $date"
+        // Creates the subject line
         val email = Intent(Intent.ACTION_VIEW,
             Uri.parse("mailto:foursoulsstats@gmail.com?subject=" + Uri.encode(subject) + "&body=" + Uri.encode(""))
         )
+        // Makes an intent to send the email
         startActivity(email)
+        // Set up the email screen
     }
 }

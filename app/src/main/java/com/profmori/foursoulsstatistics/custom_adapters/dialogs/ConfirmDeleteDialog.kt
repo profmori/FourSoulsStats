@@ -27,7 +27,6 @@ class ConfirmDeleteDialog(private val activityContext: Context, private val font
             titleText.setText(R.string.settings_delete_data)
             titleText.typeface = font
             // Set the title text and font
-            //titleText.textSize = 20f
             builder.setCustomTitle(titleText)
                 .setPositiveButton(R.string.settings_cancel_delete){ _, _ ->
                     dismiss()
@@ -35,9 +34,12 @@ class ConfirmDeleteDialog(private val activityContext: Context, private val font
                 // When you click change just close the dialog
                 .setNegativeButton(R.string.settings_confirm_delete){ _, _ ->
                     OnlineDataHandler.saveGames(activityContext)
+                    // Save all data online if possible
                     CoroutineScope(Dispatchers.IO).launch {
                         val database = GameDataBase.getDataBase(activityContext)
+                        // Open the local database
                         database.clearAllTables()
+                        // Clear all the data stored
                     }
                 }
                 // When you click the reset button set it to the old id

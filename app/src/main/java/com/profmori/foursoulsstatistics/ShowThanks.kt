@@ -53,8 +53,10 @@ class ShowThanks : AppCompatActivity() {
         // Allows the hyperlinks to be followed
 
         kofiButton.setOnClickListener {
+            // When the kofi button is clicked
             val kofiLink = Intent(Intent.ACTION_VIEW, Uri.parse("https://ko-fi.com/I2I36755M"))
             startActivity(kofiLink)
+            // Start an activity to go to the kofi link
         }
 
 
@@ -63,7 +65,9 @@ class ShowThanks : AppCompatActivity() {
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
             backToMain.putExtra("from", "thanks")
+            // Tell the main screen you are coming from the thanks page
             startActivity(backToMain)
+            // Go to the main page
         }
     }
 

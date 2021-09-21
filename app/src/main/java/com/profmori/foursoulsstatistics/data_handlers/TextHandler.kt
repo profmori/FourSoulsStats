@@ -7,29 +7,6 @@ import com.profmori.foursoulsstatistics.R
 
 class TextHandler {
     companion object{
-        fun setFont(context: Context): Map<String, Typeface> {
-            // Allows the font to be set from a central place
-            val fontMap: Map<String, Typeface>
-            // Creates a map for the font
-            val readableFont = SettingsHandler.readSettings(context)["readable_font"]
-            // Get whether the font should be readable
-            fontMap = if (readableFont.toBoolean()){
-                mapOf(
-                    "body" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_regular)!!,
-                    "title" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_bold)!!
-                )
-                // Use the readable fonts
-            } else {
-                mapOf(
-                    "body" to ResourcesCompat.getFont(context, R.font.four_souls_body)!!,
-                    "title" to ResourcesCompat.getFont(context, R.font.four_souls_title)!!
-                )
-                // Use the stylised font
-            }
-            return fontMap
-            // Return the current font mapping
-        }
-
         fun capitalise(text: String): String {
             // Capitalise the string
             val words = text.split(" ")
@@ -46,6 +23,30 @@ class TextHandler {
             newString = newString.trim()
             // Remove any leading or trailing whitespace
             return newString
+        }
+
+        fun setFont(context: Context): Map<String, Typeface> {
+            // Allows the font to be set from a central place
+            val fontMap: Map<String, Typeface>
+            // Creates a map for the font
+            val readableFont = SettingsHandler.readSettings(context)["readable_font"]
+            // Get whether the font should be readable
+            fontMap = if (readableFont.toBoolean()){
+                // Sets the font map based on the settings file
+                mapOf(
+                    "body" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_regular)!!,
+                    "title" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_bold)!!
+                )
+                // Use the readable fonts
+            } else {
+                mapOf(
+                    "body" to ResourcesCompat.getFont(context, R.font.four_souls_body)!!,
+                    "title" to ResourcesCompat.getFont(context, R.font.four_souls_title)!!
+                )
+                // Use the stylised font
+            }
+            return fontMap
+            // Return the current font mapping
         }
     }
 }

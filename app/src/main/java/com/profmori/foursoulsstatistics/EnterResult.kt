@@ -145,6 +145,7 @@ class EnterResult : AppCompatActivity() {
             enterData.putExtra("eternals", eternals)
             // Creates an extra parameter which passes data back to the data entry page
             startActivity(enterData)
+            // Start the data entry page with the new parameters
         }
     }
 

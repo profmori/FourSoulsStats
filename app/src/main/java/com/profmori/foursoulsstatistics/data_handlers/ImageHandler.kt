@@ -20,6 +20,19 @@ class ImageHandler {
             // Return the bitmap
         }
 
+        fun setButtonImage():Int{
+            val backgroundList = arrayOf(
+                R.drawable.button_event,
+                R.drawable.button_item,
+                R.drawable.button_loot
+            )
+            // Create an array of the possible button images
+            val randPos = (backgroundList.indices).random()
+            // Pick a random index in the list
+            return backgroundList[randPos]
+            // Return the random drawable file
+        }
+
         fun writeImage(context: Context, imageName: String, imageBitmap: Bitmap){
             val filePath = "$imageName.png"
             // Find the image save file path
@@ -34,16 +47,6 @@ class ImageHandler {
                 imageBitmap.compress(Bitmap.CompressFormat.PNG,95,it)
                 // Write the compressed image
             }
-        }
-
-        fun setButtonImage():Int{
-            val backgroundList = arrayOf(
-                R.drawable.button_event,
-                R.drawable.button_item,
-                R.drawable.button_loot
-            )
-            val randPos = (backgroundList.indices).random()
-            return backgroundList[randPos]
         }
     }
 }

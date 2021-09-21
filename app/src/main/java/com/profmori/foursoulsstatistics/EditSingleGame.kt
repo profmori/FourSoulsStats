@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.profmori.foursoulsstatistics.custom_adapters.DeleteGameEdit
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.DeleteGameEdit
 import com.profmori.foursoulsstatistics.custom_adapters.EditGameAdapter
-import com.profmori.foursoulsstatistics.custom_adapters.ExitGameEdit
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ExitGameEdit
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
@@ -80,6 +80,7 @@ class EditSingleGame : AppCompatActivity() {
         val edition = SettingsHandler.getEditions(this)
         val altArt = SettingsHandler.readSettings(this)["alt_art"].toBoolean()
         val online = SettingsHandler.readSettings(this)["online"].toBoolean()
+        // Get all the settings currently in use by the play group
 
         var playerAdapter = EditGameAdapter(emptyArray())
         // Create an empty adapter for the results list
@@ -87,7 +88,6 @@ class EditSingleGame : AppCompatActivity() {
         // Lay the recycler out as a grid
         playerRecycler.adapter = playerAdapter
         // Attach the adapter to the player recycler
-
 
         var playerHandlerList = emptyArray<PlayerHandler>()
         // Creates the empty player handler list
@@ -247,7 +247,7 @@ class EditSingleGame : AppCompatActivity() {
                 exitButton.setOnClickListener {
                     if(checkSame(currResults, playerHandlerList)
                         and (game.treasureNo == treasureNo.text.toString().toInt())){
-                    // If the player data and treasure number hasn't changed
+                        // If the player data and treasure number hasn't changed
                         finish()
                         // Go back to the page before
                     }else{
@@ -260,21 +260,52 @@ class EditSingleGame : AppCompatActivity() {
 
                 submitButton.setOnClickListener{
                     val players = playerHandlerList.map{player -> player.playerName}
+                    // Gets all the player names from the player handler list
                     val chars = playerHandlerList.map{player -> player.charName}
+                    // Gets the characters from the player handler list
+                    val eternals = playerHandlerList.map{player -> player.eternal}
+                    // Gets the list of eternal items
                     val winners = playerHandlerList.map { player -> player.winner }
+                    // Gets the winner boolean list from the player handler list
+
+                    var eternalCheck = true
+                    // As a default assume the eternals are correct
+                    if (chars.indexOf("eden")>-1){
+                        // If there is an eden in the game
+                        chars.forEachIndexed { index, char ->
+                            // Check every character in the game
+                            if ((char == "eden") and (eternals[index].isNullOrBlank())){
+                                // If the character is eden but the eternal is null
+                                eternalCheck = false
+                                // All eternals are not correct
+                            }
+                        }
+                    }
+
                     if ((Collections.frequency(winners,true) == 1)
+                        // If there is only one winner
                         and (!players.contains(""))
+                        // All players have names
                         and (!chars.contains(""))
-                            ) {
+                        // All characters have names
+                        and (eternalCheck)
+                        // All Edens have eternals
+                    ) {
                         // If there is exactly one winner and all data is entered
                         if (!checkSame(currResults, playerHandlerList)
                             or (game.treasureNo != treasureNo.text.toString().toInt())
                         ) {
-                            // If the data has been changed
+                            // If the data has been changed or the number of treasures has changed
                             CoroutineScope(Dispatchers.IO).launch {
                                 gameDao.clearSingleGame(gameID)
+                                // Remove the game from the database
                                 gameDao.clearSingleGameInstance(gameID)
-                                // Clear the old versions of the data
+                                // Remove all the associated instances from the database
+                                if (online) {
+                                    OnlineDataHandler.deleteOnlineGameInstances(gameID)
+                                }
+                                // Delete any online games if online connectivity is enabled
+
                                 val newGame = Game(
                                     gameID,
                                     playerNo.text.toString().toInt(),
@@ -283,11 +314,7 @@ class EditSingleGame : AppCompatActivity() {
                                 )
                                 // Create a new game with the new data
                                 gameDao.addGame(newGame)
-                                // Add the new game
-                                if (online) {
-                                    OnlineDataHandler.deleteOnlineGameInstances(gameID)
-                                }
-                                // Delete any online games if online connectivity is enabled
+                                // Add the new game to the database
                                 playerHandlerList.forEach {
                                     // For all the players in the player list
                                     val newGameInstance = GameInstance(
@@ -337,7 +364,7 @@ class EditSingleGame : AppCompatActivity() {
 
     private fun checkSame(original: Array<GameInstance>, new: Array<PlayerHandler>): Boolean{
         if(original.size == new.size){
-        // If the number of players has changed
+            // If the number of players has not changed
             val newPlayers = new.map { player -> player.playerName }
             val newChars = new.map { player -> player.charName }
             val newEternals = new.map { player -> player.eternal }
@@ -352,16 +379,16 @@ class EditSingleGame : AppCompatActivity() {
                         or (newSouls[currIndex] != it.souls)
                         or (newWinners[currIndex] != it.winner)
                     ){
-                    // If something is different
+                        // If something is different
                         return false
                     }
                 }else{
-                // If the current player isn't in the new game
+                    // If the current player isn't in the new game
                     return false
                 }
             }
         }else{
-        // If the number of players has changed
+            // If the number of players has changed
             return false
         }
         // If none of the if statements have forced a false return, the data hasn't changed
