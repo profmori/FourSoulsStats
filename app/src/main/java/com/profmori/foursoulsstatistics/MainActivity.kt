@@ -35,9 +35,6 @@ class MainActivity : AppCompatActivity() {
             null -> {
                 // When the app is opened from nothing
 
-                SettingsHandler.initialiseSettings(this)
-                // Create settings file if there is none
-
                 val settings = SettingsHandler.readSettings(this)
                 // Get the current settings
 

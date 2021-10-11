@@ -1,11 +1,9 @@
-Baby Haunt
 Battery Bum
 Belly Button
 Blank Card
 Bob's Brain
 Book of Sin
 Boomerang
-Box!
 Breakfast
 Brimstone
 Bum Friend
@@ -13,7 +11,6 @@ Bum-bo!
 Cambion Conception
 Champion Belt
 Chaos
-Chaos Card
 Charged Baby
 Cheese Grater
 Compost
@@ -21,10 +18,8 @@ Contract from Below
 Crystal Ball
 Curse of the Tower
 Dad's Lost Coin
-Daddy Haunt
 Dark Bum
 Dead Bird
-Decoy
 Dinner
 Diplopia
 Donation Machine
@@ -55,13 +50,11 @@ Mom's Bra
 Mom's Coin Purse
 Mom's Purse
 Mom's Razor
-Mom's Shovel
 Monster Manual
 Monstro's Tooth
 Mr. Boom
 Mystery Sack
 No!
-Pandora's Box
 Pay to Play
 Placebo
 Polydactyly
@@ -86,12 +79,10 @@ Tarot Cloth
 Tech X
 The Battery
 The Blue Map
-The Chest
 The Compass
 The D10
 The D100
 The D20
-The D4
 The Dead Cat
 The Habit
 The Map

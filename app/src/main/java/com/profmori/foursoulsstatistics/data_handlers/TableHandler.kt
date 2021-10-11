@@ -154,10 +154,12 @@ class TableHandler {
             table.dataAdapter = charDataAdapter
             // Attach it to the table
             table.sort(NameComparator())
+            table.sort(GamesPlayedComparator())
             table.sort(AdjustedSoulsComparator())
             table.sort(SoulsComparator())
             table.sort(WinrateComparator())
-            // Set the default sort: Winrate -> Avg Souls -> Adjusted Souls -> Alphabetical
+            // Set the default sort: Winrate -> Avg Souls -> Adjusted Souls
+            // -> Games Played -> Alphabetical
         }
     }
 }

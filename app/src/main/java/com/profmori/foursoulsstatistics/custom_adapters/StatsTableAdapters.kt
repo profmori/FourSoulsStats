@@ -160,6 +160,8 @@ class StatsTableDataAdapter(context: Context, private val tableFont: Typeface, d
                     renderedView.text = TextHandler.capitalise("\"I Can't Believe It's Not Butter Bean\"")
                     // Sets the text since the overall string is too long
                 }else{
+                    renderedView.textSize =
+                        19f - (TextHandler.wordLength(rowData.name))*0.5f
                     renderedView.text = TextHandler.capitalise(rowData.name)
                     // Set the row title to the capitalised name
                 }
@@ -213,7 +215,7 @@ class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private va
     private var paddingRight = 20
     private var paddingBottom = 30
     // Set outside cell padding
-    private var textSize = 14
+    private var textSize = 14f
     // Initialise text size
     private var typeface = headerFont
     // Set the font for the headers
@@ -225,8 +227,9 @@ class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private va
         // Gets the text view of the table cell
         textSize = if (typeface == ResourcesCompat.getFont(context, R.font.four_souls_title)) {
         // If the font is the four souls font
-            9
-        } else{ 11 }
+            13f
+        } else{ 13f }
+        textSize -= (TextHandler.wordLength(headers[columnIndex])) * 0.4f
         // If the font is the readable font
 
         if (columnIndex < headers.size) {
@@ -236,7 +239,7 @@ class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private va
         }
         textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
         textView.typeface = typeface
-        textView.textSize = textSize.toFloat()
+        textView.textSize = textSize
         // Sets the padding, font and text size
         return textView
     }

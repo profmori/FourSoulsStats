@@ -12,7 +12,6 @@ import com.profmori.foursoulsstatistics.database.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 
 
@@ -166,7 +165,7 @@ class OnlineDataHandler {
             }
         }
 
-        suspend fun getGroupIDs(context: Context): Array<String> {
+        fun getGroupIDs(context: Context): Array<String> {
             // Get the list of all group ids
             var idList = emptyArray<String>()
             // Create an empty list
@@ -174,14 +173,17 @@ class OnlineDataHandler {
                 // If you are connected to wifi
                 val onlineDatabase = Firebase.firestore.collection("group_ids")
                 // Access the online database
-                val groupIDs = onlineDatabase.get().await()
-                // Get all data from the database
-                groupIDs.documents.forEach {
-                    // Iterate through each id
-                    val idObject = it.toObject<OnlineGroupID>()!!
-                    // Create an online group id object
-                    idList += arrayOf(idObject.id)
-                    // Add it to the list of ids
+                onlineDatabase.get()
+                    // Get all data from the database
+                    .addOnSuccessListener { groupIDs ->
+                        // When data is retrieved
+                        groupIDs.documents.forEach {
+                            // Iterate through each id
+                            val idObject = it.toObject<OnlineGroupID>()!!
+                            // Create an online group id object
+                            idList += arrayOf(idObject.id)
+                            // Add it to the list of ids
+                        }
                 }
             }
             return idList
@@ -225,7 +227,7 @@ class OnlineDataHandler {
 
         fun saveGroupID(newID: String){
             val id = SettingsHandler.sanitiseGroupID(newID)
-            // Sanitise the id so it doesn't contain ambiguos characters
+            // Sanitise the id so it doesn't contain ambiguous characters
             val onlineDatabase = Firebase.firestore.collection("group_ids")
             // Get the online database
             onlineDatabase.add(OnlineGroupID(id))
@@ -255,18 +257,10 @@ class OnlineDataHandler {
         }
 
         fun signIn(){
-            runBlocking {
                 val auth = Firebase.auth
                 // Get the firebase authorisation
                 auth.signInAnonymously()
                     // Sign in anonymously
-                    .addOnCompleteListener { task ->
-                        if (!task.isSuccessful) {
-                            // If you fail to sign in, try again
-                            signIn()
-                        }
-                    }
-            }
         }
     }
 }

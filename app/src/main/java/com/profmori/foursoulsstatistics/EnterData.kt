@@ -74,6 +74,7 @@ class EnterData : AppCompatActivity() {
         var charNames = emptyArray<String>()
         var charImages = intArrayOf()
         var eternals = emptyArray<String?>()
+        var souls = intArrayOf()
         // Create lists to store all of the results data
 
         try {
@@ -81,10 +82,12 @@ class EnterData : AppCompatActivity() {
             charNames = intent.getStringArrayExtra("chars") as Array<String>
             charImages = intent.getIntArrayExtra("images") as IntArray
             eternals = intent.getStringArrayExtra("eternals") as Array<String?>
+            souls = intent.getIntArrayExtra("souls") as IntArray
             gameTreasures = intent.getIntExtra("treasures", 0)
             playerNo.setText(playerNames.size.toString())
             treasureNo.setText(gameTreasures.toString())
             // Get feedback from results if it exists and set the player and treasure numbers
+
         }catch (e: NullPointerException){
             // If an error is thrown because this data was not passed
             fromResults = false
@@ -107,7 +110,7 @@ class EnterData : AppCompatActivity() {
         // If data has been input
             for (i in (playerNames.indices)){
                 // Iterates through all players
-                playerHandlerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],0,false)
+                playerHandlerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],souls[i],false)
                 // Adds the player
             }
         }else{
@@ -205,6 +208,17 @@ class EnterData : AppCompatActivity() {
                     }
                     playerNo.setText(playerCount.toString())
                     // Rewrite the text field to show this
+                    if ((playerCount == 2) && (oldPlayerCount != 2)){
+                    // If they have just changed to 2 player game
+                        gameTreasures = 2
+                        // Set the number of treasures to 2
+                    }else if((oldPlayerCount == 2) && (playerCount != 2)){
+                    // If they have just changed from 2 players
+                        gameTreasures = 0
+                        // Set the number of treasures to 0
+                    }
+                    treasureNo.setText(gameTreasures.toString())
+                    // Set the treasure number box to the game treasures
                     playerHandlerList = PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
                     // Makes a player list based on the number of players
                     adapter = CharListAdapter(playerHandlerList)
@@ -298,20 +312,23 @@ class EnterData : AppCompatActivity() {
             var charNameList = emptyArray<String>()
             var charImageList = intArrayOf()
             var eternalList = emptyArray<String?>()
+            var soulsList = intArrayOf()
             // Store all of the relevant data in separate lists since PlayerHandler cannot be passed as an extra
+
             for(p in playerHandlerList){
                 playerNameList += arrayOf(p.playerName)
                 charNameList += arrayOf(p.charName)
                 charImageList += intArrayOf(p.charImage)
                 eternalList += arrayOf(p.eternal)
+                soulsList += intArrayOf(p.soulsNum)
             }
             // Add all of the data
-
             enterResult.putExtra("names",playerNameList)
             enterResult.putExtra("chars",charNameList)
             enterResult.putExtra("images",charImageList)
             enterResult.putExtra("treasures",gameTreasures)
             enterResult.putExtra("eternals", eternalList)
+            enterResult.putExtra("souls", soulsList)
             // Creates a set of extra parameters which passes all the data to the results page
             val dbPlayers = playerList.map{ player -> player.playerName }
             // Gets the list of players stored in the database

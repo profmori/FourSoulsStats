@@ -22,6 +22,7 @@ class ShowThanks : AppCompatActivity() {
         val thanksFont = findViewById<TextView>(R.id.thanksFont)
         val thanksBG = findViewById<TextView>(R.id.thanksBackgrounds)
         val thanksFriends = findViewById<TextView>(R.id.thanksFriends)
+        val thanksEdmund = findViewById<TextView>(R.id.thanksEdmund)
         val supportMe = findViewById<TextView>(R.id.thanksSupport)
         val kofiButton = findViewById<Button>(R.id.kofiButton)
         // Get all the main elements
@@ -46,10 +47,12 @@ class ShowThanks : AppCompatActivity() {
         thanksBG.typeface = fonts["body"]
         thanksFriends.typeface = fonts["body"]
         supportMe.typeface = fonts["body"]
+        thanksEdmund.typeface = fonts["body"]
         // Update the fonts
 
         thanksFont.movementMethod = LinkMovementMethod.getInstance()
         thanksBG.movementMethod = LinkMovementMethod.getInstance()
+        thanksEdmund.movementMethod = LinkMovementMethod.getInstance()
         // Allows the hyperlinks to be followed
 
         kofiButton.setOnClickListener {

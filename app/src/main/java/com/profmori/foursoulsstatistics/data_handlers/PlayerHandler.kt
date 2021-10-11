@@ -4,7 +4,6 @@ import android.graphics.Typeface
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.Player
-import java.util.*
 
 class PlayerHandler (var playerName: String, var charName: String, var charImage: Int, var eternal: String?, var soulsNum: Int, var winner: Boolean) {
 
@@ -95,7 +94,7 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                 charImage = currentChar.image
                 // Set the image to the basic value
                 if ((currentChar.imageAlt != null) and useAlts) {
-                    // If there is an alternate image, and the player wants the chance to use alterante art
+                    // If there is an alternate image, and the player wants the chance to use alternate art
                     charImage =
                         arrayOf(currentChar.image, currentChar.imageAlt).random()!!
                     // Select a random character image
@@ -106,8 +105,10 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                     // The basic eden image is always an option
                     if (useAlts){imageArray += arrayOf(R.drawable.eden_alt_1,R.drawable.eden_alt_2)}
                     // Adds the 2 alt art Eden cards if alternate arts are an option
-                    if (charNames.contains("tapeworm")){imageArray += arrayOf(R.drawable.eden_promo_b,R.drawable.eden_promo_g)}
+                    if (charNames.contains("tapeworm")){imageArray += arrayOf(R.drawable.eden_promo_1,R.drawable.eden_promo_2)}
                     // Adds the 2 promo eden cards if tapeworm is included in the characters (proxy for promos being included)
+                    if (charNames.contains("bethany")){imageArray += arrayOf(R.drawable.eden_requiem_1,R.drawable.eden_requiem_2)}
+                    // Adds the 2 requiem eden cards if bethany is included in the characters (proxy for requiem being included)
                     charImage = imageArray.random()
                     // Picks a random Eden card
                 }

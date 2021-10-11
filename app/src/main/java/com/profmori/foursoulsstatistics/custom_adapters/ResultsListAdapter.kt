@@ -105,7 +105,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         }else{
             eternalText.text = playerHandler.eternal
             // Set the eternal to the correct string
-            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 5, 7, 1, TypedValue.COMPLEX_UNIT_PT)
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 11, 14, 1, TypedValue.COMPLEX_UNIT_SP)
             // Autoscale the eternal text
         }
 
@@ -114,6 +114,8 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         winnerTick.typeface = fonts["body"]
         soulsText.typeface = fonts["body"]
         // Set all the fonts for the entries correctly
+
+        soulsBox.setText(playerHandler.soulsNum.toString())
 
         soulsBox.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

@@ -31,6 +31,7 @@ class EnterResult : AppCompatActivity() {
         val charNames = intent.getStringArrayExtra("chars") as Array<String>
         val charImages = intent.getIntArrayExtra("images") as IntArray
         val eternals = intent.getStringArrayExtra("eternals") as Array<String?>
+        val souls = intent.getIntArrayExtra("souls") as IntArray
         // Get all the data from the data entry page
 
         val fonts = TextHandler.setFont(this)
@@ -41,7 +42,7 @@ class EnterResult : AppCompatActivity() {
 
         for (i in (playerNames.indices)){
         // Iterates through all players
-            playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],0,false)
+            playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],souls[i],false)
             // Adds the player
             playerList.last().fonts = fonts
             // Updates the stored font
@@ -137,12 +138,17 @@ class EnterResult : AppCompatActivity() {
 
         returnButton.setOnClickListener {
         // If the back button is clicked
+            playerList.forEachIndexed { i, playerHandler ->
+                souls[i] = playerHandler.soulsNum
+            }
+
             val enterData = Intent(this,EnterData::class.java)
             enterData.putExtra("names",playerNames)
             enterData.putExtra("chars",charNames)
             enterData.putExtra("images",charImages)
             enterData.putExtra("treasures",treasureCount)
             enterData.putExtra("eternals", eternals)
+            enterData.putExtra("souls",souls)
             // Creates an extra parameter which passes data back to the data entry page
             startActivity(enterData)
             // Start the data entry page with the new parameters

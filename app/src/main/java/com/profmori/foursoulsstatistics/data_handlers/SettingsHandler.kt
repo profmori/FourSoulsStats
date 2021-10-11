@@ -5,7 +5,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
-import kotlinx.coroutines.*
+import kotlinx.coroutines.runBlocking
 
 class SettingsHandler {
 
@@ -40,74 +40,79 @@ class SettingsHandler {
             return editionArray
         }
 
-        fun initialiseSettings(context: Context) {
+        private fun initialiseSettings(context: Context) {
 
             OnlineDataHandler.signIn()
             // Sign into the online database
-
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Get the settings file
 
             if(!settingsFile.exists()) {
                 // If there is no settings file
-                settingsFile.createNewFile()
-                // Create a new file
-                runBlocking {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        // In a coroutine
-                        val existingIDs = OnlineDataHandler.getGroupIDs(context)
-                        // Get any existing ids
-                        val charPool : List<Char> = ('A'..'Z') + ('0'..'9')
-                        // Sets the list of possible characters to use
-                        var randID = (1..6)
-                            .map { kotlin.random.Random.nextInt(0, charPool.size) }
-                            .map(charPool::get)
-                            .joinToString("")
-                        // Generate a random 6 length string
-
-                        randID = sanitiseGroupID(randID)
-                        // Sanitise the id to remove ambiguous characters
-
-                        while (existingIDs.contains(randID)) {
-                            // If the random string is already an id
-                            randID = (1..6)
-                                .map { kotlin.random.Random.nextInt(0, charPool.size) }
-                                .map(charPool::get)
-                                .joinToString("")
-                            // Generate a new random 6 length string
-
-                            randID = sanitiseGroupID(randID)
-                            // Sanitise the id to remove ambiguous characters
-                        }
-
-                        val settings = mutableMapOf(
-                            "groupID" to randID,
-                            "online" to "true",
-                            "gold" to "false",
-                            "plus" to "false",
-                            "requiem" to "false",
-                            "warp" to "false",
-                            "promo" to "false",
-                            "custom" to "false",
-                            "alt_art" to "true",
-                            "readable_font" to "false",
-                            "background" to "loot_back",
-                            "border" to "monster_back",
-                            "first_open" to "true"
-                        )
-                        // Set the settings
-
-                        saveToFile(context, settings)
-                        // Save the settings file
-                    }
-                }
+                createSettings(context)
             }
         }
 
+        private fun createSettings(context: Context): MutableMap<String, String>{
+            val settingsFile = context.getFileStreamPath("settings.txt")
+            // Get the settings file
+            settingsFile.createNewFile()
+            // Create a new file
+            var existingIDs = emptyArray<String>()
+            runBlocking{ existingIDs = OnlineDataHandler.getGroupIDs(context) }
+            // Get any existing ids
+            val charPool : List<Char> = ('A'..'Z') + ('0'..'9')
+            // Sets the list of possible characters to use
+            var randID = (1..6)
+                .map { kotlin.random.Random.nextInt(0, charPool.size) }
+                .map(charPool::get)
+                .joinToString("")
+            // Generate a random 6 length string
+
+            randID = sanitiseGroupID(randID)
+            // Sanitise the id to remove ambiguous characters
+
+            while (existingIDs.contains(randID)) {
+                // If the random string is already an id
+                randID = (1..6)
+                    .map { kotlin.random.Random.nextInt(0, charPool.size) }
+                    .map(charPool::get)
+                    .joinToString("")
+                // Generate a new random 6 length string
+
+                randID = sanitiseGroupID(randID)
+                // Sanitise the id to remove ambiguous characters
+            }
+
+            val settings = mutableMapOf(
+                "groupID" to randID,
+                "online" to "true",
+                "gold" to "false",
+                "plus" to "false",
+                "requiem" to "false",
+                "warp" to "false",
+                "promo" to "false",
+                "custom" to "false",
+                "alt_art" to "true",
+                "readable_font" to "false",
+                "background" to "loot_back",
+                "border" to "monster_back",
+                "first_open" to "true"
+            )
+            // Set the settings
+
+            saveToFile(context, settings)
+            // Save the settings file
+
+            return settings
+        }
+
         fun readSettings(context: Context): MutableMap<String, String> {
+
+            initialiseSettings(context)
+            // Create a new settings file if appropriate
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Find the settings file
-
             val reader = context.openFileInput(settingsFile.name).bufferedReader()
             // Create a file stream input reader
             val settingStrings = reader.readLines()
@@ -124,14 +129,9 @@ class SettingsHandler {
                 // Add it to the map as a key-value pair
             }
 
-            if(settingMap.isEmpty()){
-                // If the settings map is empty
+            if (settingMap.isEmpty()){
                 settingsFile.delete()
-                // Delete the existing file
-                initialiseSettings(context)
-                // Create the new settings file
-                settingMap = readSettings(context)
-                // Create a new setting map using the new settings file
+                settingMap = createSettings(context)
             }
 
             return settingMap
@@ -164,7 +164,7 @@ class SettingsHandler {
         }
 
         fun saveToFile(context: Context, settings: MutableMap<String, String>): MutableMap<String, String> {
-        // Save the settings given
+            // Save the settings given
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Find the settings file
 
@@ -175,7 +175,7 @@ class SettingsHandler {
 
             writer.use { stream ->
                 keys.forEach { settingKey ->
-                // For every key in the settings map
+                    // For every key in the settings map
                     val settingVal = settings[settingKey]
                     // Get the setting as a string
                     val writeText = "$settingKey:$settingVal\n"

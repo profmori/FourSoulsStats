@@ -48,5 +48,22 @@ class TextHandler {
             return fontMap
             // Return the current font mapping
         }
+
+        fun wordLength(text: String): Int{
+            val words = text.split(" ")
+            // Gets the individual words of the text
+            var maxLen = 0
+            // Holds the maximum word length
+            words.forEach {
+                // Iterate through the words of the string
+                if (it.length > maxLen){
+                    // If this is the longest word so far
+                    maxLen = it.length
+                    // Increase the maximum recorded length
+                }
+            }
+            return maxLen
+            // Return the maximum found length
+        }
     }
 }

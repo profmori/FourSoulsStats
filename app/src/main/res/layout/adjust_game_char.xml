@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/adjCharCard"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        android:elevation="0dp">
+
     <ImageView
         android:id="@+id/adjCharImage"
 
@@ -12,8 +23,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginBottom="75dp"
 
         android:contentDescription="@string/input_card_content_desc"
         android:adjustViewBounds="true"
@@ -22,6 +31,8 @@
         android:tintMode="src_atop"
 
         android:src="@drawable/eden"/>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/adjPlayerSelect"
@@ -32,7 +43,8 @@
         android:layout_marginStart="25dp"
 
         android:text="@string/input_card_player_title"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:elevation="10dp"/>
 
 
     <AutoCompleteTextView
@@ -40,9 +52,9 @@
 
         android:layout_width="170dp"
         android:layout_height="25dp"
-        app:layout_constraintTop_toTopOf="@id/adjCharImage"
-        app:layout_constraintBottom_toBottomOf="@id/adjCharImage"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toTopOf="@id/adjCharCard"
+        app:layout_constraintBottom_toBottomOf="@id/adjCharCard"
+        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintStart_toStartOf="@id/adjPlayerSelect"
 
         android:completionThreshold="0"
@@ -54,7 +66,8 @@
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp"
 
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:elevation="10dp"/>
 
     <TextView
         android:id="@+id/adjCharSelect"
@@ -65,7 +78,8 @@
         android:layout_marginStart="25dp"
 
         android:text="@string/input_card_char_title"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:elevation="10dp"/>
 
 
     <AutoCompleteTextView
@@ -73,9 +87,9 @@
 
         android:layout_width="170dp"
         android:layout_height="25dp"
-        app:layout_constraintTop_toTopOf="@id/adjCharImage"
-        app:layout_constraintBottom_toBottomOf="@id/adjCharImage"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintTop_toTopOf="@id/adjCharCard"
+        app:layout_constraintBottom_toBottomOf="@id/adjCharCard"
+        app:layout_constraintVertical_bias="0.55"
         app:layout_constraintStart_toStartOf="@id/adjCharSelect"
 
         android:completionThreshold="0"
@@ -87,7 +101,8 @@
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp"
 
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:elevation="10dp"/>
 
     <TextView
         android:id="@+id/adjEternalSelect"
@@ -98,7 +113,8 @@
         android:layout_marginStart="25dp"
 
         android:text="@string/input_card_eternal_title"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:elevation="10dp"/>
 
 
     <AutoCompleteTextView
@@ -106,7 +122,7 @@
 
         android:layout_width="170dp"
         android:layout_height="25dp"
-        app:layout_constraintBottom_toBottomOf="@id/adjCharImage"
+        app:layout_constraintBottom_toBottomOf="@id/adjCharCard"
         app:layout_constraintStart_toStartOf="@id/adjEternalSelect"
         android:layout_marginVertical="20dp"
 
@@ -119,12 +135,13 @@
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp"
 
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:elevation="10dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/adjCharImage"
+        app:layout_constraintTop_toBottomOf="@id/adjCharCard"
         android:layout_marginTop="10dp">
 
         <TextView
