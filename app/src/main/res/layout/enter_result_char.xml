@@ -51,6 +51,7 @@
             tools:ignore="SmallSp"
             android:textSize="10sp"
             android:fontFamily="@font/four_souls_body"
+            android:textColor="@color/black"
             android:text="@string/win_starting_item"/>
 
         <TextView
@@ -65,6 +66,7 @@
 
             android:textSize="15sp"
             android:fontFamily="@font/four_souls_body"
+            android:textColor="@color/black"
             android:textAlignment="center" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -78,7 +80,8 @@
         app:layout_constraintEnd_toEndOf="@id/winCharCard"
         app:layout_constraintTop_toBottomOf="@id/winCharCard"
         android:layout_marginTop="10dp"
-        android:text="@string/win_card_player"/>
+        android:text="@string/win_card_player"
+        android:textColor="@color/black"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/winSoulLine"
@@ -97,7 +100,8 @@
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
 
-            android:text="@string/win_card_souls"/>
+            android:text="@string/win_card_souls"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/winSoulEntry"
@@ -111,6 +115,7 @@
             android:layout_marginStart="10dp"
 
             android:background="@drawable/number_rectangle"
+            android:textColor="@color/black"
 
             android:text="@string/win_card_default_souls"
             android:labelFor="@id/winSoulEntry"
@@ -134,7 +139,8 @@
             android:layoutDirection="rtl"
             android:buttonTint="@color/black"
 
-            android:text="@string/win_card_winner"/>
+            android:text="@string/win_card_winner"
+            android:textColor="@color/black"/>
 
 
 

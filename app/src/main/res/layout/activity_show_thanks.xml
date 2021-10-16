@@ -31,6 +31,7 @@
 
         android:text="@string/thanks_title"
         android:fontFamily="@font/four_souls_title"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <ScrollView
@@ -55,6 +56,7 @@
                 app:layout_constraintTop_toTopOf="parent"
 
                 android:text="@string/thanks_edmund"
+                android:textColor="@color/black"
                 android:textColorLink="@color/grey"/>
 
             <TextView
@@ -69,6 +71,7 @@
                 app:layout_constraintTop_toBottomOf="@id/thanksEdmund"
 
                 android:text="@string/thanks_fonts"
+                android:textColor="@color/black"
                 android:textColorLink="@color/grey"/>
 
             <TextView
@@ -84,6 +87,7 @@
                 android:layout_marginTop="20dp"
 
                 android:text="@string/thanks_backgrounds"
+                android:textColor="@color/black"
                 android:textColorLink="@color/grey"/>
 
             <TextView
@@ -97,7 +101,8 @@
                 app:layout_constraintTop_toBottomOf="@id/thanksBackgrounds"
                 android:layout_marginTop="20dp"
 
-                android:text="@string/thanks_friends" />
+                android:text="@string/thanks_friends"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/thanksSupport"
@@ -110,7 +115,8 @@
                 android:layout_marginStart="35dp"
                 android:layout_marginEnd="5dp"
 
-                android:text="@string/thanks_support" />
+                android:text="@string/thanks_support"
+                android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/kofiButton"
@@ -138,6 +144,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/back_to_main_1"/>
 
 

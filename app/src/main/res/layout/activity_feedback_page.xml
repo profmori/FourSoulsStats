@@ -31,6 +31,7 @@
 
         android:text="@string/feedback_title"
         android:fontFamily="@font/four_souls_title"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <TextView
@@ -42,6 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/feedbackTitle"
         android:layout_marginHorizontal="35dp"
         android:layout_marginTop="15dp"
+        android:textColor="@color/black"
         android:text="@string/feedback_preference"/>
 
     <ScrollView
@@ -64,6 +66,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
 
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:text="@string/feedback_github_report"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -76,6 +79,7 @@
                 android:layout_marginTop="30dp"
 
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:text="@string/feedback_bug"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -88,6 +92,7 @@
                 android:layout_marginTop="30dp"
 
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:text="@string/feedback_suggestion"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -100,6 +105,7 @@
                 android:layout_marginTop="30dp"
 
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:text="@string/feedback_translate"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -117,6 +123,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/back_to_main_1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

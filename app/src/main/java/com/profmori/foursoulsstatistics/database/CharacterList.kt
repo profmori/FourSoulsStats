@@ -12,7 +12,7 @@ class CharacterList {
             CharEntity("cain", R.drawable.cain, null, "base"),
             CharEntity("eden", R.drawable.eden, null, "base"),
             CharEntity("eve", R.drawable.eve, null, "base"),
-            CharEntity("the forgotten", R.drawable.the_forgotten, R.drawable.forgotten_alt, "base"),
+            CharEntity("the forgotten", R.drawable.the_forgotten, R.drawable.the_forgotten_alt, "base"),
             CharEntity("isaac", R.drawable.isaac, R.drawable.isaac_alt, "base"),
             CharEntity("judas", R.drawable.judas, R.drawable.judas_alt, "base"),
             CharEntity("lazarus", R.drawable.lazarus, null, "base"),
@@ -23,8 +23,8 @@ class CharacterList {
             // Gold Box Characters
             CharEntity("apollyon", R.drawable.apollyon, null, "gold"),
             CharEntity("azazel", R.drawable.azazel, R.drawable.azazel_alt, "gold"),
-            CharEntity("the keeper", R.drawable.the_keeper, R.drawable.keeper_alt, "gold"),
-            CharEntity("the lost", R.drawable.the_lost, R.drawable.lost_alt, "gold"),
+            CharEntity("the keeper", R.drawable.the_keeper, R.drawable.the_keeper_alt, "gold"),
+            CharEntity("the lost", R.drawable.the_lost, R.drawable.the_lost_alt, "gold"),
 
             // FS+ Characters
             CharEntity("bum-bo", R.drawable.bum_bo, null, "plus"),
@@ -36,12 +36,13 @@ class CharacterList {
 
             CharEntity("bethany", R.drawable.bethany, null, "requiem"),
             CharEntity("jacob & esau", R.drawable.jacob_and_esau, null, "requiem"),
+            //CharEntity("classic isaac", R.drawable.classic_isaac, null, "requiem"),
 
             // Tainted Characters
             CharEntity("the baleful", R.drawable.the_baleful, null, "requiem"),
             CharEntity("the benighted", R.drawable.the_benighted, null, "requiem"),
             CharEntity("the broken", R.drawable.the_broken, null, "requiem"),
-            CharEntity("the capricious", R.drawable.the_capricious, R.drawable.capricious_alt, "requiem"),
+            CharEntity("the capricious", R.drawable.the_capricious, R.drawable.the_capricious_alt, "requiem"),
             CharEntity("the curdled", R.drawable.the_curdled, null, "requiem"),
             CharEntity("the dauntless", R.drawable.the_dauntless, null, "requiem"),
             CharEntity("the deceiver", R.drawable.the_deceiver, null, "requiem"),
@@ -49,10 +50,10 @@ class CharacterList {
             CharEntity("the empty", R.drawable.the_empty, null, "requiem"),
             CharEntity("the enigma", R.drawable.the_enigma, R.drawable.the_enigma_back, "requiem"),
             CharEntity("the fettered", R.drawable.the_fettered, null, "requiem"),
-            CharEntity("the harlot", R.drawable.the_harlot, R.drawable.harlot_alt, "requiem"),
+            CharEntity("the harlot", R.drawable.the_harlot, R.drawable.the_harlot_alt, "requiem"),
             CharEntity("the hoarder", R.drawable.the_hoarder, null, "requiem"),
             CharEntity("the miser", R.drawable.the_miser, null, "requiem"),
-            CharEntity("the savage", R.drawable.the_savage, R.drawable.savage_alt, "requiem"),
+            CharEntity("the savage", R.drawable.the_savage, R.drawable.the_savage_alt, "requiem"),
             CharEntity("the soiled", R.drawable.the_soiled, null, "requiem"),
             CharEntity("the zealot", R.drawable.the_zealot, null, "requiem"),
 

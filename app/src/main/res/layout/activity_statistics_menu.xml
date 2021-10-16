@@ -29,8 +29,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="35dp"
 
-        android:text="Statistics"
+        android:text="@string/statistics_title"
         android:fontFamily="@font/four_souls_title"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -45,7 +46,8 @@
         android:layout_marginTop="30dp"
 
         android:textAllCaps="false"
-        android:text="View Your Group's\nPlayer Rankings"/>
+        android:textColor="@color/black"
+        android:text="@string/statistics_group"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/localCharStats"
@@ -58,7 +60,8 @@
         app:layout_constraintBottom_toTopOf="@id/communityCharStats"
 
         android:textAllCaps="false"
-        android:text="View Your Group's\nCharacter Rankings"/>
+        android:textColor="@color/black"
+        android:text="@string/statistics_group_character"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/communityCharStats"
@@ -71,7 +74,8 @@
         app:layout_constraintBottom_toTopOf="@id/communityEternalStats"
 
         android:textAllCaps="false"
-        android:text="View Community\nCharacter Rankings"/>
+        android:textColor="@color/black"
+        android:text="@string/statistics_global_character"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/communityEternalStats"
@@ -85,7 +89,8 @@
         android:layout_marginBottom="30dp"
 
         android:textAllCaps="false"
-        android:text="View Community\nEternal Rankings"/>
+        android:textColor="@color/black"
+        android:text="@string/statistics_global_eternal"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/statsBackButton"
@@ -98,6 +103,7 @@
         android:layout_margin="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/back_to_main_1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

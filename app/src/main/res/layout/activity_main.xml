@@ -37,6 +37,7 @@
         android:fontFamily="@font/four_souls_title"
         android:text="@string/main_title"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="35sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -54,6 +55,7 @@
         android:layout_marginStart="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/main_enter_data"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -66,6 +68,7 @@
         android:layout_marginEnd="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/main_stats_button"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -80,6 +83,7 @@
         android:layout_marginStart="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/main_edit_button"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -94,6 +98,7 @@
         android:layout_marginEnd="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/main_settings_button"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -110,6 +115,7 @@
         android:layout_marginStart="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/main_thanks_button"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -124,6 +130,7 @@
         android:layout_marginBottom="35dp"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/main_error_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

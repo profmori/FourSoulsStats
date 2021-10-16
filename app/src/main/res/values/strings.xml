@@ -193,5 +193,10 @@
     <string name="feedback_bug">Email a Bug Report</string>
     <string name="feedback_suggestion">Email a Suggestion</string>
     <string name="feedback_translate">Offer to Translate</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="statistics_group">View Your Group\'s\nPlayer Rankings</string>
+    <string name="statistics_group_character">View Your Group\'s\nCharacter Rankings</string>
+    <string name="statistics_global_character">View Community\nCharacter Rankings</string>
+    <string name="statistics_global_eternal">View Community\nEternal Rankings</string>
 
 </resources>

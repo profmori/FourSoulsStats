@@ -48,6 +48,7 @@
 
         android:text="@string/adjust_title"
         android:fontFamily="@font/four_souls_title"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
 
-            android:text="@string/input_no_players" />
+            android:text="@string/input_no_players"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/adjustPlayerNumber"
@@ -83,6 +85,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             android:background="@drawable/number_rectangle"
+            android:textColor="@color/black"
 
             android:text="@string/input_default_players"
             android:labelFor="@id/adjustPlayerNumber"
@@ -112,7 +115,8 @@
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
 
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/adjustTreasureNumber"
@@ -126,6 +130,7 @@
             app:layout_constraintTop_toTopOf="parent"
 
             android:background="@drawable/number_rectangle"
+            android:textColor="@color/black"
 
             android:text="@string/input_default_treasures"
             android:labelFor="@id/inputTreasureNumber"
@@ -159,6 +164,7 @@
             android:layout_marginStart="35dp"
 
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:text="@string/adjust_submit"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -173,6 +179,7 @@
             android:layout_marginEnd="35dp"
 
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:text="@string/adjust_delete"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

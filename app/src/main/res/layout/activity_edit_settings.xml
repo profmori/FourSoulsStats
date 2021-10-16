@@ -34,6 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:text="@string/settings_title"
+        android:textColor="@color/black"
         android:fontFamily="@font/four_souls_title"
         android:textSize="30sp" />
 
@@ -61,6 +62,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/groupIDEntry"
 
                 android:gravity="center_vertical"
+                android:textColor="@color/black"
                 android:text="@string/settings_group_id"/>
 
             <EditText
@@ -75,6 +77,7 @@
                 android:ems="4"
                 android:maxLength="6"
                 android:imeOptions="actionDone"
+                android:textColor="@color/black"
 
                 android:background="@drawable/number_rectangle"
                 android:gravity="center"
@@ -94,7 +97,8 @@
                 app:layout_constraintTop_toBottomOf="@id/groupIDPrompt"
                 android:layout_marginTop="5dp"
 
-                android:text="@string/settings_group_id_explain"/>
+                android:text="@string/settings_group_id_explain"
+                android:textColor="@color/black"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/onlineSwitch"
@@ -111,7 +115,8 @@
                 android:thumb="@drawable/switch_thumb"
                 app:trackTint="@drawable/switch_track"
 
-                android:text="@string/settings_online_sync"/>
+                android:text="@string/settings_online_sync"
+                android:textColor="@color/black"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/editionSelect"
@@ -130,7 +135,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
 
-                    android:text="@string/edition_prompt"/>
+                    android:text="@string/edition_prompt"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/goldSwitch"
@@ -144,7 +150,8 @@
                     android:thumb="@drawable/switch_thumb"
                     app:trackTint="@drawable/switch_track"
 
-                    android:text="@string/settings_gold" />
+                    android:text="@string/settings_gold"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/plusSwitch"
@@ -157,7 +164,8 @@
                     android:thumb="@drawable/switch_thumb"
                     app:trackTint="@drawable/switch_track"
 
-                    android:text="@string/settings_plus" />
+                    android:text="@string/settings_plus"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/requiemSwitch"
@@ -169,7 +177,8 @@
 
                     android:thumb="@drawable/switch_thumb"
                     app:trackTint="@drawable/switch_track"
-                    android:text="@string/settings_requiem" />
+                    android:text="@string/settings_requiem"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/warpSwitch"
@@ -182,7 +191,8 @@
                     android:thumb="@drawable/switch_thumb"
                     app:trackTint="@drawable/switch_track"
 
-                    android:text="@string/settings_warp" />
+                    android:text="@string/settings_warp"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/promoSwitch"
@@ -195,7 +205,8 @@
                     android:thumb="@drawable/switch_thumb"
                     app:trackTint="@drawable/switch_track"
 
-                    android:text="@string/settings_promo" />
+                    android:text="@string/settings_promo"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/customSwitch"
@@ -207,7 +218,8 @@
 
                     android:thumb="@drawable/switch_thumb"
                     app:trackTint="@drawable/switch_track"
-                    android:text="@string/settings_custom" />
+                    android:text="@string/settings_custom"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/customButton"
@@ -222,6 +234,7 @@
                     android:background="@drawable/button_event"
 
                     android:textAllCaps="false"
+                    android:textColor="@color/black"
                     android:text="@string/settings_enter_custom"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -240,6 +253,7 @@
                 app:trackTint="@drawable/switch_track"
 
                 android:gravity="center_vertical"
+                android:textColor="@color/black"
                 android:text="@string/settings_alt_art" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -260,6 +274,7 @@
                     android:layout_marginHorizontal="40dp"
 
                     android:gravity="center_vertical"
+                    android:textColor="@color/black"
                     android:text="@string/settings_border_prompt"/>
 
                 <Spinner
@@ -275,6 +290,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
 
                     android:gravity="center_vertical"
+                    android:textColor="@color/black"
 
                     style="@style/Widget.AppCompat.Spinner.DropDown"
                     android:dropDownHeight="60sp"
@@ -300,6 +316,7 @@
                     android:layout_marginStart="40dp"
 
                     android:gravity="center_vertical"
+                    android:textColor="@color/black"
                     android:text="@string/settings_background_prompt"/>
 
                 <Spinner
@@ -315,6 +332,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
 
                     android:gravity="center_vertical"
+                    android:textColor="@color/black"
 
                     style="@style/Widget.AppCompat.Spinner.DropDown"
                     android:dropDownHeight="60sp"
@@ -338,6 +356,7 @@
                 app:trackTint="@drawable/switch_track"
 
                 android:fontFamily="@font/atkinson_hyperlegible_regular"
+                android:textColor="@color/black"
                 android:text="@string/settings_readable_font" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -352,6 +371,7 @@
                 android:layout_marginStart="35dp"
 
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:text="@string/settings_clear_data"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -366,8 +386,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="35dp"
 
-
                 android:textAllCaps="false"
+                android:textColor="@color/black"
                 android:text="@string/settings_reset_tutorial"/>
 
 
@@ -386,6 +406,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/back_to_main_1"/>
 
 

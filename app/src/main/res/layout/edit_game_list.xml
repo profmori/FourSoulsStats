@@ -16,6 +16,7 @@
 
         android:textAlignment="center"
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/error_placeholder"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

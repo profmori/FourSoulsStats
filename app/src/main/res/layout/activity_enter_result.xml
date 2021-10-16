@@ -48,6 +48,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:text="@string/result_go_back"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -60,6 +61,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
 
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:text="@string/result_continue" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

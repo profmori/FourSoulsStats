@@ -14,7 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/changeImageButton"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/changeImageButton"
@@ -23,7 +24,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/deleteCross"
-        android:background="@drawable/add_image"/>
+        android:background="@drawable/add_image"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/deleteCross"

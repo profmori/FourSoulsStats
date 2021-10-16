@@ -43,6 +43,7 @@
         android:layout_marginStart="25dp"
 
         android:text="@string/input_card_player_title"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:elevation="10dp"/>
 
@@ -66,6 +67,7 @@
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp"
 
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:elevation="10dp"/>
 
@@ -78,6 +80,7 @@
         android:layout_marginStart="25dp"
 
         android:text="@string/input_card_char_title"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:elevation="10dp"/>
 
@@ -101,6 +104,7 @@
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp"
 
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:elevation="10dp"/>
 
@@ -113,6 +117,7 @@
         android:layout_marginStart="25dp"
 
         android:text="@string/input_card_eternal_title"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:elevation="10dp"/>
 
@@ -135,6 +140,7 @@
         android:dropDownHeight="60sp"
         android:dropDownVerticalOffset="20dp"
 
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:elevation="10dp"/>
 
@@ -152,7 +158,8 @@
             app:layout_constraintStart_toStartOf="@id/adjWinnerCheck"
             app:layout_constraintBottom_toTopOf="@id/adjWinnerCheck"
 
-            android:text="@string/win_card_souls"/>
+            android:text="@string/win_card_souls"
+            android:textColor="@color/black"/>
 
         <EditText
             android:id="@+id/adjSoulEntry"
@@ -165,6 +172,7 @@
             android:layout_marginStart="10dp"
 
             android:background="@drawable/number_rectangle"
+            android:textColor="@color/black"
 
             android:text="@string/win_card_default_souls"
             android:labelFor="@id/adjSoulEntry"
@@ -186,7 +194,8 @@
             android:layoutDirection="rtl"
             android:buttonTint="@color/black"
 
-            android:text="@string/win_card_winner"/>
+            android:text="@string/win_card_winner"
+            android:textColor="@color/black"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

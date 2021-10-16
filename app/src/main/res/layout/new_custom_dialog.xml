@@ -18,6 +18,7 @@
 
             android:inputType="textNoSuggestions"
             android:hint="@string/error_placeholder"
+            android:textColor="@color/black"
             android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

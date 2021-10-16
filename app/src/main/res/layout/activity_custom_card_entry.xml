@@ -23,7 +23,7 @@
         android:id="@+id/customTitle"
 
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_margin="35dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +31,7 @@
 
         android:text="@string/custom_title"
         android:fontFamily="@font/four_souls_title"
+        android:textColor="@color/black"
         android:textSize="30sp" />
 
     <TextView
@@ -43,7 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="20dp"
 
-        android:text="@string/custom_characters"/>
+        android:text="@string/custom_characters"
+        android:textColor="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customCharacters"
@@ -68,6 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/custom_add_character"/>
 
     <Button
@@ -93,7 +96,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
 
-        android:text="@string/custom_items"/>
+        android:text="@string/custom_items"
+        android:textColor="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/customItems"
@@ -118,6 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/custom_add_item"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -129,7 +134,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="30dp"
+
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:text="@string/custom_back_to_settings"/>
 
 
