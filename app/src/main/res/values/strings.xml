@@ -198,5 +198,6 @@
     <string name="statistics_group_character">View Your Group\'s\nCharacter Rankings</string>
     <string name="statistics_global_character">View Community\nCharacter Rankings</string>
     <string name="statistics_global_eternal">View Community\nEternal Rankings</string>
+    <string name="room_back">Room Back</string>
 
 </resources>

@@ -158,6 +158,7 @@ class SettingsHandler {
                 "monster_back" -> context.resources.getString(R.string.monster_back)
                 "soul_back" -> context.resources.getString(R.string.soul_back)
                 "treasure_back" -> context.resources.getString(R.string.treasure_back)
+                "room_back" -> context.resources.getString(R.string.room_back)
                 else -> context. resources.getString(R.string.loot_back)
             }
             // Use a when statement on all the possible text options to match the key
@@ -197,6 +198,7 @@ class SettingsHandler {
                 "eternal_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_eternal_back)
                 "loot_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_loot_back)
                 "treasure_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_treasure_back)
+                "monster_back" -> backgroundView.setBackgroundResource(R.drawable.bg_monster_back)
             }
             // Set the background from the settings file
 
@@ -207,6 +209,7 @@ class SettingsHandler {
                 "monster_back" -> backgroundView.setImageResource(R.drawable.bg_border_monster_back)
                 "soul_back" -> backgroundView.setImageResource(R.drawable.bg_border_soul_back)
                 "treasure_back" -> backgroundView.setImageResource(R.drawable.bg_border_treasure_back)
+                "room_back" -> backgroundView.setImageResource(R.drawable.bg_border_room_back)
             }
             // Set the border from the settings file
 

@@ -36,7 +36,7 @@ class CharacterList {
 
             CharEntity("bethany", R.drawable.bethany, null, "requiem"),
             CharEntity("jacob & esau", R.drawable.jacob_and_esau, null, "requiem"),
-            //CharEntity("classic isaac", R.drawable.classic_isaac, null, "requiem"),
+            CharEntity("flash isaac", R.drawable.flash_isaac, null, "requiem"),
 
             // Tainted Characters
             CharEntity("the baleful", R.drawable.the_baleful, null, "requiem"),

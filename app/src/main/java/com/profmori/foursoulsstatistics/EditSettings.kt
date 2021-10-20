@@ -49,7 +49,8 @@ class EditSettings : AppCompatActivity() {
             resources.getString(R.string.loot_back) to "loot_back",
             resources.getString(R.string.monster_back) to "monster_back",
             resources.getString(R.string.soul_back) to "soul_back",
-            resources.getString(R.string.treasure_back) to "treasure_back"
+            resources.getString(R.string.treasure_back) to "treasure_back",
+            resources.getString(R.string.room_back) to "room_back"
         )
         // Lists all the border options and their save strings
 
@@ -57,7 +58,8 @@ class EditSettings : AppCompatActivity() {
             resources.getString(R.string.character_back) to "character_back",
             resources.getString(R.string.eternal_back) to "eternal_back",
             resources.getString(R.string.loot_back) to "loot_back",
-            resources.getString(R.string.treasure_back) to "treasure_back"
+            resources.getString(R.string.treasure_back) to "treasure_back",
+            resources.getString(R.string.monster_back) to "monster_back"
         )
         // Lists all the background options and their save strings
 

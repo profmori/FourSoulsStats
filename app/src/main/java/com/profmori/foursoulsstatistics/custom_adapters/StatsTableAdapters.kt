@@ -286,6 +286,6 @@ class GamesPlayedComparator: Comparator<StatsTable>{
         val played1 = row1.playedGames
         val played2 = row2.playedGames
         // Compare characters by number of games played
-        return played2.compareTo(played1)
+        return played1.compareTo(played2)
     }
 }
