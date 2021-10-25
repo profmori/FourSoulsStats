@@ -98,7 +98,7 @@ class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, va
     }
 
     fun setEternalData(rowName: String, instances: Array<OnlineGameInstance>) {
-        name = rowName
+        name = rowName.lowercase()
         // Get the name from the input
         val gamesList = instances.filter { instance ->
             instance.eternal == name

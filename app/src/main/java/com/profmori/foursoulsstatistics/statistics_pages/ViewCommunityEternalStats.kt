@@ -88,8 +88,30 @@ class ViewCommunityEternalStats : AppCompatActivity() {
             val games = OnlineDataHandler.getAllEternals(this@ViewCommunityEternalStats)
             // Get all games
 
-            val eternals = games.map{ it.eternal }.distinct()
+            val onlineEternals = games.map{game -> game.eternal}.distinct()
+            // Gets all the eternals with recorded data
 
+            val indexList = emptyList<Int>().toMutableList()
+            // Creates a list of all the indices of chosen elements of the list
+            ItemList.getItems(this@ViewCommunityEternalStats).forEach {
+                // Iterate through all the selected eternal items
+                val index = onlineEternals.indexOf(it.lowercase())
+                // Get the index of the eternal in the list of online eternals
+                if (index >= 0){
+                    // If it is in the list
+                    indexList += index
+                    // Add its index to the list
+                }
+                else if (it == "\"I Can't Believe It's Not Butter Bean\""){
+                    // "I Can't Believe It's Not Butter Bean" - the cause of every special case in the app
+                    indexList += onlineEternals.indexOf("\"i can't believe it's not")
+                    // Add the cut off version's index to the list
+                }
+                // Add the index to the list
+            }
+
+            val tableEternals = onlineEternals.slice(indexList)
+            // Gets the intersection between the currently selected treasures and the treasures with data
             val filteredPlayers = games.filter {
                 (it.gameSize >= playerRange[0].toInt()) and (it.gameSize <= playerRange[1].toInt())
             }
@@ -100,9 +122,10 @@ class ViewCommunityEternalStats : AppCompatActivity() {
             }.toTypedArray()
             // Get the games with the right number of treasures
 
-            eternals.forEach {
+            tableEternals.forEach {
                 // For every eternal
                 if(!it.isNullOrBlank()) {
+                    // Make sure all inputs are safe
                     val newEternalTable = StatsTable(it, 0.0, 0.0, 0, 0.0)
                     // Create a new row
                     newEternalTable.setEternalData(it, selectedGames)

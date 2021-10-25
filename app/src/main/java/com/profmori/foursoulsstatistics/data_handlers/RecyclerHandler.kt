@@ -96,6 +96,7 @@ class RecyclerHandler {
                 // If it has just lost focus
                 val charInput = charEntry.text.toString()
                 // Get the input to the character field
+                println(charInput+"_")
                 var newChar = charInput
                 // Store the character input in a mutable variable
                 if ((charInput != "") and !playerHandler.charNames.contains(charInput)) {
@@ -196,8 +197,14 @@ class RecyclerHandler {
         }
 
         fun enterSouls(hasFocus: Boolean, soulsBox: EditText, winnerTick: CheckBox, playerHandler: PlayerHandler){
-            var soulNumber = soulsBox.text.toString().toInt()
-            // Gets the soul input field
+            var soulNumber: Int
+            try {
+                soulNumber = soulsBox.text.toString().toInt()
+                // Gets the soul input field
+            }
+            catch (e: java.lang.NumberFormatException){
+                soulNumber = 0
+            }
             if (!hasFocus) {
                 // If the soul box has just lost focus
                 val oldSoulNumber = soulNumber

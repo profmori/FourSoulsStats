@@ -93,12 +93,6 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                 // Get the current character
                 charImage = currentChar.image
                 // Set the image to the basic value
-                if ((currentChar.imageAlt != null) and useAlts) {
-                    // If there is an alternate image, and the player wants the chance to use alternate art
-                    charImage =
-                        arrayOf(currentChar.image, currentChar.imageAlt).random()!!
-                    // Select a random character image
-                }
                 if(charName == "eden"){
                 // If Eden is selected
                     var imageArray = arrayOf(R.drawable.eden)
@@ -111,7 +105,17 @@ class PlayerHandler (var playerName: String, var charName: String, var charImage
                     // Adds the 2 requiem eden cards if bethany is included in the characters (proxy for requiem being included)
                     charImage = imageArray.random()
                     // Picks a random Eden card
+                }else if ((currentChar.imageAlt != null) and useAlts) {
+                    // If there is an alternate image, and the player wants the chance to use alternate art
+                    charImage =
+                        arrayOf(currentChar.image, currentChar.imageAlt).random()!!
+                    // Select a random character image
                 }
+            }else if (newName == ""){
+                // If the name is now blank
+                charName = newName
+                // The character name is now blank
+                charImage = R.drawable.blank_char
             }
         }
     }
