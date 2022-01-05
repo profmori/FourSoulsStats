@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:ignore="ContentDescription"
-
         android:background="@drawable/bg_tiled_loot_back"
 
+        android:scaleType="fitXY"
+
         android:src="@drawable/bg_border_monster_back"
-        android:scaleType="fitXY"/>
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/feedbackTitle"
@@ -25,33 +25,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="35dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        android:text="@string/feedback_title"
         android:fontFamily="@font/four_souls_title"
+        android:text="@string/feedback_title"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/feedbackPreference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/feedbackTitle"
         android:layout_marginHorizontal="35dp"
         android:layout_marginTop="15dp"
+        android:text="@string/feedback_preference"
         android:textColor="@color/black"
-        android:text="@string/feedback_preference"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feedbackTitle" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/feedbackPreference"
+        android:layout_marginVertical="20dp"
         app:layout_constraintBottom_toTopOf="@id/feedbackMainButton"
-        android:layout_marginVertical="20dp">
+        app:layout_constraintTop_toBottomOf="@id/feedbackPreference">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -59,54 +59,67 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/githubFeedback"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-
+                android:text="@string/feedback_github_report"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:text="@string/feedback_github_report"/>
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/emailBug"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/githubFeedback"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="30dp"
-
+                android:text="@string/feedback_bug"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:text="@string/feedback_bug"/>
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/githubFeedback" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/emailSuggestion"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/emailBug"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="30dp"
-
+                android:text="@string/feedback_suggestion"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:text="@string/feedback_suggestion"/>
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailBug" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/emailTranslate"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/emailSuggestion"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="30dp"
-
+                android:text="@string/feedback_translate"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:text="@string/feedback_translate"/>
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailSuggestion" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/emailRandomise"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/reroll_suggest_icon"
+                android:textAllCaps="false"
+
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailTranslate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,12 +131,12 @@
         android:layout_width="220dp"
         android:layout_height="60dp"
         android:layout_margin="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
+        android:text="@string/back_to_main_1"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:text="@string/back_to_main_1"/>
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

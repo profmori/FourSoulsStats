@@ -5,14 +5,19 @@ import com.profmori.foursoulsstatistics.R
 class CharacterList {
 // A class to store all the current class data and update necessary characters
 
-    companion object{
+    companion object {
         val charList: Array<CharEntity> = arrayOf(
             // Base Characters
             CharEntity("blue baby", R.drawable.blue_baby, R.drawable.blue_baby_alt, "base"),
             CharEntity("cain", R.drawable.cain, null, "base"),
             CharEntity("eden", R.drawable.eden, null, "base"),
             CharEntity("eve", R.drawable.eve, null, "base"),
-            CharEntity("the forgotten", R.drawable.the_forgotten, R.drawable.the_forgotten_alt, "base"),
+            CharEntity(
+                "the forgotten",
+                R.drawable.the_forgotten,
+                R.drawable.the_forgotten_alt,
+                "base"
+            ),
             CharEntity("isaac", R.drawable.isaac, R.drawable.isaac_alt, "base"),
             CharEntity("judas", R.drawable.judas, R.drawable.judas_alt, "base"),
             CharEntity("lazarus", R.drawable.lazarus, null, "base"),
@@ -42,7 +47,12 @@ class CharacterList {
             CharEntity("the baleful", R.drawable.the_baleful, null, "requiem"),
             CharEntity("the benighted", R.drawable.the_benighted, null, "requiem"),
             CharEntity("the broken", R.drawable.the_broken, null, "requiem"),
-            CharEntity("the capricious", R.drawable.the_capricious, R.drawable.the_capricious_alt, "requiem"),
+            CharEntity(
+                "the capricious",
+                R.drawable.the_capricious,
+                R.drawable.the_capricious_alt,
+                "requiem"
+            ),
             CharEntity("the curdled", R.drawable.the_curdled, null, "requiem"),
             CharEntity("the dauntless", R.drawable.the_dauntless, null, "requiem"),
             CharEntity("the deceiver", R.drawable.the_deceiver, null, "requiem"),
@@ -80,7 +90,7 @@ class CharacterList {
             CharEntity("yung venuz", R.drawable.yung_venuz, null, "warp"),
 
             //Tapeworm Promo Character
-            CharEntity("tapeworm",R.drawable.tapeworm, null, "promo")
+            CharEntity("tapeworm", R.drawable.tapeworm, null, "tapeworm")
         )
     }
 }

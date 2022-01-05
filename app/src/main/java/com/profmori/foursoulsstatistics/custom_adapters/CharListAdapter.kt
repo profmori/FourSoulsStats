@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.RecyclerHandler
-import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.ItemList
 
 
-class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<CharListAdapter.ViewHolder>() {
+class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
+    RecyclerView.Adapter<CharListAdapter.ViewHolder>() {
 
     private var itemList = emptyArray<String>()
     // Create an empty array to hold the list of all items in the editions selected
@@ -27,16 +27,22 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val charImage: ImageView = itemView.findViewById(R.id.inputCharImage)
+
         // Allows the background image to be set in code
         val charEntry: AutoCompleteTextView = itemView.findViewById(R.id.inputCharEntry)
+
         // Access the character selection entry in code
         val charPrompt: TextView = itemView.findViewById(R.id.inputCharSelect)
+
         // Access the character entry prompt
         val playerEntry: AutoCompleteTextView = itemView.findViewById(R.id.inputPlayerEntry)
+
         // Access the player selection entry in code
         val playerPrompt: TextView = itemView.findViewById(R.id.inputPlayerSelect)
+
         // Access the player entry prompt
         val eternalEntry: AutoCompleteTextView = itemView.findViewById(R.id.inputEternalEntry)
+
         // Access the player selection entry in code
         val eternalPrompt: TextView = itemView.findViewById(R.id.inputEternalSelect)
         // Access the eternal entry prompt
@@ -98,7 +104,15 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         eternalPrompt.visibility = INVISIBLE
         // Hide all the eternal item field
 
-        RecyclerHandler.updateView(playerHandler, background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
+        RecyclerHandler.updateView(
+            playerHandler,
+            background,
+            playerEntry,
+            charEntry,
+            eternalPrompt,
+            eternalEntry,
+            itemList
+        )
         // Use the recycler handler class to update the all the correct views to match the list
 
         charEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -118,7 +132,16 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         charEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             // When the character entry box loses or gains focus
-            RecyclerHandler.enterChar(hasFocus, playerEntry, playerHandler, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            RecyclerHandler.enterChar(
+                hasFocus,
+                playerEntry,
+                playerHandler,
+                background,
+                charEntry,
+                eternalPrompt,
+                eternalEntry,
+                itemList
+            )
             // Run all the logic for the character data
         }
 
@@ -139,7 +162,17 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             // When the player entry box loses or gains focus
-            RecyclerHandler.enterPlayer(hasFocus, playerEntry, playerHandler, playerHandlerList, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            RecyclerHandler.enterPlayer(
+                hasFocus,
+                playerEntry,
+                playerHandler,
+                playerHandlerList,
+                background,
+                charEntry,
+                eternalPrompt,
+                eternalEntry,
+                itemList
+            )
             // Run all the logic for entering the player data
         }
 

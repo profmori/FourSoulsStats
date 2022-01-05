@@ -40,7 +40,15 @@ class ViewPlayerStats : AppCompatActivity() {
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image
 
-        TableHandler.pageSetup(this,backButton, background, characterTitle, filterText, playerText, treasureText)
+        TableHandler.pageSetup(
+            this,
+            backButton,
+            background,
+            characterTitle,
+            filterText,
+            playerText,
+            treasureText
+        )
         // Setup the page correctly
 
         lifecycleScope.launch {
@@ -49,7 +57,14 @@ class ViewPlayerStats : AppCompatActivity() {
             val gamesList = gameDao.getGames()
             // Get a list of games
 
-            TableHandler.localDataSetup(gamesList, filterText, playerText, playerSlider, treasureText, treasureSlider)
+            TableHandler.localDataSetup(
+                gamesList,
+                filterText,
+                playerText,
+                playerSlider,
+                treasureText,
+                treasureSlider
+            )
             // Set up the table from the local data
 
             playerSlider.addOnChangeListener { _, _, _ ->
@@ -69,7 +84,7 @@ class ViewPlayerStats : AppCompatActivity() {
         }
     }
 
-    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>){
+    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>) {
         val playerTable = findViewById<SortableTableView<StatsTable>>(R.id.statsTable)
         // Finds the player stats table
 

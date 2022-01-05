@@ -13,10 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.profmori.foursoulsstatistics.custom_adapters.dialogs.CustomCharDialog
 import com.profmori.foursoulsstatistics.custom_adapters.CustomCharListAdapter
-import com.profmori.foursoulsstatistics.custom_adapters.dialogs.CustomItemDialog
 import com.profmori.foursoulsstatistics.custom_adapters.CustomItemListAdapter
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.CustomCharDialog
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.CustomItemDialog
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
@@ -37,6 +37,7 @@ class CustomCardEntry : AppCompatActivity() {
     }
 
     lateinit var imageChangeButton: Button
+
     // Allows the invisible test button to be set outside this class
     var currentChar = -1
     // Sets the current character being edited to -1
@@ -88,7 +89,7 @@ class CustomCardEntry : AppCompatActivity() {
         val gameDao = dataBase.gameDAO
         // Access the database
 
-        var charAdapter = CustomCharListAdapter(emptyArray(),fonts["body"]!!,this)
+        var charAdapter = CustomCharListAdapter(emptyArray(), fonts["body"]!!, this)
         // Create the list adapter
         var charList = emptyArray<CharEntity>()
         // Create the empty custom character list
@@ -97,7 +98,7 @@ class CustomCardEntry : AppCompatActivity() {
             charList = gameDao.getCharacterList("custom")
             // Get the custom characters
 
-            charAdapter = CustomCharListAdapter(charList, fonts["body"]!!,this@CustomCardEntry)
+            charAdapter = CustomCharListAdapter(charList, fonts["body"]!!, this@CustomCardEntry)
             // Attach the adapter to the recyclerview to populate items
             characterRecycler.adapter = charAdapter
             // Set layout manager to position the items
@@ -105,45 +106,47 @@ class CustomCardEntry : AppCompatActivity() {
             // Lay the recycler out as a list
         }
 
-        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) {imageURI ->
-            val chars = charAdapter.getItems().toMutableList()
-            // Get the current list of characters
-            try {
-                val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    // Uses a different method to find the image based on the android version
-                    ImageDecoder.decodeBitmap(
-                        ImageDecoder.createSource(this.contentResolver, imageURI)
+        val getContent =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { imageURI ->
+                val chars = charAdapter.getItems().toMutableList()
+                // Get the current list of characters
+                try {
+                    val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        // Uses a different method to find the image based on the android version
+                        ImageDecoder.decodeBitmap(
+                            ImageDecoder.createSource(this.contentResolver, imageURI)
+                        )
+                    } else {
+                        MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
+                    }
+                    // Get the image from the URI
+
+                    ImageHandler.writeImage(this, chars[currentChar].charName, image)
+                    // Store the image in local storage
+
+                    chars += arrayOf(
+                        CharEntity(
+                            chars[currentChar].charName,
+                            -1,
+                            null,
+                            "custom"
+                        )
                     )
-                } else {
-                    MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
+                    // Add the character to the end of the list
+                    chars.removeAt(currentChar)
+                    // Remove the old version
+                    charAdapter = CustomCharListAdapter(
+                        chars.toTypedArray(),
+                        fonts["body"]!!,
+                        this@CustomCardEntry
+                    )
+                    // Attach the adapter to the recyclerview to populate items
+                    characterRecycler.adapter = charAdapter
+                    // Set layout manager to position the items
+                } catch (e: NullPointerException) {
                 }
-                // Get the image from the URI
-
-                ImageHandler.writeImage(this, chars[currentChar].charName, image)
-                // Store the image in local storage
-
-                chars += arrayOf(
-                    CharEntity(
-                        chars[currentChar].charName,
-                        -1,
-                        null,
-                        "custom"
-                    )
-                )
-                // Add the character to the end of the list
-                chars.removeAt(currentChar)
-                // Remove the old version
-                charAdapter = CustomCharListAdapter(
-                    chars.toTypedArray(),
-                    fonts["body"]!!,
-                    this@CustomCardEntry
-                )
-                // Attach the adapter to the recyclerview to populate items
-                characterRecycler.adapter = charAdapter
-                // Set layout manager to position the items
-            }catch (e: NullPointerException) {}
-            // If there's a null pointer do nothing
-        }
+                // If there's a null pointer do nothing
+            }
 
         imageChangeButton.setOnClickListener {
             getContent.launch("image/*")
@@ -162,16 +165,19 @@ class CustomCardEntry : AppCompatActivity() {
         charButton.setOnClickListener {
             var chars = charAdapter.getItems()
             // Get the current list of characters
-            val returnInterface = object : ConfirmInterface{
+            val returnInterface = object : ConfirmInterface {
                 override fun onTextEntered(text: String) {
-                    chars += arrayOf(CharEntity(
-                        text.lowercase().trim(),
-                        R.drawable.blank_char,
-                        null,
-                        "custom"
-                    ))
+                    chars += arrayOf(
+                        CharEntity(
+                            text.lowercase().trim(),
+                            ImageHandler.randomBlank(),
+                            null,
+                            "custom"
+                        )
+                    )
                     // Add the new custom character
-                    charAdapter = CustomCharListAdapter(chars, fonts["body"]!!,this@CustomCardEntry)
+                    charAdapter =
+                        CustomCharListAdapter(chars, fonts["body"]!!, this@CustomCardEntry)
                     // Attach the adapter to the recyclerview to populate items
                     characterRecycler.adapter = charAdapter
                     // Set layout manager to position the items
@@ -186,7 +192,7 @@ class CustomCardEntry : AppCompatActivity() {
         itemButton.setOnClickListener {
             var items = itemAdapter.getItems()
             // Get the current list of items
-            val returnInterface = object : ConfirmInterface{
+            val returnInterface = object : ConfirmInterface {
                 override fun onTextEntered(text: String) {
                     items += arrayOf(text.lowercase().trim())
                     // Add the new item
@@ -210,26 +216,25 @@ class CustomCardEntry : AppCompatActivity() {
             // Get the current list of characters
             val items = itemAdapter.getItems()
             // Get the current list of items
-            ItemList.writeCustom(this,items)
+            ItemList.writeCustom(this, items)
             // Add all the custom items to the item list so they can be accessed later
 
             CoroutineScope(Dispatchers.IO).launch {
                 charList.forEach {
-                // Iterate through all the currently saved custom characters
-                    if (chars.contains(it)){
-                    // If the new custom character list still includes that character
+                    // Iterate through all the currently saved custom characters
+                    if (chars.contains(it)) {
+                        // If the new custom character list still includes that character
                         val charPos = chars.indexOf(it)
-                        // Get the index of the currently chosen character in the new custom character lsit
+                        // Get the index of the currently chosen character in the new custom character list
                         chars.removeAt(charPos)
                         // Remove it from the new custom character list
-                    }
-                    else{
+                    } else {
                         gameDao.deleteCharacter(it)
                         // Remove it from the database
                     }
                 }
                 chars.forEach {
-                // For all the remaining characters which do not exist in the database
+                    // For all the remaining characters which do not exist in the database
                     gameDao.addCharacter(it)
                     // Add the character to the database
                 }

@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.profmori.foursoulsstatistics.R
 
-class ExitGameEdit(val parent: Activity, val font: Typeface): DialogFragment() {
+class ExitGameEdit(val parent: Activity, val font: Typeface) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -23,15 +23,16 @@ class ExitGameEdit(val parent: Activity, val font: Typeface): DialogFragment() {
             titleText.typeface = font
             // Set the title text and font
             builder.setCustomTitle(titleText)
-                .setPositiveButton(R.string.adjust_ignore_changes){ _, _ ->
+                .setPositiveButton(R.string.adjust_ignore_changes) { _, _ ->
                     parent.finish()
                 }
                 // When you click ignore changes
-                .setNegativeButton(R.string.adjust_cancel_exit
+                .setNegativeButton(
+                    R.string.adjust_cancel_exit
                 ) { _, _ ->
                     dismiss()
                 }
-                // When you click the cancel button do nothing
+            // When you click the cancel button do nothing
             val dialog = builder.create()
             // Create the AlertDialog object and return it
 

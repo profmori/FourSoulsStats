@@ -17,16 +17,13 @@ import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
-import com.profmori.foursoulsstatistics.database.CharEntity
-import com.profmori.foursoulsstatistics.database.GameDAO
-import com.profmori.foursoulsstatistics.database.GameDataBase
-import com.profmori.foursoulsstatistics.database.Player
+import com.profmori.foursoulsstatistics.database.*
 import kotlinx.coroutines.launch
-import java.lang.NullPointerException
 
 class EnterData : AppCompatActivity() {
 
     private lateinit var gameDatabase: GameDataBase
+
     // Initialise the database
     private lateinit var gameDao: GameDAO
     // Initialise the access object
@@ -49,6 +46,7 @@ class EnterData : AppCompatActivity() {
         // Get the player number input box
 
         val playerPrompt = findViewById<TextView>(R.id.inputPlayerPrompt)
+        // Get the player input title
 
         val treasureNo = findViewById<EditText>(R.id.inputTreasureNumber)
         // Get the treasure number input box
@@ -58,6 +56,9 @@ class EnterData : AppCompatActivity() {
 
         val titleView = findViewById<TextView>(R.id.inputTitle)
         // Gets the title
+
+        val rerollButton = findViewById<Button>(R.id.rerollButton)
+        // Gets the reroll button
 
         var gameTreasures = treasureNo.text.toString().toInt()
         // Get the number of treasures
@@ -88,7 +89,7 @@ class EnterData : AppCompatActivity() {
             treasureNo.setText(gameTreasures.toString())
             // Get feedback from results if it exists and set the player and treasure numbers
 
-        }catch (e: NullPointerException){
+        } catch (e: NullPointerException) {
             // If an error is thrown because this data was not passed
             fromResults = false
             // You haven't come from the results page
@@ -106,14 +107,21 @@ class EnterData : AppCompatActivity() {
         var playerHandlerList = emptyArray<PlayerHandler>()
         // Create an empty list of player handlers to hold the entered players
 
-        if (fromResults){
-        // If data has been input
-            for (i in (playerNames.indices)){
+        if (fromResults) {
+            // If data has been input
+            for (i in (playerNames.indices)) {
                 // Iterates through all players
-                playerHandlerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],souls[i],false)
+                playerHandlerList += PlayerHandler(
+                    playerNames[i],
+                    charNames[i],
+                    charImages[i],
+                    eternals[i],
+                    souls[i],
+                    false
+                )
                 // Adds the player
             }
-        }else{
+        } else {
             playerHandlerList = PlayerHandler.makePlayerList(playerCount)
             // Create adapter passing in the number of players
         }
@@ -141,18 +149,23 @@ class EnterData : AppCompatActivity() {
         val edition = SettingsHandler.getEditions(this)
         // Get the current editions from settings
 
-        val altArt = SettingsHandler.readSettings(this)["alt_art"]
+        val settings = SettingsHandler.readSettings(this)
+        // Get the current settings
         lifecycleScope.launch {
-        // In a coroutine
-            edition.forEach{characterList += gameDao.getCharacterList(it)}
+            // In a coroutine
+            edition.forEach { characterList += gameDao.getCharacterList(it) }
             // For each edition you want characters for
             playerList = gameDao.getPlayers()
             // Get the player list
             playerHandlerList.forEach {
                 it.addData(characterList, playerList)
                 // Add the player and character list to all player handlers
-                it.useAlts = altArt.toBoolean()
+                it.useAlts = settings["alt_art"].toBoolean()
                 // Set the player handler flag for using alt art correctly
+                it.usePromo = settings["promo"].toBoolean()
+                // Set the player handler flag for using promo edens correctly
+                it.useRequiem = settings["requiem"].toBoolean()
+                // Set the player handler flag for using requiem edens correctly
             }
 
         }
@@ -176,9 +189,10 @@ class EnterData : AppCompatActivity() {
         playerNo.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
-                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
-                imm.hideSoftInputFromWindow(view.windowToken,0)
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
                 playerNo.clearFocus()
                 // Clear the focus of the edit text
@@ -208,27 +222,27 @@ class EnterData : AppCompatActivity() {
                     }
                     playerNo.setText(playerCount.toString())
                     // Rewrite the text field to show this
-                    if ((playerCount == 2) && (oldPlayerCount != 2)){
-                    // If they have just changed to 2 player game
+                    if ((playerCount == 2) && (oldPlayerCount != 2)) {
+                        // If they have just changed to 2 player game
                         gameTreasures = 2
                         // Set the number of treasures to 2
-                    }else if((oldPlayerCount == 2) && (playerCount != 2)){
-                    // If they have just changed from 2 players
+                    } else if ((oldPlayerCount == 2) && (playerCount != 2)) {
+                        // If they have just changed from 2 players
                         gameTreasures = 0
                         // Set the number of treasures to 0
                     }
                     treasureNo.setText(gameTreasures.toString())
                     // Set the treasure number box to the game treasures
-                    playerHandlerList = PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
+                    playerHandlerList =
+                        PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
                     // Makes a player list based on the number of players
                     adapter = CharListAdapter(playerHandlerList)
                     // Creates the recycler view adapter for this
                     charRecycler.adapter = adapter
                     // Creates the recycler view
                 }
-            }
-            else{
-            // If the user has just entered the text field
+            } else {
+                // If the user has just entered the text field
                 playerNo.setText("")
                 // Clear the input
             }
@@ -237,9 +251,10 @@ class EnterData : AppCompatActivity() {
         treasureNo.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
-                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
-                imm.hideSoftInputFromWindow(view.windowToken,0)
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
                 treasureNo.clearFocus()
                 // Clear the focus of the edit text
@@ -250,35 +265,84 @@ class EnterData : AppCompatActivity() {
 
         treasureNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-            // After the number of treasures has been input
+                // After the number of treasures has been input
                 if (treasureNo.text.toString() == "") {
-                // If the field is blank
+                    // If the field is blank
                     treasureNo.setText(gameTreasures.toString())
                     // Set the field to the existing number of treasures
-                }
-                else{
+                } else {
                     gameTreasures = treasureNo.text.toString().toInt()
                     // Otherwise store the new number of treasures
                 }
-            }
-            else{
-            // If the user has just entered the text field
+            } else {
+                // If the user has just entered the text field
                 treasureNo.setText("")
                 // Clear the text field
             }
         }
 
         continueButton.setOnClickListener {
-            tryMoveOn(playerHandlerList,gameTreasures, background)
+            tryMoveOn(playerHandlerList, gameTreasures, background)
             // Try to move to the next screen
         }
 
         returnButton.setOnClickListener {
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
-            backToMain.putExtra("from","enter_data")
+            backToMain.putExtra("from", "enter_data")
             startActivity(backToMain)
             // Go back to the main screen
+        }
+
+        rerollButton.background = ImageHandler.randomReroll(this)
+        // Set the image for the reroll icon from the available selection
+
+        rerollButton.setOnClickListener {
+            // When the reroll button is clicked
+            var selectedChars = emptyArray<CharEntity>()
+            SettingsHandler.saveToFile(this, settings)
+            playerHandlerList.forEachIndexed { index, playerHandler ->
+                // Iterate through all the current players added
+                var randomChar = playerHandler.charList.random()
+                // Select a random character from the list of possible options
+                while (selectedChars.contains(randomChar) &&
+                    // If a duplicate character has been selected
+                    !settings["duplicate_characters"].toBoolean() &&
+                    // And the user doesn't want duplicates
+                    selectedChars.size < playerHandler.charList.size
+                )
+                // And the number of characters selected isn't equal to the total number of characters available
+                {
+                    if (randomChar.charName == "eden" && settings["duplicate_eden"].toBoolean()) {
+                        break
+                    }
+                    randomChar = playerHandler.charList.random()
+                    // Select a random character from the list of possible options
+                }
+
+                selectedChars += arrayOf(randomChar)
+                // Add the character to the list of current characters
+                if (selectedChars.distinct().size == playerHandler.charList.size) {
+                    // If the number of selected characters equals the total number of characters (excluding duplicates)
+                    selectedChars = emptyArray()
+                    // Reset the number of selected characters
+                }
+                playerHandler.updateCharacter(randomChar.charName)
+                // Set the player to that character
+                if (randomChar.charName == "eden" &&
+                    // If eden is selected
+                    settings["random_eden"].toBoolean()
+                )
+                // And eden eternals are also to be randomised
+                {
+                    val randomEternal = ItemList.getItems(this).random()
+                    // Generate a random Eden eternal
+                    playerHandler.eternal = randomEternal
+                    // Set the player eternal to the randomly selected one
+                }
+                adapter.notifyItemChanged(index)
+                // Update the view
+            }
         }
     }
 
@@ -289,14 +353,15 @@ class EnterData : AppCompatActivity() {
         // Clicks the button
     }
 
-    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, view: View){
+    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, view: View) {
         var moveOn = true
         // Say you can move on
         for (p in playerHandlerList) {
-        // Iterate through all players
+            // Iterate through all players
             if (((p.playerName == "") or (p.charName == "")) or
-                    (p.charName == "eden") and (p.eternal == null)){
-            // If something is not entered correctly
+                (p.charName == "eden") and (p.eternal == null)
+            ) {
+                // If something is not entered correctly
                 moveOn = false
                 // You can no longer move on
                 break
@@ -305,7 +370,7 @@ class EnterData : AppCompatActivity() {
         }
 
         if (moveOn) {
-        // If you can move on
+            // If you can move on
             val enterResult = Intent(this, EnterResult::class.java)
             // Create a new intent to go to the result entry page
             var playerNameList = emptyArray<String>()
@@ -315,7 +380,7 @@ class EnterData : AppCompatActivity() {
             var soulsList = intArrayOf()
             // Store all of the relevant data in separate lists since PlayerHandler cannot be passed as an extra
 
-            for(p in playerHandlerList){
+            for (p in playerHandlerList) {
                 playerNameList += arrayOf(p.playerName)
                 charNameList += arrayOf(p.charName)
                 charImageList += intArrayOf(p.charImage)
@@ -323,14 +388,14 @@ class EnterData : AppCompatActivity() {
                 soulsList += intArrayOf(p.soulsNum)
             }
             // Add all of the data
-            enterResult.putExtra("names",playerNameList)
-            enterResult.putExtra("chars",charNameList)
-            enterResult.putExtra("images",charImageList)
-            enterResult.putExtra("treasures",gameTreasures)
+            enterResult.putExtra("names", playerNameList)
+            enterResult.putExtra("chars", charNameList)
+            enterResult.putExtra("images", charImageList)
+            enterResult.putExtra("treasures", gameTreasures)
             enterResult.putExtra("eternals", eternalList)
             enterResult.putExtra("souls", soulsList)
             // Creates a set of extra parameters which passes all the data to the results page
-            val dbPlayers = playerList.map{ player -> player.playerName }
+            val dbPlayers = playerList.map { player -> player.playerName }
             // Gets the list of players stored in the database
             lifecycleScope.launch {
                 for (player in playerNameList) {
@@ -348,9 +413,9 @@ class EnterData : AppCompatActivity() {
             // Move to the result entry page
 
         } else {
-        // If you cannot move on
+            // If you cannot move on
             val errorSnackbar =
-                Snackbar.make(view,  R.string.input_too_few, Snackbar.LENGTH_LONG)
+                Snackbar.make(view, R.string.input_too_few, Snackbar.LENGTH_LONG)
             // Create the snackbar
             errorSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
             // Set the font of the snackbar

@@ -18,7 +18,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DeleteGameEdit(val gameID: String, val parent: Activity, val font: Typeface): DialogFragment() {
+class DeleteGameEdit(val gameID: String, val parent: Activity, val font: Typeface) :
+    DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -31,7 +32,7 @@ class DeleteGameEdit(val gameID: String, val parent: Activity, val font: Typefac
             titleText.typeface = font
             // Set the title text and font
             builder.setCustomTitle(titleText)
-                .setPositiveButton(R.string.adjust_confirm_delete){ _, _ ->
+                .setPositiveButton(R.string.adjust_confirm_delete) { _, _ ->
                     CoroutineScope(Dispatchers.IO).launch {
                         OnlineDataHandler.deleteOnlineGameInstances(gameID)
                         // Clear the online data
@@ -42,7 +43,7 @@ class DeleteGameEdit(val gameID: String, val parent: Activity, val font: Typefac
                         gameDao.clearSingleGame(gameID)
                         gameDao.clearSingleGameInstance(gameID)
                         // Clear the local versions of the data
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             val backToList = Intent(parent, EditGames::class.java)
                             parent.startActivity(backToList)
                             // Go back the list of games, reloading it
@@ -50,11 +51,12 @@ class DeleteGameEdit(val gameID: String, val parent: Activity, val font: Typefac
                     }
                 }
                 // When you click ignore changes
-                .setNegativeButton(R.string.adjust_cancel_delete
+                .setNegativeButton(
+                    R.string.adjust_cancel_delete
                 ) { _, _ ->
                     dismiss()
                 }
-                // When you click the cancel button do nothing
+            // When you click the cancel button do nothing
             val dialog = builder.create()
             // Create the AlertDialog object and return it
 

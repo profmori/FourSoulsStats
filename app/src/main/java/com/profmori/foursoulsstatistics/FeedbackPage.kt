@@ -24,6 +24,7 @@ class FeedbackPage : AppCompatActivity() {
         val bugReport = findViewById<Button>(R.id.emailBug)
         val suggestion = findViewById<Button>(R.id.emailSuggestion)
         val translate = findViewById<Button>(R.id.emailTranslate)
+        val newIcon = findViewById<Button>(R.id.emailRandomise)
         val returnButton = findViewById<Button>(R.id.feedbackMainButton)
         // Get all the main foreground elements
 
@@ -35,13 +36,14 @@ class FeedbackPage : AppCompatActivity() {
         val fonts = TextHandler.setFont(this)
         // Get the right font type (readable or not)
 
-        title.typeface =fonts["title"]
-        preferences.typeface =fonts["body"]
-        github.typeface =fonts["body"]
-        bugReport.typeface =fonts["body"]
-        suggestion.typeface =fonts["body"]
-        translate.typeface =fonts["body"]
-        returnButton.typeface =fonts["body"]
+        title.typeface = fonts["title"]
+        preferences.typeface = fonts["body"]
+        github.typeface = fonts["body"]
+        bugReport.typeface = fonts["body"]
+        suggestion.typeface = fonts["body"]
+        translate.typeface = fonts["body"]
+        newIcon.typeface = fonts["body"]
+        returnButton.typeface = fonts["body"]
         // Sets all the fonts correctly
 
         val buttonBG = ImageHandler.setButtonImage()
@@ -51,12 +53,16 @@ class FeedbackPage : AppCompatActivity() {
         bugReport.setBackgroundResource(buttonBG)
         suggestion.setBackgroundResource(buttonBG)
         translate.setBackgroundResource(buttonBG)
+        newIcon.setBackgroundResource(buttonBG)
         returnButton.setBackgroundResource(buttonBG)
         // Set all the buttons to look correct
 
         github.setOnClickListener {
             // When the github report button is pressed
-            val githubIssues = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/profmori/FourSoulsStats/issues"))
+            val githubIssues = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://github.com/profmori/FourSoulsStats/issues")
+            )
             // Create an intent for the github link
             startActivity(githubIssues)
             // Actually go to it
@@ -80,6 +86,12 @@ class FeedbackPage : AppCompatActivity() {
             // Create an email for the user with the translation offer title
         }
 
+        newIcon.setOnClickListener {
+            // When the email translation button is clicked
+            prepareEmail("Randomise Icon Suggestion")
+            // Create an email for the user with the icon suggestion title
+        }
+
         returnButton.setOnClickListener {
             // When the return button is clicked
             val backToMain = Intent(this, MainActivity::class.java)
@@ -91,14 +103,21 @@ class FeedbackPage : AppCompatActivity() {
         }
     }
 
-    private fun prepareEmail(emailType: String){
+
+    private fun prepareEmail(emailType: String) {
         // General function to create an email
-        val date = SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(System.currentTimeMillis())
+        val date =
+            SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(System.currentTimeMillis())
         // Get the current date in the form day/month/year
         val subject = "$emailType $date"
         // Creates the subject line
-        val email = Intent(Intent.ACTION_VIEW,
-            Uri.parse("mailto:foursoulsstats@gmail.com?subject=" + Uri.encode(subject) + "&body=" + Uri.encode(""))
+        val email = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(
+                "mailto:foursoulsstats@gmail.com?subject=" + Uri.encode(subject) + "&body=" + Uri.encode(
+                    ""
+                )
+            )
         )
         // Makes an intent to send the email
         startActivity(email)

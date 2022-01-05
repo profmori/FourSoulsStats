@@ -15,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:ignore="ContentDescription"
-
         android:background="@drawable/bg_tiled_loot_back"
 
+        android:scaleType="fitXY"
+
         android:src="@drawable/bg_border_monster_back"
-        android:scaleType="fitXY" />
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/mainTitle"
@@ -28,17 +28,17 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
         android:fontFamily="@font/four_souls_title"
         android:text="@string/main_title"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="35sp"/>
+        android:textSize="35sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainData"
@@ -46,30 +46,30 @@
         android:layout_width="140dp"
         android:layout_height="70dp"
 
+        android:layout_marginStart="35dp"
+
         android:background="@drawable/button_event"
+        android:text="@string/main_enter_data"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        android:layout_marginStart="35dp"
-
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:text="@string/main_enter_data"/>
+        app:layout_constraintVertical_bias="0.3" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainStats"
 
         android:layout_width="140dp"
         android:layout_height="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/mainData"
         android:layout_marginEnd="35dp"
-
+        android:text="@string/main_stats_button"
         android:textAllCaps="false"
+
         android:textColor="@color/black"
-        android:text="@string/main_stats_button"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mainData" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainEdit"
@@ -77,14 +77,14 @@
         android:layout_width="140dp"
         android:layout_height="70dp"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainData"
-        app:layout_constraintBottom_toTopOf="@id/mainThanks"
         android:layout_marginStart="35dp"
-
+        android:text="@string/main_edit_button"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:text="@string/main_edit_button"/>
+
+        app:layout_constraintBottom_toTopOf="@id/mainThanks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainData" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainSettings"
@@ -92,14 +92,14 @@
         android:layout_width="140dp"
         android:layout_height="70dp"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainData"
-        app:layout_constraintBottom_toTopOf="@id/mainThanks"
         android:layout_marginEnd="35dp"
-
+        android:text="@string/main_settings_button"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:text="@string/main_settings_button"/>
+
+        app:layout_constraintBottom_toTopOf="@id/mainThanks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainData" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainThanks"
@@ -107,16 +107,16 @@
         android:layout_width="140dp"
         android:layout_height="70dp"
 
-        android:background="@drawable/button_event"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/mainReport"
-        app:layout_constraintBottom_toBottomOf="@id/mainReport"
         android:layout_marginStart="35dp"
 
+        android:background="@drawable/button_event"
+        android:text="@string/main_thanks_button"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:text="@string/main_thanks_button"/>
+
+        app:layout_constraintBottom_toBottomOf="@id/mainReport"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mainReport" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainReport"
@@ -124,13 +124,13 @@
         android:layout_width="140dp"
         android:layout_height="70dp"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="35dp"
-
+        android:text="@string/main_error_button"
         android:textAllCaps="false"
+
         android:textColor="@color/black"
-        android:text="@string/main_error_button"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

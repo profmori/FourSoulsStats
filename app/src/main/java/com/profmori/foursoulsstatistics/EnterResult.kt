@@ -40,15 +40,22 @@ class EnterResult : AppCompatActivity() {
         var playerList = emptyArray<PlayerHandler>()
         // Creates the empty player handler list
 
-        for (i in (playerNames.indices)){
-        // Iterates through all players
-            playerList += PlayerHandler(playerNames[i],charNames[i],charImages[i],eternals[i],souls[i],false)
+        for (i in (playerNames.indices)) {
+            // Iterates through all players
+            playerList += PlayerHandler(
+                playerNames[i],
+                charNames[i],
+                charImages[i],
+                eternals[i],
+                souls[i],
+                false
+            )
             // Adds the player
             playerList.last().fonts = fonts
             // Updates the stored font
         }
 
-        val treasureCount = intent.getIntExtra("treasures",0)
+        val treasureCount = intent.getIntExtra("treasures", 0)
         // Pull the count of treasures from the intent pass as a string
 
         val timeCode = System.currentTimeMillis()
@@ -56,8 +63,11 @@ class EnterResult : AppCompatActivity() {
         var groupID = SettingsHandler.readSettings(this)["groupID"]
         // Get the unique group identifier
         if (groupID != null) {
-            if(groupID.contains('O',true)){
-                groupID = groupID.replace('O','0',true)
+            // If there is a group id
+            if (groupID.contains('O', true)) {
+                // If the id contains the letter o
+                groupID = groupID.replace('O', '0', true)
+                // Replace your letter o with number 0
             }
         }
         // Get rid of any o characters for 0 in legacy group ids
@@ -102,16 +112,16 @@ class EnterResult : AppCompatActivity() {
             // When the button is pressed
             var count = 0
             // Zero the winner count
-            for (p in playerList){
-            // Iterate through all players
-                if(p.winner){
-                // If someone won
+            for (p in playerList) {
+                // Iterate through all players
+                if (p.winner) {
+                    // If someone won
                     count += 1
                     // Add 1 to the winner count
                 }
             }
-            if (count == 1){
-            // If there is exactly 1 winner
+            if (count == 1) {
+                // If there is exactly 1 winner
                 saveData(gameId, playerList, treasureCount)
                 // Save the game
                 val backToMain = Intent(this, MainActivity::class.java)
@@ -123,11 +133,10 @@ class EnterResult : AppCompatActivity() {
                 // Create the error message toast
                 passToast.show()
                 // Show the error toast
-            }
-            else{
-            // If you cannot move on
+            } else {
+                // If you cannot move on
                 val errorSnackbar =
-                    Snackbar.make(background,  R.string.result_wrong_count, Snackbar.LENGTH_LONG)
+                    Snackbar.make(background, R.string.result_wrong_count, Snackbar.LENGTH_LONG)
                 // Create the snackbar
                 errorSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
                 // Set the font of the snackbar
@@ -137,18 +146,18 @@ class EnterResult : AppCompatActivity() {
         }
 
         returnButton.setOnClickListener {
-        // If the back button is clicked
+            // If the back button is clicked
             playerList.forEachIndexed { i, playerHandler ->
                 souls[i] = playerHandler.soulsNum
             }
 
-            val enterData = Intent(this,EnterData::class.java)
-            enterData.putExtra("names",playerNames)
-            enterData.putExtra("chars",charNames)
-            enterData.putExtra("images",charImages)
-            enterData.putExtra("treasures",treasureCount)
+            val enterData = Intent(this, EnterData::class.java)
+            enterData.putExtra("names", playerNames)
+            enterData.putExtra("chars", charNames)
+            enterData.putExtra("images", charImages)
+            enterData.putExtra("treasures", treasureCount)
             enterData.putExtra("eternals", eternals)
-            enterData.putExtra("souls",souls)
+            enterData.putExtra("souls", souls)
             // Creates an extra parameter which passes data back to the data entry page
             startActivity(enterData)
             // Start the data entry page with the new parameters
@@ -163,7 +172,7 @@ class EnterResult : AppCompatActivity() {
     }
 
     private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: Int) {
-    // Function to save the game
+        // Function to save the game
         val gameDatabase: GameDataBase = GameDataBase.getDataBase(this)
         // Gets the game database
         val gameDao = gameDatabase.gameDAO
@@ -173,12 +182,20 @@ class EnterResult : AppCompatActivity() {
         // Creates a game variable to store this game
 
         CoroutineScope(Dispatchers.IO).launch {
-        // Runs a coroutine which will block upload of data
+            // Runs a coroutine which will block upload of data
             gameDao.addGame(game)
             // Adds the game to the database
-            for (p in playerList){
+            for (p in playerList) {
                 // Iterates through the player data list
-                val newGameInstance = GameInstance(0,gameId,p.playerName, p.charName, p.eternal, p.soulsNum, p.winner)
+                val newGameInstance = GameInstance(
+                    0,
+                    gameId,
+                    p.playerName,
+                    p.charName,
+                    p.eternal,
+                    p.soulsNum,
+                    p.winner
+                )
                 // Creates a new game instance to record each player
                 gameDao.addGameInstance(newGameInstance)
                 // Adds the new game instance

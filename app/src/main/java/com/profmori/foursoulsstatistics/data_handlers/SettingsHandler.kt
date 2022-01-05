@@ -3,14 +3,21 @@ package com.profmori.foursoulsstatistics.data_handlers
 import android.content.Context
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
+import androidx.core.text.buildSpannedString
+import androidx.fragment.app.FragmentManager
+import com.profmori.foursoulsstatistics.BuildConfig
 import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.PatchNotesDialog
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SettingsHandler {
 
     companion object {
-        fun getBackground(context: Context): Map<String, String>{
+        fun getBackground(context: Context): Map<String, String> {
             val settings = readSettings(context)
             // Read the settings
             val background = setFromKey(context, settings["background"]!!)
@@ -21,21 +28,34 @@ class SettingsHandler {
 
             return mapOf(
                 "background" to background,
-                "border" to border)
+                "border" to border
+            )
             // Return a map of the text
         }
 
-        fun getEditions(context: Context):Array<String>{
+        fun getEditions(context: Context): Array<String> {
             val settings = readSettings(context)
             // Get the settings
             var editionArray = arrayOf("base")
             // As a default include the base game
-            if (settings["gold"].toBoolean()){editionArray += "gold"}
-            if (settings["plus"].toBoolean()){editionArray += "plus"}
-            if (settings["requiem"].toBoolean()){editionArray += "requiem"}
-            if (settings["warp"].toBoolean()){editionArray += "warp"}
-            if (settings["promo"].toBoolean()){editionArray += "promo"}
-            if (settings["custom"].toBoolean()){editionArray += "custom"}
+            if (settings["gold"].toBoolean()) {
+                editionArray += "gold"
+            }
+            if (settings["plus"].toBoolean()) {
+                editionArray += "plus"
+            }
+            if (settings["requiem"].toBoolean()) {
+                editionArray += "requiem"
+            }
+            if (settings["warp"].toBoolean()) {
+                editionArray += "warp"
+            }
+            if (settings["tapeworm"].toBoolean()) {
+                editionArray += "tapeworm"
+            }
+            if (settings["custom"].toBoolean()) {
+                editionArray += "custom"
+            }
             // Check every setting and add the right editions
             return editionArray
         }
@@ -47,21 +67,23 @@ class SettingsHandler {
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Get the settings file
 
-            if(!settingsFile.exists()) {
+            if (!settingsFile.exists()) {
                 // If there is no settings file
                 createSettings(context)
             }
         }
 
-        private fun createSettings(context: Context): MutableMap<String, String>{
+        private fun createSettings(context: Context): MutableMap<String, String> {
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Get the settings file
             settingsFile.createNewFile()
             // Create a new file
             var existingIDs = emptyArray<String>()
-            runBlocking{ existingIDs = OnlineDataHandler.getGroupIDs(context) }
+            CoroutineScope(Dispatchers.IO).launch {
+                existingIDs = OnlineDataHandler.getGroupIDs()
+            }
             // Get any existing ids
-            val charPool : List<Char> = ('A'..'Z') + ('0'..'9')
+            val charPool: List<Char> = ('A'..'Z') + ('0'..'9')
             // Sets the list of possible characters to use
             var randID = (1..6)
                 .map { kotlin.random.Random.nextInt(0, charPool.size) }
@@ -71,7 +93,6 @@ class SettingsHandler {
 
             randID = sanitiseGroupID(randID)
             // Sanitise the id to remove ambiguous characters
-
             while (existingIDs.contains(randID)) {
                 // If the random string is already an id
                 randID = (1..6)
@@ -86,18 +107,22 @@ class SettingsHandler {
 
             val settings = mutableMapOf(
                 "groupID" to randID,
-                "online" to "true",
+                "alt_art" to "false",
+                "base" to "true",
+                "custom" to "false",
+                "gish" to "false",
                 "gold" to "false",
                 "plus" to "false",
-                "requiem" to "false",
-                "warp" to "false",
                 "promo" to "false",
-                "custom" to "false",
-                "alt_art" to "true",
+                "requiem" to "false",
+                "tapeworm" to "false",
+                "target" to "false",
+                "warp" to "false",
                 "readable_font" to "false",
                 "background" to "loot_back",
                 "border" to "monster_back",
-                "first_open" to "true"
+                "multi_eden" to "true",
+                "version_no" to BuildConfig.VERSION_CODE.toString()
             )
             // Set the settings
 
@@ -113,9 +138,7 @@ class SettingsHandler {
             // Create a new settings file if appropriate
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Find the settings file
-            val reader = context.openFileInput(settingsFile.name).bufferedReader()
-            // Create a file stream input reader
-            val settingStrings = reader.readLines()
+            val settingStrings = settingsFile.readLines()
             // Get the settings as a list of lines
 
             var settingMap = emptyMap<String, String>().toMutableMap()
@@ -129,7 +152,7 @@ class SettingsHandler {
                 // Add it to the map as a key-value pair
             }
 
-            if (settingMap.isEmpty()){
+            if (settingMap.isEmpty()) {
                 settingsFile.delete()
                 settingMap = createSettings(context)
             }
@@ -138,33 +161,36 @@ class SettingsHandler {
             // Return the updated map
         }
 
-        fun sanitiseGroupID(id: String): String{
+        fun sanitiseGroupID(id: String): String {
             var returnID = id
             // Store the old ID to return if it is valid
-            if(id.contains('O',true)){
+            if (id.contains('O', true)) {
                 // If the id contains the letter o
-                returnID = id.replace('O','0',true)
+                returnID = id.replace('O', '0', true)
             }
             // Get rid of any o characters for 0
             return returnID
             // Return the sanitised ID
         }
 
-        private fun setFromKey(context: Context, key: String): String{
-            return when(key){
+        private fun setFromKey(context: Context, key: String): String {
+            return when (key) {
                 "character_back" -> context.resources.getString(R.string.character_back)
                 "eternal_back" -> context.resources.getString(R.string.eternal_back)
-                "loot_back" -> context. resources.getString(R.string.loot_back)
+                "loot_back" -> context.resources.getString(R.string.loot_back)
                 "monster_back" -> context.resources.getString(R.string.monster_back)
                 "soul_back" -> context.resources.getString(R.string.soul_back)
                 "treasure_back" -> context.resources.getString(R.string.treasure_back)
                 "room_back" -> context.resources.getString(R.string.room_back)
-                else -> context. resources.getString(R.string.loot_back)
+                else -> context.resources.getString(R.string.loot_back)
             }
             // Use a when statement on all the possible text options to match the key
         }
 
-        fun saveToFile(context: Context, settings: MutableMap<String, String>): MutableMap<String, String> {
+        fun saveToFile(
+            context: Context,
+            settings: MutableMap<String, String>
+        ): MutableMap<String, String> {
             // Save the settings given
             val settingsFile = context.getFileStreamPath("settings.txt")
             // Find the settings file
@@ -190,10 +216,10 @@ class SettingsHandler {
             // Returns the settings saved
         }
 
-        fun updateBackground(context: Context, backgroundView: ImageView){
+        fun updateBackground(context: Context, backgroundView: ImageView) {
             val settings = readSettings(context)
             // Read the settings file
-            when(settings["background"]){
+            when (settings["background"]) {
                 "character_back" -> backgroundView.setBackgroundResource(R.drawable.bg_character_back)
                 "eternal_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_eternal_back)
                 "loot_back" -> backgroundView.setBackgroundResource(R.drawable.bg_tiled_loot_back)
@@ -202,7 +228,7 @@ class SettingsHandler {
             }
             // Set the background from the settings file
 
-            when(settings["border"]){
+            when (settings["border"]) {
                 "character_back" -> backgroundView.setImageResource(R.drawable.bg_border_character_back)
                 "eternal_back" -> backgroundView.setImageResource(R.drawable.bg_border_eternal_back)
                 "loot_back" -> backgroundView.setImageResource(R.drawable.bg_border_loot_back)
@@ -215,6 +241,71 @@ class SettingsHandler {
 
             backgroundView.scaleType = ImageView.ScaleType.FIT_XY
             // Make everything scale correctly
+        }
+
+        fun versionCheck(
+            version_no: String?,
+            context: Context,
+            fragmentManager: FragmentManager
+        ): String {
+
+            val versionNo =
+                if (version_no.isNullOrBlank()) {
+                    // If the settings doesn't contain a version number, assume 0
+                    "0"
+                } else {
+                    // Otherwise set the variable to the current version number
+                    version_no
+                }
+
+            val versions = 0..BuildConfig.VERSION_CODE
+            // Get a list of all versions up to this one
+            var versionNotes = buildSpannedString {
+                this.append("")
+                // Create a blank entry for the version notes
+            }
+            for (version in versions) {
+                // Iterate through every version
+                if (versionNo.toInt() < version) {
+                    // If the current version is before a version
+                    val name = "version_$version"
+                    // Generate the string name for the version
+                    val stringID = context.resources.getIdentifier(
+                        name,
+                        "string",
+                        "com.profmori.foursoulsstatistics"
+                    )
+                    // Get the version resource ID
+                    if (stringID > 0) {
+                        // If the string exists
+                        val versionNote = HtmlCompat.fromHtml(
+                            context.resources.getString(stringID),
+                            HtmlCompat.FROM_HTML_MODE_COMPACT
+                        )
+                        // Get it using HTMLCompat for formatting
+                        versionNotes = buildSpannedString {
+                            this.append(versionNotes)
+                            // Add the existing notes to the start of the string
+                            this.append(versionNote)
+                            // Add the new version notes to the end
+                        }
+                    }
+                }
+            }
+
+            if (versionNotes.length > 2) {
+                // If any version notes exist
+                val fonts = TextHandler.setFont(context)
+                // Get the button font
+                val notesDialog =
+                    PatchNotesDialog(versionNotes, fonts)
+                // Create the patch notes dialog
+                notesDialog.show(fragmentManager, "patchNotes")
+                // Show the patch notes dialog as a popup
+            }
+
+            return BuildConfig.VERSION_CODE.toString()
+            // Return the current version code so the settings can be updated
         }
     }
 }

@@ -13,4 +13,6 @@
     <color name="darker">#80000000</color>
     <color name="black">#FF000000</color>
     <color name="grey">#FF616A6B</color>
+    <color name="green">#FF55C083</color>
+    <color name="red">#FFA13447</color>
 </resources>

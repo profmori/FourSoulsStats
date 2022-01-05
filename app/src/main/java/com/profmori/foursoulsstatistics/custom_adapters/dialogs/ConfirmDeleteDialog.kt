@@ -15,7 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ConfirmDeleteDialog(private val activityContext: Context, private val font: Typeface): DialogFragment() {
+class ConfirmDeleteDialog(private val activityContext: Context, private val font: Typeface) :
+    DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -28,21 +29,23 @@ class ConfirmDeleteDialog(private val activityContext: Context, private val font
             titleText.typeface = font
             // Set the title text and font
             builder.setCustomTitle(titleText)
-                .setPositiveButton(R.string.settings_cancel_delete){ _, _ ->
+                .setPositiveButton(R.string.settings_cancel_delete) { _, _ ->
                     dismiss()
                 }
                 // When you click change just close the dialog
-                .setNegativeButton(R.string.settings_confirm_delete){ _, _ ->
+                .setNegativeButton(R.string.settings_confirm_delete) { _, _ ->
                     OnlineDataHandler.saveGames(activityContext)
                     // Save all data online if possible
                     CoroutineScope(Dispatchers.IO).launch {
                         val database = GameDataBase.getDataBase(activityContext)
                         // Open the local database
-                        database.clearAllTables()
+                        database.gameDAO.clearGames()
+                        database.gameDAO.clearGameInstances()
+                        database.gameDAO.clearPlayers()
                         // Clear all the data stored
                     }
                 }
-                // When you click the reset button set it to the old id
+            // When you click the reset button set it to the old id
             val dialog = builder.create()
             // Create the AlertDialog object and return it
 

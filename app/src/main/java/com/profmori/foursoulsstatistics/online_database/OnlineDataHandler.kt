@@ -34,7 +34,7 @@ class OnlineDataHandler {
             return false
         }
 
-        suspend fun deleteOnlineGameInstances(gameID: String){
+        suspend fun deleteOnlineGameInstances(gameID: String) {
             signIn()
             // Sign into the database
             val onlineDB = Firebase.firestore.collection("game_instances")
@@ -48,8 +48,8 @@ class OnlineDataHandler {
 
         }
 
-        private fun generateOnlineName(instance: GameInstance):String{
-            val obfName =  instance.playerName.toCharArray().map { c -> c.code }
+        private fun generateOnlineName(instance: GameInstance): String {
+            val obfName = instance.playerName.toCharArray().map { c -> c.code }
                 .joinToString("")
             // Create the obfuscated name from the player's name
 
@@ -58,7 +58,7 @@ class OnlineDataHandler {
 
         }
 
-        suspend fun getAllEternals(context: Context): Array<OnlineGameInstance>{
+        suspend fun getAllEternals(context: Context): Array<OnlineGameInstance> {
             signIn()
             // Sign into the database
             var games = emptyArray<OnlineGameInstance>()
@@ -66,7 +66,7 @@ class OnlineDataHandler {
             if (checkWifi(context)) {
                 val onlineDB = Firebase.firestore.collection("game_instances")
                 // Get the online database
-                val allEternals = onlineDB.whereNotEqualTo("eternal",null).get().await()
+                val allEternals = onlineDB.whereNotEqualTo("eternal", null).get().await()
                 // Creates a query to read all games where the eternal is not null
                 allEternals.documents.forEach { document ->
                     games += arrayOf(document.toObject<OnlineGameInstance>()!!)
@@ -76,7 +76,7 @@ class OnlineDataHandler {
             return games
         }
 
-        suspend fun getAllGames(context: Context): Array<OnlineGameInstance>{
+        suspend fun getAllGames(context: Context): Array<OnlineGameInstance> {
             signIn()
             // Sign into the database
             var games = emptyArray<OnlineGameInstance>()
@@ -84,7 +84,7 @@ class OnlineDataHandler {
             if (checkWifi(context)) {
                 val onlineDB = Firebase.firestore.collection("game_instances")
                 // Get the online database
-                val readAll = onlineDB.whereNotEqualTo("groupID","").get().await()
+                val readAll = onlineDB.whereNotEqualTo("groupID", "").get().await()
                 // Creates a query to read all games where the group id exists
                 readAll.documents.forEach { document ->
                     games += arrayOf(document.toObject<OnlineGameInstance>()!!)
@@ -165,27 +165,26 @@ class OnlineDataHandler {
             }
         }
 
-        fun getGroupIDs(context: Context): Array<String> {
+        suspend fun getGroupIDs(): Array<String> {
             // Get the list of all group ids
             var idList = emptyArray<String>()
             // Create an empty list
-            if(checkWifi(context)) {
-                // If you are connected to wifi
-                val onlineDatabase = Firebase.firestore.collection("group_ids")
-                // Access the online database
-                onlineDatabase.get()
-                    // Get all data from the database
-                    .addOnSuccessListener { groupIDs ->
-                        // When data is retrieved
-                        groupIDs.documents.forEach {
-                            // Iterate through each id
-                            val idObject = it.toObject<OnlineGroupID>()!!
-                            // Create an online group id object
-                            idList += arrayOf(idObject.id)
-                            // Add it to the list of ids
-                        }
+            val onlineDatabase = Firebase.firestore.collection("group_ids")
+            // Access the online database
+            val data = onlineDatabase.get()
+            // Get all data from the database
+            data.addOnSuccessListener { groupIDs ->
+                // When data is retrieved
+                groupIDs.documents.forEach {
+                    // Iterate through each id
+                    val idObject = it.toObject<OnlineGroupID>()!!
+                    // Create an online group id object
+                    if (!idList.contains(idObject.id)) {
+                        idList += arrayOf(idObject.id)
+                        // Add it to the list of ids
+                    }
                 }
-            }
+            }.await()
             return idList
             // Return the id list
         }
@@ -196,22 +195,22 @@ class OnlineDataHandler {
             val settings = SettingsHandler.readSettings(context)
             // Read the current settings
             if (settings["online"].toBoolean()) {
-            // If the user has allowed data to be uploaded
+                // If the user has allowed data to be uploaded
                 val localDB = GameDataBase.getDataBase(context)
                 // Get the local database
                 val localDAO = localDB.gameDAO
                 // Get the local DAO
                 CoroutineScope(Dispatchers.IO).launch {
-                // Launch a coroutine
+                    // Launch a coroutine
                     val unsavedGames = localDAO.getUploadGames()
                     // Get the list of games which are local only
                     unsavedGames.forEach { game ->
-                    // Iterates through each unsaved game
+                        // Iterates through each unsaved game
                         val gameInstances = localDAO.getGameWithInstance(game.gameID)
                         // Get the list of instances for this game
                         gameInstances.forEach { gameInstance ->
                             gameInstance.gameInstances.forEach { instance ->
-                            // Iterates through each game instance
+                                // Iterates through each game instance
                                 saveOnlineGameInstance(game, instance)
                                 // Save the online game instance
                             }
@@ -225,7 +224,7 @@ class OnlineDataHandler {
             }
         }
 
-        fun saveGroupID(newID: String){
+        fun saveGroupID(newID: String) {
             val id = SettingsHandler.sanitiseGroupID(newID)
             // Sanitise the id so it doesn't contain ambiguous characters
             val onlineDatabase = Firebase.firestore.collection("group_ids")
@@ -234,7 +233,7 @@ class OnlineDataHandler {
             // Add it as an online group id object
         }
 
-        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance){
+        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance) {
             signIn()
             // Sign into the database
             val onlineDB = Firebase.firestore.collection("game_instances")
@@ -256,11 +255,11 @@ class OnlineDataHandler {
             // Add the game instance to the online database
         }
 
-        fun signIn(){
-                val auth = Firebase.auth
-                // Get the firebase authorisation
-                auth.signInAnonymously()
-                    // Sign in anonymously
+        fun signIn() {
+            val auth = Firebase.auth
+            // Get the firebase authorisation
+            auth.signInAnonymously()
+            // Sign in anonymously
         }
     }
 }

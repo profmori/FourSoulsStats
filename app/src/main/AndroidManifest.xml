@@ -42,6 +42,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".RerollPrefSelect"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".statistics_pages.ViewPlayerStats"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />

@@ -13,16 +13,20 @@ import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
 
-class CustomItemListAdapter(private var cardList: Array<String>, private val font: Typeface) : RecyclerView.Adapter<CustomItemListAdapter.ViewHolder>() {
+class CustomItemListAdapter(private var cardList: Array<String>, private val font: Typeface) :
+    RecyclerView.Adapter<CustomItemListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val textItem: TextView = itemView.findViewById(R.id.customListText)
+
         // Allows the text to be set in code
         val closeButton: Button = itemView.findViewById(R.id.deleteCross)
+
         // Allows the button to be accessed in code
         val line: ConstraintLayout = itemView.findViewById(R.id.customListLine)
+
         // Allows the line to be accessed in code
         val dark = ContextCompat.getDrawable(listItemView.context, R.color.dark)
         val light = ContextCompat.getDrawable(listItemView.context, R.color.lighter)
@@ -53,7 +57,7 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
         val line = viewHolder.line
         // Get the line of the view
 
-        when (position % 2){
+        when (position % 2) {
             0 -> line.background = viewHolder.dark
             1 -> line.background = viewHolder.light
         }
@@ -69,13 +73,13 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
         // Set the typeface for the text
 
         closeButton.setOnClickListener {
-        // When the close button is clicked
+            // When the close button is clicked
             val newList = cardList.toMutableList()
             newList.removeAt(position)
             cardList = newList.toTypedArray()
             // Remove the item from the card list
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position,cardList.size)
+            notifyItemRangeChanged(position, cardList.size)
             // Update the recycler view
         }
 
@@ -87,7 +91,7 @@ class CustomItemListAdapter(private var cardList: Array<String>, private val fon
         // Returns the card list size element
     }
 
-    fun getItems(): Array<String>{
+    fun getItems(): Array<String> {
         return cardList
         // Return the list of custom items
     }

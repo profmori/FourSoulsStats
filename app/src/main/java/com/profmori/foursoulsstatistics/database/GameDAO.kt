@@ -1,7 +1,6 @@
 package com.profmori.foursoulsstatistics.database
 
 import androidx.room.*
-import com.profmori.foursoulsstatistics.online_database.OnlineGameInstance
 
 @Dao
 //Data Access object for operations on the game database
@@ -11,6 +10,10 @@ interface GameDAO {
     // If there is a player which already exists don't do anything
     suspend fun addPlayer(player: Player)
     // Uses a suspended function for co-routine usage, allows for list of players to be added
+
+    @Query("DELETE FROM players")
+    suspend fun clearPlayers()
+    // Clear out the players table
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     // If the same character is added multiple times, don't do it
@@ -85,7 +88,7 @@ interface GameDAO {
     suspend fun getEternalList(): Array<GameInstance>
 
     @Query("SELECT * FROM game_instances WHERE gameID = :gameID AND playerName = :player AND charName = :character")
-    suspend fun findGameInstance(gameID: String, player: String, character: String) : GameInstance
+    suspend fun findGameInstance(gameID: String, player: String, character: String): GameInstance
 
     @Transaction
     @Query("SELECT * FROM players WHERE playerName = :playerName")

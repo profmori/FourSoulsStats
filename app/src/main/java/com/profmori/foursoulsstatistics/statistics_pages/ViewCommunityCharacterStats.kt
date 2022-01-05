@@ -43,13 +43,28 @@ class ViewCommunityCharacterStats : AppCompatActivity() {
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image
 
-        TableHandler.pageSetup(this,backButton, background, characterTitle, filterText, playerText, treasureText)
+        TableHandler.pageSetup(
+            this,
+            backButton,
+            background,
+            characterTitle,
+            filterText,
+            playerText,
+            treasureText
+        )
         // Setup the page correctly
 
         lifecycleScope.launch {
             val gamesList = OnlineDataHandler.getAllGames(this@ViewCommunityCharacterStats)
 
-            TableHandler.onlineDataSetup(gamesList, filterText, playerText, playerSlider, treasureText, treasureSlider)
+            TableHandler.onlineDataSetup(
+                gamesList,
+                filterText,
+                playerText,
+                playerSlider,
+                treasureText,
+                treasureSlider
+            )
             // Setup the data from an online source
 
             playerSlider.addOnChangeListener { _, _, _ ->
@@ -69,7 +84,7 @@ class ViewCommunityCharacterStats : AppCompatActivity() {
         }
     }
 
-    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>){
+    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>) {
         val charTable = findViewById<SortableTableView<StatsTable>>(R.id.statsTable)
         // Finds the player stats table
 
@@ -119,7 +134,7 @@ class ViewCommunityCharacterStats : AppCompatActivity() {
 
             characters.forEach {
                 // For every player
-                val newCharTable = StatsTable(it.charName,0.0,0.0,0,0.0)
+                val newCharTable = StatsTable(it.charName, 0.0, 0.0, 0, 0.0)
                 // Create a new row
                 newCharTable.setData(it.charName, selectedGames)
                 // Update the data
@@ -127,7 +142,12 @@ class ViewCommunityCharacterStats : AppCompatActivity() {
                 // Add it to the table
             }
 
-            TableHandler.createTable(this@ViewCommunityCharacterStats, charTable, charHeaders, characterData)
+            TableHandler.createTable(
+                this@ViewCommunityCharacterStats,
+                charTable,
+                charHeaders,
+                characterData
+            )
             // Creates the table using the headers and data
         }
     }

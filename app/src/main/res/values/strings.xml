@@ -6,11 +6,14 @@
     <string name="error_placeholder">If You Are Seeing This, There\'s A Bug</string>
     <string name="back_to_main_1">Return to Main Menu</string>
     <string name="back_to_main_2">Return to\nMain Menu</string>
+    <string name="back_to_settings">Back To Settings</string>
     <string name="common_x" translatable="false">X</string>
     <array name="temp_slider">
         <item>2.0</item>
         <item>7.0</item>
     </array>
+    <string name="icon_description">Set Icon</string>
+    <string name="generic_dismiss">OK</string>
 
     <!-- Main Page -->
     <string name="main_title">The Binding Of Isaac: 4 Souls Statistics Tracker</string>
@@ -94,6 +97,20 @@
     <string name="settings_warp">Warp Zones :</string>
     <string name="settings_promo">Promo :</string>
 
+
+    <string name="icon_alt_art">Alt Art</string>
+    <string name="icon_base">Base Game</string>
+    <string name="icon_custom">Custom Cards</string>
+    <string name="icon_gish">Gish</string>
+    <string name="icon_gold">Gold Box</string>
+    <string name="icon_plus">Four Souls +</string>
+    <string name="icon_promo">Promo</string>
+    <string name="icon_requiem">Requiem</string>
+    <string name="icon_tapeworm">Tapeworm</string>
+    <string name="icon_target">Target</string>
+    <string name="icon_warp">Warp Zones</string>
+
+
     <string name="settings_custom">Custom :</string>
     <string name="settings_enter_custom">Add Custom Cards</string>
 
@@ -103,6 +120,14 @@
     <string name="settings_background_prompt">Background :</string>
 
     <string name="settings_readable_font">Use A Readable Font :</string>
+
+    <string name="settings_reroll_icon">Select Reroll Button Icons</string>
+    <string name="settings_reroll_eternal">Randomise Eden Eternal</string>
+    <string name="settings_reroll_duplicates">Allow Random Duplicates</string>
+    <string name="settings_reroll_duplicates_eden">Allow Random Eden Duplicates</string>
+    <string name="reroll_no_icons">No reroll icon selected - please select at least 1.</string>
+    <string name="reroll_suggest_icon">Suggest New Icon</string>
+    <string name="reroll_title">Select Reroll Icons</string>
 
     <string name="settings_clear_data">Clear All\nStored Data</string>
     <string name="settings_delete_data">Are you sure you want to delete all data?
@@ -119,7 +144,6 @@
     <string name="custom_add_character">Add Character</string>
     <string name="custom_items">Custom Items</string>
     <string name="custom_add_item">Add Item</string>
-    <string name="custom_back_to_settings">Back To Settings</string>
     <string name="custom_character">Custom Character</string>
     <string name="custom_item">Custom Item</string>
 
@@ -130,11 +154,12 @@
     <string name="monster_back">Monster Back</string>
     <string name="soul_back">Soul Back</string>
     <string name="treasure_back">Treasure Back</string>
+    <string name="room_back">Room Back</string>
 
     <!-- Thanks Screen -->
     <string name="thanks_title" tools:ignore="TypographyEllipsis">Thanks To ...</string>
     <string name="thanks_fonts">Four Souls fonts (font-souls) created by <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a></string>
-    <string name="thanks_backgrounds">Backgrounds, buttons and blank character card from images created by
+    <string name="thanks_backgrounds">Buttons and blank character card from images created by
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
             u/Koretex_</a> for the Four Souls Reddit</string>
     <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me</string>
@@ -146,7 +171,6 @@
 
 
     <!-- Main Page Tutorial Lines -->
-    <string name="tutorial_dismiss">OK</string>
     <string name="tutorial_data">Input game data using this button</string>
     <string name="tutorial_stats">View your group\'s statistics using this button</string>
     <string name="tutorial_edit">Use this button to edit previously entered games to amend any mistakes made.
@@ -161,12 +185,15 @@
         \nThis will be used to allow for different devices to sync the same games, and is required even if you remain offline</string>
     <string name="tutorial_online">This switch controls whether or not your group data will be stored online.
         \nIt is still important to set your group id, as changing it will reset your recorded games, even when offline</string>
-    <string name="tutorial_edition">Select which editions of the game you want to use cards from</string>
-    <string name="alt_art">Have a chance for the Requiem Kickstarter alt art cards to be shown instead of the original art</string>
+    <string name="tutorial_edition">Select which editions of the game you want to use cards from,
+        and if alt art cards have a chance to be shown.</string>
     <string name="tutorial_background">Use this to select the background of the app</string>
     <string name="tutorial_border">Use this to select the border of the app</string>
     <string name="tutorial_readable_font">Use more readable fonts, rather than the Four Souls fonts</string>
     <string name="tutorial_clear_button">Use the clear button to remove all saved data on this device. Any games not saved online will be lost forever</string>
+    <string name="tutorial_select_icon">Use this button to select which icons can be shown to shuffle a random selection of characters</string>
+    <string name="tutorial_random_settings">Use these switches to define the behaviour of the randomisation of characters.\n
+    Characters can be prevented from duplicating, with Eden being a special case, and eternal items can be automatically selected for Eden.</string>
 
     <!-- Game Editing Pages -->
     <string name="edit_title">Edit / Remove Games</string>
@@ -198,6 +225,24 @@
     <string name="statistics_group_character">View Your Group\'s\nCharacter Rankings</string>
     <string name="statistics_global_character">View Community\nCharacter Rankings</string>
     <string name="statistics_global_eternal">View Community\nEternal Rankings</string>
-    <string name="room_back">Room Back</string>
 
+    <!-- Version Update Codes -->
+    <string name="patch_notes_title">Patch Notes</string>
+    <string name="version_16">
+        &lt;b>&lt;u>Version 4.01&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added new version recaps to the app so that changes are more visible &lt;br>&lt;/br>
+        \u2022 Updated the blank character cards to use the new version 2 cards from u/Koretex_&lt;br>&lt;/br>
+        \u2022 The Lost now automatically starts with 1 soul on the results screen&lt;br>&lt;/br>
+        \u2022 Changed the list of sliders into a set of icons for each of the sets &lt;br>&lt;/br>
+        \u2022 Separated out the shop promo cards from the gish, target and tapeworm promos for clarity &lt;br>&lt;/br>
+        \u2022 Added a new randomise button in the character entry page to select characters randomly for you &lt;br>&lt;/br>
+        \u2022 Added new settings to select which icons appear as the randomise button &lt;br>&lt;/br>
+        \u2022 Added new settings to prevent the duplication of characters, and to randomly select an
+        eternal item for any random eden selections &lt;br>&lt;/br>
+        \u2022 Fixed a bug where the online id checking was not informing you of a group ID being in use &lt;br>&lt;/br>  &lt;br>&lt;/br>
+    </string>
+    <string name="version_17">
+        &lt;b>&lt;u>Version 4.02&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added the clicker to the list of icons for the randomise button &lt;br>&lt;/br> &lt;br>&lt;/br>
+    </string>
 </resources>

@@ -15,24 +15,30 @@ import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.ItemList
 
 
-class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : RecyclerView.Adapter<EditGameAdapter.ViewHolder>() {
+class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
+    RecyclerView.Adapter<EditGameAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val charImage: ImageView = itemView.findViewById(R.id.adjCharImage)
+
         // Allows the background image to be set in code
         val playerPrompt: TextView = itemView.findViewById(R.id.adjPlayerSelect)
         val playerEntry: AutoCompleteTextView = itemView.findViewById(R.id.adjPlayerEntry)
+
         // Access the player entry line
         val charPrompt: TextView = itemView.findViewById(R.id.adjCharSelect)
         val charEntry: AutoCompleteTextView = itemView.findViewById(R.id.adjCharEntry)
+
         // Access the character entry line
         val eternalPrompt: TextView = itemView.findViewById(R.id.adjEternalSelect)
         val eternalEntry: AutoCompleteTextView = itemView.findViewById(R.id.adjEternalEntry)
+
         // Access the eternal entry line
         val soulsText: TextView = itemView.findViewById(R.id.adjSoulPrompt)
         val soulsCount: EditText = itemView.findViewById(R.id.adjSoulEntry)
+
         // Access the soul entry line
         val winnerCheck: CheckBox = itemView.findViewById(R.id.adjWinnerCheck)
         // Access the winner checkbox in code
@@ -74,13 +80,13 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         val eternalPrompt = viewHolder.eternalPrompt
         val eternalEntry = viewHolder.eternalEntry
         // Get the eternal entry line
-        if(playerHandler.eternal.isNullOrBlank()){
-        // If the player doesn't have an eternal
+        if (playerHandler.eternal.isNullOrBlank()) {
+            // If the player doesn't have an eternal
             eternalEntry.isEnabled = false
             eternalPrompt.visibility = View.INVISIBLE
             eternalEntry.visibility = View.INVISIBLE
-        // Hide everything
-        }else{
+            // Hide everything
+        } else {
             eternalEntry.setText(TextHandler.capitalise(playerHandler.eternal!!))
         }
         // Set the eternal visibility and text
@@ -102,7 +108,15 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         val itemList = ItemList.getItems(playerEntry.context)
         // Gets the list of items
 
-        RecyclerHandler.updateView(playerHandler,background, playerEntry, charEntry, eternalPrompt, eternalEntry, itemList)
+        RecyclerHandler.updateView(
+            playerHandler,
+            background,
+            playerEntry,
+            charEntry,
+            eternalPrompt,
+            eternalEntry,
+            itemList
+        )
 
         val fonts = playerHandler.fonts
 
@@ -138,7 +152,17 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         playerEntry.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             // When the player entry box loses or gains focus
-            RecyclerHandler.enterPlayer(hasFocus, playerEntry, playerHandler, playerHandlerList, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            RecyclerHandler.enterPlayer(
+                hasFocus,
+                playerEntry,
+                playerHandler,
+                playerHandlerList,
+                background,
+                charEntry,
+                eternalPrompt,
+                eternalEntry,
+                itemList
+            )
             // Run all the logic for entering the player data
         }
 
@@ -159,7 +183,16 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
 
         charEntry.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             // When the character entry box loses or gains focus
-            RecyclerHandler.enterChar(hasFocus, playerEntry, playerHandler, background, charEntry, eternalPrompt, eternalEntry, itemList)
+            RecyclerHandler.enterChar(
+                hasFocus,
+                playerEntry,
+                playerHandler,
+                background,
+                charEntry,
+                eternalPrompt,
+                eternalEntry,
+                itemList
+            )
             // Run all the logic for the character data
         }
 
@@ -196,9 +229,10 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         soulsCount.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
-                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
-                imm.hideSoftInputFromWindow(view.windowToken,0)
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
                 soulsCount.clearFocus()
                 // Clear the focus of the edit text
@@ -208,14 +242,14 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) : Rec
         }
 
         soulsCount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            RecyclerHandler.enterSouls(hasFocus,soulsCount, winnerTick, playerHandler)
+            RecyclerHandler.enterSouls(hasFocus, soulsCount, winnerTick, playerHandler)
         }
 
         winnerTick.setOnCheckedChangeListener { _, _ ->
             playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
         }
-}
+    }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {

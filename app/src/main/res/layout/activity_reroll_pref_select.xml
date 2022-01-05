@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditGames">
+
+    <ImageView
+        android:id="@+id/background"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/bg_tiled_loot_back"
+
+        android:scaleType="fitXY"
+
+        android:src="@drawable/bg_border_monster_back"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/randomisePrefTitle"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="35dp"
+        android:fontFamily="@font/four_souls_title"
+        android:text="@string/reroll_title"
+        android:textColor="@color/black"
+
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/randomisePrefList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="15dp"
+        app:layout_constraintBottom_toTopOf="@id/randomiseBackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/randomisePrefTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/randomiseBackButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="35dp"
+        android:text="@string/back_to_settings"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/randomiseSuggestButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/randomiseSuggestButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="35dp"
+        android:text="@string/reroll_suggest_icon"
+        android:textAllCaps="false"
+
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/randomiseBackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/randomiseBackButton"
+        app:layout_constraintTop_toTopOf="@id/randomiseBackButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

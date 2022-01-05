@@ -15,7 +15,13 @@ import com.profmori.foursoulsstatistics.online_database.OnlineGameInstance
 import de.codecrafters.tableview.TableDataAdapter
 import de.codecrafters.tableview.TableHeaderAdapter
 
-class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, var playedGames: Int, var adjustedSouls: Double) {
+class StatsTable(
+    var name: String,
+    var winrate: Double,
+    var soulsAvg: Double,
+    var playedGames: Int,
+    var adjustedSouls: Double
+) {
     private fun generateMetrics(wins: Double, souls: Double, adjSouls: Double) {
         winrate = wins / playedGames
         // Calculates the winrate
@@ -128,7 +134,11 @@ class StatsTable(var name: String, var winrate: Double, var soulsAvg: Double, va
     }
 }
 
-class StatsTableDataAdapter(context: Context, private val tableFont: Typeface, data: Array<StatsTable>) : TableDataAdapter<StatsTable>(context, data) {
+class StatsTableDataAdapter(
+    context: Context,
+    private val tableFont: Typeface,
+    data: Array<StatsTable>
+) : TableDataAdapter<StatsTable>(context, data) {
 
     override fun getCellView(rowIndex: Int, columnIndex: Int, parentView: ViewGroup): View {
         val rowData = getRowData(rowIndex)
@@ -139,65 +149,65 @@ class StatsTableDataAdapter(context: Context, private val tableFont: Typeface, d
         // Centres the text
         renderedView.typeface = tableFont
         // Sets the table typeface
-        if (tableFont == ResourcesCompat.getFont(context, R.font.four_souls_body)){
-        // If it is the four souls font
+        if (tableFont == ResourcesCompat.getFont(context, R.font.four_souls_body)) {
+            // If it is the four souls font
             renderedView.textSize = 17f
             // Changes the text size
-        }
-        else{
-        // If it is the plain font
+        } else {
+            // If it is the plain font
             renderedView.textSize = 17f
             // Changes the text size
         }
 
 
-        when(columnIndex){
+        when (columnIndex) {
             0 -> {
-                if(rowData.name.contains("I Can't Believe",true)){
+                if (rowData.name.contains("I Can't Believe", true)) {
                     // If the entry is "I Can't Believe It's Not Butter Bean"
                     renderedView.textSize = 10f
                     // Changes the text size
-                    renderedView.text = TextHandler.capitalise("\"I Can't Believe It's Not Butter Bean\"")
+                    renderedView.text =
+                        TextHandler.capitalise("\"I Can't Believe It's Not Butter Bean\"")
                     // Sets the text since the overall string is too long
-                }else{
+                } else {
                     renderedView.textSize =
-                        19f - (TextHandler.wordLength(rowData.name))*0.5f
+                        19f - (TextHandler.wordLength(rowData.name)) * 0.5f
                     renderedView.text = TextHandler.capitalise(rowData.name)
                     // Set the row title to the capitalised name
                 }
 
             }
-            1 ->{
-                if (rowData.winrate >= 0){
+            1 -> {
+                if (rowData.winrate >= 0) {
                     // If the row data is valid
-                    renderedView.text = context.getString(R.string.stats_table_entry).format(rowData.winrate)
+                    renderedView.text =
+                        context.getString(R.string.stats_table_entry).format(rowData.winrate)
                     // Print the winrate
-                }
-                else{
+                } else {
                     // If data is invalid / -1
                     renderedView.text = ""
                     // print a blank box
                 }
             }
             2 -> {
-                if (rowData.soulsAvg >= 0){
+                if (rowData.soulsAvg >= 0) {
                     // If the row data is valid
-                    renderedView.text = context.getString(R.string.stats_table_entry).format(rowData.soulsAvg)
+                    renderedView.text =
+                        context.getString(R.string.stats_table_entry).format(rowData.soulsAvg)
                     // Print the average souls
-                }
-                else{
+                } else {
                     // If data is invalid / -1
                     renderedView.text = ""
                     // print a blank box
                 }
             }
             3 -> {
-                if (rowData.adjustedSouls >= 0){
+                if (rowData.adjustedSouls >= 0) {
                     // If the row data is valid
-                    renderedView.text = context.getString(R.string.stats_table_entry).format(rowData.adjustedSouls)
+                    renderedView.text =
+                        context.getString(R.string.stats_table_entry).format(rowData.adjustedSouls)
                     // Print the average adjusted souls
-                }
-                else{
+                } else {
                     // If data is invalid / -1
                     renderedView.text = ""
                     // print a blank box
@@ -209,15 +219,22 @@ class StatsTableDataAdapter(context: Context, private val tableFont: Typeface, d
     }
 }
 
-class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private val headers: Array<String>) : TableHeaderAdapter(context) {
+class StatsTableHeaderAdapter(
+    context: Context,
+    headerFont: Typeface,
+    private val headers: Array<String>
+) : TableHeaderAdapter(context) {
     private var paddingLeft = 20
     private var paddingTop = 30
     private var paddingRight = 20
     private var paddingBottom = 30
+
     // Set outside cell padding
     private var textSize = 14f
+
     // Initialise text size
     private var typeface = headerFont
+
     // Set the font for the headers
     private var gravity = Gravity.CENTER_VERTICAL
     // Align the headers vertically centred
@@ -226,9 +243,11 @@ class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private va
         val textView = TextView(context)
         // Gets the text view of the table cell
         textSize = if (typeface == ResourcesCompat.getFont(context, R.font.four_souls_title)) {
-        // If the font is the four souls font
+            // If the font is the four souls font
             13f
-        } else{ 13f }
+        } else {
+            13f
+        }
         textSize -= (TextHandler.wordLength(headers[columnIndex])) * 0.4f
         // If the font is the readable font
 
@@ -245,7 +264,7 @@ class StatsTableHeaderAdapter(context: Context, headerFont: Typeface, private va
     }
 }
 
-class NameComparator: Comparator<StatsTable>{
+class NameComparator : Comparator<StatsTable> {
     override fun compare(row1: StatsTable, row2: StatsTable): Int {
         val name1 = row1.name
         val name2 = row2.name
@@ -254,7 +273,7 @@ class NameComparator: Comparator<StatsTable>{
     }
 }
 
-class WinrateComparator: Comparator<StatsTable>{
+class WinrateComparator : Comparator<StatsTable> {
     override fun compare(row1: StatsTable, row2: StatsTable): Int {
         val winrate1 = row1.winrate
         val winrate2 = row2.winrate
@@ -263,7 +282,7 @@ class WinrateComparator: Comparator<StatsTable>{
     }
 }
 
-class SoulsComparator: Comparator<StatsTable>{
+class SoulsComparator : Comparator<StatsTable> {
     override fun compare(row1: StatsTable, row2: StatsTable): Int {
         val souls1 = row1.soulsAvg
         val souls2 = row2.soulsAvg
@@ -272,7 +291,7 @@ class SoulsComparator: Comparator<StatsTable>{
     }
 }
 
-class AdjustedSoulsComparator: Comparator<StatsTable>{
+class AdjustedSoulsComparator : Comparator<StatsTable> {
     override fun compare(row1: StatsTable, row2: StatsTable): Int {
         val souls1 = row1.adjustedSouls
         val souls2 = row2.adjustedSouls
@@ -281,7 +300,7 @@ class AdjustedSoulsComparator: Comparator<StatsTable>{
     }
 }
 
-class GamesPlayedComparator: Comparator<StatsTable>{
+class GamesPlayedComparator : Comparator<StatsTable> {
     override fun compare(row1: StatsTable, row2: StatsTable): Int {
         val played1 = row1.playedGames
         val played2 = row2.playedGames

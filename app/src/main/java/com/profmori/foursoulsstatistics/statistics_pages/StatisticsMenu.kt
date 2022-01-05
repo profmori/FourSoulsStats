@@ -69,19 +69,19 @@ class StatisticsMenu : AppCompatActivity() {
         // Get the database access object
 
         lifecycleScope.launch {
-        // As a coroutine
+            // As a coroutine
 
             val games = gameDao.getGames()
             // Get all games
 
             playerButton.setOnClickListener {
                 // When the player stats button is clicked
-                if(games.isNotEmpty()){
+                if (games.isNotEmpty()) {
                     // If some games have been played
                     val playerStats = Intent(this@StatisticsMenu, ViewPlayerStats::class.java)
                     startActivity(playerStats)
                     // Go to the player stats page
-                }else{
+                } else {
                     invalidGroupPopup(playerButton)
                     // Show the popup for an invalid group
                 }
@@ -89,12 +89,12 @@ class StatisticsMenu : AppCompatActivity() {
 
             localCharButton.setOnClickListener {
                 // When the local character stats button is clicked
-                if(games.isNotEmpty()){
+                if (games.isNotEmpty()) {
                     // If some games have been played
                     val localChar = Intent(this@StatisticsMenu, ViewLocalCharacterStats::class.java)
                     startActivity(localChar)
                     // Go to the local character stats page
-                }else{
+                } else {
                     invalidGroupPopup(localCharButton)
                     // Show the popup for an invalid group
                 }
@@ -102,12 +102,13 @@ class StatisticsMenu : AppCompatActivity() {
 
             communityCharButton.setOnClickListener {
                 // When the community character stats button is clicked
-                if(OnlineDataHandler.checkWifi(this@StatisticsMenu)){
+                if (OnlineDataHandler.checkWifi(this@StatisticsMenu)) {
                     // If there is a wifi connection
-                    val onlineChar = Intent(this@StatisticsMenu, ViewCommunityCharacterStats::class.java)
+                    val onlineChar =
+                        Intent(this@StatisticsMenu, ViewCommunityCharacterStats::class.java)
                     startActivity(onlineChar)
                     // Go to the community character stats page
-                }else{
+                } else {
                     noOnlineConnectivity(communityCharButton)
                     // Show the popup to say there is no wifi
                 }
@@ -115,12 +116,13 @@ class StatisticsMenu : AppCompatActivity() {
 
             communityEternalButton.setOnClickListener {
                 // When the community eternal stats button is clicked
-                if(OnlineDataHandler.checkWifi(this@StatisticsMenu)){
+                if (OnlineDataHandler.checkWifi(this@StatisticsMenu)) {
                     // If there is a wifi connection
-                    val onlineEternal = Intent(this@StatisticsMenu, ViewCommunityEternalStats::class.java)
+                    val onlineEternal =
+                        Intent(this@StatisticsMenu, ViewCommunityEternalStats::class.java)
                     startActivity(onlineEternal)
                     // Go to the community eternal stats page
-                }else{
+                } else {
                     noOnlineConnectivity(communityCharButton)
                     // Show the popup to say there is no wifi
                 }
@@ -128,10 +130,10 @@ class StatisticsMenu : AppCompatActivity() {
         }
 
         returnButton.setOnClickListener {
-        // When the return button is clicked
+            // When the return button is clicked
             val backToMain = Intent(this, MainActivity::class.java)
             // Create an intent back to the main screen
-            backToMain.putExtra("from","statistics")
+            backToMain.putExtra("from", "statistics")
             startActivity(backToMain)
             // Go back to the main screen
         }
@@ -144,7 +146,7 @@ class StatisticsMenu : AppCompatActivity() {
         // Clicks the button
     }
 
-    private fun invalidGroupPopup(view: TextView){
+    private fun invalidGroupPopup(view: TextView) {
         val existsSnackbar = Snackbar.make(
             view,
             R.string.stats_no_local,
@@ -157,7 +159,7 @@ class StatisticsMenu : AppCompatActivity() {
         // Show the snackbar
     }
 
-    private fun noOnlineConnectivity(view: TextView){
+    private fun noOnlineConnectivity(view: TextView) {
         val disconnectedSnackbar = Snackbar.make(
             view,
             R.string.stats_no_wifi,

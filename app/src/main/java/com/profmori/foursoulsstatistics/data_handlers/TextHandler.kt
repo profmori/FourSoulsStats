@@ -6,7 +6,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.profmori.foursoulsstatistics.R
 
 class TextHandler {
-    companion object{
+    companion object {
         fun capitalise(text: String): String {
             // Capitalise the string
             val words = text.split(" ")
@@ -25,16 +25,44 @@ class TextHandler {
             return newString
         }
 
+        fun getIconText(iconName: String): Int {
+            val iconMap = mapOf(
+                "alt_art" to R.string.icon_alt_art,
+                "base" to R.string.icon_base,
+                "custom" to R.string.icon_custom,
+                "gish" to R.string.icon_gish,
+                "gold" to R.string.icon_gold,
+                "plus" to R.string.icon_plus,
+                "promo" to R.string.icon_promo,
+                "requiem" to R.string.icon_requiem,
+                "tapeworm" to R.string.icon_tapeworm,
+                "target" to R.string.icon_target,
+                "warp" to R.string.icon_warp
+            )
+            // Create a map of all the different set icons
+            return if (iconMap.containsKey(iconName)) {
+                // If the set is in the map
+                iconMap[iconName]!!
+                // Return the set icon
+            } else {
+                -1
+                // Return an invalid input as default
+            }
+        }
+
         fun setFont(context: Context): Map<String, Typeface> {
             // Allows the font to be set from a central place
             val fontMap: Map<String, Typeface>
             // Creates a map for the font
             val readableFont = SettingsHandler.readSettings(context)["readable_font"]
             // Get whether the font should be readable
-            fontMap = if (readableFont.toBoolean()){
+            fontMap = if (readableFont.toBoolean()) {
                 // Sets the font map based on the settings file
                 mapOf(
-                    "body" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_regular)!!,
+                    "body" to ResourcesCompat.getFont(
+                        context,
+                        R.font.atkinson_hyperlegible_regular
+                    )!!,
                     "title" to ResourcesCompat.getFont(context, R.font.atkinson_hyperlegible_bold)!!
                 )
                 // Use the readable fonts
@@ -49,14 +77,14 @@ class TextHandler {
             // Return the current font mapping
         }
 
-        fun wordLength(text: String): Int{
+        fun wordLength(text: String): Int {
             val words = text.split(" ")
             // Gets the individual words of the text
             var maxLen = 0
             // Holds the maximum word length
             words.forEach {
                 // Iterate through the words of the string
-                if (it.length > maxLen){
+                if (it.length > maxLen) {
                     // If this is the longest word so far
                     maxLen = it.length
                     // Increase the maximum recorded length

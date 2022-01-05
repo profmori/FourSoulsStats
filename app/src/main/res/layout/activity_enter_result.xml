@@ -13,22 +13,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:ignore="ContentDescription"
-
         android:background="@color/purple_200"
 
+        android:scaleType="fitXY"
+
         android:src="@drawable/bg_border_treasure_back"
-        android:scaleType="fitXY" />
+        tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/winPlayerList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
+        android:layout_marginHorizontal="25dp"
         android:layout_marginTop="45dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginHorizontal="25dp" />
+        app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputButtonBar"
@@ -43,26 +43,26 @@
 
             android:layout_width="140dp"
             android:layout_height="70dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
+            android:text="@string/result_go_back"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:text="@string/result_go_back"/>
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/enterResultsButton"
 
             android:layout_width="140dp"
             android:layout_height="70dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
+            android:text="@string/result_continue"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:text="@string/result_continue" />
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -17,8 +17,8 @@
 
         android:background="@color/purple_200"
 
-        android:src="@drawable/bg_border_treasure_back"
         android:scaleType="fitXY"
+        android:src="@drawable/bg_border_treasure_back"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -26,22 +26,40 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/four_souls_title"
+        android:text="@string/input_title"
+        android:textColor="@color/black"
+
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="30dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        android:text="@string/input_title"
-        android:fontFamily="@font/four_souls_title"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/rerollButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="2dp"
+        android:layout_marginStart="35dp"
+
+        android:background="@drawable/reroll_classic_roller"
+
+        app:layout_constraintBottom_toTopOf="@id/inputTreasureLine"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputTitle" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputPlayerLine"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/inputTitle"
-        android:layout_margin="10dp">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rerollButton"
+        app:layout_constraintTop_toBottomOf="@id/inputTitle">
 
         <TextView
             android:id="@+id/inputPlayerPrompt"
@@ -49,45 +67,46 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
             android:text="@string/input_no_players"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/inputPlayerNumber"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/inputPlayerNumber"
 
             android:layout_width="wrap_content"
             android:layout_height="22dp"
-            app:layout_constraintStart_toEndOf="@id/inputPlayerPrompt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
             android:background="@drawable/number_rectangle"
-            android:textColor="@color/black"
+            android:ems="2"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+
+            android:inputType="number"
+            android:labelFor="@id/inputPlayerNumber"
 
             android:text="@string/input_default_players"
-            android:labelFor="@id/inputPlayerNumber"
-            android:importantForAutofill="no"
-            android:ems="2"
-            android:inputType="number"
             android:textAlignment="center"
-            android:imeOptions="actionDone"/>
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/inputPlayerPrompt"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputTreasureLine"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/inputPlayerLine"
-        android:layout_margin="10dp">
+        android:layout_marginHorizontal="35dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputPlayerLine">
 
         <TextView
             android:id="@+id/inputTreasurePrompt"
@@ -95,35 +114,33 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/input_no_treasures"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/inputTreasureNumber"
 
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/black"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/inputTreasureNumber"
 
             android:layout_width="wrap_content"
             android:layout_height="22dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@id/inputTreasurePrompt"
-            app:layout_constraintTop_toTopOf="parent"
-
             android:background="@drawable/number_rectangle"
-            android:textColor="@color/black"
+            android:ems="2"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+
+            android:inputType="number"
+            android:labelFor="@id/inputTreasureNumber"
 
             android:text="@string/input_default_treasures"
-            android:labelFor="@id/inputTreasureNumber"
-            android:ems="2"
-            android:importantForAutofill="no"
-            android:inputType="number"
             android:textAlignment="center"
-            android:imeOptions="actionDone"/>
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/inputTreasurePrompt"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,11 +148,10 @@
         android:id="@+id/inputCharList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/inputTreasureLine"
-        app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="30dp">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
+        app:layout_constraintTop_toBottomOf="@+id/inputTreasureLine" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputButtonBar"
@@ -150,26 +166,26 @@
 
             android:layout_width="140dp"
             android:layout_height="70dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-
+            android:text="@string/back_to_main_2"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:text="@string/back_to_main_2"/>
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/inputGameResults"
 
             android:layout_width="140dp"
             android:layout_height="70dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
+            android:text="@string/input_continue_button"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:text="@string/input_continue_button"/>
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

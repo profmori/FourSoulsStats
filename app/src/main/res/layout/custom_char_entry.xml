@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/customListLine"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dark"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/dark">
 
     <TextView
         android:id="@+id/customListText"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:text="@string/error_placeholder"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/changeImageButton"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp"
-        android:textColor="@color/black"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/changeImageButton"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/clear"
+        android:foreground="@drawable/add_photo"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/deleteCross"
-        android:background="@drawable/add_image"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/deleteCross"
 
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
         android:background="@color/clear"
+
+        android:fontFamily="@font/four_souls_title"
 
         android:text="@string/common_x"
         android:textColor="@color/black"
-        android:fontFamily="@font/four_souls_title"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

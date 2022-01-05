@@ -51,7 +51,7 @@ class EditGames : AppCompatActivity() {
         returnButton.typeface = fonts["body"]
         // Set all button and title fonts
 
-        var listAdapter = GamesListAdapter(emptyArray(),buttonBG, fonts["body"]!!)
+        var listAdapter = GamesListAdapter(emptyArray(), buttonBG, fonts["body"]!!)
         // Create the list adapter
         gameList.adapter = listAdapter
         // Attach the adapter to the game list
@@ -61,7 +61,7 @@ class EditGames : AppCompatActivity() {
         returnButton.setOnClickListener {
             // When the return button is clicked
             val backToMain = Intent(this, MainActivity::class.java)
-            backToMain.putExtra("from","edit_data")
+            backToMain.putExtra("from", "edit_data")
             startActivity(backToMain)
             // Go back to the main page activity
         }
@@ -79,19 +79,20 @@ class EditGames : AppCompatActivity() {
             }
             val games = gameDao.getGames()
             // Get all games
-            if(games.isNotEmpty()){
+            if (games.isNotEmpty()) {
                 val idList = games.map { game -> game.gameID }.toTypedArray()
                 // Create a list of all game ids
                 idList.sort()
                 // Sort the game ids so they are in chronological order
-                listAdapter = GamesListAdapter(idList,buttonBG, fonts["body"]!!)
+                listAdapter = GamesListAdapter(idList, buttonBG, fonts["body"]!!)
                 // Create the list adapter
                 gameList.adapter = listAdapter
                 // Attach the adapter to the game list
                 gameList.layoutManager = LinearLayoutManager(this@EditGames)
                 // Lay it out as a list
-            }else{
-                val passToast = Toast.makeText(this@EditGames, R.string.edit_no_games, Toast.LENGTH_LONG)
+            } else {
+                val passToast =
+                    Toast.makeText(this@EditGames, R.string.edit_no_games, Toast.LENGTH_LONG)
                 // Create the error message toast
                 passToast.show()
                 // Show the error toast

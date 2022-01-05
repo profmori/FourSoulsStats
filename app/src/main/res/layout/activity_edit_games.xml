@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:ignore="ContentDescription"
-
         android:background="@drawable/bg_tiled_loot_back"
 
+        android:scaleType="fitXY"
+
         android:src="@drawable/bg_border_monster_back"
-        android:scaleType="fitXY"/>
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/editGamesTitle"
@@ -25,47 +25,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="35dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
+        android:fontFamily="@font/four_souls_title"
         android:text="@string/edit_title"
         android:textColor="@color/black"
-        android:fontFamily="@font/four_souls_title"
-        android:textSize="30sp" />
+
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/editSelectGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editGamesTitle"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="30dp"
-
+        android:text="@string/edit_select_game"
         android:textColor="@color/black"
-        android:text="@string/edit_select_game"/>
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editGamesTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/editGameList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editSelectGame"
-        app:layout_constraintBottom_toTopOf="@id/editBackButton"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="15dp"/>
+        android:layout_marginVertical="15dp"
+        app:layout_constraintBottom_toTopOf="@id/editBackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editSelectGame" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/editBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="30dp"
-
+        android:text="@string/back_to_main_1"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:text="@string/back_to_main_1"/>
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

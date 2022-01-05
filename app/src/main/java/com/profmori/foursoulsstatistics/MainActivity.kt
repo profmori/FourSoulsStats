@@ -35,18 +35,32 @@ class MainActivity : AppCompatActivity() {
             null -> {
                 // When the app is opened from nothing
 
-                val settings = SettingsHandler.readSettings(this)
-                // Get the current settings
+                CoroutineScope(Dispatchers.IO).launch {
+                    // In a coroutine to avoid slowing down the app loading
+                    val settings = SettingsHandler.readSettings(this@MainActivity)
+                    // Get the current settings
+                    if (settings["online"].toBoolean()) {
+                        // If the user has agreed to be online
+
+                        OnlineDataHandler.getGroupGames(this@MainActivity)
+                        // Get any new online saved games
+                    }
+
+                    settings["version_no"] = SettingsHandler.versionCheck(
+                        settings["version_no"],
+                        this@MainActivity,
+                        supportFragmentManager
+                    )
+                    // Update the version number and show any missed patch notes
+
+                    SettingsHandler.saveToFile(this@MainActivity, settings)
+                    // Save the updated settings
+
+                }
+
 
                 runTutorial()
                 // Show the tutorial
-
-                if (settings["online"].toBoolean()) {
-                    // If the user has agreed to be online
-
-                    OnlineDataHandler.getGroupGames(this)
-                    // Get any new online saved games
-                }
 
                 val gameDatabase = GameDataBase.getDataBase(this)
                 // Get the database instance
@@ -124,6 +138,8 @@ class MainActivity : AppCompatActivity() {
         feedbackButton.setBackgroundResource(buttonBG)
         // Set all the buttons to the same background
 
+        //UpdateHandler.checkUpdates()
+
         dataButton.setOnClickListener {
             // When the enter game button is pressed
             val goToData = Intent(this, EnterData::class.java)
@@ -168,7 +184,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun runTutorial(){
+    private fun runTutorial() {
 
         val config = ShowcaseConfig()
         config.delay = 200
@@ -189,35 +205,35 @@ class MainActivity : AppCompatActivity() {
 
         val data = MaterialShowcaseView.Builder(this)
             .setTarget(dataButton)
-            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setDismissText(resources.getString(R.string.generic_dismiss))
             .setContentText(resources.getString(R.string.tutorial_data))
             .build()
         // Creates a focus on the Enter Game button
 
         val stats = MaterialShowcaseView.Builder(this)
             .setTarget(statsButton)
-            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setDismissText(resources.getString(R.string.generic_dismiss))
             .setContentText(resources.getString(R.string.tutorial_stats))
             .build()
         // Creates a focus on the Statistics button
 
         val edit = MaterialShowcaseView.Builder(this)
             .setTarget(editButton)
-            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setDismissText(resources.getString(R.string.generic_dismiss))
             .setContentText(resources.getString(R.string.tutorial_edit))
             .build()
         // Creates a focus on the Edit Games button
 
         val settings = MaterialShowcaseView.Builder(this)
             .setTarget(settingsButton)
-            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setDismissText(resources.getString(R.string.generic_dismiss))
             .setContentText(resources.getString(R.string.tutorial_settings))
             .build()
         // Creates a focus on the Settings button
 
         val issues = MaterialShowcaseView.Builder(this)
             .setTarget(issuesButton)
-            .setDismissText(resources.getString(R.string.tutorial_dismiss))
+            .setDismissText(resources.getString(R.string.generic_dismiss))
             .setContentText(resources.getString(R.string.tutorial_issues))
             .build()
         // Creates a focus on the Feedback button
@@ -230,7 +246,7 @@ class MainActivity : AppCompatActivity() {
         // Add all the items to the sequence in order
 
         sequence.setOnItemDismissedListener { itemView, _ ->
-            if(itemView == issues) {
+            if (itemView == issues) {
                 // If the final sequence item has just finished
                 settingsButton.performClick()
                 // Click the settings button
@@ -250,7 +266,7 @@ class MainActivity : AppCompatActivity() {
         val thanksButton = findViewById<Button>(R.id.mainThanks)
         val feedbackButton = findViewById<Button>(R.id.mainReport)
         // Get all the buttons
-        when (source){
+        when (source) {
             "enter_data" -> dataButton.performClick()
             "statistics" -> statsButton.performClick()
             "edit_data" -> editButton.performClick()

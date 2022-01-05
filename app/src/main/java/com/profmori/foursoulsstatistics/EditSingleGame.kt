@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.profmori.foursoulsstatistics.custom_adapters.dialogs.DeleteGameEdit
 import com.profmori.foursoulsstatistics.custom_adapters.EditGameAdapter
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.DeleteGameEdit
 import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ExitGameEdit
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
@@ -92,7 +92,7 @@ class EditSingleGame : AppCompatActivity() {
         var playerHandlerList = emptyArray<PlayerHandler>()
         // Creates the empty player handler list
 
-        CoroutineScope(Dispatchers.IO).launch{
+        CoroutineScope(Dispatchers.IO).launch {
             val game = gameDao.getGame(gameID!!)
             // Get the game data
 
@@ -107,7 +107,7 @@ class EditSingleGame : AppCompatActivity() {
             // Set the player and treasure numbers
 
             var characterList = emptyArray<CharEntity>()
-            edition.forEach{characterList += gameDao.getCharacterList(it)}
+            edition.forEach { characterList += gameDao.getCharacterList(it) }
             // For each edition you want characters for get all characters
 
             val gameInstances = gameDao.getGameWithInstance(gameID)
@@ -122,7 +122,7 @@ class EditSingleGame : AppCompatActivity() {
             val playerList = gameDao.getPlayers()
             // Get the full list of players
 
-            currResults.forEach{gameInstance ->
+            currResults.forEach { gameInstance ->
                 // Iterates through all game instances
                 playerHandlerList += PlayerHandler(
                     gameInstance.playerName,
@@ -148,7 +148,7 @@ class EditSingleGame : AppCompatActivity() {
                 // Updates the image
             }
 
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 playerAdapter = EditGameAdapter(playerHandlerList)
                 // Create the adapter for the results list
 
@@ -162,9 +162,10 @@ class EditSingleGame : AppCompatActivity() {
                 playerNo.setOnEditorActionListener { view, actionId, _ ->
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         // if the soft input is done
-                        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        val imm =
+                            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         // Get an input method manager
-                        imm.hideSoftInputFromWindow(view.windowToken,0)
+                        imm.hideSoftInputFromWindow(view.windowToken, 0)
                         // Hide the keyboard
                         playerNo.clearFocus()
                         // Clear the focus of the edit text
@@ -194,16 +195,15 @@ class EditSingleGame : AppCompatActivity() {
                                 playerNo.setText(playerCount.toString())
                                 // Rewrite the text field to show this
                             }
-                            playerHandlerList = PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
+                            playerHandlerList =
+                                PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
                             // Makes a player list based on the number of players
                             playerAdapter = EditGameAdapter(playerHandlerList)
                             // Create the adapter for the results list
-
                             playerRecycler.adapter = playerAdapter
                             // Attach the adapter to the player recycler
                         }
-                    }
-                    else{
+                    } else {
                         // If the user has just entered the text field
                         playerNo.setText("")
                         // Clear the input
@@ -213,9 +213,10 @@ class EditSingleGame : AppCompatActivity() {
                 treasureNo.setOnEditorActionListener { view, actionId, _ ->
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         // if the soft input is done
-                        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        val imm =
+                            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         // Get an input method manager
-                        imm.hideSoftInputFromWindow(view.windowToken,0)
+                        imm.hideSoftInputFromWindow(view.windowToken, 0)
                         // Hide the keyboard
                         treasureNo.clearFocus()
                         // Clear the focus of the edit text
@@ -231,13 +232,11 @@ class EditSingleGame : AppCompatActivity() {
                             // If the field is blank
                             treasureNo.setText(gameTreasures)
                             // Set the field to the existing number of treasures
-                        }
-                        else{
+                        } else {
                             gameTreasures = treasureNo.text.toString().toInt()
                             // Otherwise store the new number of treasures
                         }
-                    }
-                    else{
+                    } else {
                         // If the user has just entered the text field
                         treasureNo.setText("")
                         // Clear the text field
@@ -245,12 +244,13 @@ class EditSingleGame : AppCompatActivity() {
                 }
 
                 exitButton.setOnClickListener {
-                    if(checkSame(currResults, playerHandlerList)
-                        and (game.treasureNo == treasureNo.text.toString().toInt())){
+                    if (checkSame(currResults, playerHandlerList)
+                        and (game.treasureNo == treasureNo.text.toString().toInt())
+                    ) {
                         // If the player data and treasure number hasn't changed
                         finish()
                         // Go back to the page before
-                    }else{
+                    } else {
                         val exitDialog =
                             ExitGameEdit(this@EditSingleGame, fonts["body"]!!)
                         exitDialog.show(supportFragmentManager, "exitGame")
@@ -258,23 +258,23 @@ class EditSingleGame : AppCompatActivity() {
                     }
                 }
 
-                submitButton.setOnClickListener{
-                    val players = playerHandlerList.map{player -> player.playerName}
+                submitButton.setOnClickListener {
+                    val players = playerHandlerList.map { player -> player.playerName }
                     // Gets all the player names from the player handler list
-                    val chars = playerHandlerList.map{player -> player.charName}
+                    val chars = playerHandlerList.map { player -> player.charName }
                     // Gets the characters from the player handler list
-                    val eternals = playerHandlerList.map{player -> player.eternal}
+                    val eternals = playerHandlerList.map { player -> player.eternal }
                     // Gets the list of eternal items
                     val winners = playerHandlerList.map { player -> player.winner }
                     // Gets the winner boolean list from the player handler list
 
                     var eternalCheck = true
                     // As a default assume the eternals are correct
-                    if (chars.indexOf("eden")>-1){
+                    if (chars.indexOf("eden") > -1) {
                         // If there is an eden in the game
                         chars.forEachIndexed { index, char ->
                             // Check every character in the game
-                            if ((char == "eden") and (eternals[index].isNullOrBlank())){
+                            if ((char == "eden") and (eternals[index].isNullOrBlank())) {
                                 // If the character is eden but the eternal is null
                                 eternalCheck = false
                                 // All eternals are not correct
@@ -282,14 +282,14 @@ class EditSingleGame : AppCompatActivity() {
                         }
                     }
 
-                    if ((Collections.frequency(winners,true) == 1)
+                    if ((Collections.frequency(winners, true) == 1)
                         // If there is only one winner
                         and (!players.contains(""))
                         // All players have names
                         and (!chars.contains(""))
                         // All characters have names
                         and (eternalCheck)
-                        // All Edens have eternals
+                    // All Edens have eternals
                     ) {
                         // If there is exactly one winner and all data is entered
                         if (!checkSame(currResults, playerHandlerList)
@@ -341,9 +341,13 @@ class EditSingleGame : AppCompatActivity() {
                         }
                         finish()
                         // Exit the page
-                    }else{
+                    } else {
                         val errorSnackbar =
-                            Snackbar.make(background,  R.string.adjust_incorrect_data, Snackbar.LENGTH_LONG)
+                            Snackbar.make(
+                                background,
+                                R.string.adjust_incorrect_data,
+                                Snackbar.LENGTH_LONG
+                            )
                         // Create the snackbar
                         errorSnackbar.changeFont(TextHandler.setFont(this@EditSingleGame)["body"]!!)
                         // Set the font of the snackbar
@@ -362,8 +366,8 @@ class EditSingleGame : AppCompatActivity() {
         }
     }
 
-    private fun checkSame(original: Array<GameInstance>, new: Array<PlayerHandler>): Boolean{
-        if(original.size == new.size){
+    private fun checkSame(original: Array<GameInstance>, new: Array<PlayerHandler>): Boolean {
+        if (original.size == new.size) {
             // If the number of players has not changed
             val newPlayers = new.map { player -> player.playerName }
             val newChars = new.map { player -> player.charName }
@@ -372,22 +376,22 @@ class EditSingleGame : AppCompatActivity() {
             val newWinners = new.map { player -> player.winner }
             // Extract all the relevant information from the data
             original.forEach {
-                if(newPlayers.contains(it.playerName)){
+                if (newPlayers.contains(it.playerName)) {
                     val currIndex = newPlayers.indexOf(it.playerName)
                     if ((newChars[currIndex] != it.charName)
                         or (newEternals[currIndex] != it.eternal)
                         or (newSouls[currIndex] != it.souls)
                         or (newWinners[currIndex] != it.winner)
-                    ){
+                    ) {
                         // If something is different
                         return false
                     }
-                }else{
+                } else {
                     // If the current player isn't in the new game
                     return false
                 }
             }
-        }else{
+        } else {
             // If the number of players has changed
             return false
         }

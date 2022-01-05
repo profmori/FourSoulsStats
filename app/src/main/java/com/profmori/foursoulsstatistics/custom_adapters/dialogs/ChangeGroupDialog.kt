@@ -10,7 +10,11 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.profmori.foursoulsstatistics.R
 
-class ChangeGroupDialog(private val groupEntry: EditText, private val oldID: String, private val font: Typeface): DialogFragment() {
+class ChangeGroupDialog(
+    private val groupEntry: EditText,
+    private val oldID: String,
+    private val font: Typeface
+) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -23,15 +27,16 @@ class ChangeGroupDialog(private val groupEntry: EditText, private val oldID: Str
             titleText.typeface = font
             // Set the title text and font
             builder.setCustomTitle(titleText)
-                .setPositiveButton(R.string.settings_confirm_overwrite){ _, _ ->
+                .setPositiveButton(R.string.settings_confirm_overwrite) { _, _ ->
                     dismiss()
                 }
                 // When you click change just close the dialog
-                .setNegativeButton(R.string.settings_cancel_overwrite
+                .setNegativeButton(
+                    R.string.settings_cancel_overwrite
                 ) { _, _ ->
                     groupEntry.setText(oldID)
                 }
-                // When you click the reset button set it to the old id
+            // When you click the reset button set it to the old id
             val dialog = builder.create()
             // Create the AlertDialog object and return it
 

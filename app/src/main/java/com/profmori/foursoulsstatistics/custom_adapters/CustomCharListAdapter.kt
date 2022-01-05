@@ -4,30 +4,38 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.profmori.foursoulsstatistics.R
-
 import com.profmori.foursoulsstatistics.CustomCardEntry
+import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharEntity
 
 
-class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val font: Typeface, private val activity: CustomCardEntry) : RecyclerView.Adapter<CustomCharListAdapter.ViewHolder>() {
+class CustomCharListAdapter(
+    private var cardList: Array<CharEntity>,
+    private val font: Typeface,
+    private val activity: CustomCardEntry
+) : RecyclerView.Adapter<CustomCharListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val textItem: TextView = itemView.findViewById(R.id.customListText)
+
         // Allows the text to be set in code
         val imageButton: Button = itemView.findViewById(R.id.changeImageButton)
+
         // Allows the button to be shown in code
         val closeButton: Button = itemView.findViewById(R.id.deleteCross)
+
         // Allows the button to be accessed in code
         val line: ConstraintLayout = itemView.findViewById(R.id.customListLine)
+
         // Allows the line to be accessed in code
         val dark = ContextCompat.getDrawable(listItemView.context, R.color.dark)
         val light = ContextCompat.getDrawable(listItemView.context, R.color.lighter)
@@ -60,7 +68,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         val imageButton = viewHolder.imageButton
         // Get the image selection button
 
-        val scale = 0.4F
+        val scale = 0.5F
         imageButton.scaleX = scale
         imageButton.scaleY = scale
         // Scale the image so it's a reasonable size
@@ -68,7 +76,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         val line = viewHolder.line
         // Get the line of the view
 
-        when (position % 2){
+        when (position % 2) {
             0 -> line.background = viewHolder.dark
             1 -> line.background = viewHolder.light
         }
@@ -90,7 +98,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
             cardList = newList.toTypedArray()
             // Remove the item from the card list
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position,cardList.size)
+            notifyItemRangeChanged(position, cardList.size)
             // Update the recycler view
         }
         imageButton.setOnClickListener {
@@ -108,7 +116,7 @@ class CustomCharListAdapter(private var cardList: Array<CharEntity>, private val
         // Returns the character list size element
     }
 
-    fun getItems(): Array<CharEntity>{
+    fun getItems(): Array<CharEntity> {
         return cardList
         // Return the list of characters
     }

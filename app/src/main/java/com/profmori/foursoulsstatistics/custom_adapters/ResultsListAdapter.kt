@@ -20,22 +20,29 @@ import com.profmori.foursoulsstatistics.data_handlers.RecyclerHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
 
-class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : RecyclerView.Adapter<ResultsListAdapter.ViewHolder>() {
+class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
+    RecyclerView.Adapter<ResultsListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val charImage: ImageView = itemView.findViewById(R.id.winCharImage)
+
         // Allows the background image to be set in code
         val itemText: TextView = itemView.findViewById(R.id.winEdenItemText)
+
         // Access the starting item text
         val eternalText: TextView = itemView.findViewById(R.id.winEdenItem)
+
         // Access the eternal text
         val playerName: TextView = itemView.findViewById(R.id.winPlayerName)
+
         // Access the player name
         val soulsText: TextView = itemView.findViewById(R.id.winSoulPrompt)
+
         // Access the prompt to say souls
         val soulsCount: EditText = itemView.findViewById(R.id.winSoulEntry)
+
         // Access the player selection entry in code
         val winnerCheck: CheckBox = itemView.findViewById(R.id.winWinnerCheck)
         // Access the winner checkbox in code
@@ -69,8 +76,13 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         if (playerHandler.charImage > -1) {
             background.setImageResource(playerHandler.charImage)
             // Set the image to the stored player image
-        }else{
-            background.setImageBitmap(ImageHandler.returnImage(background.context, playerHandler.charName))
+        } else {
+            background.setImageBitmap(
+                ImageHandler.returnImage(
+                    background.context,
+                    playerHandler.charName
+                )
+            )
             // Set the image to a custom bitmap
         }
 
@@ -97,15 +109,21 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         val eternalText = viewHolder.eternalText
         // Get the eternal text box
 
-        if(playerHandler.eternal.isNullOrBlank()){
-        // If there is no eternal
+        if (playerHandler.eternal.isNullOrBlank()) {
+            // If there is no eternal
             itemText.visibility = View.INVISIBLE
             eternalText.visibility = View.INVISIBLE
             // Hide the item and eternal text
-        }else{
+        } else {
             eternalText.text = playerHandler.eternal
             // Set the eternal to the correct string
-            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(eternalText, 11, 14, 1, TypedValue.COMPLEX_UNIT_SP)
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                eternalText,
+                11,
+                14,
+                1,
+                TypedValue.COMPLEX_UNIT_SP
+            )
             // Autoscale the eternal text
         }
 
@@ -120,9 +138,10 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         soulsBox.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
-                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
-                imm.hideSoftInputFromWindow(view.windowToken,0)
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
                 soulsBox.clearFocus()
                 // Clear the focus of the edit text
@@ -132,8 +151,8 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
         }
 
         soulsBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-        // When the soul input box changes focus
-            RecyclerHandler.enterSouls(hasFocus,soulsBox, winnerTick, playerHandler)
+            // When the soul input box changes focus
+            RecyclerHandler.enterSouls(hasFocus, soulsBox, winnerTick, playerHandler)
             // Handles all the logic for the souls entry box
         }
 
@@ -141,7 +160,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) : Recycle
             playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
         }
-}
+    }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {

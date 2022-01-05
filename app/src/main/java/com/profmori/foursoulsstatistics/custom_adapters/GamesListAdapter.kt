@@ -13,7 +13,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class GamesListAdapter(private var gameList: Array<String>, private val buttonBG: Int, private val font: Typeface) : RecyclerView.Adapter<GamesListAdapter.ViewHolder>() {
+class GamesListAdapter(
+    private var gameList: Array<String>,
+    private val buttonBG: Int,
+    private val font: Typeface
+) : RecyclerView.Adapter<GamesListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
@@ -46,7 +50,7 @@ class GamesListAdapter(private var gameList: Array<String>, private val buttonBG
         val timeCode = shownGame.substring(6).toLong()
         // Extract the timecode from the gameID
 
-        val formatter = SimpleDateFormat("dd MMMM yyyy HH:mm",Locale.getDefault())
+        val formatter = SimpleDateFormat("dd MMMM yyyy HH:mm", Locale.getDefault())
         formatter.timeZone = TimeZone.getDefault()
         val time = formatter.format(timeCode)
         // Format it as a date and time
@@ -62,7 +66,7 @@ class GamesListAdapter(private var gameList: Array<String>, private val buttonBG
 
         gameButton.setOnClickListener {
             val editGame = Intent(gameButton.context, EditSingleGame::class.java)
-            editGame.putExtra("gameID",shownGame)
+            editGame.putExtra("gameID", shownGame)
             // Pass the selected game id to the new activity
             gameButton.context.startActivity(editGame)
             // Start the new activity

@@ -59,7 +59,15 @@ class TableHandler {
             // Get the list of treasure numbers
             val players = gamesList.map { game -> game.gameSize }
             // Get the list of player numbers
-            dataSetup(treasures, players, filterText, playerText, playerSlider, treasureText, treasureSlider)
+            dataSetup(
+                treasures,
+                players,
+                filterText,
+                playerText,
+                playerSlider,
+                treasureText,
+                treasureSlider
+            )
             // Set up the data properly
         }
 
@@ -75,17 +83,27 @@ class TableHandler {
             // Get the list of treasure numbers
             val players = gamesList.map { game -> game.playerNo }
             // Get the list of player numbers
-            dataSetup(treasures, players, filterText, playerText, playerSlider, treasureText, treasureSlider)
+            dataSetup(
+                treasures,
+                players,
+                filterText,
+                playerText,
+                playerSlider,
+                treasureText,
+                treasureSlider
+            )
             // Set up the data properly
         }
 
-        private fun dataSetup(treasures: List<Int>,
-                              players: List<Int>,
-                              filterText: TextView,
-                              playerText: TextView,
-                              playerSlider: RangeSlider,
-                              treasureText: TextView,
-                              treasureSlider: RangeSlider){
+        private fun dataSetup(
+            treasures: List<Int>,
+            players: List<Int>,
+            filterText: TextView,
+            playerText: TextView,
+            playerSlider: RangeSlider,
+            treasureText: TextView,
+            treasureSlider: RangeSlider
+        ) {
             val minTreasure = treasures.minOrNull()!!.toFloat()
             val maxTreasure = treasures.maxOrNull()!!.toFloat()
             // Get the range of treasure values
@@ -120,7 +138,12 @@ class TableHandler {
             // If there is nothing to filter, don't show filter text
         }
 
-        fun createTable(context: Context, table: SortableTableView<StatsTable>, headerList: Array<String>, tableData: Array<StatsTable>){
+        fun createTable(
+            context: Context,
+            table: SortableTableView<StatsTable>,
+            headerList: Array<String>,
+            tableData: Array<StatsTable>
+        ) {
             val fonts = TextHandler.setFont(context)
             // Get the fonts from the text handler
 
@@ -135,16 +158,20 @@ class TableHandler {
             table.setBackgroundColor(ContextCompat.getColor(context, R.color.lighter))
             // Sets the table backgrounds as tints
 
-            table.setColumnComparator(0,
+            table.setColumnComparator(
+                0,
                 NameComparator()
             )
-            table.setColumnComparator(1,
+            table.setColumnComparator(
+                1,
                 WinrateComparator()
             )
-            table.setColumnComparator(2,
+            table.setColumnComparator(
+                2,
                 SoulsComparator()
             )
-            table.setColumnComparator(3,
+            table.setColumnComparator(
+                3,
                 AdjustedSoulsComparator()
             )
             // Allows all the columns to be sorted

@@ -41,13 +41,28 @@ class ViewCommunityEternalStats : AppCompatActivity() {
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image
 
-        TableHandler.pageSetup(this,backButton, background, characterTitle, filterText, playerText, treasureText)
+        TableHandler.pageSetup(
+            this,
+            backButton,
+            background,
+            characterTitle,
+            filterText,
+            playerText,
+            treasureText
+        )
         // Setup the page correctly
 
         lifecycleScope.launch {
             val gamesList = OnlineDataHandler.getAllEternals(this@ViewCommunityEternalStats)
 
-            TableHandler.onlineDataSetup(gamesList, filterText, playerText, playerSlider, treasureText, treasureSlider)
+            TableHandler.onlineDataSetup(
+                gamesList,
+                filterText,
+                playerText,
+                playerSlider,
+                treasureText,
+                treasureSlider
+            )
             // Setup the data from an online source
 
             playerSlider.addOnChangeListener { _, _, _ ->
@@ -67,7 +82,7 @@ class ViewCommunityEternalStats : AppCompatActivity() {
         }
     }
 
-    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>){
+    private fun createTable(playerRange: List<Float>, treasureRange: List<Float>) {
         val eternalTable = findViewById<SortableTableView<StatsTable>>(R.id.statsTable)
         // Finds the player stats table
 
@@ -88,7 +103,7 @@ class ViewCommunityEternalStats : AppCompatActivity() {
             val games = OnlineDataHandler.getAllEternals(this@ViewCommunityEternalStats)
             // Get all games
 
-            val onlineEternals = games.map{game -> game.eternal}.distinct()
+            val onlineEternals = games.map { game -> game.eternal }.distinct()
             // Gets all the eternals with recorded data
 
             val indexList = emptyList<Int>().toMutableList()
@@ -97,12 +112,11 @@ class ViewCommunityEternalStats : AppCompatActivity() {
                 // Iterate through all the selected eternal items
                 val index = onlineEternals.indexOf(it.lowercase())
                 // Get the index of the eternal in the list of online eternals
-                if (index >= 0){
+                if (index >= 0) {
                     // If it is in the list
                     indexList += index
                     // Add its index to the list
-                }
-                else if (it == "\"I Can't Believe It's Not Butter Bean\""){
+                } else if (it == "\"I Can't Believe It's Not Butter Bean\"") {
                     // "I Can't Believe It's Not Butter Bean" - the cause of every special case in the app
                     indexList += onlineEternals.indexOf("\"i can't believe it's not")
                     // Add the cut off version's index to the list
@@ -124,7 +138,7 @@ class ViewCommunityEternalStats : AppCompatActivity() {
 
             tableEternals.forEach {
                 // For every eternal
-                if(!it.isNullOrBlank()) {
+                if (!it.isNullOrBlank()) {
                     // Make sure all inputs are safe
                     val newEternalTable = StatsTable(it, 0.0, 0.0, 0, 0.0)
                     // Create a new row
@@ -135,7 +149,12 @@ class ViewCommunityEternalStats : AppCompatActivity() {
                 }
             }
 
-            TableHandler.createTable(this@ViewCommunityEternalStats, eternalTable, eternalHeaders, eternalData)
+            TableHandler.createTable(
+                this@ViewCommunityEternalStats,
+                eternalTable,
+                eternalHeaders,
+                eternalData
+            )
             // Creates the table using the headers and data
         }
     }
