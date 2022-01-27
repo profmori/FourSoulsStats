@@ -25,7 +25,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/input_card_content_desc"
 
-            android:src="@drawable/eden" />
+            android:src="@drawable/b2_eden" />
 
     </androidx.cardview.widget.CardView>
 

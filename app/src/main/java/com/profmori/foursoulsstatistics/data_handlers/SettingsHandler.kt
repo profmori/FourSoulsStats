@@ -248,61 +248,55 @@ class SettingsHandler {
             context: Context,
             fragmentManager: FragmentManager
         ): String {
-
-            val versionNo =
-                if (version_no.isNullOrBlank()) {
-                    // If the settings doesn't contain a version number, assume 0
-                    "0"
-                } else {
+                if (!version_no.isNullOrBlank()){
                     // Otherwise set the variable to the current version number
-                    version_no
-                }
 
-            val versions = 0..BuildConfig.VERSION_CODE
-            // Get a list of all versions up to this one
-            var versionNotes = buildSpannedString {
-                this.append("")
-                // Create a blank entry for the version notes
-            }
-            for (version in versions) {
-                // Iterate through every version
-                if (versionNo.toInt() < version) {
-                    // If the current version is before a version
-                    val name = "version_$version"
-                    // Generate the string name for the version
-                    val stringID = context.resources.getIdentifier(
-                        name,
-                        "string",
-                        "com.profmori.foursoulsstatistics"
-                    )
-                    // Get the version resource ID
-                    if (stringID > 0) {
-                        // If the string exists
-                        val versionNote = HtmlCompat.fromHtml(
-                            context.resources.getString(stringID),
-                            HtmlCompat.FROM_HTML_MODE_COMPACT
-                        )
-                        // Get it using HTMLCompat for formatting
-                        versionNotes = buildSpannedString {
-                            this.append(versionNotes)
-                            // Add the existing notes to the start of the string
-                            this.append(versionNote)
-                            // Add the new version notes to the end
+                    val versions = 0..BuildConfig.VERSION_CODE
+                    // Get a list of all versions up to this one
+                    var versionNotes = buildSpannedString {
+                        this.append("")
+                        // Create a blank entry for the version notes
+                    }
+                    for (version in versions) {
+                        // Iterate through every version
+                        if (version_no.toInt() < version) {
+                            // If the current version is before a version
+                            val name = "version_$version"
+                            // Generate the string name for the version
+                            val stringID = context.resources.getIdentifier(
+                                name,
+                                "string",
+                                "com.profmori.foursoulsstatistics"
+                            )
+                            // Get the version resource ID
+                            if (stringID > 0) {
+                                // If the string exists
+                                val versionNote = HtmlCompat.fromHtml(
+                                    context.resources.getString(stringID),
+                                    HtmlCompat.FROM_HTML_MODE_COMPACT
+                                )
+                                // Get it using HTMLCompat for formatting
+                                versionNotes = buildSpannedString {
+                                    this.append(versionNotes)
+                                    // Add the existing notes to the start of the string
+                                    this.append(versionNote)
+                                    // Add the new version notes to the end
+                                }
+                            }
                         }
                     }
-                }
-            }
 
-            if (versionNotes.length > 2) {
-                // If any version notes exist
-                val fonts = TextHandler.setFont(context)
-                // Get the button font
-                val notesDialog =
-                    PatchNotesDialog(versionNotes, fonts)
-                // Create the patch notes dialog
-                notesDialog.show(fragmentManager, "patchNotes")
-                // Show the patch notes dialog as a popup
-            }
+                    if (versionNotes.length > 2) {
+                        // If any version notes exist
+                        val fonts = TextHandler.setFont(context)
+                        // Get the button font
+                        val notesDialog =
+                            PatchNotesDialog(versionNotes, fonts)
+                        // Create the patch notes dialog
+                        notesDialog.show(fragmentManager, "patchNotes")
+                        // Show the patch notes dialog as a popup
+                    }
+                }
 
             return BuildConfig.VERSION_CODE.toString()
             // Return the current version code so the settings can be updated

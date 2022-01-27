@@ -131,18 +131,18 @@ class PlayerHandler(
                 // Set the image to the basic value
                 if (charName == "eden") {
                     // If Eden is selected
-                    var imageArray = arrayOf(R.drawable.eden)
+                    var imageArray = arrayOf(R.drawable.b2_eden)
                     // The basic eden image is always an option
                     if (useAlts) {
-                        imageArray += arrayOf(R.drawable.eden_alt_1, R.drawable.eden_alt_2)
+                        imageArray += arrayOf(R.drawable.aa_eden_1, R.drawable.aa_eden_2)
                     }
                     // Adds the 2 alt art Eden cards if alternate arts are an option
                     if (usePromo) {
-                        imageArray += arrayOf(R.drawable.eden_promo_1, R.drawable.eden_promo_2)
+                        imageArray += arrayOf(R.drawable.p_eden_1, R.drawable.p_eden_2)
                     }
                     // Adds the 2 promo eden cards if promos are being used
                     if (useRequiem) {
-                        imageArray += arrayOf(R.drawable.eden_requiem_1, R.drawable.eden_requiem_2)
+                        imageArray += arrayOf(R.drawable.r_eden_1, R.drawable.r_eden_2)
                     }
                     // Adds the 2 requiem eden cards if requiem is being used
                     charImage = imageArray.random()
