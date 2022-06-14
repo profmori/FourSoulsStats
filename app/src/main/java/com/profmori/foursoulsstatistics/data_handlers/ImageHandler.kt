@@ -62,8 +62,11 @@ class ImageHandler {
                 "plus" to R.drawable.icon_plus,
                 "promo" to R.drawable.icon_promo,
                 "requiem" to R.drawable.icon_requiem,
+                "retro" to R.drawable.icon_retro,
+                "retro_off" to R.drawable.icon_retro_off,
                 "tapeworm" to R.drawable.icon_tapeworm,
                 "target" to R.drawable.icon_target,
+                "unboxing" to R.drawable.icon_unboxing,
                 "warp" to R.drawable.icon_warp
             )
             // Create a map of all the different set icon
@@ -137,7 +140,9 @@ class ImageHandler {
                 // In every line extract the data to the full list map
                 val splitText = it.split(":")
                 // Split at the colon
-                fullList[splitText[0].toInt()] = splitText[1].toBoolean()
+                if (images.contains(splitText[0].toInt())) {
+                    fullList[splitText[0].toInt()] = splitText[1].toBoolean()
+                }
             }
             if (fullList.keys.size < images.size) {
                 // If the full list is smaller than all the icons

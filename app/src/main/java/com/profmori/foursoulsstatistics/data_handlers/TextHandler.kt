@@ -35,8 +35,10 @@ class TextHandler {
                 "plus" to R.string.icon_plus,
                 "promo" to R.string.icon_promo,
                 "requiem" to R.string.icon_requiem,
+                "retro" to R.string.icon_retro,
                 "tapeworm" to R.string.icon_tapeworm,
                 "target" to R.string.icon_target,
+                "unboxing" to R.string.icon_unboxing,
                 "warp" to R.string.icon_warp
             )
             // Create a map of all the different set icons
@@ -72,6 +74,30 @@ class TextHandler {
                     "title" to ResourcesCompat.getFont(context, R.font.four_souls_title)!!
                 )
                 // Use the stylised font
+            }
+            return fontMap
+            // Return the current font mapping
+        }
+
+        fun updateRetroFont(context: Context, oldMap: Map<String, Typeface>): Map<String, Typeface> {
+            // Allows the retro font to be set to retro from a central place
+            val fontMap: Map<String, Typeface>
+            // Creates a map for the font
+            val pixelFont = SettingsHandler.readSettings(context)["pixel_font"]
+            // Get whether the font should be readable
+            fontMap = if (pixelFont.toBoolean()) {
+                // Sets the font map based on the settings file
+                mapOf(
+                    "body" to ResourcesCompat.getFont(
+                        context,
+                        R.font.four_souls_pixel
+                    )!!,
+                    "title" to oldMap["title"]!!
+                )
+                // Use the pixel font
+            } else {
+                oldMap
+                // Use the original font
             }
             return fontMap
             // Return the current font mapping

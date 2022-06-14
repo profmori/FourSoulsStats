@@ -105,7 +105,6 @@ class RecyclerHandler {
                 // If it has just lost focus
                 val charInput = charEntry.text.toString()
                 // Get the input to the character field
-                println(charInput + "_")
                 var newChar = charInput
                 // Store the character input in a mutable variable
                 if ((charInput != "") and !playerHandler.charNames.contains(charInput)) {
@@ -320,6 +319,11 @@ class RecyclerHandler {
             if (playerHandler.charImage > -1) {
                 background.setImageResource(playerHandler.charImage)
                 // Set the image to the stored player image if there is one
+                if ((playerHandler.charImage == R.drawable.ret_eden)){
+                    playerHandler.fonts = TextHandler.updateRetroFont(background.context, playerHandler.fonts)
+                } else {
+                    playerHandler.fonts = TextHandler.setFont(background.context)
+                }
             } else {
                 background.setImageBitmap(
                     ImageHandler.returnImage(

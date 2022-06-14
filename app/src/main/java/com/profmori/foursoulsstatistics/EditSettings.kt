@@ -616,12 +616,13 @@ class EditSettings : AppCompatActivity() {
 
         val setRecycler = findViewById<RecyclerView>(R.id.iconRecycler)
         val iconList = arrayOf(
-            "base", "gold", "plus", "requiem", "warp", "alt_art", "gish",
-            "target", "promo", "tapeworm", "custom"
+            "base", "gold", "plus", "requiem",  "alt_art", "gish", "promo",
+            "retro", "tapeworm", "target", "unboxing", "warp",
+            "custom"
         )
         val setAdapter = SetSelectionAdapter(iconList, fonts["body"]!!, settings, customButton)
         setRecycler.adapter = setAdapter
-        setRecycler.layoutManager = GridLayoutManager(this, 5)
+        setRecycler.layoutManager = GridLayoutManager(this, 4)
         // Lay the recycler out as a grid
 
         val spinnerItems = SettingsHandler.getBackground(this)

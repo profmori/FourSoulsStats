@@ -57,6 +57,9 @@ class SetSelectionAdapter(
                 // If not the base icon then it can be tinted
                 viewHolder.icon.setColorFilter(Color.argb(255, 255, 255, 255))
                 // Tint the icon white
+                if (currIcon == "retro"){
+                    viewHolder.icon.setImageResource(ImageHandler.getIcon("retro_off"))
+                }
             } else {
                 // If the base icon returns false then the setting is incorrect
                 viewHolder.icon.setColorFilter(Color.argb(0, 255, 255, 255))

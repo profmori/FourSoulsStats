@@ -106,8 +106,10 @@
     <string name="icon_plus">Four Souls +</string>
     <string name="icon_promo">Promo</string>
     <string name="icon_requiem">Requiem</string>
+    <string name="icon_retro">Retro</string>
     <string name="icon_tapeworm">Tapeworm</string>
     <string name="icon_target">Target</string>
+    <string name="icon_unboxing">Unboxing of Isaac</string>
     <string name="icon_warp">Warp Zones</string>
 
 
@@ -248,5 +250,13 @@
         \u2022 Added updated cards for Jacob \&amp; Esau, The Baleful, Baba and Steven &lt;br>&lt;/br>
         \u2022 Added a privacy policy to be in line with google"s new policies &lt;br>&lt;/br>
         \u2022 Stopped patch notes from showing on first install of the app &lt;br>&lt;/br> &lt;br>&lt;/br>
+    </string>
+
+    <string name="version_19">
+        &lt;b>&lt;u>Version 4.03&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added cards from the Unboxing of Isaac, and associated Promos &lt;br>&lt;/br>
+        \u2022 Added new Eden promo from UKGE &lt;br>&lt;/br>
+        \u2022 Added Retro Eden, and a new pixel font which can be turned off &lt;br>&lt;/br>
+        \u2022 Fixed a bug where reroll icons could be replaced by random images &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 </resources>

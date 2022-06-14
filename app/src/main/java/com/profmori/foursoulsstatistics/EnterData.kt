@@ -166,6 +166,8 @@ class EnterData : AppCompatActivity() {
                 // Set the player handler flag for using promo edens correctly
                 it.useRequiem = settings["requiem"].toBoolean()
                 // Set the player handler flag for using requiem edens correctly
+                it.useRetro = settings["retro"].toBoolean()
+                // Set the player handler flag for using retro edens correctly
             }
 
         }
