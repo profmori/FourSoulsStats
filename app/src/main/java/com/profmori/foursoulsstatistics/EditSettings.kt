@@ -79,6 +79,16 @@ class EditSettings : AppCompatActivity() {
         }
         // If custom cards are not being used, hide the input button
 
+        val pixelFont = findViewById<SwitchCompat>(R.id.pixelSwitch)
+        pixelFont.isChecked = settings["pixel_font"].toBoolean()
+        // Match the pixel font settings
+
+        if (!settings["retro"].toBoolean()) {
+            pixelFont.visibility = View.GONE
+        }
+        // If retro eden is not being used, hide the switch
+
+
         val easyFont = findViewById<SwitchCompat>(R.id.readableSwitch)
         easyFont.isChecked = settings["readable_font"].toBoolean()
         // Match readability switch
@@ -150,9 +160,25 @@ class EditSettings : AppCompatActivity() {
         // Set all the buttons to the same background
 
         updateFonts(
-            titleText, groupPrompt, groupEntry, groupExplain, online, editionTitle, customButton,
-            borderText, borderSpinner, backgroundText, backgroundSpinner, duplicateChars,
-            duplicateEden, randomEden, randomButton, clearButton, tutorialButton, returnButton
+            titleText,
+            groupPrompt,
+            groupEntry,
+            groupExplain,
+            online,
+            editionTitle,
+            customButton,
+            pixelFont,
+            borderText,
+            borderSpinner,
+            backgroundText,
+            backgroundSpinner,
+            duplicateChars,
+            duplicateEden,
+            randomEden,
+            randomButton,
+            clearButton,
+            tutorialButton,
+            returnButton
         )
         // Update the fonts for every item
 
@@ -175,6 +201,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 updateSave(
                     easyFont,
+                    pixelFont,
                     borderSpinner,
                     backgroundSpinner,
                     online,
@@ -201,6 +228,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 updateSave(
                     easyFont,
+                    pixelFont,
                     borderSpinner,
                     backgroundSpinner,
                     online,
@@ -221,6 +249,7 @@ class EditSettings : AppCompatActivity() {
             // When the font slider is changed
             updateSave(
                 easyFont,
+                pixelFont,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -230,6 +259,7 @@ class EditSettings : AppCompatActivity() {
                 groupEntry
             )
             // Update the save data
+
             updateFonts(
                 titleText,
                 groupPrompt,
@@ -238,6 +268,47 @@ class EditSettings : AppCompatActivity() {
                 online,
                 editionTitle,
                 customButton,
+                pixelFont,
+                borderText,
+                borderSpinner,
+                backgroundText,
+                backgroundSpinner,
+                duplicateChars,
+                duplicateEden,
+                randomEden,
+                randomButton,
+                clearButton,
+                tutorialButton,
+                returnButton
+            )
+            // Change all the fonts
+        }
+
+        pixelFont.setOnCheckedChangeListener { _, _ ->
+            // When the pixel font slider is changed
+
+            updateSave(
+                easyFont,
+                pixelFont,
+                borderSpinner,
+                backgroundSpinner,
+                online,
+                randomEden,
+                duplicateChars,
+                duplicateEden,
+                groupEntry
+            )
+            // Update the save data
+
+            updateFonts(
+                titleText,
+                groupPrompt,
+                groupEntry,
+                groupExplain,
+                online,
+                editionTitle,
+                customButton,
+                pixelFont,
                 borderText,
                 borderSpinner,
                 backgroundText,
@@ -257,6 +328,7 @@ class EditSettings : AppCompatActivity() {
             // When the custom cards button is clicked
             updateSave(
                 easyFont,
+                pixelFont,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -275,6 +347,7 @@ class EditSettings : AppCompatActivity() {
             // When the custom cards button is clicked
             updateSave(
                 easyFont,
+                pixelFont,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -312,6 +385,7 @@ class EditSettings : AppCompatActivity() {
             // When the return button is clicked
             updateSave(
                 easyFont,
+                pixelFont,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -574,6 +648,7 @@ class EditSettings : AppCompatActivity() {
         online: SwitchCompat,
         editionTitle: TextView,
         customButton: Button,
+        pixelFont: SwitchCompat,
         borderText: TextView,
         borderSpinner: Spinner,
         backgroundText: TextView,
@@ -609,18 +684,22 @@ class EditSettings : AppCompatActivity() {
         duplicateEden.typeface = fonts["body"]
         randomEden.typeface = fonts["body"]
 
+        pixelFont.typeface = TextHandler.updateRetroFont(this,fonts)["body"]
+        if (pixelFont.typeface == fonts["body"]){
+            pixelFont.textSize = online.textSize / 3
+        }
+        else{
+            pixelFont.textSize = online.textSize / 4
+        }
+
         tutorialButton.typeface = fonts["body"]
 
         returnButton.typeface = fonts["body"]
         // Update all the static fonts
 
         val setRecycler = findViewById<RecyclerView>(R.id.iconRecycler)
-        val iconList = arrayOf(
-            "base", "gold", "plus", "requiem",  "alt_art", "gish", "promo",
-            "retro", "tapeworm", "target", "unboxing", "warp",
-            "custom"
-        )
-        val setAdapter = SetSelectionAdapter(iconList, fonts["body"]!!, settings, customButton)
+        val iconList = SettingsHandler.getSets()
+        val setAdapter = SetSelectionAdapter(iconList, fonts["body"]!!, settings, pixelFont, customButton)
         setRecycler.adapter = setAdapter
         setRecycler.layoutManager = GridLayoutManager(this, 4)
         // Lay the recycler out as a grid
@@ -645,6 +724,7 @@ class EditSettings : AppCompatActivity() {
 
     private fun updateSave(
         easyFont: SwitchCompat,
+        pixelFont: SwitchCompat,
         borderSpinner: Spinner,
         backgroundSpinner: Spinner,
         online: SwitchCompat,
@@ -654,6 +734,7 @@ class EditSettings : AppCompatActivity() {
         groupID: EditText
     ) {
         settings["readable_font"] = easyFont.isChecked.toString()
+        settings["pixel_font"] = pixelFont.isChecked.toString()
         settings["border"] = borderList[borderSpinner.selectedItem.toString()]!!
         settings["background"] = backgroundList[backgroundSpinner.selectedItem.toString()]!!
         settings["online"] = online.isChecked.toString()

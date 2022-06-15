@@ -44,7 +44,7 @@ abstract class GameDataBase : RoomDatabase() {
                         context.applicationContext,
                         GameDataBase::class.java,
                         "game_database"
-                    ).build()
+                    ).allowMainThreadQueries().build()
                     // Use the database builder to create the database
                     instance = dataBase
                     // Set the instance variable

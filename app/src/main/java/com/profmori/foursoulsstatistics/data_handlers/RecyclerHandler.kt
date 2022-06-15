@@ -12,11 +12,13 @@ import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
 class RecyclerHandler {
     companion object {
         private fun createPlayerPopup(
+            playerPrompt: TextView,
             playerEntry: AutoCompleteTextView,
             playerHandler: PlayerHandler,
             playerHandlerList: Array<PlayerHandler>,
             inputText: String,
             background: ImageView,
+            charPrompt: TextView,
             charEntry: AutoCompleteTextView,
             eternalPrompt: TextView,
             eternalEntry: AutoCompleteTextView,
@@ -79,7 +81,9 @@ class RecyclerHandler {
                 updateView(
                     playerHandler,
                     background,
+                    playerPrompt,
                     playerEntry,
+                    charPrompt,
                     charEntry,
                     eternalPrompt,
                     eternalEntry,
@@ -93,9 +97,11 @@ class RecyclerHandler {
 
         fun enterChar(
             hasFocus: Boolean,
+            playerPrompt: TextView,
             playerEntry: AutoCompleteTextView,
             playerHandler: PlayerHandler,
             background: ImageView,
+            charPrompt: TextView,
             charEntry: AutoCompleteTextView,
             eternalPrompt: TextView,
             eternalEntry: AutoCompleteTextView,
@@ -118,7 +124,9 @@ class RecyclerHandler {
             updateView(
                 playerHandler,
                 background,
+                playerPrompt,
                 playerEntry,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
@@ -129,9 +137,11 @@ class RecyclerHandler {
 
         fun enterEternal(
             hasFocus: Boolean,
+            playerPrompt: TextView,
             playerEntry: AutoCompleteTextView,
             playerHandler: PlayerHandler,
             background: ImageView,
+            charPrompt: TextView,
             charEntry: AutoCompleteTextView,
             eternalPrompt: TextView,
             eternalEntry: AutoCompleteTextView,
@@ -163,7 +173,9 @@ class RecyclerHandler {
             updateView(
                 playerHandler,
                 background,
+                playerPrompt,
                 playerEntry,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
@@ -174,10 +186,12 @@ class RecyclerHandler {
 
         fun enterPlayer(
             hasFocus: Boolean,
+            playerPrompt: TextView,
             playerEntry: AutoCompleteTextView,
             playerHandler: PlayerHandler,
             playerHandlerList: Array<PlayerHandler>,
             background: ImageView,
+            charPrompt: TextView,
             charEntry: AutoCompleteTextView,
             eternalPrompt: TextView,
             eternalEntry: AutoCompleteTextView,
@@ -190,11 +204,13 @@ class RecyclerHandler {
                 if ((input.lowercase() !in playerHandler.playerNames) and (input != "")) {
                     // If the entered value is not valid
                     createPlayerPopup(
+                        playerPrompt,
                         playerEntry,
                         playerHandler,
                         playerHandlerList,
                         input,
                         background,
+                        charPrompt,
                         charEntry,
                         eternalPrompt,
                         eternalEntry,
@@ -208,7 +224,9 @@ class RecyclerHandler {
                     updateView(
                         playerHandler,
                         background,
+                        playerPrompt,
                         playerEntry,
+                        charPrompt,
                         charEntry,
                         eternalPrompt,
                         eternalEntry,
@@ -220,7 +238,9 @@ class RecyclerHandler {
                 updateView(
                     playerHandler,
                     background,
+                    playerPrompt,
                     playerEntry,
+                    charPrompt,
                     charEntry,
                     eternalPrompt,
                     eternalEntry,
@@ -309,7 +329,9 @@ class RecyclerHandler {
         fun updateView(
             playerHandler: PlayerHandler,
             background: ImageView,
+            playerPrompt: TextView,
             playerEntry: AutoCompleteTextView,
+            charPrompt: TextView,
             charEntry: AutoCompleteTextView,
             eternalPrompt: TextView,
             eternalEntry: AutoCompleteTextView,
@@ -319,11 +341,6 @@ class RecyclerHandler {
             if (playerHandler.charImage > -1) {
                 background.setImageResource(playerHandler.charImage)
                 // Set the image to the stored player image if there is one
-                if ((playerHandler.charImage == R.drawable.ret_eden)){
-                    playerHandler.fonts = TextHandler.updateRetroFont(background.context, playerHandler.fonts)
-                } else {
-                    playerHandler.fonts = TextHandler.setFont(background.context)
-                }
             } else {
                 background.setImageBitmap(
                     ImageHandler.returnImage(
@@ -333,6 +350,7 @@ class RecyclerHandler {
                 )
                 // Set the image to a custom bitmap if it is custom and an image is provided
             }
+
             val pDropDown = playerHandler.playerNames
             // Gets a list of player names
             val playerAdaptor =
@@ -352,6 +370,27 @@ class RecyclerHandler {
             // Sets the adapter for this list
             charEntry.setText(TextHandler.capitalise(playerHandler.charName))
             // Fill in the character name if this is an update
+
+            val bodyFont = if ((playerHandler.charImage == R.drawable.ret_eden)) {
+                TextHandler.updateRetroFont(background.context, playerHandler.fonts)["body"]
+            } else {
+                TextHandler.setFont(background.context)["body"]
+            }
+            val bodySize = if ((playerHandler.charImage == R.drawable.ret_eden)) {
+                10f
+            } else {
+                15f
+            }
+
+            val entries = arrayOf(
+                playerPrompt, playerEntry,
+                charPrompt, charEntry,
+                eternalPrompt, eternalEntry
+            )
+            entries.forEach {
+                it.typeface = bodyFont
+                it.textSize = bodySize
+            }
 
             if (playerHandler.charName == "eden") {
                 // If eden is selected

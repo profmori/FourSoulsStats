@@ -1,7 +1,6 @@
 package com.profmori.foursoulsstatistics
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.Button
@@ -23,8 +22,7 @@ class ShowThanks : AppCompatActivity() {
         val thanksBG = findViewById<TextView>(R.id.thanksBackgrounds)
         val thanksFriends = findViewById<TextView>(R.id.thanksFriends)
         val thanksEdmund = findViewById<TextView>(R.id.thanksEdmund)
-        val supportMe = findViewById<TextView>(R.id.thanksSupport)
-        val kofiButton = findViewById<Button>(R.id.kofiButton)
+        val thanksCards = findViewById<TextView>(R.id.thanksCards)
         // Get all the main elements
 
         val buttonBG = ImageHandler.setButtonImage()
@@ -46,22 +44,15 @@ class ShowThanks : AppCompatActivity() {
         thanksFont.typeface = fonts["body"]
         thanksBG.typeface = fonts["body"]
         thanksFriends.typeface = fonts["body"]
-        supportMe.typeface = fonts["body"]
+        thanksCards.typeface = fonts["body"]
         thanksEdmund.typeface = fonts["body"]
         // Update the fonts
 
         thanksFont.movementMethod = LinkMovementMethod.getInstance()
         thanksBG.movementMethod = LinkMovementMethod.getInstance()
         thanksEdmund.movementMethod = LinkMovementMethod.getInstance()
+        thanksCards.movementMethod = LinkMovementMethod.getInstance()
         // Allows the hyperlinks to be followed
-
-        kofiButton.setOnClickListener {
-            // When the kofi button is clicked
-            val kofiLink = Intent(Intent.ACTION_VIEW, Uri.parse("https://ko-fi.com/I2I36755M"))
-            startActivity(kofiLink)
-            // Start an activity to go to the kofi link
-        }
-
 
         returnButton.setOnClickListener {
             // When the return button is clicked

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
@@ -17,6 +18,7 @@ class SetSelectionAdapter(
     private val iconList: Array<String>,
     private val textFont: Typeface,
     private val settings: MutableMap<String, String>,
+    private val pixelFont: SwitchCompat,
     private val customButton: Button
 ) : RecyclerView.Adapter<SetSelectionAdapter.ViewHolder>() {
 
@@ -57,7 +59,7 @@ class SetSelectionAdapter(
                 // If not the base icon then it can be tinted
                 viewHolder.icon.setColorFilter(Color.argb(255, 255, 255, 255))
                 // Tint the icon white
-                if (currIcon == "retro"){
+                if (currIcon == "retro") {
                     viewHolder.icon.setImageResource(ImageHandler.getIcon("retro_off"))
                 }
             } else {
@@ -87,6 +89,12 @@ class SetSelectionAdapter(
                         View.GONE
                     }
                     // Match the visibility of the custom button
+                } else if (currIcon == "retro") {
+                    pixelFont.visibility = if (newSetting) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             }
         }

@@ -116,6 +116,8 @@
     <string name="settings_custom">Custom :</string>
     <string name="settings_enter_custom">Add Custom Cards</string>
 
+    <string name="settings_pixel_font">Use Retro Eden Font:</string>
+
     <string name="settings_alt_art">Use Character Alt Art :</string>
 
     <string name="settings_border_prompt">Border :</string>
@@ -160,16 +162,17 @@
 
     <!-- Thanks Screen -->
     <string name="thanks_title" tools:ignore="TypographyEllipsis">Thanks To ...</string>
-    <string name="thanks_fonts">Four Souls fonts (font-souls) created by <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a></string>
+    <string name="thanks_fonts">Four Souls fonts (font-souls) created by <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a>.
+    Retro font created by me, based on the font used in the Retro Eden card which does not have an artist on record</string>
     <string name="thanks_backgrounds">Buttons and blank character card from images created by
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
             u/Koretex_</a> for the Four Souls Reddit</string>
     <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me</string>
-    <string name="thanks_support">Any support is greatly appreciated, and can be donated using the Ko-Fi button on the right.
-        \nThis is not required, or obligatory, and I will continue to work on the app regardless, but any donations are appreciated</string>
     <string name="thanks_edmund">Four Souls was created and designed by Edmund McMillen (<a href="https://twitter.com/edmundmcmillen">@edmundmcmillen</a>),
         and developed by <a href="https://maestromedia.com/">Maestro Media</a>. Thanks to them for being so supportive of the community,
         as well as providing high quality images of the different cards in the game freely</string>
+    <string name="thanks_cards">Other card images, set icons and item categories from <a href="https://foursouls.com/">foursouls.com</a>.
+    Thanks to the team that runs and maintains the website for their dedication and hard work</string>
 
 
     <!-- Main Page Tutorial Lines -->

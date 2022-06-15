@@ -38,26 +38,25 @@ class SettingsHandler {
             // Get the settings
             var editionArray = arrayOf("base")
             // As a default include the base game
-            if (settings["gold"].toBoolean()) {
-                editionArray += "gold"
-            }
-            if (settings["plus"].toBoolean()) {
-                editionArray += "plus"
-            }
-            if (settings["requiem"].toBoolean()) {
-                editionArray += "requiem"
-            }
-            if (settings["warp"].toBoolean()) {
-                editionArray += "warp"
-            }
-            if (settings["tapeworm"].toBoolean()) {
-                editionArray += "tapeworm"
-            }
-            if (settings["custom"].toBoolean()) {
-                editionArray += "custom"
+            val playableSets = getSets()
+            // Get all the sets in the game
+            for (set in playableSets) {
+                if (set != "base") {
+                    if (settings[set].toBoolean()) {
+                        editionArray += set
+                    }
+                }
             }
             // Check every setting and add the right editions
             return editionArray
+        }
+
+        fun getSets(): Array<String> {
+            return arrayOf(
+                "base", "gold", "plus", "requiem",
+                "alt_art", "gish", "promo", "retro", "tapeworm", "target", "unboxing", "warp",
+                "custom"
+            )
         }
 
         private fun initialiseSettings(context: Context) {
@@ -107,24 +106,25 @@ class SettingsHandler {
 
             val settings = mutableMapOf(
                 "groupID" to randID,
-                "alt_art" to "false",
-                "base" to "true",
-                "custom" to "false",
-                "gish" to "false",
-                "gold" to "false",
-                "plus" to "false",
-                "promo" to "false",
-                "requiem" to "false",
-                "tapeworm" to "false",
-                "target" to "false",
-                "warp" to "false",
                 "readable_font" to "false",
+                "pixel_font" to "false",
                 "background" to "loot_back",
                 "border" to "monster_back",
                 "multi_eden" to "true",
-                "version_no" to BuildConfig.VERSION_CODE.toString()
+                "version_no" to BuildConfig.VERSION_CODE.toString(),
+                "online" to "false",
+                "duplicate_characters" to "false",
+                "duplicate_eden" to "false",
+                "random_eden" to "false"
             )
             // Set the settings
+
+            val gameSets = getSets()
+            // Get all the sets in the game
+
+            for (set in gameSets) {
+                settings[set] = "false"
+            }
 
             saveToFile(context, settings)
             // Save the settings file
@@ -248,55 +248,55 @@ class SettingsHandler {
             context: Context,
             fragmentManager: FragmentManager
         ): String {
-                if (!version_no.isNullOrBlank()){
-                    // Otherwise set the variable to the current version number
+            if (!version_no.isNullOrBlank()) {
+                // Otherwise set the variable to the current version number
 
-                    val versions = 0..BuildConfig.VERSION_CODE
-                    // Get a list of all versions up to this one
-                    var versionNotes = buildSpannedString {
-                        this.append("")
-                        // Create a blank entry for the version notes
-                    }
-                    for (version in versions) {
-                        // Iterate through every version
-                        if (version_no.toInt() < version) {
-                            // If the current version is before a version
-                            val name = "version_$version"
-                            // Generate the string name for the version
-                            val stringID = context.resources.getIdentifier(
-                                name,
-                                "string",
-                                "com.profmori.foursoulsstatistics"
+                val versions = 0..BuildConfig.VERSION_CODE
+                // Get a list of all versions up to this one
+                var versionNotes = buildSpannedString {
+                    this.append("")
+                    // Create a blank entry for the version notes
+                }
+                for (version in versions) {
+                    // Iterate through every version
+                    if (version_no.toInt() < version) {
+                        // If the current version is before a version
+                        val name = "version_$version"
+                        // Generate the string name for the version
+                        val stringID = context.resources.getIdentifier(
+                            name,
+                            "string",
+                            "com.profmori.foursoulsstatistics"
+                        )
+                        // Get the version resource ID
+                        if (stringID > 0) {
+                            // If the string exists
+                            val versionNote = HtmlCompat.fromHtml(
+                                context.resources.getString(stringID),
+                                HtmlCompat.FROM_HTML_MODE_COMPACT
                             )
-                            // Get the version resource ID
-                            if (stringID > 0) {
-                                // If the string exists
-                                val versionNote = HtmlCompat.fromHtml(
-                                    context.resources.getString(stringID),
-                                    HtmlCompat.FROM_HTML_MODE_COMPACT
-                                )
-                                // Get it using HTMLCompat for formatting
-                                versionNotes = buildSpannedString {
-                                    this.append(versionNotes)
-                                    // Add the existing notes to the start of the string
-                                    this.append(versionNote)
-                                    // Add the new version notes to the end
-                                }
+                            // Get it using HTMLCompat for formatting
+                            versionNotes = buildSpannedString {
+                                this.append(versionNotes)
+                                // Add the existing notes to the start of the string
+                                this.append(versionNote)
+                                // Add the new version notes to the end
                             }
                         }
                     }
-
-                    if (versionNotes.length > 2) {
-                        // If any version notes exist
-                        val fonts = TextHandler.setFont(context)
-                        // Get the button font
-                        val notesDialog =
-                            PatchNotesDialog(versionNotes, fonts)
-                        // Create the patch notes dialog
-                        notesDialog.show(fragmentManager, "patchNotes")
-                        // Show the patch notes dialog as a popup
-                    }
                 }
+
+                if (versionNotes.length > 2) {
+                    // If any version notes exist
+                    val fonts = TextHandler.setFont(context)
+                    // Get the button font
+                    val notesDialog =
+                        PatchNotesDialog(versionNotes, fonts)
+                    // Create the patch notes dialog
+                    notesDialog.show(fragmentManager, "patchNotes")
+                    // Show the patch notes dialog as a popup
+                }
+            }
 
             return BuildConfig.VERSION_CODE.toString()
             // Return the current version code so the settings can be updated

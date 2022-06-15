@@ -1,7 +1,6 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
 import android.graphics.Typeface
-import androidx.core.content.res.ResourcesCompat
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.Player
@@ -35,10 +34,6 @@ class PlayerHandler(
 
     var useRetro = true
     // Variable for whether or not to use retro eden cards
-
-    var useRetroText = true
-    // variable for whether or not to use the pixel eden font
-
 
     companion object {
         fun makePlayerList(playerNum: Int): Array<PlayerHandler> {
@@ -145,7 +140,11 @@ class PlayerHandler(
                     }
                     // Adds the 2 alt art Eden cards if alternate arts are an option
                     if (usePromo) {
-                        imageArray += arrayOf(R.drawable.p_eden_1, R.drawable.p_eden_2, R.drawable.p_eden_3)
+                        imageArray += arrayOf(
+                            R.drawable.p_eden_1,
+                            R.drawable.p_eden_2,
+                            R.drawable.p_eden_3
+                        )
                     }
                     // Adds the 2 promo eden cards if promos are being used
                     if (useRequiem) {

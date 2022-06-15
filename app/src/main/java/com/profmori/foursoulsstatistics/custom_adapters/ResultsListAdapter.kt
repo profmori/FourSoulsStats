@@ -67,9 +67,6 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
         val playerHandler = playerList[position]
         // Set item views based on your player
 
-        val fonts = playerHandler.fonts
-        // Get the fonts used for the button
-
         val background = viewHolder.charImage
         // Get the background image
 
@@ -109,6 +106,9 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
         val eternalText = viewHolder.eternalText
         // Get the eternal text box
 
+        var fonts = playerHandler.fonts
+        var fontSize = 20f
+
         if (playerHandler.eternal.isNullOrBlank()) {
             // If there is no eternal
             itemText.visibility = View.INVISIBLE
@@ -117,20 +117,42 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
         } else {
             eternalText.text = playerHandler.eternal
             // Set the eternal to the correct string
-            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
-                eternalText,
-                11,
-                14,
-                1,
-                TypedValue.COMPLEX_UNIT_SP
-            )
-            // Autoscale the eternal text
+            if (playerHandler.charImage == R.drawable.ret_eden) {
+                fonts = TextHandler.updateRetroFont(background.context, playerHandler.fonts)
+                // Get the fonts used for the character
+                fontSize = 15f
+                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    eternalText,
+                    7,
+                    12,
+                    1,
+                    TypedValue.COMPLEX_UNIT_SP
+                )
+                // Autoscale the eternal text
+                eternalText.typeface = fonts["body"]
+                itemText.textSize = 8f
+                itemText.typeface = fonts["body"]
+            } else {
+                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+                    eternalText,
+                    10,
+                    15,
+                    1,
+                    TypedValue.COMPLEX_UNIT_SP
+                )
+                // Autoscale the eternal text
+            }
         }
 
+
         playerEntry.typeface = fonts["body"]
+        playerEntry.textSize = fontSize
         soulsBox.typeface = fonts["body"]
+        soulsBox.textSize = fontSize
         winnerTick.typeface = fonts["body"]
+        winnerTick.textSize = fontSize
         soulsText.typeface = fonts["body"]
+        soulsText.textSize = fontSize
         // Set all the fonts for the entries correctly
 
         soulsBox.setText(playerHandler.soulsNum.toString())

@@ -111,7 +111,9 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         RecyclerHandler.updateView(
             playerHandler,
             background,
+            playerPrompt,
             playerEntry,
+            charPrompt,
             charEntry,
             eternalPrompt,
             eternalEntry,
@@ -154,10 +156,12 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
             // When the player entry box loses or gains focus
             RecyclerHandler.enterPlayer(
                 hasFocus,
+                playerPrompt,
                 playerEntry,
                 playerHandler,
                 playerHandlerList,
                 background,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
@@ -185,9 +189,11 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
             // When the character entry box loses or gains focus
             RecyclerHandler.enterChar(
                 hasFocus,
+                playerPrompt,
                 playerEntry,
                 playerHandler,
                 background,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
@@ -215,9 +221,11 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
             // When the character entry box loses or gains focus
             RecyclerHandler.enterEternal(
                 hasFocus,
+                playerPrompt,
                 playerEntry,
                 playerHandler,
                 background,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,

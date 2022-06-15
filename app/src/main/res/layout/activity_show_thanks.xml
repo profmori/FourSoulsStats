@@ -60,21 +60,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/thanksFont"
-
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="35dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/thanks_fonts"
-                android:textColor="@color/black"
-                android:textColorLink="@color/grey"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thanksEdmund" />
-
-            <TextView
                 android:id="@+id/thanksBackgrounds"
 
                 android:layout_width="0dp"
@@ -88,7 +73,36 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thanksFont" />
+                app:layout_constraintTop_toBottomOf="@id/thanksEdmund" />
+
+            <TextView
+                android:id="@+id/thanksCards"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="35dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/thanks_cards"
+                android:textColor="@color/black"
+                android:textColorLink="@color/grey"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/thanksBackgrounds" />
+
+            <TextView
+                android:id="@+id/thanksFont"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="35dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/thanks_fonts"
+                android:textColor="@color/black"
+                android:textColorLink="@color/grey"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/thanksCards" />
 
             <TextView
                 android:id="@+id/thanksFriends"
@@ -102,31 +116,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thanksBackgrounds" />
+                app:layout_constraintTop_toBottomOf="@id/thanksFont" />
 
-            <TextView
-                android:id="@+id/thanksSupport"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="5dp"
-                android:text="@string/thanks_support"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@id/kofiButton"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thanksFriends" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/kofiButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="35dp"
-                android:background="@drawable/kofi_button"
-                app:layout_constraintBottom_toBottomOf="@id/thanksSupport"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/thanksSupport" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

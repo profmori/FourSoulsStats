@@ -3,7 +3,8 @@ package com.profmori.foursoulsstatistics.custom_adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.INVISIBLE
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -107,7 +108,9 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         RecyclerHandler.updateView(
             playerHandler,
             background,
+            playerPrompt,
             playerEntry,
+            charPrompt,
             charEntry,
             eternalPrompt,
             eternalEntry,
@@ -134,9 +137,11 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
             // When the character entry box loses or gains focus
             RecyclerHandler.enterChar(
                 hasFocus,
+                playerPrompt,
                 playerEntry,
                 playerHandler,
                 background,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
@@ -164,10 +169,12 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
             // When the player entry box loses or gains focus
             RecyclerHandler.enterPlayer(
                 hasFocus,
+                playerPrompt,
                 playerEntry,
                 playerHandler,
                 playerHandlerList,
                 background,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
@@ -195,9 +202,11 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
             // When the character entry box loses or gains focus
             RecyclerHandler.enterEternal(
                 hasFocus,
+                playerPrompt,
                 playerEntry,
                 playerHandler,
                 background,
+                charPrompt,
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
