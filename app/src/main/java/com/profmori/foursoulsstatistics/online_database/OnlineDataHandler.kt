@@ -189,6 +189,39 @@ class OnlineDataHandler {
             // Return the id list
         }
 
+        suspend fun getOnlineItems(context: Context): MutableMap<String, Array<String>> {
+            // Get the list of all items
+            val items = emptyMap<String, Array<String>>().toMutableMap()
+            // Create an empty map
+            if (checkWifi(context)) {
+                val onlineDatabase = Firebase.firestore.collection("items")
+                // Access the online database
+                val data = onlineDatabase.get()
+                // Get all data from the database
+                data.addOnSuccessListener { groupIDs ->
+                    // When data is retrieved
+                    groupIDs.documents.forEach {
+                        // Iterate through each item
+                        val onlineItem = it.toObject<OnlineItem>()!!
+                        // Create an online item object
+                        var itemArray = items[onlineItem.set]
+                        // Get the current set of items in that set
+                        if (itemArray.isNullOrEmpty()){
+                            // If there are none
+                            itemArray = arrayOf(onlineItem.name)
+                            // Create an array with just that item
+                        }else{
+                            itemArray += arrayOf(onlineItem.name)
+                            // Otherwise add the item to the array
+                        }
+                        items[onlineItem.set] = itemArray
+                        // Set the array for that set to be updated
+                    }
+                }.await()
+            }
+            return items
+        }
+
         fun saveGames(context: Context) {
             signIn()
             // Sign into the database

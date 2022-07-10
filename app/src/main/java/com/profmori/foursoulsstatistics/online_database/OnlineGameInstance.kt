@@ -29,3 +29,10 @@ data class OnlineGroupID(
     @PropertyName("id")
     val id: String = ""
 )
+
+data class OnlineItem(
+    @PropertyName("name")
+    val name: String = "",
+    @PropertyName("set")
+    val set: String = ""
+)

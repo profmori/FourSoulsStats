@@ -153,7 +153,7 @@ class CustomCardEntry : AppCompatActivity() {
             // Launch a call of an image when the invisible button is clicked
         }
 
-        val itemList = ItemList.readCustom(this)
+        val itemList = ItemList.readChangeable(this, "custom_treasures")
         // Gets the list of custom items
         var itemAdapter = CustomItemListAdapter(itemList, fonts["body"]!!)
         // Attach the adapter to the recyclerview to populate items
