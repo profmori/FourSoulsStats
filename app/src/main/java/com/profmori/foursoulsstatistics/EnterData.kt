@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -167,6 +171,8 @@ class EnterData : AppCompatActivity() {
                 it.useRequiem = settings["requiem"].toBoolean()
                 // Set the player handler flag for using requiem edens correctly
                 it.useRetro = settings["retro"].toBoolean()
+                // Set the player handler flag for using retro edens correctly
+                it.useUnboxing = settings["unboxing"].toBoolean()
                 // Set the player handler flag for using retro edens correctly
             }
 
@@ -346,13 +352,14 @@ class EnterData : AppCompatActivity() {
                 // Update the view
             }
         }
-    }
 
-    override fun onBackPressed() {
-        val returnButton = findViewById<Button>(R.id.inputToMain)
-        // Get the return button
-        returnButton.performClick()
-        // Clicks the button
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Clicks the return button
+            }
+        })
     }
 
     private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, view: View) {

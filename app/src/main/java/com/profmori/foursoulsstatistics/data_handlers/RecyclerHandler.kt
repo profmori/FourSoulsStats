@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.style.TypefaceSpan
 import android.view.View
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
 
@@ -318,7 +319,7 @@ class RecyclerHandler {
                         }
 
                     }
-                } catch (e: StringIndexOutOfBoundsException) {
+                } catch (_: StringIndexOutOfBoundsException) {
                 }
                 // If the character name is too short, do nothing - it cannot be a match
             }
@@ -376,7 +377,11 @@ class RecyclerHandler {
             } else {
                 TextHandler.setFont(background.context)["body"]
             }
-            val bodySize = if ((playerHandler.charImage == R.drawable.ret_eden)) {
+            val bodySize = if ((bodyFont == ResourcesCompat.getFont(
+                    background.context,
+                    R.font.four_souls_pixel
+                ))
+            ) {
                 10f
             } else {
                 15f

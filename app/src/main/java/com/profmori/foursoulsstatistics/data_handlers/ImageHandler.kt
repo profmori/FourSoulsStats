@@ -57,6 +57,7 @@ class ImageHandler {
                 "alt_art" to R.drawable.icon_alt_art,
                 "base" to R.drawable.icon_base,
                 "custom" to R.drawable.icon_custom,
+                "gfuel" to R.drawable.icon_gfuel,
                 "gish" to R.drawable.icon_gish,
                 "gold" to R.drawable.icon_gold,
                 "plus" to R.drawable.icon_plus,
@@ -71,7 +72,7 @@ class ImageHandler {
             )
             // Create a map of all the different set icon
             return if (iconMap.containsKey(iconName)) {
-            // If the icon is on the list, return it
+                // If the icon is on the list, return it
                 iconMap[iconName]!!
             } else {
                 R.drawable.icon_custom
@@ -91,6 +92,21 @@ class ImageHandler {
                 else -> R.drawable.blank_char
             }
             // Select returned value based on chosen number
+        }
+
+        fun getUnboxingAlt(charName: String): Int {
+            when (charName) {
+                "isaac" -> {
+                    return R.drawable.box_isaac
+                }
+                "cain" -> {
+                    return R.drawable.box_cain
+                }
+                "the lost" -> {
+                    return R.drawable.box_the_lost
+                }
+            }
+            return -1
         }
 
         fun randomReroll(context: Context): Drawable {

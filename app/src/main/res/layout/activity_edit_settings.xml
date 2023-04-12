@@ -161,6 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/settingsEditionPrompt" />
 
@@ -174,14 +175,11 @@
                     android:text="@string/settings_enter_custom"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@id/iconRecycler"
                     app:layout_constraintEnd_toEndOf="@id/iconRecycler"
 
-                    app:layout_constraintHorizontal_bias="0.75"
-
+                    app:layout_constraintHorizontal_bias="0.496"
                     app:layout_constraintStart_toStartOf="@id/iconRecycler"
-                    app:layout_constraintTop_toTopOf="@id/iconRecycler"
-                    app:layout_constraintVertical_bias="0.9" />
+                    app:layout_constraintTop_toBottomOf="@+id/iconRecycler" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -391,6 +389,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/clearButton"
                 app:layout_constraintTop_toTopOf="@id/clearButton" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/patchNotesButton"
+
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+
+                android:layout_marginHorizontal="35dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/settings_show_patch_notes"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/clearButton"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -114,7 +115,7 @@ class CustomCardEntry : AppCompatActivity() {
                     val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         // Uses a different method to find the image based on the android version
                         ImageDecoder.decodeBitmap(
-                            ImageDecoder.createSource(this.contentResolver, imageURI)
+                            ImageDecoder.createSource(this.contentResolver, imageURI!!)
                         )
                     } else {
                         MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
@@ -143,7 +144,7 @@ class CustomCardEntry : AppCompatActivity() {
                     // Attach the adapter to the recyclerview to populate items
                     characterRecycler.adapter = charAdapter
                     // Set layout manager to position the items
-                } catch (e: NullPointerException) {
+                } catch (_: NullPointerException) {
                 }
                 // If there's a null pointer do nothing
             }
@@ -243,12 +244,13 @@ class CustomCardEntry : AppCompatActivity() {
             startActivity(backToSettings)
             // Go back to the settings page
         }
-    }
 
-    override fun onBackPressed() {
-        // When the back arrow is pressed
-        val returnButton = findViewById<Button>(R.id.backToSettings)
-        returnButton.performClick()
-        // Do everything that would happen from pressing the actual button
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Do everything that would happen from pressing the actual button
+            }
+        })
     }
 }

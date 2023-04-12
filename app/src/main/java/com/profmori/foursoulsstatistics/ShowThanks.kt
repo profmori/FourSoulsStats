@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
@@ -63,12 +64,13 @@ class ShowThanks : AppCompatActivity() {
             startActivity(backToMain)
             // Go to the main page
         }
-    }
 
-    override fun onBackPressed() {
-        val returnButton = findViewById<Button>(R.id.thanksMainButton)
-        // Get the return button
-        returnButton.performClick()
-        // Clicks the button
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Clicks the return button
+            }
+        })
     }
 }

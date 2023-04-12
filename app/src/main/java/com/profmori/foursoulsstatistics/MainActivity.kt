@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                     val items = OnlineDataHandler.getOnlineItems(this@MainActivity)
                     // Update the items from online
 
-                   ItemList.saveToFile(this@MainActivity, items)
+                    ItemList.saveToFile(this@MainActivity, items)
                     // Save to a file
 
                 }
@@ -188,6 +189,22 @@ class MainActivity : AppCompatActivity() {
             startActivity(feedbackPage)
             // Change to the Feedback and Suggestions activity
         }
+
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                when (source) {
+                    "enter_data" -> dataButton.performClick()
+                    "statistics" -> statsButton.performClick()
+                    "edit_data" -> editButton.performClick()
+                    "settings" -> settingsButton.performClick()
+                    "thanks" -> thanksButton.performClick()
+                    "feedback" -> feedbackButton.performClick()
+                    null -> finish()
+                    // Depending on the source click the correct button
+                }
+            }
+        })
     }
 
     private fun runTutorial() {
@@ -261,26 +278,5 @@ class MainActivity : AppCompatActivity() {
 
         sequence.start()
         // Start running the tutorial
-    }
-
-    override fun onBackPressed() {
-        // When the back button is pressed
-        val dataButton = findViewById<Button>(R.id.mainData)
-        val statsButton = findViewById<Button>(R.id.mainStats)
-        val editButton = findViewById<Button>(R.id.mainEdit)
-        val settingsButton = findViewById<Button>(R.id.mainSettings)
-        val thanksButton = findViewById<Button>(R.id.mainThanks)
-        val feedbackButton = findViewById<Button>(R.id.mainReport)
-        // Get all the buttons
-        when (source) {
-            "enter_data" -> dataButton.performClick()
-            "statistics" -> statsButton.performClick()
-            "edit_data" -> editButton.performClick()
-            "settings" -> settingsButton.performClick()
-            "thanks" -> thanksButton.performClick()
-            "feedback" -> feedbackButton.performClick()
-            null -> finish()
-            // Depending on the source click the correct button
-        }
     }
 }

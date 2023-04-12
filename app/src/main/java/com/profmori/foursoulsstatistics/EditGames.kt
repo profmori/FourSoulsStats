@@ -2,7 +2,11 @@ package com.profmori.foursoulsstatistics
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -99,14 +103,14 @@ class EditGames : AppCompatActivity() {
                 returnButton.performClick()
                 // Press the back button
             }
-
         }
-    }
 
-    override fun onBackPressed() {
-        // When the back button is pressed
-        val returnButton = findViewById<Button>(R.id.editBackButton)
-        returnButton.performClick()
-        // Press the return button
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Do everything that would happen from pressing the actual button
+            }
+        })
     }
 }

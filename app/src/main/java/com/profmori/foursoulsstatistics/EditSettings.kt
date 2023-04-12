@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -135,6 +136,9 @@ class EditSettings : AppCompatActivity() {
         val returnButton = findViewById<Button>(R.id.settingsMainButton)
         // Get the return button
 
+        val patchButton = findViewById<Button>(R.id.patchNotesButton)
+        // Get the patch notes button
+
         val clearButton = findViewById<Button>(R.id.clearButton)
         // Gets the button to clear data
 
@@ -157,6 +161,7 @@ class EditSettings : AppCompatActivity() {
         tutorialButton.setBackgroundResource(buttonBG)
         returnButton.setBackgroundResource(buttonBG)
         randomButton.setBackgroundResource(buttonBG)
+        patchButton.setBackgroundResource(buttonBG)
         // Set all the buttons to the same background
 
         updateFonts(
@@ -178,7 +183,8 @@ class EditSettings : AppCompatActivity() {
             randomButton,
             clearButton,
             tutorialButton,
-            returnButton
+            returnButton,
+            patchButton
         )
         // Update the fonts for every item
 
@@ -279,7 +285,8 @@ class EditSettings : AppCompatActivity() {
                 randomButton,
                 clearButton,
                 tutorialButton,
-                returnButton
+                returnButton,
+                patchButton
             )
             // Change all the fonts
         }
@@ -319,7 +326,8 @@ class EditSettings : AppCompatActivity() {
                 randomButton,
                 clearButton,
                 tutorialButton,
-                returnButton
+                returnButton,
+                patchButton
             )
             // Change all the fonts
         }
@@ -477,15 +485,23 @@ class EditSettings : AppCompatActivity() {
                 }
             }
         }
-    }
 
-    override fun onBackPressed() {
-        val returnButton = findViewById<Button>(R.id.settingsMainButton)
-        // Get the return button
-        returnButton.performClick()
-        // Clicks the button
-    }
+        patchButton.setOnClickListener{
+            SettingsHandler.versionCheck(
+                "0",
+                this,
+                supportFragmentManager
+            )
+        }
 
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Do everything that would happen from pressing the actual button
+            }
+        })
+    }
 
     private fun runTutorial() {
 
@@ -659,7 +675,8 @@ class EditSettings : AppCompatActivity() {
         randomButton: Button,
         clearButton: Button,
         tutorialButton: Button,
-        returnButton: Button
+        returnButton: Button,
+        patchButton: Button
     ) {
         val fonts = TextHandler.setFont(this)
 
@@ -684,22 +701,25 @@ class EditSettings : AppCompatActivity() {
         duplicateEden.typeface = fonts["body"]
         randomEden.typeface = fonts["body"]
 
-        pixelFont.typeface = TextHandler.updateRetroFont(this,fonts)["body"]
-        if (pixelFont.typeface == fonts["body"]){
-            pixelFont.textSize = online.textSize / 3
-        }
-        else{
+        pixelFont.typeface = TextHandler.updateRetroFont(this, fonts)["body"]
+        if (fonts["body"] == pixelFont.typeface) {
+            // If the retro font is the same as all the other font (no pixel)
             pixelFont.textSize = online.textSize / 4
+        } else {
+            pixelFont.textSize = online.textSize / 6
         }
 
         tutorialButton.typeface = fonts["body"]
 
         returnButton.typeface = fonts["body"]
+
+        patchButton.typeface = fonts["body"]
         // Update all the static fonts
 
         val setRecycler = findViewById<RecyclerView>(R.id.iconRecycler)
         val iconList = SettingsHandler.getSets()
-        val setAdapter = SetSelectionAdapter(iconList, fonts["body"]!!, settings, pixelFont, customButton)
+        val setAdapter =
+            SetSelectionAdapter(iconList, fonts["body"]!!, settings, pixelFont, customButton)
         setRecycler.adapter = setAdapter
         setRecycler.layoutManager = GridLayoutManager(this, 4)
         // Lay the recycler out as a grid

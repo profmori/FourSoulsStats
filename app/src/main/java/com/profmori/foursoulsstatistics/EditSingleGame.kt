@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -364,6 +368,14 @@ class EditSingleGame : AppCompatActivity() {
                 }
             }
         }
+
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                exitButton.performClick()
+                // Press the exit button
+            }
+        })
     }
 
     private fun checkSame(original: Array<GameInstance>, new: Array<PlayerHandler>): Boolean {
@@ -397,12 +409,6 @@ class EditSingleGame : AppCompatActivity() {
         }
         // If none of the if statements have forced a false return, the data hasn't changed
         return true
-    }
 
-    override fun onBackPressed() {
-        // WHen the back button is pressed
-        val exitButton = findViewById<Button>(R.id.adjustExitButton)
-        exitButton.performClick()
-        // Press the exit button
     }
 }

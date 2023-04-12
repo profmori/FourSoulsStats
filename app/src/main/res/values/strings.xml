@@ -101,6 +101,7 @@
     <string name="icon_alt_art">Alt Art</string>
     <string name="icon_base">Base Game</string>
     <string name="icon_custom">Custom Cards</string>
+    <string name="icon_gfuel">G-Fuel</string>
     <string name="icon_gish">Gish</string>
     <string name="icon_gold">Gold Box</string>
     <string name="icon_plus">Four Souls +</string>
@@ -140,6 +141,7 @@
     <string name="settings_cancel_delete">Keep Data</string>
     <string name="settings_confirm_delete">Delete Data</string>
     <string name="settings_reset_tutorial">Reset\nTutorial</string>
+    <string name="settings_show_patch_notes">Show All Patch Notes</string>
 
     <!-- Custom Card Input Screen -->
     <string name="custom_title">Custom Cards</string>
@@ -234,7 +236,7 @@
     <!-- Version Update Codes -->
     <string name="patch_notes_title">Patch Notes</string>
     <string name="version_16">
-        &lt;b>&lt;u>Version 4.01&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 4.01 (17-Dec-21)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added new version recaps to the app so that changes are more visible &lt;br>&lt;/br>
         \u2022 Updated the blank character cards to use the new version 2 cards from u/Koretex_&lt;br>&lt;/br>
         \u2022 The Lost now automatically starts with 1 soul on the results screen&lt;br>&lt;/br>
@@ -248,7 +250,7 @@
     </string>
 
     <string name="version_18">
-        &lt;b>&lt;u>Version 4.02&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 4.02 (28-Jan-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added the clicker to the list of icons for the randomise button &lt;br>&lt;/br>
         \u2022 Added updated cards for Jacob \&amp; Esau, The Baleful, Baba and Steven &lt;br>&lt;/br>
         \u2022 Added a privacy policy to be in line with google"s new policies &lt;br>&lt;/br>
@@ -256,7 +258,7 @@
     </string>
 
     <string name="version_20">
-        &lt;b>&lt;u>Version 4.03&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 4.03 (16-Jun-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added cards from the Unboxing of Isaac, and associated Promos &lt;br>&lt;/br>
         \u2022 Added new Eden promo from UKGE &lt;br>&lt;/br>
         \u2022 Added Retro Eden, and a new pixel font which can be turned off &lt;br>&lt;/br>
@@ -264,9 +266,19 @@
     </string>
 
     <string name="version_21">
-        &lt;b>&lt;u>Version 4.04&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 4.04 (11-Jul-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Actually added cards from the Unboxing of Isaac, and associated Promos &lt;br>&lt;/br>
-        \u2022 Added sync for promo and Unboxing of Isaac treasures so each new update doesn\'tg
+        \u2022 Added sync for promo and Unboxing of Isaac treasures so each new update doesn\'t
         require an update to the app &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
+
+    <string name="version_22">
+        &lt;b>&lt;u>Version 4.05&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Separated G-Fuel cards from Promo cards, to be in line with <a href="https://foursouls.com/cards/">
+            foursouls.com</a> &lt;br>&lt;/br>
+        \u2022 Added new character alt art cards from The Unboxing of Isaac as options for character art &lt;br>&lt;/br>
+        \u2022 Fixed font size issues when using the Retro Eden card &lt;br>&lt;/br>
+        \u2022 Added a button to view all old patch notes from the settings menu, and added dates to the patch notes &lt;br>&lt;/br> &lt;br>&lt;/br>
+    </string>
+
 </resources>

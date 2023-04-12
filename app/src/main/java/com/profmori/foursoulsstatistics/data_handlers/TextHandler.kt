@@ -30,6 +30,7 @@ class TextHandler {
                 "alt_art" to R.string.icon_alt_art,
                 "base" to R.string.icon_base,
                 "custom" to R.string.icon_custom,
+                "gfuel" to R.string.icon_gfuel,
                 "gish" to R.string.icon_gish,
                 "gold" to R.string.icon_gold,
                 "plus" to R.string.icon_plus,
@@ -79,7 +80,10 @@ class TextHandler {
             // Return the current font mapping
         }
 
-        fun updateRetroFont(context: Context, oldMap: Map<String, Typeface>): Map<String, Typeface> {
+        fun updateRetroFont(
+            context: Context,
+            oldMap: Map<String, Typeface>
+        ): Map<String, Typeface> {
             // Allows the retro font to be set to retro from a central place
             val fontMap: Map<String, Typeface>
             // Creates a map for the font

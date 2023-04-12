@@ -53,8 +53,19 @@ class SettingsHandler {
 
         fun getSets(): Array<String> {
             return arrayOf(
-                "base", "gold", "plus", "requiem",
-                "alt_art", "gish", "promo", "retro", "tapeworm", "target", "unboxing", "warp",
+                "base",
+                "gold",
+                "plus",
+                "requiem",
+                "alt_art",
+                "gfuel",
+                "gish",
+                "promo",
+                "retro",
+                "tapeworm",
+                "target",
+                "unboxing",
+                "warp",
                 "custom"
             )
         }
@@ -251,7 +262,7 @@ class SettingsHandler {
             if (!version_no.isNullOrBlank()) {
                 // Otherwise set the variable to the current version number
 
-                val versions = 0..BuildConfig.VERSION_CODE
+                val versions = BuildConfig.VERSION_CODE downTo 0
                 // Get a list of all versions up to this one
                 var versionNotes = buildSpannedString {
                     this.append("")

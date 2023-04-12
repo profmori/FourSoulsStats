@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -90,12 +91,13 @@ class RerollPrefSelect : AppCompatActivity() {
             startActivity(email)
             // Set up the email screen
         }
-    }
 
-    override fun onBackPressed() {
-        // When the back arrow is pressed
-        val returnButton = findViewById<Button>(R.id.randomiseBackButton)
-        returnButton.performClick()
-        // Do everything that would happen from pressing the actual button
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Clicks the return button
+            }
+        })
     }
 }

@@ -35,6 +35,9 @@ class PlayerHandler(
     var useRetro = true
     // Variable for whether or not to use retro eden cards
 
+    var useUnboxing = true
+    // Variable for whether or not to use unboxing of isaac alt arts
+
     companion object {
         fun makePlayerList(playerNum: Int): Array<PlayerHandler> {
             // Function to make the original array of players
@@ -129,12 +132,10 @@ class PlayerHandler(
                 // if the character has an index (it exists)
                 val currentChar = charList[pos]
                 // Get the current character
-                charImage = currentChar.image
+                var imageArray = arrayOf(currentChar.image)
                 // Set the image to the basic value
                 if (charName == "eden") {
                     // If Eden is selected
-                    var imageArray = arrayOf(R.drawable.b2_eden)
-                    // The basic eden image is always an option
                     if (useAlts) {
                         imageArray += arrayOf(R.drawable.aa_eden_1, R.drawable.aa_eden_2)
                     }
@@ -154,15 +155,25 @@ class PlayerHandler(
                     if (useRetro) {
                         imageArray += arrayOf(R.drawable.ret_eden)
                     }
-                    // Adds the retro eden card if retro is being used
-                    charImage = imageArray.random()
+                    // Adds the retro eden card if retro is being use
                     // Picks a random Eden card
-                } else if ((currentChar.imageAlt != null) and useAlts) {
-                    // If there is an alternate image, and the player wants the chance to use alternate art
-                    charImage =
-                        arrayOf(currentChar.image, currentChar.imageAlt).random()!!
-                    // Select a random character image
+                } else {
+                    if ((currentChar.imageAlt != null) and useAlts) {
+                        // If there is an alternate image, and the player wants the chance to use alternate art
+                        val altArt = currentChar.imageAlt
+                        if (altArt != null) {
+                            imageArray += arrayOf(altArt)
+                        }
+                    }
+
+                    if (useUnboxing) {
+                        val unboxedImage = ImageHandler.getUnboxingAlt(charName)
+                        if (unboxedImage > 0) {
+                            imageArray += arrayOf(unboxedImage)
+                        }
+                    }
                 }
+                charImage = imageArray.random()
             } else if (newName == "") {
                 // If the name is now blank
                 charName = newName

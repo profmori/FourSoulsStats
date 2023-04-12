@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -162,13 +163,14 @@ class EnterResult : AppCompatActivity() {
             startActivity(enterData)
             // Start the data entry page with the new parameters
         }
-    }
 
-    override fun onBackPressed() {
-        val returnButton = findViewById<Button>(R.id.resultsToEntry)
-        // Get the return button
-        returnButton.performClick()
-        // Clicks the button
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // When the back arrow is pressed
+                returnButton.performClick()
+                // Clicks the return button
+            }
+        })
     }
 
     private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: Int) {

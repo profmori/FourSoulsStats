@@ -49,6 +49,10 @@ class ItemList {
                 treasureList += readChangeable(context, "unboxing")
             }
 
+            if (settings["gfuel"].toBoolean()) {
+                treasureList += readChangeable(context, "gfuel")
+            }
+
             if (settings["custom"].toBoolean()) {
                 treasureList += readChangeable(context, "custom_treasures")
             }
@@ -101,7 +105,7 @@ class ItemList {
             }
         }
 
-        fun saveToFile(context: Context, items: MutableMap<String, Array<String>>){
+        fun saveToFile(context: Context, items: MutableMap<String, Array<String>>) {
             for (key in items.keys) {
                 val keyFilename = "$key.txt"
                 val keyFile = context.getFileStreamPath(keyFilename)
@@ -109,10 +113,10 @@ class ItemList {
                 val itemList = items[key]!!
                 val writer = context.openFileOutput(keyFilename, AppCompatActivity.MODE_PRIVATE)
                 // Create the file output stream writer
-                    writer.use { stream ->
-                        for (item in itemList){
-                            val itemText = "$item\n"
-                            stream.write(itemText.toByteArray())
+                writer.use { stream ->
+                    for (item in itemList) {
+                        val itemText = "$item\n"
+                        stream.write(itemText.toByteArray())
                     }
                 }
             }
