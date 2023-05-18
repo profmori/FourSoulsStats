@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +22,11 @@ import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
-import com.profmori.foursoulsstatistics.database.*
+import com.profmori.foursoulsstatistics.database.CharEntity
+import com.profmori.foursoulsstatistics.database.GameDAO
+import com.profmori.foursoulsstatistics.database.GameDataBase
+import com.profmori.foursoulsstatistics.database.ItemList
+import com.profmori.foursoulsstatistics.database.Player
 import kotlinx.coroutines.launch
 
 class EnterData : AppCompatActivity() {
@@ -64,8 +69,18 @@ class EnterData : AppCompatActivity() {
         val rerollButton = findViewById<Button>(R.id.rerollButton)
         // Gets the reroll button
 
+        val coOpBox = findViewById<CheckBox>(R.id.inputCoOpBox)
+        // Get the co-op check box
+
+        val coOpPrompt = findViewById<TextView>(R.id.inputCoOpPrompt)
+        // Get the co-op prompt
+
         var gameTreasures = treasureNo.text.toString().toInt()
         // Get the number of treasures
+
+        var coOpGame = false
+
+        var soloGame = false
 
         val background = findViewById<ImageView>(R.id.background)
         // Get the background of the page
@@ -89,7 +104,15 @@ class EnterData : AppCompatActivity() {
             eternals = intent.getStringArrayExtra("eternals") as Array<String?>
             souls = intent.getIntArrayExtra("souls") as IntArray
             gameTreasures = intent.getIntExtra("treasures", 0)
-            playerNo.setText(playerNames.size.toString())
+            coOpGame = intent.getBooleanExtra("coop",false)
+            soloGame = intent.getBooleanExtra("solo",false)
+
+            if (soloGame){
+                playerNo.setText("1")
+            }else {
+                playerNo.setText(playerNames.size.toString())
+            }
+
             treasureNo.setText(gameTreasures.toString())
             // Get feedback from results if it exists and set the player and treasure numbers
 
@@ -101,6 +124,15 @@ class EnterData : AppCompatActivity() {
 
         var playerCount = playerNo.text.toString().toInt()
         // Get the number of players in the game from the player number
+
+        if (playerCount == 2){
+            coOpBox.visibility = View.VISIBLE
+            coOpPrompt.visibility = View.VISIBLE
+        }else{
+            coOpBox.visibility = View.GONE
+            coOpPrompt.visibility = View.GONE
+        }
+        coOpBox.isChecked = coOpGame
 
         val continueButton = findViewById<Button>(R.id.inputGameResults)
         // Gets the button to continue
@@ -121,7 +153,8 @@ class EnterData : AppCompatActivity() {
                     charImages[i],
                     eternals[i],
                     souls[i],
-                    false
+                    false,
+                    soloGame
                 )
                 // Adds the player
             }
@@ -162,18 +195,9 @@ class EnterData : AppCompatActivity() {
             playerList = gameDao.getPlayers()
             // Get the player list
             playerHandlerList.forEach {
-                it.addData(characterList, playerList)
+                it.addData(characterList, playerList, this@EnterData)
                 // Add the player and character list to all player handlers
-                it.useAlts = settings["alt_art"].toBoolean()
-                // Set the player handler flag for using alt art correctly
-                it.usePromo = settings["promo"].toBoolean()
-                // Set the player handler flag for using promo edens correctly
-                it.useRequiem = settings["requiem"].toBoolean()
-                // Set the player handler flag for using requiem edens correctly
-                it.useRetro = settings["retro"].toBoolean()
-                // Set the player handler flag for using retro edens correctly
-                it.useUnboxing = settings["unboxing"].toBoolean()
-                // Set the player handler flag for using retro edens correctly
+
             }
 
         }
@@ -185,6 +209,7 @@ class EnterData : AppCompatActivity() {
         titleView.typeface = fonts["title"]
         continueButton.typeface = fonts["body"]
         returnButton.typeface = fonts["body"]
+        coOpPrompt.typeface = fonts["body"]
         // Update the fonts
 
         val buttonBG = ImageHandler.setButtonImage()
@@ -223,14 +248,14 @@ class EnterData : AppCompatActivity() {
                     playerNo.setText(playerCount.toString())
                     // Rewrite the text field to show this
                 } finally {
-                    if (playerCount < 2) {
+                    if (playerCount < 1) {
                         // If the user tries to input something invalid
-                        playerCount = 2
+                        playerCount = 1
                         // Set the player count to 1
                     }
                     playerNo.setText(playerCount.toString())
                     // Rewrite the text field to show this
-                    if ((playerCount == 2) && (oldPlayerCount != 2)) {
+                    if ((playerCount == 2) && (oldPlayerCount > 2)) {
                         // If they have just changed to 2 player game
                         gameTreasures = 2
                         // Set the number of treasures to 2
@@ -239,10 +264,21 @@ class EnterData : AppCompatActivity() {
                         gameTreasures = 0
                         // Set the number of treasures to 0
                     }
+
+                    if (playerCount == 2){
+                        coOpBox.visibility = View.VISIBLE
+                        coOpPrompt.visibility = View.VISIBLE
+                    }
+                    else{
+                        coOpBox.visibility = View.GONE
+                        coOpPrompt.visibility = View.GONE
+                        coOpGame = playerCount == 1
+                        coOpBox.isChecked = coOpGame
+                    }
                     treasureNo.setText(gameTreasures.toString())
                     // Set the treasure number box to the game treasures
                     playerHandlerList =
-                        PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
+                        PlayerHandler.updatePlayerList(playerHandlerList, playerCount, this)
                     // Makes a player list based on the number of players
                     adapter = CharListAdapter(playerHandlerList)
                     // Creates the recycler view adapter for this
@@ -289,8 +325,19 @@ class EnterData : AppCompatActivity() {
             }
         }
 
+        coOpBox.setOnCheckedChangeListener { _, b ->
+            gameTreasures = if (b){
+                0
+            } else{
+                2
+            }
+            coOpGame = b
+            treasureNo.setText(gameTreasures.toString())
+            // Set the treasure number box to the game treasures
+        }
+
         continueButton.setOnClickListener {
-            tryMoveOn(playerHandlerList, gameTreasures, background)
+            tryMoveOn(playerHandlerList, gameTreasures, coOpGame, background)
             // Try to move to the next screen
         }
 
@@ -362,7 +409,7 @@ class EnterData : AppCompatActivity() {
         })
     }
 
-    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, view: View) {
+    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, coOpGame: Boolean, view: View) {
         var moveOn = true
         // Say you can move on
         for (p in playerHandlerList) {
@@ -397,13 +444,17 @@ class EnterData : AppCompatActivity() {
                 soulsList += intArrayOf(p.soulsNum)
             }
             // Add all of the data
+
             enterResult.putExtra("names", playerNameList)
             enterResult.putExtra("chars", charNameList)
             enterResult.putExtra("images", charImageList)
             enterResult.putExtra("treasures", gameTreasures)
             enterResult.putExtra("eternals", eternalList)
             enterResult.putExtra("souls", soulsList)
+            enterResult.putExtra("coop",coOpGame)
+            enterResult.putExtra("solo",playerHandlerList[0].solo)
             // Creates a set of extra parameters which passes all the data to the results page
+
             val dbPlayers = playerList.map { player -> player.playerName }
             // Gets the list of players stored in the database
             lifecycleScope.launch {

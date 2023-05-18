@@ -1,5 +1,6 @@
 package com.profmori.foursoulsstatistics.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -29,7 +30,11 @@ data class Game(
     val gameID: String,
     val playerNo: Int,
     val treasureNo: Int,
-    val uploaded: Boolean
+    val uploaded: Boolean,
+    @ColumnInfo(defaultValue = "false")
+    val coop: Boolean,
+    @ColumnInfo(defaultValue = "-1")
+    val turnsLeft: Int
 )
 
 @Entity(tableName = "game_instances")
@@ -42,7 +47,9 @@ data class GameInstance(
     val charName: String,
     val eternal: String?,
     val souls: Int,
-    val winner: Boolean
+    val winner: Boolean,
+    @ColumnInfo(defaultValue = "false")
+    val solo: Boolean
 )
 
 data class PlayerWithInstance(

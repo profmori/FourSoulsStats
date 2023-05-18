@@ -5,7 +5,12 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TypefaceSpan
 import android.view.View
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter

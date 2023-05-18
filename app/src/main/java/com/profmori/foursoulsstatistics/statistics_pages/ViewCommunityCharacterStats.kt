@@ -8,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.RangeSlider
 import com.profmori.foursoulsstatistics.R
-import com.profmori.foursoulsstatistics.custom_adapters.*
+import com.profmori.foursoulsstatistics.custom_adapters.StatsTable
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TableHandler
-import com.profmori.foursoulsstatistics.database.*
+import com.profmori.foursoulsstatistics.database.CharEntity
+import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import de.codecrafters.tableview.SortableTableView
 import kotlinx.coroutines.launch
@@ -55,7 +56,7 @@ class ViewCommunityCharacterStats : AppCompatActivity() {
         // Setup the page correctly
 
         lifecycleScope.launch {
-            val gamesList = OnlineDataHandler.getAllGames(this@ViewCommunityCharacterStats)
+            val gamesList = OnlineDataHandler.getAllGames(this@ViewCommunityCharacterStats, true)
 
             TableHandler.onlineDataSetup(
                 gamesList,
@@ -119,7 +120,7 @@ class ViewCommunityCharacterStats : AppCompatActivity() {
             editionList.forEach { characters += gameDao.getCharacterList(it) }
             // Create a list of all characters in the used editions
 
-            val games = OnlineDataHandler.getAllGames(this@ViewCommunityCharacterStats)
+            val games = OnlineDataHandler.getAllGames(this@ViewCommunityCharacterStats, true)
             // Get all games
 
             val filteredPlayers = games.filter {

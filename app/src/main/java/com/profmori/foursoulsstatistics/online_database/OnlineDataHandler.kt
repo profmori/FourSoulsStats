@@ -8,7 +8,11 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
-import com.profmori.foursoulsstatistics.database.*
+import com.profmori.foursoulsstatistics.database.CharEntity
+import com.profmori.foursoulsstatistics.database.Game
+import com.profmori.foursoulsstatistics.database.GameDataBase
+import com.profmori.foursoulsstatistics.database.GameInstance
+import com.profmori.foursoulsstatistics.database.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,10 +52,14 @@ class OnlineDataHandler {
 
         }
 
-        private fun generateOnlineName(instance: GameInstance): String {
-            val obfName = instance.playerName.toCharArray().map { c -> c.code }
+        private fun generateOnlineName(instance: GameInstance, index: Int): String {
+            var obfName = instance.playerName.toCharArray().map { c -> c.code }
                 .joinToString("")
             // Create the obfuscated name from the player's name
+
+            if (instance.solo){
+                obfName += index.toString()
+            }
 
             return instance.gameID.substring(7) + obfName
             // Set the online id to the timecode followed by the obfuscated player
@@ -76,7 +84,7 @@ class OnlineDataHandler {
             return games
         }
 
-        suspend fun getAllGames(context: Context): Array<OnlineGameInstance> {
+        suspend fun getAllGames(context: Context, competitive: Boolean): Array<OnlineGameInstance> {
             signIn()
             // Sign into the database
             var games = emptyArray<OnlineGameInstance>()
@@ -87,7 +95,10 @@ class OnlineDataHandler {
                 val readAll = onlineDB.whereNotEqualTo("groupID", "").get().await()
                 // Creates a query to read all games where the group id exists
                 readAll.documents.forEach { document ->
-                    games += arrayOf(document.toObject<OnlineGameInstance>()!!)
+                    val documentObj = document.toObject<OnlineGameInstance>()!!
+                    if (documentObj.coop == competitive) {
+                        games += arrayOf(documentObj)
+                    }
                     // Adds all game instances to the list
                 }
             }
@@ -148,7 +159,8 @@ class OnlineDataHandler {
                                     gameInstance.charName,
                                     gameInstance.eternal,
                                     gameInstance.souls,
-                                    gameInstance.winner
+                                    gameInstance.winner,
+                                    gameInstance.solo
                                 )
                             )
 
@@ -156,7 +168,8 @@ class OnlineDataHandler {
                                 // Add / update the stored game in the local database
                                 Game(
                                     gameInstance.gameID, gameInstance.gameSize,
-                                    gameInstance.treasureNum, true
+                                    gameInstance.treasureNum, true, gameInstance.coop,
+                                    gameInstance.turnsLeft
                                 )
                             )
                         }
@@ -187,6 +200,7 @@ class OnlineDataHandler {
             }.await()
             return idList
             // Return the id list
+
         }
 
         suspend fun getOnlineItems(context: Context): MutableMap<String, Array<String>> {
@@ -242,13 +256,13 @@ class OnlineDataHandler {
                         val gameInstances = localDAO.getGameWithInstance(game.gameID)
                         // Get the list of instances for this game
                         gameInstances.forEach { gameInstance ->
-                            gameInstance.gameInstances.forEach { instance ->
+                            gameInstance.gameInstances.forEachIndexed { index, instance ->
                                 // Iterates through each game instance
-                                saveOnlineGameInstance(game, instance)
+                                saveOnlineGameInstance(game, instance, index)
                                 // Save the online game instance
                             }
                         }
-                        val updatedGame = Game(game.gameID, game.playerNo, game.treasureNo, true)
+                        val updatedGame = Game(game.gameID, game.playerNo, game.treasureNo, true, game.coop, game.turnsLeft)
                         // Create the updated game object
                         localDAO.updateGame(updatedGame)
                         // Update the game to be marked as uploaded
@@ -262,16 +276,16 @@ class OnlineDataHandler {
             // Sanitise the id so it doesn't contain ambiguous characters
             val onlineDatabase = Firebase.firestore.collection("group_ids")
             // Get the online database
-            onlineDatabase.add(OnlineGroupID(id))
+            onlineDatabase.document(id).set(OnlineGroupID(id))
             // Add it as an online group id object
         }
 
-        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance) {
+        suspend fun saveOnlineGameInstance(game: Game, gameInstance: GameInstance, index: Int) {
             signIn()
             // Sign into the database
             val onlineDB = Firebase.firestore.collection("game_instances")
             // Get the online game database
-            val docName = generateOnlineName(gameInstance)
+            val docName = generateOnlineName(gameInstance, index)
             val newOnlineGameInstance = OnlineGameInstance(
                 // Creates a new online game instance
                 gameInstance.gameID.subSequence(0, 6).toString(),
@@ -282,7 +296,10 @@ class OnlineDataHandler {
                 gameInstance.charName,
                 gameInstance.eternal,
                 gameInstance.souls,
-                gameInstance.winner
+                gameInstance.winner,
+                gameInstance.solo,
+                game.coop,
+                game.turnsLeft
             )
             onlineDB.document(docName).set(newOnlineGameInstance).await()
             // Add the game instance to the online database

@@ -1,0 +1,187 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "de2fcdea9c63530f3c2a16695dfc4b5a",
+    "entities": [
+      {
+        "tableName": "players",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`playerName` TEXT NOT NULL, PRIMARY KEY(`playerName`))",
+        "fields": [
+          {
+            "fieldPath": "playerName",
+            "columnName": "playerName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "playerName"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "characters",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`charName` TEXT NOT NULL, `image` INTEGER NOT NULL, `imageAlt` INTEGER, `edition` TEXT NOT NULL, PRIMARY KEY(`charName`))",
+        "fields": [
+          {
+            "fieldPath": "charName",
+            "columnName": "charName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageAlt",
+            "columnName": "imageAlt",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "edition",
+            "columnName": "edition",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "charName"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "games",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`gameID` TEXT NOT NULL, `playerNo` INTEGER NOT NULL, `treasureNo` INTEGER NOT NULL, `uploaded` INTEGER NOT NULL, `coop` INTEGER NOT NULL DEFAULT false, `turnsLeft` INTEGER NOT NULL DEFAULT -1, PRIMARY KEY(`gameID`))",
+        "fields": [
+          {
+            "fieldPath": "gameID",
+            "columnName": "gameID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "playerNo",
+            "columnName": "playerNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "treasureNo",
+            "columnName": "treasureNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uploaded",
+            "columnName": "uploaded",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coop",
+            "columnName": "coop",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "false"
+          },
+          {
+            "fieldPath": "turnsLeft",
+            "columnName": "turnsLeft",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "gameID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "game_instances",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instanceID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `gameID` TEXT NOT NULL, `playerName` TEXT NOT NULL, `charName` TEXT NOT NULL, `eternal` TEXT, `souls` INTEGER NOT NULL, `winner` INTEGER NOT NULL, `solo` INTEGER NOT NULL DEFAULT false)",
+        "fields": [
+          {
+            "fieldPath": "instanceID",
+            "columnName": "instanceID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameID",
+            "columnName": "gameID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "playerName",
+            "columnName": "playerName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "charName",
+            "columnName": "charName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eternal",
+            "columnName": "eternal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "souls",
+            "columnName": "souls",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "winner",
+            "columnName": "winner",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "solo",
+            "columnName": "solo",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "false"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "instanceID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'de2fcdea9c63530f3c2a16695dfc4b5a')"
+    ]
+  }
+}

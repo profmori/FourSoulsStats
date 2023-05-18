@@ -16,7 +16,9 @@
 
         android:scaleType="fitXY"
         android:src="@drawable/bg_border_treasure_back"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/adjustExitButton"
@@ -46,6 +48,7 @@
         android:text="@string/adjust_title"
         android:textColor="@color/black"
 
+        android:paddingBottom="10dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,9 +56,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adjustPlayerLine"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/adjustTitle">
 
         <TextView
@@ -66,12 +70,8 @@
 
             android:text="@string/input_no_players"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/adjustPlayerNumber"/>
 
         <EditText
             android:id="@+id/adjustPlayerNumber"
@@ -89,34 +89,34 @@
 
             android:textAlignment="center"
             android:textColor="@color/black"
+
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@id/adjustPlayerPrompt"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/adjustPlayerPrompt"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/adjustTreasureLine"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/adjustPlayerLine">
 
         <TextView
             android:id="@+id/adjustTreasurePrompt"
 
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/input_no_treasures"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/adjustTreasureNumber" />
 
         <EditText
             android:id="@+id/adjustTreasureNumber"
@@ -134,10 +134,79 @@
 
             android:textAlignment="center"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintBottom_toBottomOf="@id/adjustTreasurePrompt"
             app:layout_constraintStart_toEndOf="@id/adjustTreasurePrompt"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/adjustTreasurePrompt" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adjustCoOpLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adjustTreasureLine">
+
+        <TextView
+            android:id="@+id/adjustCoOpPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/input_co_op"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/adjustCoOpBox"/>
+
+        <CheckBox
+            android:id="@+id/adjustCoOpBox"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:buttonTint="@color/darker"
+            app:layout_constraintTop_toTopOf="@id/adjustCoOpPrompt"
+            app:layout_constraintBottom_toBottomOf="@id/adjustCoOpPrompt"
+            app:layout_constraintStart_toEndOf="@id/adjustCoOpPrompt"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adjustTurnsLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/adjustCoOpLine">
+
+        <TextView
+            android:id="@+id/adjustTurnsPrompt"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:text="@string/input_no_turns"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/adjustTurnsNumber"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/adjustTurnsNumber"
+
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:background="@drawable/number_rectangle"
+            android:ems="2"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+
+            android:labelFor="@id/adjustTurnsNumber"
+            android:text="@string/input_default_turns"
+
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/adjustTurnsPrompt"
+            android:layout_marginStart="10dp"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -147,9 +216,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="10dp"
         app:layout_constraintBottom_toTopOf="@id/adjustDeleteGame"
-        app:layout_constraintTop_toBottomOf="@+id/adjustTreasureLine"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@id/adjustTurnsLine" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/adjustSubmit"

@@ -20,15 +20,61 @@
         android:src="@drawable/bg_border_treasure_back"
         tools:ignore="ContentDescription" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inputTurnsLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/inputTurnsPrompt"
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:text="@string/input_no_turns"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/inputTurnsNumber"
+            android:layout_marginHorizontal="10dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/inputTurnsNumber"
+
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/number_rectangle"
+            android:ems="2"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+
+            android:inputType="number"
+            android:labelFor="@id/inputTurnsNumber"
+
+            android:text="@string/input_default_turns"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/inputTurnsPrompt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/winPlayerList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="45dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/inputTurnsLeft" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputButtonBar"

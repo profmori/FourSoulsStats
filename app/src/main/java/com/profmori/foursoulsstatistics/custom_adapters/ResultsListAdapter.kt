@@ -18,9 +18,10 @@ import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.RecyclerHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
+import kotlin.math.abs
 
 
-class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
+class ResultsListAdapter(private val playerList: Array<PlayerHandler>, private val coOpGame: Boolean) :
     RecyclerView.Adapter<ResultsListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
@@ -144,7 +145,6 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
             }
         }
 
-
         playerEntry.typeface = fonts["body"]
         playerEntry.textSize = fontSize
         soulsBox.typeface = fonts["body"]
@@ -155,7 +155,15 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
         soulsText.textSize = fontSize
         // Set all the fonts for the entries correctly
 
+        if (coOpGame){
+            soulsBox.visibility = View.GONE
+            soulsText.visibility = View.GONE
+            playerHandler.soulsNum = 0
+        }
+
         soulsBox.setText(playerHandler.soulsNum.toString())
+
+        winnerTick.isChecked = playerHandler.winner
 
         soulsBox.setOnEditorActionListener { view, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -181,6 +189,13 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>) :
         winnerTick.setOnCheckedChangeListener { _, _ ->
             playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
+
+            if (coOpGame){
+                val otherPosition = abs(position-1)
+                val otherPlayer = playerList[otherPosition]
+                otherPlayer.winner = winnerTick.isChecked
+                notifyItemChanged(otherPosition)
+            }
         }
     }
 

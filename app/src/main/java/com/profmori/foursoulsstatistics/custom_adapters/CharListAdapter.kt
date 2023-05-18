@@ -16,6 +16,7 @@ import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.RecyclerHandler
 import com.profmori.foursoulsstatistics.database.ItemList
+import kotlin.math.abs
 
 
 class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
@@ -24,7 +25,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
     private var itemList = emptyArray<String>()
     // Create an empty array to hold the list of all items in the editions selected
 
-    inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
+    inner class ViewHolder(listItemView: View, parentGroup: ViewGroup) : RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val charImage: ImageView = itemView.findViewById(R.id.inputCharImage)
@@ -48,6 +49,8 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         val eternalPrompt: TextView = itemView.findViewById(R.id.inputEternalSelect)
         // Access the eternal entry prompt
 
+        val parent = parentGroup
+        // Stores the parent viewgroup
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -62,7 +65,8 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         // Inflate the custom layout
         val contactView = inflater.inflate(R.layout.enter_data_char, parent, false)
         // Return a new holder instance
-        return ViewHolder(contactView)
+
+        return ViewHolder(contactView, parent)
     }
 
     // Involves populating data into the item through holder
@@ -167,6 +171,7 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
 
         playerEntry.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             // When the player entry box loses or gains focus
+
             RecyclerHandler.enterPlayer(
                 hasFocus,
                 playerPrompt,
@@ -178,9 +183,17 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
-                itemList
-            )
+                itemList)
             // Run all the logic for entering the player data
+            if (playerHandler.solo){
+                val otherPosition = abs(position-1)
+                val otherPlayer = playerHandlerList[otherPosition]
+
+                if (otherPlayer.playerName != playerHandler.playerName) {
+                    otherPlayer.playerName = playerEntry.text.toString().trim().lowercase()
+                    notifyItemChanged(otherPosition)
+                }
+            }
         }
 
         eternalEntry.setOnEditorActionListener { view, actionId, _ ->

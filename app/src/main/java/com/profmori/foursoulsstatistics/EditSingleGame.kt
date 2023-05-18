@@ -6,6 +6,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,7 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
+import java.util.Collections
 
 class EditSingleGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +52,10 @@ class EditSingleGame : AppCompatActivity() {
         val submitButton = findViewById<Button>(R.id.adjustSubmit)
         val deleteButton = findViewById<Button>(R.id.adjustDeleteGame)
         val exitButton = findViewById<Button>(R.id.adjustExitButton)
+        val coOpBox = findViewById<CheckBox>(R.id.adjustCoOpBox)
+        val coOpPrompt = findViewById<TextView>(R.id.adjustCoOpPrompt)
+        val turnPrompt = findViewById<TextView>(R.id.adjustTurnsPrompt)
+        val turnNo = findViewById<EditText>(R.id.adjustTurnsNumber)
         // Get all the text based elements
 
         titleText.typeface = fonts["title"]
@@ -60,6 +65,9 @@ class EditSingleGame : AppCompatActivity() {
         treasureNo.typeface = fonts["body"]
         submitButton.typeface = fonts["body"]
         deleteButton.typeface = fonts["body"]
+        coOpPrompt.typeface = fonts["body"]
+        turnPrompt.typeface = fonts["body"]
+        turnNo.typeface = fonts["body"]
         // Set all the correct fonts
 
         val buttonBG = ImageHandler.setButtonImage()
@@ -81,12 +89,11 @@ class EditSingleGame : AppCompatActivity() {
         val playerRecycler = findViewById<RecyclerView>(R.id.adjustCharList)
         // Find the recycler view
 
-        val edition = SettingsHandler.getEditions(this)
-        val altArt = SettingsHandler.readSettings(this)["alt_art"].toBoolean()
+        val edition = SettingsHandler.getSets()
         val online = SettingsHandler.readSettings(this)["online"].toBoolean()
         // Get all the settings currently in use by the play group
 
-        var playerAdapter = EditGameAdapter(emptyArray())
+        var playerAdapter = EditGameAdapter(emptyArray(),false)
         // Create an empty adapter for the results list
         playerRecycler.layoutManager = GridLayoutManager(this, 2)
         // Lay the recycler out as a grid
@@ -106,9 +113,32 @@ class EditSingleGame : AppCompatActivity() {
             var playerCount = game.playerNo
             // Get the number of players in the game from the player number
 
+            var coOpGame = game.coop
+
+            var turnsLeft = game.turnsLeft
+
+            coOpBox.isChecked = coOpGame
+
+            if (playerCount == 2){
+                coOpBox.visibility = View.VISIBLE
+                coOpPrompt.visibility = View.VISIBLE
+            }else{
+                coOpBox.visibility = View.GONE
+                coOpPrompt.visibility = View.GONE
+            }
+
+            if (coOpGame){
+                turnPrompt.visibility = View.VISIBLE
+                turnNo.visibility = View.VISIBLE
+            }else{
+                turnPrompt.visibility = View.GONE
+                turnNo.visibility = View.GONE
+            }
+
             playerNo.setText(playerCount.toString())
             treasureNo.setText(gameTreasures.toString())
-            // Set the player and treasure numbers
+            turnNo.setText(turnsLeft.toString())
+            // Set the input numbers
 
             var characterList = emptyArray<CharEntity>()
             edition.forEach { characterList += gameDao.getCharacterList(it) }
@@ -134,16 +164,15 @@ class EditSingleGame : AppCompatActivity() {
                     0,
                     gameInstance.eternal,
                     gameInstance.souls,
-                    gameInstance.winner
+                    gameInstance.winner,
+                    gameInstance.solo
                 )
                 // Adds the player handler
             }
 
             playerHandlerList.forEach {
-                it.addData(characterList, playerList)
-                // Add the player and character list to all player handlers
-                it.useAlts = altArt
-                // Set the player handler flag for using alt art correctly
+                it.addData(characterList, playerList, this@EditSingleGame)
+                // Add the player and character list to all player handler
                 it.fonts = fonts
                 // Updates the stored font
                 val charName = it.charName
@@ -153,7 +182,7 @@ class EditSingleGame : AppCompatActivity() {
             }
 
             withContext(Dispatchers.Main) {
-                playerAdapter = EditGameAdapter(playerHandlerList)
+                playerAdapter = EditGameAdapter(playerHandlerList, coOpGame)
                 // Create the adapter for the results list
 
                 playerRecycler.adapter = playerAdapter
@@ -192,17 +221,49 @@ class EditSingleGame : AppCompatActivity() {
                             playerNo.setText(playerCount.toString())
                             // Rewrite the text field to show this
                         } finally {
-                            if (playerCount < 2) {
+                            if (playerCount < 1) {
                                 // If the user tries to input something invalid
-                                playerCount = 2
+                                playerCount = 1
                                 // Set the player count to 1
-                                playerNo.setText(playerCount.toString())
-                                // Rewrite the text field to show this
                             }
+                            playerNo.setText(playerCount.toString())
+                            // Rewrite the text field to show this
+
+                            if (playerCount < 1) {
+                                // If the user tries to input something invalid
+                                playerCount = 1
+                                // Set the player count to 1
+                            }
+                            playerNo.setText(playerCount.toString())
+                            // Rewrite the text field to show this
+
+                            if ((playerCount == 2) && (oldPlayerCount > 2)) {
+                                // If they have just changed to 2 player game
+                                gameTreasures = 2
+                                // Set the number of treasures to 2
+                            } else if ((oldPlayerCount == 2) && (playerCount != 2)) {
+                                // If they have just changed from 2 players
+                                gameTreasures = 0
+                                // Set the number of treasures to 0
+                            }
+
+                            if (playerCount == 2){
+                                coOpBox.visibility = View.VISIBLE
+                                coOpPrompt.visibility = View.VISIBLE
+                            }
+                            else{
+                                coOpBox.visibility = View.GONE
+                                coOpPrompt.visibility = View.GONE
+                                coOpGame = playerCount == 1
+                                coOpBox.isChecked = coOpGame
+                            }
+                            treasureNo.setText(gameTreasures.toString())
+                            // Set the treasure number box to the game treasures
+
                             playerHandlerList =
-                                PlayerHandler.updatePlayerList(playerHandlerList, playerCount)
+                                PlayerHandler.updatePlayerList(playerHandlerList, playerCount, this@EditSingleGame)
                             // Makes a player list based on the number of players
-                            playerAdapter = EditGameAdapter(playerHandlerList)
+                            playerAdapter = EditGameAdapter(playerHandlerList, coOpGame)
                             // Create the adapter for the results list
                             playerRecycler.adapter = playerAdapter
                             // Attach the adapter to the player recycler
@@ -234,7 +295,7 @@ class EditSingleGame : AppCompatActivity() {
                         // After the number of treasures has been input
                         if (treasureNo.text.toString() == "") {
                             // If the field is blank
-                            treasureNo.setText(gameTreasures)
+                            treasureNo.setText(gameTreasures.toString())
                             // Set the field to the existing number of treasures
                         } else {
                             gameTreasures = treasureNo.text.toString().toInt()
@@ -247,11 +308,76 @@ class EditSingleGame : AppCompatActivity() {
                     }
                 }
 
+                turnNo.setOnEditorActionListener { view, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        // if the soft input is done
+                        val imm =
+                            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        // Get an input method manager
+                        imm.hideSoftInputFromWindow(view.windowToken, 0)
+                        // Hide the keyboard
+                        turnNo.clearFocus()
+                        // Clear the focus of the edit text
+                        return@setOnEditorActionListener true
+                    }
+                    false
+                }
+
+                turnNo.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        // After the number of treasures has been input
+                        if (turnNo.text.toString() == "") {
+                            // If the field is blank
+                            turnNo.setText(turnsLeft.toString())
+                            // Set the field to the existing number of treasures
+                        } else {
+                            turnsLeft = turnNo.text.toString().toInt()
+                            // Otherwise store the new number of treasures
+                        }
+                    } else {
+                        // If the user has just entered the text field
+                        turnNo.setText("")
+                        // Clear the text field
+                    }
+                }
+
+                coOpBox.setOnCheckedChangeListener { _, b ->
+                    gameTreasures = if (b){
+                        0
+                    } else{
+                        2
+                    }
+                    coOpGame = b
+                    treasureNo.setText(gameTreasures.toString())
+                    // Set the treasure number box to the game treasures
+
+                    playerHandlerList.forEach {
+                        it.winner = false
+                    }
+                    playerAdapter = EditGameAdapter(playerHandlerList, coOpGame)
+                    // Create the adapter for the results list
+                    playerRecycler.adapter = playerAdapter
+                    // Attach the adapter to the player recycler
+
+
+                    if (coOpGame){
+                        turnPrompt.visibility = View.VISIBLE
+                        turnNo.visibility = View.VISIBLE
+                        turnsLeft = 8
+                    }else{
+                        turnPrompt.visibility = View.GONE
+                        turnNo.visibility = View.GONE
+                        turnsLeft = -1
+                    }
+                    turnNo.setText(turnsLeft.toString())
+                }
+
                 exitButton.setOnClickListener {
                     if (checkSame(currResults, playerHandlerList)
-                        and (game.treasureNo == treasureNo.text.toString().toInt())
+                        and (game.treasureNo == gameTreasures)
+                        and (game.turnsLeft == turnsLeft)
                     ) {
-                        // If the player data and treasure number hasn't changed
+                        // If the player data and treasure number / turn number hasn't changed
                         finish()
                         // Go back to the page before
                     } else {
@@ -286,7 +412,7 @@ class EditSingleGame : AppCompatActivity() {
                         }
                     }
 
-                    if ((Collections.frequency(winners, true) == 1)
+                    if (((Collections.frequency(winners, true) == 1) or coOpGame)
                         // If there is only one winner
                         and (!players.contains(""))
                         // All players have names
@@ -297,7 +423,8 @@ class EditSingleGame : AppCompatActivity() {
                     ) {
                         // If there is exactly one winner and all data is entered
                         if (!checkSame(currResults, playerHandlerList)
-                            or (game.treasureNo != treasureNo.text.toString().toInt())
+                            or (game.treasureNo != gameTreasures)
+                            or (game.turnsLeft != turnsLeft)
                         ) {
                             // If the data has been changed or the number of treasures has changed
                             CoroutineScope(Dispatchers.IO).launch {
@@ -314,21 +441,24 @@ class EditSingleGame : AppCompatActivity() {
                                     gameID,
                                     playerNo.text.toString().toInt(),
                                     treasureNo.text.toString().toInt(),
-                                    game.uploaded
+                                    game.uploaded,
+                                    coOpGame,
+                                    turnsLeft
                                 )
                                 // Create a new game with the new data
                                 gameDao.addGame(newGame)
                                 // Add the new game to the database
-                                playerHandlerList.forEach {
+                                playerHandlerList.forEachIndexed { index, playerHandler ->
                                     // For all the players in the player list
                                     val newGameInstance = GameInstance(
                                         0,
                                         gameID,
-                                        it.playerName,
-                                        it.charName,
-                                        it.eternal,
-                                        it.soulsNum,
-                                        it.winner
+                                        playerHandler.playerName,
+                                        playerHandler.charName,
+                                        playerHandler.eternal,
+                                        playerHandler.soulsNum,
+                                        playerHandler.winner,
+                                        playerHandler.solo
                                     )
                                     // Create the new game instance
                                     gameDao.addGameInstance(newGameInstance)
@@ -336,7 +466,8 @@ class EditSingleGame : AppCompatActivity() {
                                     if (online) {
                                         OnlineDataHandler.saveOnlineGameInstance(
                                             newGame,
-                                            newGameInstance
+                                            newGameInstance,
+                                            index
                                         )
                                     }
                                     // If online saving is allowed update the online database as well

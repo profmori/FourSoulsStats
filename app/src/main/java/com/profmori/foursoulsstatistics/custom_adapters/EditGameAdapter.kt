@@ -6,16 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
 import com.profmori.foursoulsstatistics.data_handlers.RecyclerHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.ItemList
+import kotlin.math.abs
 
 
-class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
+class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>, var coOpGame: Boolean) :
     RecyclerView.Adapter<EditGameAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
@@ -80,6 +85,7 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         val eternalPrompt = viewHolder.eternalPrompt
         val eternalEntry = viewHolder.eternalEntry
         // Get the eternal entry line
+
         if (playerHandler.eternal.isNullOrBlank()) {
             // If the player doesn't have an eternal
             eternalEntry.isEnabled = false
@@ -95,10 +101,15 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         val soulsCount = viewHolder.soulsCount
         // Gets the soul input box
 
-        val soulNumber = playerHandler.soulsNum
+        var soulNumber = playerHandler.soulsNum
         // Gets the soul number
         soulsCount.setText(soulNumber.toString())
         // Sets the soul number to be accurate
+
+        if (coOpGame){
+            soulsText.visibility = View.GONE
+            soulsCount.visibility = View.GONE
+        }
 
         val winnerTick = viewHolder.winnerCheck
         // Gets the winner tick box
@@ -168,6 +179,12 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
                 itemList
             )
             // Run all the logic for entering the player data
+            if (playerHandler.solo){
+                val otherPosition = abs(position-1)
+                val otherPlayer = playerHandlerList[otherPosition]
+                otherPlayer.playerName = playerEntry.text.toString().trim().lowercase()
+                notifyItemChanged(otherPosition)
+            }
         }
 
         charEntry.setOnEditorActionListener { view, actionId, _ ->
@@ -251,11 +268,20 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>) :
 
         soulsCount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             RecyclerHandler.enterSouls(hasFocus, soulsCount, winnerTick, playerHandler)
+            if (!hasFocus){
+                soulNumber = soulsCount.text.toString().toInt()
+            }
         }
 
         winnerTick.setOnCheckedChangeListener { _, _ ->
             playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
+            if (coOpGame){
+                val otherPosition = abs(position-1)
+                val otherPlayer = playerHandlerList[otherPosition]
+                otherPlayer.winner = winnerTick.isChecked
+                notifyItemChanged(otherPosition)
+            }
         }
     }
 

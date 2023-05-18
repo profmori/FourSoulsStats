@@ -144,6 +144,25 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/inputCoOpPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/input_co_op"
+        android:paddingVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputTreasureLine" />
+
+    <CheckBox
+        android:id="@+id/inputCoOpBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/darker"
+        app:layout_constraintBottom_toBottomOf="@id/inputCoOpPrompt"
+        app:layout_constraintStart_toEndOf="@id/inputCoOpPrompt"
+        app:layout_constraintTop_toTopOf="@id/inputCoOpPrompt" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inputCharList"
         android:layout_width="match_parent"
@@ -151,7 +170,7 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="10dp"
         app:layout_constraintBottom_toTopOf="@id/inputButtonBar"
-        app:layout_constraintTop_toBottomOf="@+id/inputTreasureLine" />
+        app:layout_constraintTop_toBottomOf="@+id/inputCoOpPrompt" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/inputButtonBar"

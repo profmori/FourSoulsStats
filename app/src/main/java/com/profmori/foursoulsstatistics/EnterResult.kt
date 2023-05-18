@@ -1,9 +1,15 @@
 package com.profmori.foursoulsstatistics
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +39,8 @@ class EnterResult : AppCompatActivity() {
         val charImages = intent.getIntArrayExtra("images") as IntArray
         val eternals = intent.getStringArrayExtra("eternals") as Array<String?>
         val souls = intent.getIntArrayExtra("souls") as IntArray
+        val coOpGame = intent.getBooleanExtra("coop",false)
+        val soloGame = intent.getBooleanExtra("solo",false)
         // Get all the data from the data entry page
 
         val fonts = TextHandler.setFont(this)
@@ -49,7 +57,8 @@ class EnterResult : AppCompatActivity() {
                 charImages[i],
                 eternals[i],
                 souls[i],
-                false
+                false,
+                soloGame
             )
             // Adds the player
             playerList.last().fonts = fonts
@@ -75,10 +84,15 @@ class EnterResult : AppCompatActivity() {
         val gameId = groupID + timeCode.toString()
         // Makes the game id out of the timecode and the unique identifier
 
+        val turnNoPrompt = findViewById<TextView>(R.id.inputTurnsPrompt)
+        val turnNoBox = findViewById<EditText>(R.id.inputTurnsNumber)
+        var turnCount = -1
+        // Get the turn input box
+
         val playerRecycler = findViewById<RecyclerView>(R.id.winPlayerList)
         // Find the recycler view
 
-        val playerAdapter = ResultsListAdapter(playerList)
+        val playerAdapter = ResultsListAdapter(playerList, coOpGame)
         // Create the adapter for the results list
 
         playerRecycler.adapter = playerAdapter
@@ -105,9 +119,71 @@ class EnterResult : AppCompatActivity() {
         SettingsHandler.updateBackground(this, background)
         // Update the background
 
+        turnNoPrompt.typeface = fonts["title"]
+        turnNoBox.typeface = fonts["title"]
         confirmResult.typeface = fonts["body"]
         returnButton.typeface = fonts["body"]
         // Update the fonts
+
+        if (coOpGame){
+            turnNoPrompt.visibility = View.VISIBLE
+            turnNoBox.visibility = View.VISIBLE
+            turnCount = 8
+        }else{
+            turnNoPrompt.visibility = View.INVISIBLE
+            turnNoBox.visibility = View.INVISIBLE
+        }
+        turnNoBox.setText(turnCount.toString())
+
+        turnNoBox.setOnEditorActionListener { view, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // if the soft input is done
+                val imm =
+                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                // Get an input method manager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                // Hide the keyboard
+                turnNoBox.clearFocus()
+                // Clear the focus of the edit text
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+        turnNoBox.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                // After the text in the player number field is changed
+                val oldTurnCount = turnCount
+                // Stores the player count for if an error occurs
+                try {
+                    turnCount = turnNoBox.text.toString().toInt()
+                    // Try and make the value in the text into an integer
+                } catch (e: NumberFormatException) {
+                    turnCount = oldTurnCount
+                    // If an error is thrown from no text set the number of players back to what it was
+                    turnNoBox.setText(turnCount.toString())
+                    // Rewrite the text field to show this
+                } finally {
+                    if (turnCount < 0) {
+                        // If the user tries to input something invalid
+                        turnCount = 0
+                        // Set the turn count to 0
+                        turnNoBox.setText(turnCount.toString())
+                        // Rewrite the text field to show this
+                    }
+
+                    playerList.forEachIndexed { index, playerHandler ->
+                        playerHandler.winner = turnCount > 0
+                        playerAdapter.notifyItemChanged(index)
+                    }
+
+                }
+            } else {
+                // If the user has just entered the text field
+                turnNoBox.setText("")
+                // Clear the input
+            }
+        }
 
         confirmResult.setOnClickListener {
             // When the button is pressed
@@ -121,9 +197,9 @@ class EnterResult : AppCompatActivity() {
                     // Add 1 to the winner count
                 }
             }
-            if (count == 1) {
-                // If there is exactly 1 winner
-                saveData(gameId, playerList, treasureCount)
+            if ((count == 1) or coOpGame) {
+                // If there is exactly 1 winner or it's a co-op game
+                saveData(gameId, playerList, treasureCount, coOpGame, turnCount)
                 // Save the game
                 val backToMain = Intent(this, MainActivity::class.java)
                 // Create an intent back to the main screen
@@ -159,6 +235,8 @@ class EnterResult : AppCompatActivity() {
             enterData.putExtra("treasures", treasureCount)
             enterData.putExtra("eternals", eternals)
             enterData.putExtra("souls", souls)
+            enterData.putExtra("coop",coOpGame)
+            enterData.putExtra("solo",soloGame)
             // Creates an extra parameter which passes data back to the data entry page
             startActivity(enterData)
             // Start the data entry page with the new parameters
@@ -173,14 +251,18 @@ class EnterResult : AppCompatActivity() {
         })
     }
 
-    private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: Int) {
+    private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: Int, coOpGame: Boolean, turnsLeft: Int) {
         // Function to save the game
         val gameDatabase: GameDataBase = GameDataBase.getDataBase(this)
         // Gets the game database
         val gameDao = gameDatabase.gameDAO
         // Gets the database access object
-
-        val game = Game(gameId, playerList.size, treasureCount, false)
+        val playerNum = if (playerList[0].solo){
+            1
+        } else{
+            playerList.size
+        }
+        val game = Game(gameId, playerNum, treasureCount, false, coOpGame, turnsLeft)
         // Creates a game variable to store this game
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -196,7 +278,8 @@ class EnterResult : AppCompatActivity() {
                     p.charName,
                     p.eternal,
                     p.soulsNum,
-                    p.winner
+                    p.winner,
+                    p.solo
                 )
                 // Creates a new game instance to record each player
                 gameDao.addGameInstance(newGameInstance)

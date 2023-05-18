@@ -21,7 +21,13 @@ data class OnlineGameInstance(
     @PropertyName("souls")
     val souls: Int = -1,
     @PropertyName("winner")
-    val winner: Boolean = false
+    val winner: Boolean = false,
+    @PropertyName("solo")
+    val solo: Boolean = false,
+    @PropertyName("coop")
+    val coop: Boolean = false,
+    @PropertyName("turnsLeft")
+    val turnsLeft: Int = -1
 )
 
 data class OnlineGroupID(

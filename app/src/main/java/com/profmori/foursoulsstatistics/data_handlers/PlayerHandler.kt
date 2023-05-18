@@ -1,5 +1,6 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
+import android.content.Context
 import android.graphics.Typeface
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.database.CharEntity
@@ -11,7 +12,8 @@ class PlayerHandler(
     var charImage: Int,
     var eternal: String?,
     var soulsNum: Int,
-    var winner: Boolean
+    var winner: Boolean,
+    var solo: Boolean
 ) {
 
     var charList = emptyArray<CharEntity>()
@@ -21,21 +23,21 @@ class PlayerHandler(
 
     // Creates variables for all the stored data about characters and players
     var fonts = emptyMap<String, Typeface>()
-
     // Global font variable
-    var useAlts = true
 
+    private var useAlts = true
     // Variable for whether or not to use alternate art
-    var usePromo = true
 
+    private var usePromo = true
     // Variable for whether or not to use promo eden cards
-    var useRequiem = true
+
+    private var useRequiem = true
     // Variable for whether or not to use requiem eden cards
 
-    var useRetro = true
-    // Variable for whether or not to use retro eden cards
+    private var useRetro = true
+    // Variable for whether or not to use retro eden card
 
-    var useUnboxing = true
+    private var useUnboxing = true
     // Variable for whether or not to use unboxing of isaac alt arts
 
     companion object {
@@ -45,7 +47,7 @@ class PlayerHandler(
             // Creates the array
             for (i in (1 until playerNum + 1)) {
                 // Iterates through every player in the array
-                players += (PlayerHandler("", "", ImageHandler.randomBlank(), null, 0, false))
+                players += (PlayerHandler("", "", ImageHandler.randomBlank(), null, 0, false, false))
                 // Add a player with no name or character and a blank character image
             }
             return players
@@ -54,16 +56,26 @@ class PlayerHandler(
 
         fun updatePlayerList(
             playerList: Array<PlayerHandler>,
-            playerNum: Int
+            playerNum: Int,
+            context: Context
         ): Array<PlayerHandler> {
             // Function to update the number of players without resetting the recycler
             val newPlayerList = playerList.toMutableList()
             // Creates a mutable list that can be reduced or increased in length
             val currentLength = playerList.size
             // Gets the length of the player list
-            if (currentLength < playerNum) {
+
+            var charNum = playerNum
+            var newSolo = false
+
+            if (playerNum == 1){
+                charNum = 2
+                newSolo = true
+            }
+
+            if (currentLength < charNum) {
                 // If the number of players has increased
-                for (i in (currentLength until playerNum)) {
+                for (i in (currentLength until charNum)) {
                     // For the number of extra players
                     newPlayerList += PlayerHandler(
                         "",
@@ -71,32 +83,51 @@ class PlayerHandler(
                         ImageHandler.randomBlank(),
                         null,
                         0,
+                        false,
                         false
                     )
                     // Add a player with no name or character and a blank character image
                     newPlayerList.last().fonts = playerList[0].fonts
                     // Set the new player font correctly
-                    newPlayerList.last().useAlts = playerList[0].useAlts
-                    // Match the alternate art setting
-                    newPlayerList.last().addData(playerList[0].charList, playerList[0].playerList)
+                    newPlayerList.last().addData(playerList[0].charList, playerList[0].playerList,context)
                     // Add the existing player and character lists to the new player handler
                 }
             } else {
                 // If the number of players has not increased
-                while (newPlayerList.size > playerNum) {
+                while (newPlayerList.size > charNum) {
                     // While the current player list is too long
-                    newPlayerList.removeAt(playerNum)
+                    newPlayerList.removeAt(charNum)
                     // Remove the element that would be after the last one
                 }
             }
+
+            if (newPlayerList[0].solo != newSolo){
+                for (player in newPlayerList){
+                    player.solo = newSolo
+                }
+            }
+
             return newPlayerList.toTypedArray()
             // Returns the updated list of players
         }
     }
 
-    fun addData(chars: Array<CharEntity>, players: Array<Player>) {
+    fun addData(chars: Array<CharEntity>, players: Array<Player>, context: Context) {
         charList = chars
         // Get the list of characters from the input
+        val settings = SettingsHandler.readSettings(context)
+        // Get the current settings
+        useAlts = settings["alt_art"].toBoolean()
+        // Set the player handler flag for using alt art correctly
+        usePromo = settings["promo"].toBoolean()
+        // Set the player handler flag for using promo edens correctly
+        useRequiem = settings["requiem"].toBoolean()
+        // Set the player handler flag for using requiem edens correctly
+        useRetro = settings["retro"].toBoolean()
+        // Set the player handler flag for using retro edens correctly
+        useUnboxing = settings["unboxing"].toBoolean()
+        // Set the player handler flag for using retro edens correctly
+
         charList.sortBy { it.charName }
         // Sorts the character list alphabetically
         charNames = charList.map { charEntity -> charEntity.charName }.toTypedArray()

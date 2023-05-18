@@ -1,6 +1,7 @@
 package com.profmori.foursoulsstatistics.database
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,10 +14,14 @@ import androidx.room.RoomDatabase
         Game::class,
         GameInstance::class
     ],
-    version = 1,
+    version = 2,
     // Current database version, needs to be changed on updates
-    exportSchema = false
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration (from = 1, to = 2)
+    ]
 )
+
 abstract class GameDataBase : RoomDatabase() {
     // All the database access objects in the database
     abstract val gameDAO: GameDAO

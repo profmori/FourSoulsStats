@@ -5,6 +5,11 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 android {
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
@@ -13,10 +18,16 @@ android {
         applicationId "com.profmori.foursoulsstatistics"
         minSdkVersion 22
         targetSdkVersion 33
-        versionCode 22
-        versionName "4.05"
+        versionCode 24
+        versionName "5.01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildFeatures {
         viewBinding true
@@ -41,30 +52,30 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     namespace 'com.profmori.foursoulsstatistics'
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.2.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1"
-    implementation "io.grpc:grpc-okhttp:1.44.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
+    implementation "io.grpc:grpc-okhttp:1.52.1"
 
     // Room components
     implementation "androidx.room:room-runtime:2.5.1"
@@ -79,8 +90,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
 
     // Kotlin components
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
     // Sortable Table
     implementation 'com.github.ISchwarz23:SortableTableView:2.8.1'

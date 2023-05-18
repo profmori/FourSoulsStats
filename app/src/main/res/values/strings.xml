@@ -32,6 +32,7 @@
     <string name="input_default_treasures" translatable="false">0</string>
     <string name="input_continue_button">Input Game\nResults</string>
     <string name="input_too_few">Not All Data Filled In</string>
+    <string name="input_co_op">Play in Co-Op:</string>
 
     <!-- Input Recycler View Strings -->
     <string name="input_card_char_title">Character:</string>
@@ -42,6 +43,8 @@
     <string name="add_player_2">To Player List</string>
 
     <!-- Results Page -->
+    <string name="input_no_turns">Turns Left:</string>
+    <string name="input_default_turns">8</string>
     <string name="result_continue">Save\nResult</string>
     <string name="result_wrong_count">There Needs To Be Exactly 1 Winner</string>
     <string name="result_pass_on">Game Saved</string>
@@ -273,12 +276,21 @@
     </string>
 
     <string name="version_22">
-        &lt;b>&lt;u>Version 4.05&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 4.05 (12-Apr-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Separated G-Fuel cards from Promo cards, to be in line with <a href="https://foursouls.com/cards/">
             foursouls.com</a> &lt;br>&lt;/br>
         \u2022 Added new character alt art cards from The Unboxing of Isaac as options for character art &lt;br>&lt;/br>
         \u2022 Fixed font size issues when using the Retro Eden card &lt;br>&lt;/br>
         \u2022 Added a button to view all old patch notes from the settings menu, and added dates to the patch notes &lt;br>&lt;/br> &lt;br>&lt;/br>
+    </string>
+
+    <string name="version_24">
+        &lt;b>&lt;u>Version 5.01&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added the ability to save single player, and co-op games &lt;br>&lt;/br>
+        \u2022 Stopped single player and co-op games from being shown in online statistics.
+        They will have their own sections eventually, but it was important to get this out quickly &lt;br>&lt;/br>
+        \u2022 Fixed a bug where any alternative art would show when editing old games &lt;br>&lt;/br>
+        \u2022 Made it so characters from unselected expansions don\'t appear as blank cards when editing old games &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 
 </resources>
