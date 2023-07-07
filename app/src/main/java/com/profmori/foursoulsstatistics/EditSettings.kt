@@ -5,14 +5,22 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ScrollView
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -80,12 +88,14 @@ class EditSettings : AppCompatActivity() {
         }
         // If custom cards are not being used, hide the input button
 
-        val pixelFont = findViewById<SwitchCompat>(R.id.pixelSwitch)
-        pixelFont.isChecked = settings["pixel_font"].toBoolean()
+        val pixelLine = findViewById<ConstraintLayout>(R.id.pixelLine)
+        val pixelSwitch = findViewById<SwitchCompat>(R.id.pixelSwitch)
+        val pixelFont = findViewById<TextView>(R.id.pixelText)
+        pixelSwitch.isChecked = settings["pixel_font"].toBoolean()
         // Match the pixel font settings
 
         if (!settings["retro"].toBoolean()) {
-            pixelFont.visibility = View.GONE
+            pixelLine.visibility = View.GONE
         }
         // If retro eden is not being used, hide the switch
 
@@ -173,6 +183,7 @@ class EditSettings : AppCompatActivity() {
             editionTitle,
             customButton,
             pixelFont,
+            pixelLine,
             borderText,
             borderSpinner,
             backgroundText,
@@ -207,7 +218,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 updateSave(
                     easyFont,
-                    pixelFont,
+                    pixelSwitch,
                     borderSpinner,
                     backgroundSpinner,
                     online,
@@ -234,7 +245,7 @@ class EditSettings : AppCompatActivity() {
             ) {
                 updateSave(
                     easyFont,
-                    pixelFont,
+                    pixelSwitch,
                     borderSpinner,
                     backgroundSpinner,
                     online,
@@ -255,7 +266,7 @@ class EditSettings : AppCompatActivity() {
             // When the font slider is changed
             updateSave(
                 easyFont,
-                pixelFont,
+                pixelSwitch,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -275,6 +286,7 @@ class EditSettings : AppCompatActivity() {
                 editionTitle,
                 customButton,
                 pixelFont,
+                pixelLine,
                 borderText,
                 borderSpinner,
                 backgroundText,
@@ -291,12 +303,12 @@ class EditSettings : AppCompatActivity() {
             // Change all the fonts
         }
 
-        pixelFont.setOnCheckedChangeListener { _, _ ->
+        pixelSwitch.setOnCheckedChangeListener { _, _ ->
             // When the pixel font slider is changed
 
             updateSave(
                 easyFont,
-                pixelFont,
+                pixelSwitch,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -316,6 +328,7 @@ class EditSettings : AppCompatActivity() {
                 editionTitle,
                 customButton,
                 pixelFont,
+                pixelLine,
                 borderText,
                 borderSpinner,
                 backgroundText,
@@ -336,7 +349,7 @@ class EditSettings : AppCompatActivity() {
             // When the custom cards button is clicked
             updateSave(
                 easyFont,
-                pixelFont,
+                pixelSwitch,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -355,7 +368,7 @@ class EditSettings : AppCompatActivity() {
             // When the custom cards button is clicked
             updateSave(
                 easyFont,
-                pixelFont,
+                pixelSwitch,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -393,7 +406,7 @@ class EditSettings : AppCompatActivity() {
             // When the return button is clicked
             updateSave(
                 easyFont,
-                pixelFont,
+                pixelSwitch,
                 borderSpinner,
                 backgroundSpinner,
                 online,
@@ -486,7 +499,7 @@ class EditSettings : AppCompatActivity() {
             }
         }
 
-        patchButton.setOnClickListener{
+        patchButton.setOnClickListener {
             SettingsHandler.versionCheck(
                 "0",
                 this,
@@ -494,7 +507,7 @@ class EditSettings : AppCompatActivity() {
             )
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 returnButton.performClick()
@@ -664,7 +677,8 @@ class EditSettings : AppCompatActivity() {
         online: SwitchCompat,
         editionTitle: TextView,
         customButton: Button,
-        pixelFont: SwitchCompat,
+        pixelFont: TextView,
+        pixelLine: ConstraintLayout,
         borderText: TextView,
         borderSpinner: Spinner,
         backgroundText: TextView,
@@ -702,12 +716,17 @@ class EditSettings : AppCompatActivity() {
         randomEden.typeface = fonts["body"]
 
         pixelFont.typeface = TextHandler.updateRetroFont(this, fonts)["body"]
-        if (fonts["body"] == pixelFont.typeface) {
-            // If the retro font is the same as all the other font (no pixel)
-            pixelFont.textSize = online.textSize / 4
+
+        val bodySize = if ((pixelFont.typeface == ResourcesCompat.getFont(
+                this,
+                R.font.four_souls_pixel
+            ))
+        ) {
+            12f
         } else {
-            pixelFont.textSize = online.textSize / 6
+            18f
         }
+        pixelFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, bodySize)
 
         tutorialButton.typeface = fonts["body"]
 
@@ -719,7 +738,7 @@ class EditSettings : AppCompatActivity() {
         val setRecycler = findViewById<RecyclerView>(R.id.iconRecycler)
         val iconList = SettingsHandler.getSets()
         val setAdapter =
-            SetSelectionAdapter(iconList, fonts["body"]!!, settings, pixelFont, customButton)
+            SetSelectionAdapter(iconList, fonts["body"]!!, settings, pixelLine, customButton)
         setRecycler.adapter = setAdapter
         setRecycler.layoutManager = GridLayoutManager(this, 4)
         // Lay the recycler out as a grid
@@ -744,7 +763,7 @@ class EditSettings : AppCompatActivity() {
 
     private fun updateSave(
         easyFont: SwitchCompat,
-        pixelFont: SwitchCompat,
+        pixelSwitch: SwitchCompat,
         borderSpinner: Spinner,
         backgroundSpinner: Spinner,
         online: SwitchCompat,
@@ -754,7 +773,7 @@ class EditSettings : AppCompatActivity() {
         groupID: EditText
     ) {
         settings["readable_font"] = easyFont.isChecked.toString()
-        settings["pixel_font"] = pixelFont.isChecked.toString()
+        settings["pixel_font"] = pixelSwitch.isChecked.toString()
         settings["border"] = borderList[borderSpinner.selectedItem.toString()]!!
         settings["background"] = backgroundList[backgroundSpinner.selectedItem.toString()]!!
         settings["online"] = online.isChecked.toString()

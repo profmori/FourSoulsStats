@@ -15,7 +15,7 @@ import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 
 class RerollPrefSelect : AppCompatActivity() {
@@ -92,7 +92,7 @@ class RerollPrefSelect : AppCompatActivity() {
             // Set up the email screen
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 returnButton.performClick()

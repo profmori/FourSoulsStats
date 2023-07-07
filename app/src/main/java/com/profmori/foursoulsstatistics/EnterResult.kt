@@ -39,8 +39,8 @@ class EnterResult : AppCompatActivity() {
         val charImages = intent.getIntArrayExtra("images") as IntArray
         val eternals = intent.getStringArrayExtra("eternals") as Array<String?>
         val souls = intent.getIntArrayExtra("souls") as IntArray
-        val coOpGame = intent.getBooleanExtra("coop",false)
-        val soloGame = intent.getBooleanExtra("solo",false)
+        val coOpGame = intent.getBooleanExtra("coop", false)
+        val soloGame = intent.getBooleanExtra("solo", false)
         // Get all the data from the data entry page
 
         val fonts = TextHandler.setFont(this)
@@ -125,11 +125,11 @@ class EnterResult : AppCompatActivity() {
         returnButton.typeface = fonts["body"]
         // Update the fonts
 
-        if (coOpGame){
+        if (coOpGame) {
             turnNoPrompt.visibility = View.VISIBLE
             turnNoBox.visibility = View.VISIBLE
             turnCount = 8
-        }else{
+        } else {
             turnNoPrompt.visibility = View.INVISIBLE
             turnNoBox.visibility = View.INVISIBLE
         }
@@ -168,7 +168,7 @@ class EnterResult : AppCompatActivity() {
                         // If the user tries to input something invalid
                         turnCount = 0
                         // Set the turn count to 0
-                        turnNoBox.setText(turnCount.toString())
+                        turnNoBox.setText("0")
                         // Rewrite the text field to show this
                     }
 
@@ -235,14 +235,14 @@ class EnterResult : AppCompatActivity() {
             enterData.putExtra("treasures", treasureCount)
             enterData.putExtra("eternals", eternals)
             enterData.putExtra("souls", souls)
-            enterData.putExtra("coop",coOpGame)
-            enterData.putExtra("solo",soloGame)
+            enterData.putExtra("coop", coOpGame)
+            enterData.putExtra("solo", soloGame)
             // Creates an extra parameter which passes data back to the data entry page
             startActivity(enterData)
             // Start the data entry page with the new parameters
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 returnButton.performClick()
@@ -251,15 +251,21 @@ class EnterResult : AppCompatActivity() {
         })
     }
 
-    private fun saveData(gameId: String, playerList: Array<PlayerHandler>, treasureCount: Int, coOpGame: Boolean, turnsLeft: Int) {
+    private fun saveData(
+        gameId: String,
+        playerList: Array<PlayerHandler>,
+        treasureCount: Int,
+        coOpGame: Boolean,
+        turnsLeft: Int
+    ) {
         // Function to save the game
         val gameDatabase: GameDataBase = GameDataBase.getDataBase(this)
         // Gets the game database
         val gameDao = gameDatabase.gameDAO
         // Gets the database access object
-        val playerNum = if (playerList[0].solo){
+        val playerNum = if (playerList[0].solo) {
             1
-        } else{
+        } else {
             playerList.size
         }
         val game = Game(gameId, playerNum, treasureCount, false, coOpGame, turnsLeft)

@@ -127,7 +127,7 @@
         style="@style/Widget.AppCompat.Spinner.DropDown"
         android:layout_width="170dp"
         android:layout_height="25dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="10dp"
         android:completionThreshold="1"
 
         android:dropDownHeight="60sp"

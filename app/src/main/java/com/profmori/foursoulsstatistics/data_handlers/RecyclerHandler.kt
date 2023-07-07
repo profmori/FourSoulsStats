@@ -4,6 +4,7 @@ import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TypefaceSpan
+import android.util.TypedValue
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.CheckBox
@@ -399,7 +400,7 @@ class RecyclerHandler {
             )
             entries.forEach {
                 it.typeface = bodyFont
-                it.textSize = bodySize
+                it.setTextSize(TypedValue.COMPLEX_UNIT_DIP, bodySize)
             }
 
             if (playerHandler.charName == "eden") {

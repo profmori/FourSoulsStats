@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity() {
             // Change to the Feedback and Suggestions activity
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 when (source) {

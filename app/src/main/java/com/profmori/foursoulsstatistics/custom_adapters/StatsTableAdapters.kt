@@ -20,20 +20,24 @@ class StatsTable(
     var winrate: Double,
     var soulsAvg: Double,
     var playedGames: Int,
-    var adjustedSouls: Double
+    var adjustedSouls: Double,
+    var turnsAvg: Double
 ) {
-    private fun generateMetrics(wins: Double, souls: Double, adjSouls: Double) {
+    private fun generateMetrics(wins: Double, souls: Double, adjSouls: Double, turns: Double) {
         winrate = wins / playedGames
         // Calculates the winrate
         soulsAvg = souls / playedGames
         // Calculates the average souls
         adjustedSouls = adjSouls / playedGames
         // Calculates the average adjusted souls
+        turnsAvg = turns / playedGames
+        // Calculates the average number of turns taken
         if (playedGames == 0) {
-            // If the character is unplayed
+            // If the item is unplayed
             winrate = -1.0
             soulsAvg = -1.0
             adjustedSouls = -1.0
+            turnsAvg = -1.0
             // Set all values to -1
         }
     }
@@ -44,6 +48,8 @@ class StatsTable(
         // Gets name from the input
         val gamesList = games.map { game -> game.gameID }
         // Get the list of selected games
+
+
         playedGames = 0
         // Initialises played games counter
         var wins = 0.0
@@ -52,6 +58,10 @@ class StatsTable(
         // Initialise the number of souls
         var adjSouls = 0.0
         // Initialise the adjusted number of souls
+        var turnsPlayed = 0.0
+        // Initialise the total number of turns played
+        var turnsList = emptyMap<String, Int>()
+
         instances.forEach {
             if (gamesList.contains(it.gameID)) {
                 playedGames += 1
@@ -67,19 +77,23 @@ class StatsTable(
                 // Gets the size of the game based on the game ID
                 adjSouls += it.souls * gameSize
                 // Increments the adjusted number of souls
+                turnsPlayed += games[currGame].turnsLeft
+                // Initialise the total number of turns played
             }
         }
-        generateMetrics(wins, souls, adjSouls)
+        generateMetrics(wins, souls, adjSouls, turnsPlayed)
         // Generates all the winrates and averages from the data
     }
 
-    fun setData(rowName: String, instances: Array<OnlineGameInstance>) {
+    fun setData(rowName: String, tableType: String, instances: Array<OnlineGameInstance>) {
         name = rowName
         // Get the name from the input
-        val gamesList = instances.filter { instance ->
-            instance.charName == name
+        val gamesList = when (tableType) {
+            "Character" -> instances.filter { instance -> instance.charName == name }
+            "Eternal" -> instances.filter { instance -> instance.eternal == name }
+            else -> instances.filter { false }
         }
-        // Filter all the games to only include those with the correct character
+        // Filter all the games to only include those with the correct item
         playedGames = 0
         // Initialises played games counter
         var wins = 0.0
@@ -88,6 +102,8 @@ class StatsTable(
         // Initialise the number of souls
         var adjSouls = 0.0
         // Initialise the adjusted number of souls
+        var turnsPlayed = 0.0
+        // Initialise the total number of turns played
         gamesList.forEach {
             playedGames += 1
             if (it.winner) {
@@ -98,38 +114,10 @@ class StatsTable(
             // Increment the soul counter
             adjSouls += it.souls * it.gameSize
             // Increments the adjusted number of souls
+            turnsPlayed += it.turnsLeft
+            // Initialise the total number of turns played
         }
-        generateMetrics(wins, souls, adjSouls)
-        // Generates all the winrates and averages from the data
-    }
-
-    fun setEternalData(rowName: String, instances: Array<OnlineGameInstance>) {
-        name = rowName.lowercase()
-        // Get the name from the input
-        val gamesList = instances.filter { instance ->
-            instance.eternal == name
-        }
-        // Filter all the games to only include those with the correct eternal
-        playedGames = 0
-        // Initialises played games counter
-        var wins = 0.0
-        // Initialise the number of wins
-        var souls = 0.0
-        // Initialise the number of souls
-        var adjSouls = 0.0
-        // Initialise the adjusted number of souls
-        gamesList.forEach {
-            playedGames += 1
-            if (it.winner) {
-                wins += 1
-            }
-            // If the character won the instance increment their win counter
-            souls += it.souls
-            // Increment the soul counter
-            adjSouls += it.souls * it.gameSize
-            // Increments the adjusted number of souls
-        }
-        generateMetrics(wins, souls, adjSouls)
+        generateMetrics(wins, souls, adjSouls, turnsPlayed)
         // Generates all the winrates and averages from the data
     }
 }
@@ -137,7 +125,8 @@ class StatsTable(
 class StatsTableDataAdapter(
     context: Context,
     private val tableFont: Typeface,
-    data: Array<StatsTable>
+    data: Array<StatsTable>,
+    private val coopBoolean: Boolean
 ) : TableDataAdapter<StatsTable>(context, data) {
 
     override fun getCellView(rowIndex: Int, columnIndex: Int, parentView: ViewGroup): View {
@@ -159,6 +148,11 @@ class StatsTableDataAdapter(
             // Changes the text size
         }
 
+        val row3 = if (coopBoolean) {
+            rowData.turnsAvg
+        } else {
+            rowData.adjustedSouls
+        }
 
         when (columnIndex) {
             0 -> {
@@ -177,6 +171,7 @@ class StatsTableDataAdapter(
                 }
 
             }
+
             1 -> {
                 if (rowData.winrate >= 0) {
                     // If the row data is valid
@@ -189,6 +184,7 @@ class StatsTableDataAdapter(
                     // print a blank box
                 }
             }
+
             2 -> {
                 if (rowData.soulsAvg >= 0) {
                     // If the row data is valid
@@ -201,12 +197,13 @@ class StatsTableDataAdapter(
                     // print a blank box
                 }
             }
+
             3 -> {
-                if (rowData.adjustedSouls >= 0) {
+                if (row3 >= 0) {
                     // If the row data is valid
                     renderedView.text =
-                        context.getString(R.string.stats_table_entry).format(rowData.adjustedSouls)
-                    // Print the average adjusted souls
+                        context.getString(R.string.stats_table_entry).format(row3)
+                    // Print the average adjusted souls / turns taken
                 } else {
                     // If data is invalid / -1
                     renderedView.text = ""
@@ -251,11 +248,10 @@ class StatsTableHeaderAdapter(
         textSize -= (TextHandler.wordLength(headers[columnIndex])) * 0.4f
         // If the font is the readable font
 
-        if (columnIndex < headers.size) {
-            textView.text = headers[columnIndex]
-            textView.gravity = gravity
-            // Sets the text and centres it
-        }
+        textView.text = headers[columnIndex]
+        textView.gravity = gravity
+        // Sets the text and centres it
+
         textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
         textView.typeface = typeface
         textView.textSize = textSize
@@ -295,6 +291,15 @@ class AdjustedSoulsComparator : Comparator<StatsTable> {
     override fun compare(row1: StatsTable, row2: StatsTable): Int {
         val souls1 = row1.adjustedSouls
         val souls2 = row2.adjustedSouls
+        // Compare characters by average souls
+        return souls2.compareTo(souls1)
+    }
+}
+
+class TurnsComparator : Comparator<StatsTable> {
+    override fun compare(row1: StatsTable, row2: StatsTable): Int {
+        val souls1 = row1.turnsAvg
+        val souls2 = row2.turnsAvg
         // Compare characters by average souls
         return souls2.compareTo(souls1)
     }

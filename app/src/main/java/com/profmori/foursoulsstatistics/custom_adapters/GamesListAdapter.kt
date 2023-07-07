@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.EditSingleGame
 import com.profmori.foursoulsstatistics.R
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
+import java.util.TimeZone
 
 
 class GamesListAdapter(

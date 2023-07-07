@@ -59,7 +59,8 @@
 
     <!-- Statistics Selection Page -->
     <string name="stats_no_local">There are no games stored for this playgroup</string>
-    <string name="stats_no_wifi">This requires a wi-fi connection to access. Please try again later</string>
+    <string name="stats_no_wifi">Online statistics require a wi-fi connection to access. Please try again later</string>
+    <string name="stats_no_data">There is no data to view right now. Please connect to wi-fi or input some games</string>
 
     <!-- Statistics Pages -->
     <string name="stats_treasures">Treasures:</string>
@@ -67,7 +68,7 @@
     <string name="stats_filter">Filter By:</string>
     <string name="stats_return">Return To Statistics Page</string>
     <string name="player_stats_title">Player\nStatistics</string>
-    <string name="char_stats_title">Character\nStatistics</string>
+    <string name="character_stats_title">Character\nStatistics</string>
     <string name="eternal_stats_title">Eternal Item\nStatistics</string>
 
     <!-- Stats Table Strings -->
@@ -77,6 +78,7 @@
     <string name="stats_table_winrate">Win Rate</string>
     <string name="stats_table_souls">Average Souls</string>
     <string name="stats_table_adjusted_souls">Adjusted Souls</string>
+    <string name="stats_table_turns_remaining">Average Turns Remaining</string>
     <string name="stats_table_played">Games Played</string>
     <string name="stats_table_entry">%.2f</string>
 
@@ -182,7 +184,7 @@
 
     <!-- Main Page Tutorial Lines -->
     <string name="tutorial_data">Input game data using this button</string>
-    <string name="tutorial_stats">View your group\'s statistics using this button</string>
+    <string name="tutorial_stats">View your group\'s statistics, as well as average statistics for the whole community, using this button</string>
     <string name="tutorial_edit">Use this button to edit previously entered games to amend any mistakes made.
         You can also remove games from the play history entirely</string>
     <string name="tutorial_settings">Use this button to customise your app experience.
@@ -231,10 +233,13 @@
     <string name="feedback_suggestion">Email a Suggestion</string>
     <string name="feedback_translate">Offer to Translate</string>
     <string name="statistics_title">Statistics</string>
-    <string name="statistics_group">View Your Group\'s\nPlayer Rankings</string>
+    <string name="statistics_group_player">View Your Group\'s\nPlayer Rankings</string>
     <string name="statistics_group_character">View Your Group\'s\nCharacter Rankings</string>
+    <string name="statistics_group_solo_character">View Your Group\'s\nSolo Character Performance</string>
     <string name="statistics_global_character">View Community\nCharacter Rankings</string>
     <string name="statistics_global_eternal">View Community\nEternal Rankings</string>
+    <string name="statistics_global_solo_character">View Community\nSolo Character Rankings</string>
+    <string name="statistics_global_solo_eternal">View Community\nSolo Eternal Rankings</string>
 
     <!-- Version Update Codes -->
     <string name="patch_notes_title">Patch Notes</string>
@@ -284,13 +289,21 @@
         \u2022 Added a button to view all old patch notes from the settings menu, and added dates to the patch notes &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 
-    <string name="version_24">
-        &lt;b>&lt;u>Version 5.01&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+    <string name="version_25">
+        &lt;b>&lt;u>Version 5.01 (18-May-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added the ability to save single player, and co-op games &lt;br>&lt;/br>
         \u2022 Stopped single player and co-op games from being shown in online statistics.
         They will have their own sections eventually, but it was important to get this out quickly &lt;br>&lt;/br>
         \u2022 Fixed a bug where any alternative art would show when editing old games &lt;br>&lt;/br>
         \u2022 Made it so characters from unselected expansions don\'t appear as blank cards when editing old games &lt;br>&lt;/br> &lt;br>&lt;/br>
+    </string>
+
+    <string name="version_26">
+        &lt;b>&lt;u>Version 5.02&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Apologies for the delay in upating the app again &lt;br>&lt;/br>
+        \u2022 Added the statistics sections for single player / co-op games&lt;br>&lt;/br>
+        \u2022 Made the statistics menu smarter when showing options &lt;br>&lt;/br>
+        \u2022 Adjusted some tutorial text to reflect the new function &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 
 </resources>

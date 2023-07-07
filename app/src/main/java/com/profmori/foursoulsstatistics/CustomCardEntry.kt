@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +44,7 @@ class CustomCardEntry : AppCompatActivity() {
     var currentChar = -1
     // Sets the current character being edited to -1
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_card_entry)
@@ -112,7 +114,7 @@ class CustomCardEntry : AppCompatActivity() {
                 val chars = charAdapter.getItems().toMutableList()
                 // Get the current list of characters
                 try {
-                    val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    @Suppress("DEPRECATION") val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         // Uses a different method to find the image based on the android version
                         ImageDecoder.decodeBitmap(
                             ImageDecoder.createSource(this.contentResolver, imageURI!!)
@@ -245,7 +247,7 @@ class CustomCardEntry : AppCompatActivity() {
             // Go back to the settings page
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 returnButton.performClick()

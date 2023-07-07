@@ -99,9 +99,11 @@ class ImageHandler {
                 "isaac" -> {
                     return R.drawable.box_isaac
                 }
+
                 "cain" -> {
                     return R.drawable.box_cain
                 }
+
                 "the lost" -> {
                     return R.drawable.box_the_lost
                 }

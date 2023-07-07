@@ -18,7 +18,7 @@ import androidx.room.RoomDatabase
     // Current database version, needs to be changed on updates
     exportSchema = true,
     autoMigrations = [
-        AutoMigration (from = 1, to = 2)
+        AutoMigration(from = 1, to = 2)
     ]
 )
 

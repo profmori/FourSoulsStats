@@ -10,9 +10,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.google.android.material.slider.RangeSlider
 import com.profmori.foursoulsstatistics.R
-import com.profmori.foursoulsstatistics.custom_adapters.*
+import com.profmori.foursoulsstatistics.custom_adapters.AdjustedSoulsComparator
+import com.profmori.foursoulsstatistics.custom_adapters.GamesPlayedComparator
+import com.profmori.foursoulsstatistics.custom_adapters.NameComparator
+import com.profmori.foursoulsstatistics.custom_adapters.SoulsComparator
+import com.profmori.foursoulsstatistics.custom_adapters.StatsTable
+import com.profmori.foursoulsstatistics.custom_adapters.StatsTableDataAdapter
+import com.profmori.foursoulsstatistics.custom_adapters.StatsTableHeaderAdapter
+import com.profmori.foursoulsstatistics.custom_adapters.TurnsComparator
+import com.profmori.foursoulsstatistics.custom_adapters.WinrateComparator
 import com.profmori.foursoulsstatistics.database.Game
-import com.profmori.foursoulsstatistics.online_database.OnlineGameInstance
 import com.profmori.foursoulsstatistics.statistics_pages.StatisticsMenu
 import de.codecrafters.tableview.SortableTableView
 
@@ -42,36 +49,13 @@ class TableHandler {
             backButton.setOnClickListener {
                 // When the back button is pressed
                 val backToStats = Intent(context, StatisticsMenu::class.java)
+                backToStats.putExtra("from", "Stats Page")
                 startActivity(context, backToStats, null)
                 // Go back to the statistics page
             }
         }
 
-        fun onlineDataSetup(
-            gamesList: Array<OnlineGameInstance>,
-            filterText: TextView,
-            playerText: TextView,
-            playerSlider: RangeSlider,
-            treasureText: TextView,
-            treasureSlider: RangeSlider
-        ) {
-            val treasures = gamesList.map { game -> game.treasureNum }
-            // Get the list of treasure numbers
-            val players = gamesList.map { game -> game.gameSize }
-            // Get the list of player numbers
-            dataSetup(
-                treasures,
-                players,
-                filterText,
-                playerText,
-                playerSlider,
-                treasureText,
-                treasureSlider
-            )
-            // Set up the data properly
-        }
-
-        fun localDataSetup(
+        fun dataSetup(
             gamesList: Array<Game>,
             filterText: TextView,
             playerText: TextView,
@@ -83,30 +67,11 @@ class TableHandler {
             // Get the list of treasure numbers
             val players = gamesList.map { game -> game.playerNo }
             // Get the list of player numbers
-            dataSetup(
-                treasures,
-                players,
-                filterText,
-                playerText,
-                playerSlider,
-                treasureText,
-                treasureSlider
-            )
-            // Set up the data properly
-        }
 
-        private fun dataSetup(
-            treasures: List<Int>,
-            players: List<Int>,
-            filterText: TextView,
-            playerText: TextView,
-            playerSlider: RangeSlider,
-            treasureText: TextView,
-            treasureSlider: RangeSlider
-        ) {
             val minTreasure = treasures.minOrNull()!!.toFloat()
             val maxTreasure = treasures.maxOrNull()!!.toFloat()
             // Get the range of treasure values
+
             treasureSlider.valueFrom = minTreasure
             treasureSlider.valueTo = maxTreasure
             // Set the slider limits
@@ -115,6 +80,9 @@ class TableHandler {
             if (minTreasure == maxTreasure) {
                 treasureText.visibility = View.GONE
                 treasureSlider.visibility = View.GONE
+            } else {
+                treasureText.visibility = View.VISIBLE
+                treasureSlider.visibility = View.VISIBLE
             }
             // If there is no range, don't allow this to be modified
 
@@ -129,11 +97,16 @@ class TableHandler {
             if (minPlayer == maxPlayer) {
                 playerText.visibility = View.GONE
                 playerSlider.visibility = View.GONE
+            } else {
+                playerText.visibility = View.VISIBLE
+                playerSlider.visibility = View.VISIBLE
             }
             // If there is no range, don't allow this to be modified
 
             if ((minPlayer == maxPlayer) and (minTreasure == maxTreasure)) {
                 filterText.visibility = View.GONE
+            } else {
+                filterText.visibility = View.VISIBLE
             }
             // If there is nothing to filter, don't show filter text
         }
@@ -142,7 +115,8 @@ class TableHandler {
             context: Context,
             table: SortableTableView<StatsTable>,
             headerList: Array<String>,
-            tableData: Array<StatsTable>
+            tableData: Array<StatsTable>,
+            coopBoolean: Boolean
         ) {
             val fonts = TextHandler.setFont(context)
             // Get the fonts from the text handler
@@ -157,7 +131,6 @@ class TableHandler {
             table.setHeaderBackgroundColor(ContextCompat.getColor(context, R.color.darker))
             table.setBackgroundColor(ContextCompat.getColor(context, R.color.lighter))
             // Sets the table backgrounds as tints
-
             table.setColumnComparator(
                 0,
                 NameComparator()
@@ -172,20 +145,31 @@ class TableHandler {
             )
             table.setColumnComparator(
                 3,
-                AdjustedSoulsComparator()
+                if (coopBoolean) {
+                    TurnsComparator()
+                } else {
+                    AdjustedSoulsComparator()
+                }
             )
             // Allows all the columns to be sorted
 
-            val charDataAdapter = StatsTableDataAdapter(context, fonts["body"]!!, tableData)
+            val charDataAdapter =
+                StatsTableDataAdapter(context, fonts["body"]!!, tableData, coopBoolean)
             // Create the character data adapter
             table.dataAdapter = charDataAdapter
             // Attach it to the table
             table.sort(NameComparator())
             table.sort(GamesPlayedComparator())
-            table.sort(AdjustedSoulsComparator())
+            table.sort(
+                if (coopBoolean) {
+                    TurnsComparator()
+                } else {
+                    AdjustedSoulsComparator()
+                }
+            )
             table.sort(SoulsComparator())
             table.sort(WinrateComparator())
-            // Set the default sort: Winrate -> Avg Souls -> Adjusted Souls
+            // Set the default sort: Winrate -> Avg Souls -> Adjusted Souls / Avg Turns
             // -> Games Played -> Alphabetical
         }
     }

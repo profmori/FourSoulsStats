@@ -57,7 +57,7 @@ class OnlineDataHandler {
                 .joinToString("")
             // Create the obfuscated name from the player's name
 
-            if (instance.solo){
+            if (instance.solo) {
                 obfName += index.toString()
             }
 
@@ -66,7 +66,10 @@ class OnlineDataHandler {
 
         }
 
-        suspend fun getAllEternals(context: Context): Array<OnlineGameInstance> {
+        suspend fun getAllEternals(
+            context: Context,
+            searchCoop: Boolean
+        ): Array<OnlineGameInstance> {
             signIn()
             // Sign into the database
             var games = emptyArray<OnlineGameInstance>()
@@ -77,14 +80,17 @@ class OnlineDataHandler {
                 val allEternals = onlineDB.whereNotEqualTo("eternal", null).get().await()
                 // Creates a query to read all games where the eternal is not null
                 allEternals.documents.forEach { document ->
-                    games += arrayOf(document.toObject<OnlineGameInstance>()!!)
-                    // Adds all game instances with eternals to the list
+                    val documentObj = document.toObject<OnlineGameInstance>()!!
+                    if (documentObj.coop == searchCoop) {
+                        games += arrayOf(documentObj)
+                    }
+                    // Adds all non co-op game instances with eternals to the list
                 }
             }
             return games
         }
 
-        suspend fun getAllGames(context: Context, competitive: Boolean): Array<OnlineGameInstance> {
+        suspend fun getAllGames(context: Context, searchCoop: Boolean): Array<OnlineGameInstance> {
             signIn()
             // Sign into the database
             var games = emptyArray<OnlineGameInstance>()
@@ -92,11 +98,11 @@ class OnlineDataHandler {
             if (checkWifi(context)) {
                 val onlineDB = Firebase.firestore.collection("game_instances")
                 // Get the online database
-                val readAll = onlineDB.whereNotEqualTo("groupID", "").get().await()
-                // Creates a query to read all games where the group id exists
+                val readAll = onlineDB.get().await()
+                // Creates a query to read all games
                 readAll.documents.forEach { document ->
                     val documentObj = document.toObject<OnlineGameInstance>()!!
-                    if (documentObj.coop == competitive) {
+                    if (documentObj.coop == searchCoop) {
                         games += arrayOf(documentObj)
                     }
                     // Adds all game instances to the list
@@ -220,11 +226,11 @@ class OnlineDataHandler {
                         // Create an online item object
                         var itemArray = items[onlineItem.set]
                         // Get the current set of items in that set
-                        if (itemArray.isNullOrEmpty()){
+                        if (itemArray.isNullOrEmpty()) {
                             // If there are none
                             itemArray = arrayOf(onlineItem.name)
                             // Create an array with just that item
-                        }else{
+                        } else {
                             itemArray += arrayOf(onlineItem.name)
                             // Otherwise add the item to the array
                         }
@@ -262,7 +268,14 @@ class OnlineDataHandler {
                                 // Save the online game instance
                             }
                         }
-                        val updatedGame = Game(game.gameID, game.playerNo, game.treasureNo, true, game.coop, game.turnsLeft)
+                        val updatedGame = Game(
+                            game.gameID,
+                            game.playerNo,
+                            game.treasureNo,
+                            true,
+                            game.coop,
+                            game.turnsLeft
+                        )
                         // Create the updated game object
                         localDAO.updateGame(updatedGame)
                         // Update the game to be marked as uploaded

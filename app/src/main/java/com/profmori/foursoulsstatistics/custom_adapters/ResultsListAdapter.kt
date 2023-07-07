@@ -21,7 +21,10 @@ import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import kotlin.math.abs
 
 
-class ResultsListAdapter(private val playerList: Array<PlayerHandler>, private val coOpGame: Boolean) :
+class ResultsListAdapter(
+    private val playerList: Array<PlayerHandler>,
+    private val coOpGame: Boolean
+) :
     RecyclerView.Adapter<ResultsListAdapter.ViewHolder>() {
 
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
@@ -155,7 +158,7 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>, private v
         soulsText.textSize = fontSize
         // Set all the fonts for the entries correctly
 
-        if (coOpGame){
+        if (coOpGame) {
             soulsBox.visibility = View.GONE
             soulsText.visibility = View.GONE
             playerHandler.soulsNum = 0
@@ -189,9 +192,8 @@ class ResultsListAdapter(private val playerList: Array<PlayerHandler>, private v
         winnerTick.setOnCheckedChangeListener { _, _ ->
             playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
-
-            if (coOpGame){
-                val otherPosition = abs(position-1)
+            if (coOpGame) {
+                val otherPosition = abs(position - 1)
                 val otherPlayer = playerList[otherPosition]
                 otherPlayer.winner = winnerTick.isChecked
                 notifyItemChanged(otherPosition)

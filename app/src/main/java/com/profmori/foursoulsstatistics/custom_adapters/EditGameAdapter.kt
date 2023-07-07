@@ -106,7 +106,7 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>, var c
         soulsCount.setText(soulNumber.toString())
         // Sets the soul number to be accurate
 
-        if (coOpGame){
+        if (coOpGame) {
             soulsText.visibility = View.GONE
             soulsCount.visibility = View.GONE
         }
@@ -179,8 +179,8 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>, var c
                 itemList
             )
             // Run all the logic for entering the player data
-            if (playerHandler.solo){
-                val otherPosition = abs(position-1)
+            if (playerHandler.solo) {
+                val otherPosition = abs(position - 1)
                 val otherPlayer = playerHandlerList[otherPosition]
                 otherPlayer.playerName = playerEntry.text.toString().trim().lowercase()
                 notifyItemChanged(otherPosition)
@@ -268,7 +268,7 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>, var c
 
         soulsCount.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             RecyclerHandler.enterSouls(hasFocus, soulsCount, winnerTick, playerHandler)
-            if (!hasFocus){
+            if (!hasFocus) {
                 soulNumber = soulsCount.text.toString().toInt()
             }
         }
@@ -276,8 +276,8 @@ class EditGameAdapter(private val playerHandlerList: Array<PlayerHandler>, var c
         winnerTick.setOnCheckedChangeListener { _, _ ->
             playerHandler.winner = winnerTick.isChecked
             // Sets the player variable to this person's winner status
-            if (coOpGame){
-                val otherPosition = abs(position-1)
+            if (coOpGame) {
+                val otherPosition = abs(position - 1)
                 val otherPlayer = playerHandlerList[otherPosition]
                 otherPlayer.winner = winnerTick.isChecked
                 notifyItemChanged(otherPosition)

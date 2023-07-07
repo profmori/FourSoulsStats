@@ -58,7 +58,12 @@ class CharacterList {
             CharEntity("the deceiver", R.drawable.r_the_deceiver, null, "requiem"),
             CharEntity("the deserter", R.drawable.r_the_deserter, null, "requiem"),
             CharEntity("the empty", R.drawable.r_the_empty, null, "requiem"),
-            CharEntity("the enigma", R.drawable.r_the_enigma, R.drawable.r_the_enigma_back, "requiem"),
+            CharEntity(
+                "the enigma",
+                R.drawable.r_the_enigma,
+                R.drawable.r_the_enigma_back,
+                "requiem"
+            ),
             CharEntity("the fettered", R.drawable.r_the_fettered, null, "requiem"),
             CharEntity("the harlot", R.drawable.r_the_harlot, R.drawable.aa_the_harlot, "requiem"),
             CharEntity("the hoarder", R.drawable.r_the_hoarder, null, "requiem"),

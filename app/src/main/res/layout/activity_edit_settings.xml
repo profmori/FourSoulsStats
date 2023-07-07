@@ -176,38 +176,59 @@
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@id/iconRecycler"
+                    android:layout_marginTop="10dp"
 
-                    app:layout_constraintHorizontal_bias="0.496"
                     app:layout_constraintStart_toStartOf="@id/iconRecycler"
                     app:layout_constraintTop_toBottomOf="@+id/iconRecycler" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/pixelSwitch"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/pixelLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/editionSelect">
 
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginHorizontal="35dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/atkinson_hyperlegible_regular"
-                android:text="@string/settings_pixel_font"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/pixelSwitch"
 
-                android:textColor="@color/black"
-                android:thumb="@drawable/switch_thumb"
-                app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
 
-                app:layout_constraintTop_toBottomOf="@id/editionSelect"
-                app:switchPadding="20dp"
-                app:trackTint="@drawable/switch_track" />
+                    android:textColor="@color/black"
+                    android:thumb="@drawable/switch_thumb"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.65"
+
+                    app:switchPadding="20dp"
+                    app:trackTint="@drawable/switch_track" />
+
+                <TextView
+                    android:id="@+id/pixelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@id/pixelSwitch"
+                    app:layout_constraintTop_toTopOf="@id/pixelSwitch"
+                    app:layout_constraintBottom_toBottomOf="@id/pixelSwitch"
+                    android:layout_marginHorizontal="10dp"
+
+                    android:fontFamily="@font/atkinson_hyperlegible_regular"
+                    android:text="@string/settings_pixel_font" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/borderGroup"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/pixelSwitch">
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@id/pixelLine">
 
                 <TextView
                     android:id="@+id/borderPrompt"

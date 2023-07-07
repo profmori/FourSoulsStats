@@ -47,7 +47,15 @@ class PlayerHandler(
             // Creates the array
             for (i in (1 until playerNum + 1)) {
                 // Iterates through every player in the array
-                players += (PlayerHandler("", "", ImageHandler.randomBlank(), null, 0, false, false))
+                players += (PlayerHandler(
+                    "",
+                    "",
+                    ImageHandler.randomBlank(),
+                    null,
+                    0,
+                    false,
+                    false
+                ))
                 // Add a player with no name or character and a blank character image
             }
             return players
@@ -68,7 +76,7 @@ class PlayerHandler(
             var charNum = playerNum
             var newSolo = false
 
-            if (playerNum == 1){
+            if (playerNum == 1) {
                 charNum = 2
                 newSolo = true
             }
@@ -89,7 +97,8 @@ class PlayerHandler(
                     // Add a player with no name or character and a blank character image
                     newPlayerList.last().fonts = playerList[0].fonts
                     // Set the new player font correctly
-                    newPlayerList.last().addData(playerList[0].charList, playerList[0].playerList,context)
+                    newPlayerList.last()
+                        .addData(playerList[0].charList, playerList[0].playerList, context)
                     // Add the existing player and character lists to the new player handler
                 }
             } else {
@@ -101,8 +110,8 @@ class PlayerHandler(
                 }
             }
 
-            if (newPlayerList[0].solo != newSolo){
-                for (player in newPlayerList){
+            if (newPlayerList[0].solo != newSolo) {
+                for (player in newPlayerList) {
                     player.solo = newSolo
                 }
             }

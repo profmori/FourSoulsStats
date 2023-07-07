@@ -93,7 +93,7 @@ class EditSingleGame : AppCompatActivity() {
         val online = SettingsHandler.readSettings(this)["online"].toBoolean()
         // Get all the settings currently in use by the play group
 
-        var playerAdapter = EditGameAdapter(emptyArray(),false)
+        var playerAdapter = EditGameAdapter(emptyArray(), false)
         // Create an empty adapter for the results list
         playerRecycler.layoutManager = GridLayoutManager(this, 2)
         // Lay the recycler out as a grid
@@ -119,18 +119,18 @@ class EditSingleGame : AppCompatActivity() {
 
             coOpBox.isChecked = coOpGame
 
-            if (playerCount == 2){
+            if (playerCount == 2) {
                 coOpBox.visibility = View.VISIBLE
                 coOpPrompt.visibility = View.VISIBLE
-            }else{
+            } else {
                 coOpBox.visibility = View.GONE
                 coOpPrompt.visibility = View.GONE
             }
 
-            if (coOpGame){
+            if (coOpGame) {
                 turnPrompt.visibility = View.VISIBLE
                 turnNo.visibility = View.VISIBLE
-            }else{
+            } else {
                 turnPrompt.visibility = View.GONE
                 turnNo.visibility = View.GONE
             }
@@ -247,11 +247,10 @@ class EditSingleGame : AppCompatActivity() {
                                 // Set the number of treasures to 0
                             }
 
-                            if (playerCount == 2){
+                            if (playerCount == 2) {
                                 coOpBox.visibility = View.VISIBLE
                                 coOpPrompt.visibility = View.VISIBLE
-                            }
-                            else{
+                            } else {
                                 coOpBox.visibility = View.GONE
                                 coOpPrompt.visibility = View.GONE
                                 coOpGame = playerCount == 1
@@ -261,7 +260,11 @@ class EditSingleGame : AppCompatActivity() {
                             // Set the treasure number box to the game treasures
 
                             playerHandlerList =
-                                PlayerHandler.updatePlayerList(playerHandlerList, playerCount, this@EditSingleGame)
+                                PlayerHandler.updatePlayerList(
+                                    playerHandlerList,
+                                    playerCount,
+                                    this@EditSingleGame
+                                )
                             // Makes a player list based on the number of players
                             playerAdapter = EditGameAdapter(playerHandlerList, coOpGame)
                             // Create the adapter for the results list
@@ -342,9 +345,9 @@ class EditSingleGame : AppCompatActivity() {
                 }
 
                 coOpBox.setOnCheckedChangeListener { _, b ->
-                    gameTreasures = if (b){
+                    gameTreasures = if (b) {
                         0
-                    } else{
+                    } else {
                         2
                     }
                     coOpGame = b
@@ -360,11 +363,11 @@ class EditSingleGame : AppCompatActivity() {
                     // Attach the adapter to the player recycler
 
 
-                    if (coOpGame){
+                    if (coOpGame) {
                         turnPrompt.visibility = View.VISIBLE
                         turnNo.visibility = View.VISIBLE
                         turnsLeft = 8
-                    }else{
+                    } else {
                         turnPrompt.visibility = View.GONE
                         turnNo.visibility = View.GONE
                         turnsLeft = -1
@@ -500,7 +503,7 @@ class EditSingleGame : AppCompatActivity() {
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 exitButton.performClick()

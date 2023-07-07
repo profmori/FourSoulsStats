@@ -76,9 +76,9 @@ interface GameDAO {
     // Gets a single game by its id
     fun getGame(gameID: String): Game
 
-    @Query("SELECT * FROM games")
+    @Query("SELECT * FROM games where coop = :coop")
     // Gets all the games data table
-    fun getGames(): Array<Game>
+    fun getGames(coop: Boolean): Array<Game>
 
     @Query("SELECT * FROM games WHERE uploaded = 0")
     fun getUploadGames(): Array<Game>

@@ -25,7 +25,8 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
     private var itemList = emptyArray<String>()
     // Create an empty array to hold the list of all items in the editions selected
 
-    inner class ViewHolder(listItemView: View, parentGroup: ViewGroup) : RecyclerView.ViewHolder(listItemView) {
+    inner class ViewHolder(listItemView: View, parentGroup: ViewGroup) :
+        RecyclerView.ViewHolder(listItemView) {
         // Your holder should contain and initialize a member variable
         // for any view that will be set as you render a row
         val charImage: ImageView = itemView.findViewById(R.id.inputCharImage)
@@ -183,10 +184,11 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
                 charEntry,
                 eternalPrompt,
                 eternalEntry,
-                itemList)
+                itemList
+            )
             // Run all the logic for entering the player data
-            if (playerHandler.solo){
-                val otherPosition = abs(position-1)
+            if (playerHandler.solo) {
+                val otherPosition = abs(position - 1)
                 val otherPlayer = playerHandlerList[otherPosition]
 
                 if (otherPlayer.playerName != playerHandler.playerName) {

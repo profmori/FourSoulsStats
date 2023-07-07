@@ -104,12 +104,12 @@ class EnterData : AppCompatActivity() {
             eternals = intent.getStringArrayExtra("eternals") as Array<String?>
             souls = intent.getIntArrayExtra("souls") as IntArray
             gameTreasures = intent.getIntExtra("treasures", 0)
-            coOpGame = intent.getBooleanExtra("coop",false)
-            soloGame = intent.getBooleanExtra("solo",false)
+            coOpGame = intent.getBooleanExtra("coop", false)
+            soloGame = intent.getBooleanExtra("solo", false)
 
-            if (soloGame){
+            if (soloGame) {
                 playerNo.setText("1")
-            }else {
+            } else {
                 playerNo.setText(playerNames.size.toString())
             }
 
@@ -125,10 +125,10 @@ class EnterData : AppCompatActivity() {
         var playerCount = playerNo.text.toString().toInt()
         // Get the number of players in the game from the player number
 
-        if (playerCount == 2){
+        if (playerCount == 2) {
             coOpBox.visibility = View.VISIBLE
             coOpPrompt.visibility = View.VISIBLE
-        }else{
+        } else {
             coOpBox.visibility = View.GONE
             coOpPrompt.visibility = View.GONE
         }
@@ -265,11 +265,10 @@ class EnterData : AppCompatActivity() {
                         // Set the number of treasures to 0
                     }
 
-                    if (playerCount == 2){
+                    if (playerCount == 2) {
                         coOpBox.visibility = View.VISIBLE
                         coOpPrompt.visibility = View.VISIBLE
-                    }
-                    else{
+                    } else {
                         coOpBox.visibility = View.GONE
                         coOpPrompt.visibility = View.GONE
                         coOpGame = playerCount == 1
@@ -326,9 +325,9 @@ class EnterData : AppCompatActivity() {
         }
 
         coOpBox.setOnCheckedChangeListener { _, b ->
-            gameTreasures = if (b){
+            gameTreasures = if (b) {
                 0
-            } else{
+            } else {
                 2
             }
             coOpGame = b
@@ -400,7 +399,7 @@ class EnterData : AppCompatActivity() {
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 returnButton.performClick()
@@ -409,7 +408,12 @@ class EnterData : AppCompatActivity() {
         })
     }
 
-    private fun tryMoveOn(playerHandlerList: Array<PlayerHandler>, gameTreasures: Int, coOpGame: Boolean, view: View) {
+    private fun tryMoveOn(
+        playerHandlerList: Array<PlayerHandler>,
+        gameTreasures: Int,
+        coOpGame: Boolean,
+        view: View
+    ) {
         var moveOn = true
         // Say you can move on
         for (p in playerHandlerList) {
@@ -451,8 +455,8 @@ class EnterData : AppCompatActivity() {
             enterResult.putExtra("treasures", gameTreasures)
             enterResult.putExtra("eternals", eternalList)
             enterResult.putExtra("souls", soulsList)
-            enterResult.putExtra("coop",coOpGame)
-            enterResult.putExtra("solo",playerHandlerList[0].solo)
+            enterResult.putExtra("coop", coOpGame)
+            enterResult.putExtra("solo", playerHandlerList[0].solo)
             // Creates a set of extra parameters which passes all the data to the results page
 
             val dbPlayers = playerList.map { player -> player.playerName }

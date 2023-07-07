@@ -81,7 +81,7 @@ class EditGames : AppCompatActivity() {
                 OnlineDataHandler.getGroupGames(this@EditGames)
                 // Get any new online saved games
             }
-            val games = gameDao.getGames()
+            val games = gameDao.getGames(true) + gameDao.getGames(false)
             // Get all games
             if (games.isNotEmpty()) {
                 val idList = games.map { game -> game.gameID }.toTypedArray()
@@ -105,7 +105,7 @@ class EditGames : AppCompatActivity() {
             }
         }
 
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // When the back arrow is pressed
                 returnButton.performClick()

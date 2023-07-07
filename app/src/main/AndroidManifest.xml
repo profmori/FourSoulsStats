@@ -12,15 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FourSoulsStatistics">
         <activity
-            android:name=".statistics_pages.ViewCommunityEternalStats"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".statistics_pages.ViewCommunityCharacterStats"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".statistics_pages.ViewLocalCharacterStats"
+            android:name=".statistics_pages.ViewStatisticsPage"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -42,10 +34,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".RerollPrefSelect"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".statistics_pages.ViewPlayerStats"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
