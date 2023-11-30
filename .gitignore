@@ -49,3 +49,4 @@ local.properties
 ehthumbs.db
 Thumbs.db
 app/release
+service_account_key.json

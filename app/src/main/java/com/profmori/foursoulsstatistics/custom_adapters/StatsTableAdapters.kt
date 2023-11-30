@@ -60,7 +60,6 @@ class StatsTable(
         // Initialise the adjusted number of souls
         var turnsPlayed = 0.0
         // Initialise the total number of turns played
-        var turnsList = emptyMap<String, Int>()
 
         instances.forEach {
             if (gamesList.contains(it.gameID)) {

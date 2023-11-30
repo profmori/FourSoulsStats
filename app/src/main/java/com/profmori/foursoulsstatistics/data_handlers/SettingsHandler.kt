@@ -52,7 +52,7 @@ class SettingsHandler {
         }
 
         fun getSets(): Array<String> {
-            return arrayOf(
+             return arrayOf(
                 "base",
                 "gold",
                 "plus",

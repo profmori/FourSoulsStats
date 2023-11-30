@@ -14,11 +14,12 @@ import androidx.room.RoomDatabase
         Game::class,
         GameInstance::class
     ],
-    version = 2,
+    version = 3,
     // Current database version, needs to be changed on updates
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 1, to = 2)
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3)
     ]
 )
 
