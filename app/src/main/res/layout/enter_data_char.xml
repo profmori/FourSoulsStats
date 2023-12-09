@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:elevation="10dp"
-        android:text="@string/input_card_player_title"
+        android:text="@string/card_player"
 
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:elevation="10dp"
-        android:text="@string/input_card_eternal_title"
+        android:text="@string/card_eternal"
 
         android:textColor="@color/black"
         android:textSize="15sp"

@@ -271,10 +271,6 @@ class EditSingleGame : AppCompatActivity() {
                             playerRecycler.adapter = playerAdapter
                             // Attach the adapter to the player recycler
                         }
-                    } else {
-                        // If the user has just entered the text field
-                        playerNo.setText("")
-                        // Clear the input
                     }
                 }
 

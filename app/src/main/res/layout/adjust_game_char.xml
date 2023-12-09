@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:elevation="10dp"
-        android:text="@string/input_card_player_title"
+        android:text="@string/card_player"
 
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:elevation="10dp"
-        android:text="@string/input_card_eternal_title"
+        android:text="@string/card_eternal"
 
         android:textColor="@color/black"
         android:textSize="15sp"
@@ -154,7 +154,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/win_card_souls"
+            android:text="@string/card_souls"
             android:textColor="@color/black"
 
             app:layout_constraintTop_toTopOf="@id/adjSoulEntry"
@@ -189,7 +189,7 @@
             android:layout_height="22dp"
             android:buttonTint="@color/black"
             android:layoutDirection="rtl"
-            android:text="@string/win_card_winner"
+            android:text="@string/card_winner"
 
             android:textColor="@color/black"
             android:layout_marginTop="5dp"

@@ -206,10 +206,10 @@ class PlayerHandler(
                         }
                     }
 
-                    if (useUnboxing) {
-                        val unboxedImage = ImageHandler.getUnboxingAlt(charName)
-                        if (unboxedImage > 0) {
-                            imageArray += arrayOf(unboxedImage)
+                    if (useUnboxing or usePromo) {
+                        val limitedImage = ImageHandler.getLimitedAlt(charName)
+                        if (limitedImage > 0) {
+                            imageArray += arrayOf(limitedImage)
                         }
                     }
                 }

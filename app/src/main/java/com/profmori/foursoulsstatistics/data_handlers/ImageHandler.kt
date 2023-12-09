@@ -94,7 +94,7 @@ class ImageHandler {
             // Select returned value based on chosen number
         }
 
-        fun getUnboxingAlt(charName: String): Int {
+        fun getLimitedAlt(charName: String): Int {
             when (charName) {
                 "isaac" -> {
                     return R.drawable.box_isaac
@@ -107,6 +107,9 @@ class ImageHandler {
                 "the lost" -> {
                     return R.drawable.box_the_lost
                 }
+
+                "bum-bo" ->
+                    return R.drawable.p_bum_bo
             }
             return -1
         }

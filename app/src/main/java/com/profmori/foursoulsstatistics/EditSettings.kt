@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -39,6 +41,7 @@ import kotlinx.coroutines.launch
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
+import kotlin.collections.set
 
 class EditSettings : AppCompatActivity() {
 
@@ -629,6 +632,13 @@ class EditSettings : AppCompatActivity() {
             .setContentText(resources.getString(R.string.tutorial_random_settings))
             .withRectangleShape(true).withRectangleShape(true)
             .build()
+
+        val rerollSettings2 = MaterialShowcaseView.Builder(this)
+            .setTarget(rerollOptions)
+            .setDismissText(R.string.generic_dismiss)
+            .setContentText(resources.getString(R.string.tutorial_random_settings_2))
+            .withRectangleShape(true).withRectangleShape(true)
+            .build()
         // Highlights the reroll options
 
         sequence.addSequenceItem(groupID)
@@ -639,23 +649,35 @@ class EditSettings : AppCompatActivity() {
         sequence.addSequenceItem(background)
         sequence.addSequenceItem(rerollIconSelect)
         sequence.addSequenceItem(rerollSettings)
+        sequence.addSequenceItem(rerollSettings2)
         sequence.addSequenceItem(clearData)
         // Put the tutorial sequence together
-        sequence.start()
-        // Run the tutorial
+
+        sequence.setOnItemShownListener { itemView, _ ->
+            Handler(Looper.getMainLooper()).postDelayed({
+                val field = MaterialShowcaseView::class.java.getDeclaredField("mDismissButton")
+                field.isAccessible = true
+                val i = field.get(itemView) as TextView
+                try {
+                    i.performClick()
+                } catch (e: java.lang.NullPointerException) {
+                    // The tutorial has already been advanced past this point
+                }
+            }, 10000)
+        }
 
         sequence.setOnItemDismissedListener { itemView, _ ->
             // When any sequence item is dismissed
             val yPos = when (itemView) {
-                //groupID -> online.bottom
-                //onlineSwitch -> easyFont.bottom
-                easySwitch -> edition.bottom
-                edition -> borderLine.bottom
-                border -> backgroundLine.bottom
-                background -> rerollButton.bottom
-                rerollIconSelect -> rerollOptions.bottom
-                rerollSettings -> clearButton.bottom
-                clearData -> tutorialButton.bottom
+//                groupID -> online.top
+//                onlineSwitch -> easyFont.top
+                easySwitch -> edition.top
+                edition -> borderLine.top
+//                border -> backgroundLine.top
+//                background -> rerollButton.top
+                rerollIconSelect -> rerollOptions.top
+                rerollSettings -> clearButton.top
+                clearData -> tutorialButton.top
                 else -> scrollView.scrollY
             }
             // Get the y position of the next item
@@ -667,6 +689,8 @@ class EditSettings : AppCompatActivity() {
             // Start the animation
         }
 
+        sequence.start()
+        // Run the tutorial
     }
 
     private fun updateFonts(

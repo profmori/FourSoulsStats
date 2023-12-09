@@ -114,14 +114,15 @@ class CustomCardEntry : AppCompatActivity() {
                 val chars = charAdapter.getItems().toMutableList()
                 // Get the current list of characters
                 try {
-                    @Suppress("DEPRECATION") val image = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        // Uses a different method to find the image based on the android version
-                        ImageDecoder.decodeBitmap(
-                            ImageDecoder.createSource(this.contentResolver, imageURI!!)
-                        )
-                    } else {
-                        MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
-                    }
+                    @Suppress("DEPRECATION") val image =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            // Uses a different method to find the image based on the android version
+                            ImageDecoder.decodeBitmap(
+                                ImageDecoder.createSource(this.contentResolver, imageURI!!)
+                            )
+                        } else {
+                            MediaStore.Images.Media.getBitmap(this.contentResolver, imageURI)
+                        }
                     // Get the image from the URI
 
                     ImageHandler.writeImage(this, chars[currentChar].charName, image)

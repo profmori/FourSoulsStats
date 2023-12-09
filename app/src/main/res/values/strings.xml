@@ -37,24 +37,23 @@
     <!-- Input Recycler View Strings -->
     <string name="input_card_char_title">Character:</string>
     <string name="input_card_content_desc">Character Card</string>
-    <string name="input_card_player_title">Player:</string>
-    <string name="input_card_eternal_title">Eternal:</string>
+    <string name="card_player">Player:</string>
+    <string name="card_eternal">Eternal:</string>
     <string name="add_player_1">Add</string>
     <string name="add_player_2">To Player List</string>
 
     <!-- Results Page -->
     <string name="input_no_turns">Turns Left:</string>
-    <string name="input_default_turns">8</string>
     <string name="result_continue">Save\nResult</string>
+    <string name="input_default_turns" translatable="false">8</string>
     <string name="result_wrong_count">There Needs To Be Exactly 1 Winner</string>
     <string name="result_pass_on">Game Saved</string>
     <string name="result_go_back">Change\nGame Setup</string>
 
     <!-- Results Page Recycler Strings -->
-    <string name="win_card_player">Player:</string>
-    <string name="win_card_souls">Souls:</string>
-    <string name="win_card_winner">Winner:</string>
-    <string name="win_card_default_souls">0</string>
+    <string name="card_souls">Souls:</string>
+    <string name="card_winner">Winner:</string>
+    <string name="win_card_default_souls" translatable="false">0</string>
     <string name="win_starting_item">Starting Item:</string>
 
     <!-- Statistics Selection Page -->
@@ -80,7 +79,7 @@
     <string name="stats_table_adjusted_souls">Adjusted Souls</string>
     <string name="stats_table_turns_remaining">Average Turns Remaining</string>
     <string name="stats_table_played">Games Played</string>
-    <string name="stats_table_entry">%.2f</string>
+    <string name="stats_table_entry" translatable="false">%.2f</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
@@ -168,7 +167,7 @@
     <string name="room_back">Room Back</string>
 
     <!-- Thanks Screen -->
-    <string name="thanks_title" tools:ignore="TypographyEllipsis">Thanks To ...</string>
+    <string name="thanks_title">Thanks To …</string>
     <string name="thanks_fonts">Four Souls fonts (font-souls) created by <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a>.
     Retro font created by me, based on the font used in the Retro Eden card which does not have an artist on record</string>
     <string name="thanks_backgrounds">Buttons and blank character card from images created by
@@ -177,7 +176,7 @@
     <string name="thanks_friends">And thanks to my friends their support, inspiration and ultimately for playing Four Souls with me</string>
     <string name="thanks_edmund">Four Souls was created and designed by Edmund McMillen (<a href="https://twitter.com/edmundmcmillen">@edmundmcmillen</a>),
         and developed by <a href="https://maestromedia.com/">Maestro Media</a>. Thanks to them for being so supportive of the community,
-        as well as providing high quality images of the different cards in the game freely</string>
+        as well as providing high quality images of the cards in the game freely</string>
     <string name="thanks_cards">Other card images, set icons and item categories from <a href="https://foursouls.com/">foursouls.com</a>.
     Thanks to the team that runs and maintains the website for their dedication and hard work</string>
 
@@ -204,8 +203,8 @@
     <string name="tutorial_readable_font">Use more readable fonts, rather than the Four Souls fonts</string>
     <string name="tutorial_clear_button">Use the clear button to remove all saved data on this device. Any games not saved online will be lost forever</string>
     <string name="tutorial_select_icon">Use this button to select which icons can be shown to shuffle a random selection of characters</string>
-    <string name="tutorial_random_settings">Use these switches to define the behaviour of the randomisation of characters.\n
-    Characters can be prevented from duplicating, with Eden being a special case, and eternal items can be automatically selected for Eden.</string>
+    <string name="tutorial_random_settings">Use these switches to define the behaviour of the randomisation of characters.</string>
+    <string name="tutorial_random_settings_2">Characters can be prevented from duplicating, with Eden being a special case, and eternal items can be automatically selected for Eden.</string>
 
     <!-- Game Editing Pages -->
     <string name="edit_title">Edit / Remove Games</string>
@@ -299,11 +298,19 @@
     </string>
 
     <string name="version_26">
-        &lt;b>&lt;u>Version 5.02&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
-        \u2022 Apologies for the delay in upating the app again &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 5.02 (8-Jul-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added the statistics sections for single player / co-op games&lt;br>&lt;/br>
         \u2022 Made the statistics menu smarter when showing options &lt;br>&lt;/br>
         \u2022 Adjusted some tutorial text to reflect the new function &lt;br>&lt;/br> &lt;br>&lt;/br>
+    </string>
+
+    <string name="version_27">
+        &lt;b>&lt;u>Version 5.03&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Fixed a bug in the tutorial where the button to advance was off screen &lt;br>&lt;/br>
+        \u2022 Forced the tutorial to move forward automatically after 10 seconds to prevent people getting stuck on it &lt;br>&lt;/br>
+        \u2022 Added the new promo Bum-bo character art to the app &lt;br>&lt;/br>
+        \u2022 Fixed a bug where patch notes would overlap the title on smaller devices &lt;br>&lt;/br>
+        \u2022 Added a Spanish app translation using Google translate - please let me kow if this is unreadable &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 
 </resources>

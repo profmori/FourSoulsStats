@@ -2,6 +2,8 @@ package com.profmori.foursoulsstatistics
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -267,6 +269,19 @@ class MainActivity : AppCompatActivity() {
         sequence.addSequenceItem(settings)
         sequence.addSequenceItem(issues)
         // Add all the items to the sequence in order
+
+        sequence.setOnItemShownListener { itemView, _ ->
+            Handler(Looper.getMainLooper()).postDelayed({
+                val field = MaterialShowcaseView::class.java.getDeclaredField("mDismissButton")
+                field.isAccessible = true
+                val i = field.get(itemView) as TextView
+                try {
+                    i.performClick()
+                } catch (e: java.lang.NullPointerException) {
+                    // The tutorial has already been advanced past this point
+                }
+            }, 10000)
+        }
 
         sequence.setOnItemDismissedListener { itemView, _ ->
             if (itemView == issues) {

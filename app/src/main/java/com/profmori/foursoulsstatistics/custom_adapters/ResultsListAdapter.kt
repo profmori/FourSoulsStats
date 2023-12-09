@@ -90,7 +90,7 @@ class ResultsListAdapter(
         val playerEntry = viewHolder.playerName
         // Gets the character entry input box
         val playerName = TextHandler.capitalise(playerHandler.playerName.lowercase())
-        val playerText = "${playerEntry.context.getString(R.string.win_card_player)} $playerName"
+        val playerText = "${playerEntry.context.getString(R.string.card_player)} $playerName"
         // Create a text string which adds the player name
         playerEntry.text = playerText
         // Set the player text entry to have the player name
