@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
+import com.profmori.foursoulsstatistics.data_handlers.LanguageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharacterList
@@ -111,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val titleText = findViewById<TextView>(R.id.mainTitle)
+        val changeLanguage = findViewById<Button>(R.id.mainLanguage)
         val dataButton = findViewById<Button>(R.id.mainData)
         val statsButton = findViewById<Button>(R.id.mainStats)
         val editButton = findViewById<Button>(R.id.mainEdit)
@@ -147,7 +149,10 @@ class MainActivity : AppCompatActivity() {
         feedbackButton.setBackgroundResource(buttonBG)
         // Set all the buttons to the same background
 
-        //UpdateHandler.checkUpdates()
+        LanguageHandler.getLanguage(changeLanguage)
+        changeLanguage.setOnClickListener{
+            LanguageHandler.changeLanguage()
+        }
 
         dataButton.setOnClickListener {
             // When the enter game button is pressed

@@ -31,6 +31,7 @@ import com.profmori.foursoulsstatistics.custom_adapters.SetSelectionAdapter
 import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ChangeGroupDialog
 import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ConfirmDeleteDialog
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
+import com.profmori.foursoulsstatistics.data_handlers.LanguageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.GameDataBase
@@ -168,6 +169,15 @@ class EditSettings : AppCompatActivity() {
 
         val buttonBG = ImageHandler.setButtonImage()
         // Get a random button from the possible options
+
+        val changeLanguage = findViewById<Button>(R.id.settingsLanguage)
+        LanguageHandler.getLanguage(changeLanguage)
+
+        changeLanguage.setOnClickListener{
+            LanguageHandler.changeLanguage()
+        }
+
+
 
         customButton.setBackgroundResource(buttonBG)
         clearButton.setBackgroundResource(buttonBG)

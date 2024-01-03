@@ -8,7 +8,7 @@
     <string name="generic_dismiss">OK</string>
     <string name="main_title">The Binding Of Isaac: 4 Souls Estadísticas Rastreador</string>
     <string name="main_stats_button">Ver estadísticas</string>
-    <string name="main_enter_data">Introducir datos del juego</string>
+    <string name="main_enter_data">Ingresa datos del juego</string>
     <string name="main_edit_button">Editar juegos</string>
     <string name="main_settings_button">Ajustes de Aplicacion</string>
     <string name="main_thanks_button">Gracias</string>
@@ -88,7 +88,7 @@
     <string name="settings_border_prompt">Borde :</string>
     <string name="settings_background_prompt">Fondo :</string>
     <string name="settings_readable_font">Utilice una fuente legible:</string>
-    <string name="settings_reroll_icon">Seleccione los iconos del botón Reroll</string>
+    <string name="settings_reroll_icon">Seleccione los iconos\ndel botón Reroll</string>
     <string name="settings_reroll_eternal">Aleatorizar Eden Eterne</string>
     <string name="settings_reroll_duplicates">Permitir duplicados aleatorios</string>
     <string name="settings_reroll_duplicates_eden">Permitir duplicados aleatorios de Eden</string>
@@ -102,7 +102,7 @@
     <string name="settings_cancel_delete">Conservar los datos</string>
     <string name="settings_confirm_delete">Borrar datos</string>
     <string name="settings_reset_tutorial">Restablecer\ntutorial</string>
-    <string name="settings_show_patch_notes">Mostrar todas las notas del parche</string>
+    <string name="settings_show_patch_notes">Mostrar todas las\nnotas del parche</string>
     <string name="custom_title">Tarjetas personalizadas</string>
     <string name="custom_cancel">Cancelar</string>
     <string name="custom_characters">Personajes personalizados</string>
@@ -245,11 +245,20 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     </string>
 
     <string name="version_27">
-        &lt;b>&lt;u>Versión 5.03&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 5.03 (10-dic-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Se corrigió un error en el tutorial donde el botón para avanzar estaba fuera de la pantalla &lt;br>&lt;/br>
          \u2022 Se obligó a que el tutorial avanzara automáticamente después de 10 segundos para evitar que las personas se quedaran atascadas en él &lt;br>&lt;/br>
          \u2022 Se agregó el nuevo arte promocional del personaje Bum-bo a la aplicación &lt;br>&lt;/br>
          \u2022 Se corrigió un error por el cual las notas del parche se superponían al título en dispositivos más pequeños &lt;br>&lt;/br>
          \u2022 Se agregó una traducción de la aplicación en español usando el traductor de Google. Avíseme si esto es ilegible &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="version_28">
+        &lt;b>&lt;u>Versión 5.04 (4-ene-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Se agregó la capacidad de cambiar el idioma dentro de la aplicación, en lugar de usar el idioma del sistema &lt;br>&lt;/br>
+        \u2022 Se agregó una traducción de la aplicación al francés usando el traductor de Google &lt;br>&lt;/br>
+        \u2022 Se agregó una traducción de la aplicación al alemán usando el traductor de Google &lt;br>&lt;/br>
+        \u2022 Se agregó una traducción de la aplicación al italiano usando el traductor de Google &lt;br>&lt;/br>
+        \u2022 Disculpas para todos los hablantes nativos, ya que estas son traducciones aproximadas; pueden ser completamente inutilizables &lt;br>&lt;/br>
+        \u2022 Si desea enviar comentarios o una mejor traducción, envíe un correo electrónico utilizando el botón "Oferta para traducir".&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <!-- Overall App Information -->
     <string name="app_name">Four Souls Stats</string>
 
@@ -305,12 +306,20 @@
     </string>
 
     <string name="version_27">
-        &lt;b>&lt;u>Version 5.03&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Version 5.03 (10-Dec-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Fixed a bug in the tutorial where the button to advance was off screen &lt;br>&lt;/br>
         \u2022 Forced the tutorial to move forward automatically after 10 seconds to prevent people getting stuck on it &lt;br>&lt;/br>
         \u2022 Added the new promo Bum-bo character art to the app &lt;br>&lt;/br>
         \u2022 Fixed a bug where patch notes would overlap the title on smaller devices &lt;br>&lt;/br>
         \u2022 Added a Spanish app translation using Google translate - please let me kow if this is unreadable &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
-
+    <string name="version_28">
+        &lt;b>&lt;u>Version 5.04 (4-Jan-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added the ability to change langauge within the app, instead of using system language &lt;br>&lt;/br>
+        \u2022 Added a French app translation using Google translate &lt;br>&lt;/br>
+        \u2022 Added a German app translation using Google translate &lt;br>&lt;/br>
+        \u2022 Added an Italian app translation using Google translate &lt;br>&lt;/br>
+        \u2022 Apologies for all native speakers as these are rough translations - they may be entirely unusable &lt;br>&lt;/br>
+        \u2022 If you wish to provide feedback or a better translation, please email using the "Offer to Translate" button.&lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
 </resources>

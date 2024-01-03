@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred_obj = credentials.Certificate('service_account_key.json')
+cred_obj = credentials.Certificate('C:\\Users\\Jim\\Documents\\GitHub\\FourSoulsStats\\service_account_key.json')
 firebase_admin.initialize_app(cred_obj)
 
 store = firestore.client()
@@ -20,8 +20,3 @@ for doc in docs:
                     'solo': doc_data['k'], 'turnsLeft': doc_data['l']}
 
         game_refs.document(doc.id).set(new_data)
-
-
-if count == 0:
-    print('All games are correct')
-

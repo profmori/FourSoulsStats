@@ -87,7 +87,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/resultsToEntry"
 
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
             android:text="@string/result_go_back"
             android:textAllCaps="false"

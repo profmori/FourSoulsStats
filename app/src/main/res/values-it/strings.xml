@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Statistiche delle Quattro Anime</string>
+    <string name="error_placeholder">Se vedi questo, c\'è un bug</string>
+    <string name="back_to_main_1">Torna al menu principale</string>
+    <string name="back_to_main_2">Torna al\nMenu principale</string>
+    <string name="back_to_settings">Torna alle impostazioni</string>
+    <string name="icon_description">Imposta icona</string>
+    <string name="generic_dismiss">OK</string>
+    <string name="main_title">Il legame di Isaac: monitoraggio delle statistiche di 4 anime</string>
+    <string name="main_stats_button">Visualizza\nStatistiche</string>
+    <string name="main_enter_data">Inserisci\nDati di gioco</string>
+    <string name="main_edit_button">Modifica\nGiochi</string>
+    <string name="main_settings_button">App\nImpostazioni</string>
+    <string name="main_thanks_button">Grazie</string>
+    <string name="main_error_button">Feedback e\nSuggerimenti</string>
+    <string name="input_title">Inserisci dati di gioco</string>
+    <string name="input_no_players">Numero di giocatori:</string>
+    <string name="input_no_treasures">Numero di tesori iniziali:</string>
+    <string name="input_default_treasures" translatable="false">0</string>
+    <string name="input_continue_button">Inserisci gioco\nRisultati</string>
+    <string name="input_too_few">Non tutti i dati sono stati compilati</string>
+    <string name="input_co_op">Gioca in cooperativa:</string>
+    <string name="input_card_char_title">Carattere:</string>
+    <string name="input_card_content_desc">Carta personaggio</string>
+    <string name="card_player">Giocatore:</string>
+    <string name="card_eternal">Eterno:</string>
+    <string name="add_player_1">Aggiungi</string>
+    <string name="add_player_2">All\'elenco dei giocatori</string>
+    <string name="input_no_turns">Gira a sinistra:</string>
+    <string name="result_continue">Salva\nRisultato</string>
+    <string name="result_wrong_count">Deve esserci esattamente 1 vincitore</string>
+    <string name="result_pass_on">Gioco salvato</string>
+    <string name="result_go_back">Cambia\nImpostazioni di gioco</string>
+    <string name="card_souls">Anime:</string>
+    <string name="card_winner">Vincitore:</string>
+    <string name="win_starting_item">Elemento iniziale:</string>
+    <string name="stats_no_local">Non ci sono giochi memorizzati per questo gruppo di gioco</string>
+    <string name="stats_no_wifi">Le statistiche online richiedono una connessione Wi-Fi per accedere. Per favore riprova più tardi</string>
+    <string name="stats_no_data">Non ci sono dati da visualizzare in questo momento. Connettiti al Wi-Fi o inserisci alcuni giochi</string>
+    <string name="stats_treasures">Tesori:</string>
+    <string name="stats_players">Giocatori:</string>
+    <string name="stats_filter">Filtra per:</string>
+    <string name="stats_return">Torna alla pagina delle statistiche</string>
+    <string name="player_stats_title">Statistiche\ngiocatore</string>
+    <string name="character_stats_title">Statistiche\ncarattere</string>
+    <string name="eternal_stats_title">Statistiche oggetto eterno\n</string>
+    <string name="player_table_header">Giocatore</string>
+    <string name="character_table_header">Carattere</string>
+    <string name="eternal_table_header">Articolo eterno</string>
+    <string name="stats_table_winrate">Tasso di vincita</string>
+    <string name="stats_table_souls">Anime medie</string>
+    <string name="stats_table_adjusted_souls">Anime adattate</string>
+    <string name="stats_table_turns_remaining">Media turni rimanenti</string>
+    <string name="stats_table_played">Giochi giocati</string>
+    <string name="settings_title">Impostazioni</string>
+    <string name="settings_group_id">ID gruppo:</string>
+    <string name="settings_group_id_explain">L\'ID del gruppo deve contenere 6 lettere, numeri o simboli</string>
+    <string name="settings_invalid_group">L\'ID del gruppo di input era troppo corto ed è stato reimpostato</string>
+    <string name="settings_duplicate_group">L\'ID del gruppo di input esiste già. Se questo non è il tuo gruppo, usa un altro ID</string>
+    <string name="settings_overwrite_data">La modifica dell\'ID del gruppo eliminerà tutti i giochi non caricati</string>
+    <string name="settings_confirm_overwrite">Cambia ID gruppo</string>
+    <string name="settings_cancel_overwrite">Reimposta ID gruppo</string>
+    <string name="settings_online_sync">Sincronizza online:</string>
+    <string name="edition_prompt">Usa carte da:</string>
+    <string name="settings_gold">Scatola d\'oro:</string>
+    <string name="settings_plus">Quattro Anime+ :</string>
+    <string name="settings_requiem">Requiem :</string>
+    <string name="settings_warp">Zone Warp :</string>
+    <string name="icon_alt_art">Arte alternativa</string>
+    <string name="icon_base">Gioco base</string>
+    <string name="icon_custom">Carte personalizzate</string>
+    <string name="settings_promo">Promozione:</string>
+    <string name="icon_gfuel">G-Fuel</string>
+    <string name="icon_gish">Gish</string>
+    <string name="icon_gold">Scatola d\'oro</string>
+    <string name="icon_plus">Quattro Anime +</string>
+    <string name="icon_promo">Promo</string>
+    <string name="icon_requiem">Requiem</string>
+    <string name="icon_retro">Retrò</string>
+    <string name="icon_tapeworm">Tenia</string>
+    <string name="icon_target">Destinazione</string>
+    <string name="icon_unboxing">Unboxing di Isaac</string>
+    <string name="icon_warp">Zone Warp</string>
+    <string name="settings_custom">Personalizzato:</string>
+    <string name="settings_enter_custom">Aggiungi carte personalizzate</string>
+    <string name="settings_pixel_font">Utilizza carattere Retro Eden:</string>
+    <string name="settings_alt_art">Utilizza grafica alternativa carattere:</string>
+    <string name="settings_border_prompt">Bordo :</string>
+    <string name="settings_readable_font">Utilizza un carattere leggibile:</string>
+    <string name="settings_reroll_icon">Seleziona le icone dei pulsanti Riprendi</string>
+    <string name="settings_reroll_eternal">Cambia Eden Eternal</string>
+    <string name="settings_reroll_duplicates">Consenti duplicati casuali</string>
+    <string name="settings_reroll_duplicates_eden">Consenti duplicati Eden casuali</string>
+    <string name="reroll_no_icons">Nessuna icona di rilancio selezionata - selezionane almeno 1.</string>
+    <string name="reroll_suggest_icon">Suggerisci nuova icona</string>
+    <string name="reroll_title">Seleziona icone Riprendi</string>
+    <string name="settings_clear_data">Cancella tutti i dati memorizzati</string>
+    <string name="settings_delete_data">Sei sicuro di voler eliminare tutti i dati?
+         \nQuesta operazione rimuoverà tutti i nomi, i giochi e i personaggi personalizzati non utilizzati dal gruppo attualmente selezionato.
+         Tutti i giochi non caricati andranno persi per sempre.</string>
+    <string name="settings_cancel_delete">Conserva i dati</string>
+    <string name="settings_confirm_delete">Elimina dati</string>
+    <string name="settings_reset_tutorial">Ripristina\nTutorial</string>
+    <string name="settings_show_patch_notes">Mostra tutte le\nnote sulla patch</string>
+    <string name="custom_title">Carte personalizzate</string>
+    <string name="custom_cancel">Annulla</string>
+    <string name="custom_characters">Caratteri personalizzati</string>
+    <string name="custom_add_character">Aggiungi carattere</string>
+    <string name="custom_items">Articoli personalizzati</string>
+    <string name="custom_add_item">Aggiungi elemento</string>
+    <string name="custom_character">Carattere personalizzato</string>
+    <string name="custom_item">Articolo personalizzato</string>
+    <string name="character_back">Carattere indietro</string>
+    <string name="eternal_back">Dietro Eterno</string>
+    <string name="loot_back">Bottino indietro</string>
+    <string name="monster_back">Mostro Indietro</string>
+    <string name="soul_back">Anima indietro</string>
+    <string name="treasure_back">Tesoro restituito</string>
+    <string name="room_back">Stanza sul retro</string>
+    <string name="thanks_title">Grazie a …</string>
+    <string name="thanks_fonts">caratteri Four Souls (font-souls) creati da <a href="https://github.com/AssisrMatheus/font-souls">AssisrMatheus</a>.
+     Carattere retrò creato da me, basato sul carattere utilizzato nella carta Retro Eden che non ha un artista registrato</string>
+    <string name="thanks_backgrounds">Pulsanti e scheda di caratteri vuoti dalle immagini create da
+         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
+             u/Koretex_</a> per il Reddit delle Quattro Anime</string>
+    <string name="thanks_friends">E grazie ai miei amici per il loro supporto, ispirazione e, infine, per aver giocato a Four Souls con me</string>
+    <string name="thanks_edmund">Four Souls è stato creato e progettato da Edmund McMillen (<a href="https://twitter.com/edmundmcmillen">@edmundmcmillen</a>),
+         e sviluppato da <a href="https://maestromedia.com/">Maestro Media</a>. Grazie a loro per essere così solidali con la comunità,
+         oltre a fornire gratuitamente immagini di alta qualità delle carte nel gioco</string>
+    <string name="thanks_cards">Altre immagini di carte, icone di set e categorie di articoli da <a href="https://foursouls.com/">foursouls.com</a>.
+     Grazie al team che gestisce e mantiene il sito web per la dedizione e il duro lavoro</string>
+    <string name="tutorial_data">Inserisci i dati di gioco utilizzando questo pulsante</string>
+    <string name="tutorial_stats">Visualizza le statistiche del tuo gruppo, nonché le statistiche medie per l\'intera comunità, utilizzando questo pulsante</string>
+    <string name="tutorial_edit">Usa questo pulsante per modificare i giochi inseriti in precedenza per correggere eventuali errori commessi.
+         Puoi anche rimuovere completamente i giochi dalla cronologia di gioco</string>
+    <string name="tutorial_settings">Utilizza questo pulsante per personalizzare la tua esperienza con l\'app.
+         \nCiò ti consente di scegliere molte cose, incluse le funzionalità online e l\'aspetto dell\'app.</string>
+    <string name="tutorial_issues">Usa questo pulsante per segnalare eventuali problemi che riscontri o bug che trovi. Oltre a ciò si possono avanzare nuove proposte.
+         \nSe desideri tradurre l\'app, qualsiasi offerta è molto apprezzata. Questo può essere fatto anche da questo pulsante.</string>
+    <string name="tutorial_group_id">Utilizza questa riga per inserire l\'ID univoco del tuo gruppo o crearne uno nuovo.
+         \nVerrà utilizzato per consentire a dispositivi diversi di sincronizzare gli stessi giochi ed è necessario anche se rimani offline</string>
+    <string name="tutorial_online">Questo interruttore controlla se i dati del tuo gruppo verranno archiviati online o meno.
+         \nÈ comunque importante impostare l\'ID del tuo gruppo, poiché modificandolo ripristinerai i giochi registrati, anche quando sei offline</string>
+    <string name="tutorial_edition">Seleziona da quali edizioni del gioco desideri utilizzare le carte,
+         e se le carte con illustrazioni alternative hanno la possibilità di essere mostrate.</string>
+    <string name="tutorial_border">Utilizza questo per selezionare il bordo dell\'app</string>
+    <string name="tutorial_readable_font">Utilizza caratteri più leggibili, piuttosto che i caratteri Four Souls</string>
+    <string name="tutorial_clear_button">Utilizza il pulsante Cancella per rimuovere tutti i dati salvati su questo dispositivo. Tutti i giochi non salvati online andranno persi per sempre</string>
+    <string name="tutorial_select_icon">Utilizza questo pulsante per selezionare quali icone possono essere mostrate per mescolare una selezione casuale di caratteri</string>
+    <string name="tutorial_random_settings">Utilizza queste opzioni per definire il comportamento della randomizzazione dei caratteri.</string>
+    <string name="tutorial_random_settings_2">È possibile impedire la duplicazione dei personaggi, essendo Eden un caso speciale, e gli oggetti eterni possono essere selezionati automaticamente per Eden.</string>
+    <string name="edit_title">Modifica/Rimuovi giochi</string>
+    <string name="edit_select_game">Seleziona un gioco da modificare:</string>
+    <string name="edit_no_games">Nessun gioco trovato da modificare</string>
+    <string name="adjust_title">Modifica partita</string>
+    <string name="adjust_submit">Invia modifica</string>
+    <string name="adjust_delete">Elimina gioco</string>
+    <string name="adjust_confirm_exit">L\'uscita ripristinerà tutte le modifiche apportate.\nVuoi continuare?</string>
+    <string name="adjust_ignore_changes">Esci senza salvare</string>
+    <string name="adjust_cancel_exit">Torna alla modifica</string>
+    <string name="adjust_incorrect_data">Inserimento errato. Assicurati che tutti i dati siano inseriti correttamente</string>
+    <string name="adjust_cancel_delete">Annulla</string>
+    <string name="adjust_confirm_delete">Conferma</string>
+    <string name="adjust_check_delete">L\'eliminazione di un gioco è permanente e non può essere annullata\nSei sicuro di voler eliminare questo gioco?</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_preference">Il metodo preferito per ricevere feedback è tramite GitHub, quindi utilizzalo ove possibile.
+         Altrimenti, vengono forniti i collegamenti per inviare e-mail.\nLe offerte di traduzione sono apprezzate e devono essere inviate via e-mail.</string>
+    <string name="feedback_github_report">Rapporto Github</string>
+    <string name="feedback_bug">Invia una segnalazione di bug via email</string>
+    <string name="feedback_suggestion">Invia un suggerimento via email</string>
+    <string name="feedback_translate">Offriti di tradurre</string>
+    <string name="statistics_title">Statistiche</string>
+    <string name="statistics_group_player">Visualizza la\nclassifica dei giocatori del tuo gruppo</string>
+    <string name="statistics_group_character">Visualizza la\nclassifica dei personaggi del tuo gruppo</string>
+    <string name="statistics_group_solo_character">Visualizza le prestazioni del personaggio solista del tuo gruppo</string>
+    <string name="statistics_global_character">Visualizza comunità\nClassifiche dei personaggi</string>
+    <string name="statistics_global_eternal">Visualizza community\nClassifiche eterne</string>
+    <string name="statistics_global_solo_character">Visualizza comunità\nClassifiche dei personaggi singoli</string>
+    <string name="statistics_global_solo_eternal">Visualizza community\nClassifiche Solo Eternal</string>
+    <string name="patch_notes_title">Note sulla patch</string>
+    <string name="version_16">
+         &lt;b>&lt;u>Versione 4.01 (17-dic-21)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Aggiunti i riepiloghi della nuova versione dell\'app in modo che le modifiche siano più visibili &lt;br>&lt;/br>
+         \u2022 Aggiornate le carte dei personaggi vuoti per utilizzare le nuove carte della versione 2 di u/Koretex_&lt;br>&lt;/br>
+         \u2022 The Lost ora inizia automaticamente con 1 anima nella schermata dei risultati&lt;br>&lt;/br>
+         \u2022 Modificato l\'elenco dei dispositivi di scorrimento in un set di icone per ciascuno dei set &lt;br>&lt;/br>
+         \u2022 Per maggiore chiarezza, abbiamo separato le carte promozionali del negozio dalle promo Gish, Target e Tenia &lt;br>&lt;/br>
+         \u2022 Aggiunto un nuovo pulsante di randomizzazione nella pagina di immissione dei caratteri per selezionare i caratteri in modo casuale &lt;br>&lt;/br>
+         \u2022 Aggiunte nuove impostazioni per selezionare quali icone visualizzare come pulsante di randomizzazione &lt;br>&lt;/br>
+         \u2022 Aggiunte nuove impostazioni per impedire la duplicazione dei caratteri e per selezionare casualmente un file
+         oggetto eterno per qualsiasi selezione casuale di Eden &lt;br>&lt;/br>
+         \u2022 Risolto un bug per il quale il controllo dell\'ID online non informava dell\'uso di un ID di gruppo &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_18">
+         &lt;b>&lt;u>Versione 4.02 (28-gen-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Aggiunto il clicker all\'elenco delle icone per il pulsante randomizza &lt;br>&lt;/br>
+         \u2022 Aggiunte carte aggiornate per Jacob \&amp; Esaù, Il Malefico, Baba e Steven &lt;br>&lt;/br>
+         \u2022 Aggiunta una politica sulla privacy per essere in linea con le nuove politiche di Google &lt;br>&lt;/br>
+         \u2022 Interruzione della visualizzazione delle note sulla patch alla prima installazione dell\'app &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_20">
+         &lt;b>&lt;u>Versione 4.03 (16-giu-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Aggiunte carte dall\'Unboxing di Isaac e promozioni associate &lt;br>&lt;/br>
+         \u2022 Aggiunta la nuova promozione Eden da UKGE &lt;br>&lt;/br>
+         \u2022 Aggiunto Retro Eden e un nuovo carattere pixel che può essere disattivato &lt;br>&lt;/br>
+         \u2022 Risolto un bug per il quale le icone di rilancio potevano essere sostituite da immagini casuali &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_21">
+         &lt;b>&lt;u>Versione 4.04 (11-lug-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Carte effettivamente aggiunte dall\'Unboxing di Isaac e promozioni associate &lt;br>&lt;/br>
+         \u2022 Aggiunta la sincronizzazione per la promozione e l\'Unboxing dei tesori di Isaac in modo che ogni nuovo aggiornamento non lo faccia
+         richiedere un aggiornamento dell\'app &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_22">
+         &lt;b>&lt;u>Versione 4.05 (12-apr-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Separare le carte G-Fuel dalle carte Promo, per essere in linea con <a href="https://foursouls.com/cards/">
+             foursouls.com</a> &lt;br>&lt;/br>
+         \u2022 Aggiunte nuove carte con grafica alternativa del personaggio da The Unboxing of Isaac come opzioni per la grafica del personaggio &lt;br>&lt;/br>
+         \u2022 Risolti i problemi relativi alla dimensione dei caratteri durante l\'utilizzo della carta Retro Eden &lt;br>&lt;/br>
+         \u2022 Aggiunto un pulsante per visualizzare tutte le vecchie note sulla patch dal menu delle impostazioni e aggiunte date alle note sulla patch &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_25">
+         &lt;b>&lt;u>Versione 5.01 (18-mag-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Aggiunta la possibilità di salvare partite per giocatore singolo e cooperative &lt;br>&lt;/br>
+         \u2022 Interrotta la visualizzazione dei giochi per giocatore singolo e cooperativo nelle statistiche online.
+         Prima o poi avranno le loro sezioni, ma era importante pubblicarle rapidamente &lt;br>&lt;/br>
+         \u2022 Risolto un bug per il quale qualsiasi grafica alternativa veniva visualizzata durante la modifica di vecchi giochi &lt;br>&lt;/br>
+         \u2022 Fatto in modo che i personaggi delle espansioni non selezionate non appaiano come carte vuote durante la modifica di vecchi giochi &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_26">
+         &lt;b>&lt;u>Versione 5.02 (8-lug-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Aggiunte le sezioni statistiche per i giochi per giocatore singolo/cooperativo&lt;br>&lt;/br>
+         \u2022 Reso più intelligente il menu delle statistiche durante la visualizzazione delle opzioni &lt;br>&lt;/br>
+         \u2022 Modificati alcuni testi tutorial per riflettere la nuova funzione &lt;br>&lt;/br> &lt;br>&lt;/br>
+     </string>
+    <string name="version_27">
+         &lt;b>&lt;u>Versione 5.03 (10-dicembre-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Risolto un bug nel tutorial per cui il pulsante per avanzare era fuori schermo &lt;br>&lt;/br>
+         \u2022 Il tutorial è stato forzato ad andare avanti automaticamente dopo 10 secondi per evitare che le persone rimanessero bloccate &lt;br>&lt;/br>
+         \u2022 Aggiunta la nuova grafica promozionale del personaggio Bum-bo all\'app &lt;br>&lt;/br>
+         \u2022 Risolto un bug per il quale le note della patch si sovrapponevano al titolo sui dispositivi più piccoli &lt;br>&lt;/br>
+         \u2022 Aggiunta una traduzione dell\'app in spagnolo utilizzando Google Translate: fammi sapere se è illeggibile &lt;br>&lt;/br>&lt;br>&lt;/br>
+     </string>
+    <string name="version_28">
+         &lt;b>&lt;u>Versione 5.04 (4 gennaio 24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         \u2022 Aggiunta la possibilità di cambiare lingua all\'interno dell\'app, invece di utilizzare la lingua di sistema &lt;br>&lt;/br>
+         \u2022 Aggiunta una traduzione dell\'app in francese utilizzando Google Translate &lt;br>&lt;/br>
+         \u2022 Aggiunta una traduzione dell\'app in tedesco utilizzando Google Translate &lt;br>&lt;/br>
+         \u2022 Aggiunta una traduzione dell\'app in italiano utilizzando Google Translate &lt;br>&lt;/br>
+         \u2022 Ci scusiamo con tutti i madrelingua poiché si tratta di traduzioni approssimative e potrebbero essere del tutto inutilizzabili &lt;br>&lt;/br>
+         \u2022 Se desideri fornire un feedback o una traduzione migliore, invia un\'e-mail utilizzando il pulsante "Offri di tradurre".&lt;br>&lt;/br>&lt;br>&lt;/br>
+     </string>
+</resources>

@@ -22,6 +22,17 @@
         android:src="@drawable/bg_border_monster_back"
         tools:ignore="ContentDescription" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/mainLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="35dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/clear"/>
+
     <TextView
         android:id="@+id/mainTitle"
 
@@ -44,7 +55,7 @@
         android:id="@+id/mainData"
 
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
 
         android:layout_marginStart="35dp"
 
@@ -62,7 +73,7 @@
         android:id="@+id/mainStats"
 
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="35dp"
         android:text="@string/main_stats_button"
         android:textAllCaps="false"
@@ -75,7 +86,7 @@
         android:id="@+id/mainEdit"
 
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
 
         android:layout_marginStart="35dp"
         android:text="@string/main_edit_button"
@@ -90,7 +101,7 @@
         android:id="@+id/mainSettings"
 
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
 
         android:layout_marginEnd="35dp"
         android:text="@string/main_settings_button"
@@ -105,7 +116,7 @@
         android:id="@+id/mainThanks"
 
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
 
         android:layout_marginStart="35dp"
 
@@ -122,7 +133,7 @@
         android:id="@+id/mainReport"
 
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
 
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="35dp"

@@ -129,7 +129,7 @@
         android:id="@+id/feedbackMainButton"
 
         android:layout_width="220dp"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_margin="35dp"
         android:text="@string/back_to_main_1"
         android:textAllCaps="false"

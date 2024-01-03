@@ -23,6 +23,7 @@
         android:src="@drawable/bg_border_monster_back"
         tools:ignore="ContentDescription" />
 
+
     <TextView
         android:id="@+id/settingsTitle"
 
@@ -36,7 +37,19 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/settingsLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/settingsTitle"
+        app:layout_constraintBottom_toBottomOf="@id/settingsTitle"
+        android:background="@color/clear"/>
+
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -54,7 +67,7 @@
             <TextView
                 android:id="@+id/groupIDPrompt"
 
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginHorizontal="35dp"
                 android:gravity="center_vertical"
@@ -103,7 +116,7 @@
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/onlineSwitch"
 
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
 
                 android:layout_marginStart="35dp"
@@ -169,7 +182,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/customButton"
 
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:background="@drawable/button_event"
                     android:text="@string/settings_enter_custom"
@@ -233,7 +246,7 @@
                 <TextView
                     android:id="@+id/borderPrompt"
 
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginHorizontal="35dp"
                     android:gravity="center_vertical"
@@ -275,7 +288,7 @@
                 <TextView
                     android:id="@+id/backgroundPrompt"
 
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_marginStart="40dp"
                     android:gravity="center_vertical"
@@ -414,7 +427,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/patchNotesButton"
 
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="70dp"
 
                 android:layout_marginHorizontal="35dp"
