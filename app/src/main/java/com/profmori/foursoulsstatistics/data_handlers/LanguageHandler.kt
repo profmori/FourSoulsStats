@@ -4,13 +4,18 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatDelegate.getApplicationLocales
 import androidx.appcompat.app.AppCompatDelegate.setApplicationLocales
 import androidx.core.os.LocaleListCompat
+import java.util.Locale
 
 
 class LanguageHandler {
     companion object {
 
         fun getLanguage(button: Button) {
-            val currentLocale = getApplicationLocales().toLanguageTags()
+            var currentLocale = getApplicationLocales().toLanguageTags()
+            if (currentLocale == ""){
+                currentLocale = Locale.getDefault().language
+                setApplicationLocales(LocaleListCompat.forLanguageTags(currentLocale))
+            }
             val currFlag = getFlag(currentLocale)
             button.text = currFlag
         }
