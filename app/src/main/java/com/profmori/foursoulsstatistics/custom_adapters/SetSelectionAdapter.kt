@@ -61,6 +61,8 @@ class SetSelectionAdapter(
                 // Tint the icon white
                 if (currIcon == "retro") {
                     viewHolder.icon.setImageResource(ImageHandler.getIcon("retro_off"))
+                }else if (currIcon == "summer") {
+                    viewHolder.icon.setImageResource(ImageHandler.getIcon("summer_off"))
                 }
             } else {
                 // If the base icon returns false then the setting is incorrect

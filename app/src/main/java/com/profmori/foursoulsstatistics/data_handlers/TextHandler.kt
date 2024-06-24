@@ -29,6 +29,7 @@ class TextHandler {
             val iconMap = mapOf(
                 "alt_art" to R.string.icon_alt_art,
                 "base" to R.string.icon_base,
+                "bumbo" to R.string.icon_bumbo,
                 "custom" to R.string.icon_custom,
                 "gfuel" to R.string.icon_gfuel,
                 "gish" to R.string.icon_gish,
@@ -37,10 +38,12 @@ class TextHandler {
                 "promo" to R.string.icon_promo,
                 "requiem" to R.string.icon_requiem,
                 "retro" to R.string.icon_retro,
+                "summer" to R.string.icon_summer,
                 "tapeworm" to R.string.icon_tapeworm,
                 "target" to R.string.icon_target,
                 "unboxing" to R.string.icon_unboxing,
-                "warp" to R.string.icon_warp
+                "warp" to R.string.icon_warp,
+                "youtooz" to R.string.icon_youtooz
             )
             // Create a map of all the different set icons
             return if (iconMap.containsKey(iconName)) {

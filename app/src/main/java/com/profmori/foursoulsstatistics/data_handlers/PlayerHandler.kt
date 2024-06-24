@@ -40,6 +40,13 @@ class PlayerHandler(
     private var useUnboxing = true
     // Variable for whether or not to use unboxing of isaac alt arts
 
+    private var useBumbo = true
+    // Variable for whether or not to use bumbo bumbo
+
+    private var useYoutooz = true
+    // Variable for whether or not to use youtooz guppy
+
+
     companion object {
         fun makePlayerList(playerNum: Int): Array<PlayerHandler> {
             // Function to make the original array of players
@@ -53,8 +60,8 @@ class PlayerHandler(
                     ImageHandler.randomBlank(),
                     null,
                     0,
-                    false,
-                    false
+                    winner = false,
+                    solo = false
                 ))
                 // Add a player with no name or character and a blank character image
             }
@@ -91,8 +98,8 @@ class PlayerHandler(
                         ImageHandler.randomBlank(),
                         null,
                         0,
-                        false,
-                        false
+                        winner = false,
+                        solo = false
                     )
                     // Add a player with no name or character and a blank character image
                     newPlayerList.last().fonts = playerList[0].fonts
@@ -135,7 +142,11 @@ class PlayerHandler(
         useRetro = settings["retro"].toBoolean()
         // Set the player handler flag for using retro edens correctly
         useUnboxing = settings["unboxing"].toBoolean()
-        // Set the player handler flag for using retro edens correctly
+        // Set the player handler flag for using unboxing cards correctly
+        useBumbo = settings["bumbo"].toBoolean()
+        // Set the player handler flag for using bumbo bumbo correctly
+        useYoutooz = settings["youtooz"].toBoolean()
+        // Set the player handler flag for using youtooz guppy correctly
 
         charList.sortBy { it.charName }
         // Sorts the character list alphabetically
@@ -206,7 +217,7 @@ class PlayerHandler(
                         }
                     }
 
-                    if (useUnboxing or usePromo) {
+                    if (useUnboxing or useBumbo or useYoutooz) {
                         val limitedImage = ImageHandler.getLimitedAlt(charName)
                         if (limitedImage > 0) {
                             imageArray += arrayOf(limitedImage)

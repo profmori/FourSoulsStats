@@ -105,6 +105,7 @@
 
     <string name="icon_alt_art">Alt Art</string>
     <string name="icon_base">Base Game</string>
+    <string name="icon_bumbo">The Legend of Bum-bo!</string>
     <string name="icon_custom">Custom Cards</string>
     <string name="icon_gfuel">G-Fuel</string>
     <string name="icon_gish">Gish</string>
@@ -113,10 +114,12 @@
     <string name="icon_promo">Promo</string>
     <string name="icon_requiem">Requiem</string>
     <string name="icon_retro">Retro</string>
+    <string name="icon_summer">Summer of Isaac</string>
     <string name="icon_tapeworm">Tapeworm</string>
     <string name="icon_target">Target</string>
     <string name="icon_unboxing">Unboxing of Isaac</string>
     <string name="icon_warp">Warp Zones</string>
+    <string name="icon_youtooz" translatable="false">Youtooz</string>
 
 
     <string name="settings_custom">Custom :</string>
@@ -321,5 +324,11 @@
         \u2022 Added an Italian app translation using Google translate &lt;br>&lt;/br>
         \u2022 Apologies for all native speakers as these are rough translations - they may be entirely unusable &lt;br>&lt;/br>
         \u2022 If you wish to provide feedback or a better translation, please email using the "Offer to Translate" button.&lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="version_31">
+        &lt;b>&lt;u>Version 5.05 (24-Jun-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added new Bumbo alt art card from The Legend of Bumbo as an option for character art &lt;br>&lt;/br>
+        \u2022 Added new Guppy alt art card from Youtooz as an option for character art &lt;br>&lt;/br>
+        \u2022 Added characters and items from the new Summer of Isaac set&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

@@ -58,14 +58,17 @@ class SettingsHandler {
                 "plus",
                 "requiem",
                 "alt_art",
+                "bumbo",
                 "gfuel",
                 "gish",
                 "promo",
                 "retro",
+                "summer",
                 "tapeworm",
                 "target",
                 "unboxing",
                 "warp",
+                "youtooz",
                 "custom"
             )
         }
@@ -255,11 +258,11 @@ class SettingsHandler {
         }
 
         fun versionCheck(
-            version_no: String?,
+            versionNo: String?,
             context: Context,
             fragmentManager: FragmentManager
         ): String {
-            if (!version_no.isNullOrBlank()) {
+            if (!versionNo.isNullOrBlank()) {
                 // Otherwise set the variable to the current version number
 
                 val versions = BuildConfig.VERSION_CODE downTo 0
@@ -270,7 +273,7 @@ class SettingsHandler {
                 }
                 for (version in versions) {
                     // Iterate through every version
-                    if (version_no.toInt() < version) {
+                    if (versionNo.toInt() < version) {
                         // If the current version is before a version
                         val name = "version_$version"
                         // Generate the string name for the version

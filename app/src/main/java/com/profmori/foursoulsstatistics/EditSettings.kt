@@ -824,7 +824,7 @@ class EditSettings : AppCompatActivity() {
 fun Snackbar.changeFont(font: Typeface)
 // Add a snackbar change font function
 {
-    val tv = view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+    val tv: TextView = view.findViewById(com.google.android.material.R.id.snackbar_text)
     // Create a textview of the text
     tv.typeface = font
     // Set the typeface to the font

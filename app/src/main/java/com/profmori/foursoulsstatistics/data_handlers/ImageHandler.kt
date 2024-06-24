@@ -56,6 +56,7 @@ class ImageHandler {
             val iconMap = mapOf(
                 "alt_art" to R.drawable.icon_alt_art,
                 "base" to R.drawable.icon_base,
+                "bumbo" to R.drawable.icon_bum,
                 "custom" to R.drawable.icon_custom,
                 "gfuel" to R.drawable.icon_gfuel,
                 "gish" to R.drawable.icon_gish,
@@ -65,10 +66,13 @@ class ImageHandler {
                 "requiem" to R.drawable.icon_requiem,
                 "retro" to R.drawable.icon_retro,
                 "retro_off" to R.drawable.icon_retro_off,
+                "summer" to R.drawable.icon_soi,
+                "summer_off" to R.drawable.icon_soi_off,
                 "tapeworm" to R.drawable.icon_tapeworm,
                 "target" to R.drawable.icon_target,
                 "unboxing" to R.drawable.icon_unboxing,
-                "warp" to R.drawable.icon_warp
+                "warp" to R.drawable.icon_warp,
+                "youtooz" to R.drawable.icon_ytz
             )
             // Create a map of all the different set icon
             return if (iconMap.containsKey(iconName)) {
@@ -108,8 +112,13 @@ class ImageHandler {
                     return R.drawable.box_the_lost
                 }
 
-                "bum-bo" ->
-                    return R.drawable.p_bum_bo
+                "bum-bo" -> {
+                    return R.drawable.bum_bum_bo
+                }
+
+                "guppy" -> {
+                    return R.drawable.ytz_guppy
+                }
             }
             return -1
         }

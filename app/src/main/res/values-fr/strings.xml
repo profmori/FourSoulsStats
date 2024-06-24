@@ -103,13 +103,13 @@
     <string name="settings_reroll_eternal">Randomiser Eden Eternal</string>
     <string name="settings_reroll_duplicates">Autoriser les doublons aléatoires</string>
     <string name="settings_reroll_duplicates_eden">Autoriser les doublons aléatoires d\'Eden</string>
-    <string name="reroll_no_icons">Aucune icône de relance sélectionnée - veuillez en sélectionner au moins 1.</string>
+    <string name="reroll_no_icons">Aucune icône de relance sélectionnée - veuillez en sélectionner au moins 1</string>
     <string name="reroll_suggest_icon">Suggérer une nouvelle icône</string>
     <string name="reroll_title">Sélectionner les icônes de relance</string>
     <string name="settings_clear_data">Effacer toutes\ndonnées stockées</string>
     <string name="settings_delete_data">Êtes-vous sûr de vouloir supprimer toutes les données?
          \nCela supprimera tous les noms, jeux et personnages personnalisés non utilisés par votre groupe actuellement sélectionné.
-         Tous les jeux non téléchargés seront perdus à jamais.</string>
+         Tous les jeux non téléchargés seront perdus à jamais</string>
     <string name="settings_cancel_delete">Conserver les données</string>
     <string name="settings_confirm_delete">Supprimer les données</string>
     <string name="settings_reset_tutorial">Réinitialiser\nTutoriel</string>
@@ -146,22 +146,22 @@
     <string name="tutorial_edit">Utilisez ce bouton pour modifier les jeux précédemment saisis afin de corriger les erreurs commises.
          Vous pouvez également supprimer entièrement des jeux de l\'historique de jeu</string>
     <string name="tutorial_settings">Utilisez ce bouton pour personnaliser l\'expérience de votre application.
-         \nCela vous permet de choisir de nombreux éléments, notamment les fonctionnalités en ligne et l\'apparence de l\'application.</string>
+         \nCela vous permet de choisir de nombreux éléments, notamment les fonctionnalités en ligne et l\'apparence de l\'application</string>
     <string name="tutorial_issues">Utilisez ce bouton pour signaler tout problème que vous rencontrez ou les bogues que vous trouvez. En plus de cela, de nouvelles suggestions peuvent être faites.
-         \nSi vous souhaitez traduire l\'application, toute offre est grandement appréciée. Cela peut également être fait à partir de ce bouton.</string>
+         \nSi vous souhaitez traduire l\'application, toute offre est grandement appréciée. Cela peut également être fait à partir de ce bouton</string>
     <string name="tutorial_group_id">Utilisez cette ligne pour saisir l\'identifiant unique de votre groupe ou en créer un nouveau.
          \nCeci sera utilisé pour permettre à différents appareils de synchroniser les mêmes jeux, et est requis même si vous restez hors ligne</string>
     <string name="tutorial_online">Ce commutateur contrôle si les données de votre groupe seront ou non stockées en ligne.
          \nIl est toujours important de définir votre identifiant de groupe, car le modifier réinitialisera vos parties enregistrées, même hors ligne</string>
     <string name="tutorial_edition">Sélectionnez les éditions du jeu dont vous souhaitez utiliser les cartes,
-         et si les cartes artistiques alternatives ont une chance d\'être affichées.</string>
+         et si les cartes artistiques alternatives ont une chance d\'être affichées</string>
     <string name="tutorial_background">Utilisez ceci pour sélectionner l\'arrière-plan de l\'application</string>
     <string name="tutorial_border">Utilisez ceci pour sélectionner la bordure de l\'application</string>
     <string name="tutorial_readable_font">Utilisez des polices plus lisibles plutôt que les polices Four Souls</string>
     <string name="tutorial_clear_button">Utilisez le bouton Effacer pour supprimer toutes les données enregistrées sur cet appareil. Toutes les parties non enregistrées en ligne seront perdues à jamais</string>
     <string name="tutorial_select_icon">Utilisez ce bouton pour sélectionner les icônes qui peuvent être affichées pour mélanger une sélection aléatoire de caractères</string>
-    <string name="tutorial_random_settings">Utilisez ces commutateurs pour définir le comportement de la randomisation des caractères.</string>
-    <string name="tutorial_random_settings_2">La duplication des personnages peut être empêchée, Eden étant un cas particulier, et les objets éternels peuvent être automatiquement sélectionnés pour Eden.</string>
+    <string name="tutorial_random_settings">Utilisez ces commutateurs pour définir le comportement de la randomisation des caractères</string>
+    <string name="tutorial_random_settings_2">La duplication des personnages peut être empêchée, Eden étant un cas particulier, et les objets éternels peuvent être automatiquement sélectionnés pour Eden</string>
     <string name="edit_title">Modifier/Supprimer\ndes jeux</string>
     <string name="edit_select_game">Sélectionnez un jeu à modifier:</string>
     <string name="edit_no_games">Aucun jeu trouvé à modifier</string>
@@ -177,7 +177,7 @@
     <string name="adjust_check_delete">La suppression d\'un jeu est définitive et irréversible\nÊtes-vous sûr de vouloir supprimer ce jeu?</string>
     <string name="feedback_title">Commentaires</string>
     <string name="feedback_preference">La méthode préférée pour recevoir des commentaires est via GitHub, veuillez donc l\'utiliser dans la mesure du possible.
-         Sinon, des liens sont fournis pour envoyer des e-mails.\nLes offres de traduction sont appréciées et doivent être envoyées par e-mail.</string>
+         Sinon, des liens sont fournis pour envoyer des e-mails.\nLes offres de traduction sont appréciées et doivent être envoyées par e-mail</string>
     <string name="feedback_github_report">Rapport Github</string>
     <string name="feedback_bug">Envoyer un rapport de bug par e-mail</string>
     <string name="feedback_suggestion">Envoyez une suggestion par e-mail</string>
@@ -192,7 +192,7 @@
     <string name="statistics_global_solo_eternal">Afficher la communauté\nClassements Solo Eternal</string>
     <string name="patch_notes_title">Notes de mise à jour</string>
     <string name="version_16">
-         &lt;b>&lt;u>Version 4.01 (17 décembre 2021)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 4,01 (17 décembre 2021)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Ajout de récapitulatifs de nouvelles versions à l\'application afin que les modifications soient plus visibles &lt;br>&lt;/br>
          \u2022 Mise à jour des cartes de personnages vierges pour utiliser les nouvelles cartes version 2 de u/Koretex_&lt;br>&lt;/br>
          \u2022 The Lost démarre désormais automatiquement avec 1 âme sur l\'écran des résultats&lt;br>&lt;/br>
@@ -205,7 +205,7 @@
          \u2022 Correction d\'un bug où la vérification d\'identifiant en ligne ne vous informait pas de l\'utilisation d\'un identifiant de groupe &lt;br>&lt;/br> &lt;br>&lt;/br>
      </string>
     <string name="version_18">
-         &lt;b>&lt;u>Version 4.02 (28 janvier 2022)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 4,02 (28 janvier 2022)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Ajout du clicker à la liste des icônes pour le bouton de randomisation &lt;br>&lt;/br>
          \u2022 Ajout de cartes mises à jour pour Jacob \&amp; Ésaü, le Maléfique, Baba et Steven &lt;br>&lt;/br>
          \u2022 Ajout d\'une politique de confidentialité pour être conforme aux nouvelles politiques de Google &lt;br>&lt;/br>
@@ -213,7 +213,7 @@
      </string>
 
     <string name="version_20">
-         &lt;b>&lt;u>Version 4.03 (16 juin 2022)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 4,03 (16 juin 2022)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Ajout de cartes du déballage d\'Isaac et des promotions associées &lt;br>&lt;/br>
          \u2022 Ajout d\'une nouvelle promotion Eden de UKGE &lt;br>&lt;/br>
          \u2022 Ajout de Retro Eden et d\'une nouvelle police de pixels qui peut être désactivée &lt;br>&lt;/br>
@@ -221,14 +221,14 @@
      </string>
 
     <string name="version_21">
-         &lt;b>&lt;u>Version 4.04 (11-Jul-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 4,04 (11-Jul-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Cartes réellement ajoutées du Unboxing d\'Isaac et promotions associées &lt;br>&lt;/br>
          \u2022 Ajout de la synchronisation pour la promotion et le déballage des trésors d\'Isaac afin que chaque nouvelle mise à jour ne le soit pas.
          nécessiter une mise à jour de l\'application &lt;br>&lt;/br> &lt;br>&lt;/br>
      </string>
 
     <string name="version_22">
-         &lt;b>&lt;u>Version 4.05 (12-Apr-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 4,05 (12-Apr-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Cartes G-Fuel séparées des cartes promotionnelles, pour être conformes à <a href="https://foursouls.com/cards/">
              foursouls.com</a> &lt;br>&lt;/br>
          \u2022 Ajout de nouvelles cartes d\'art alternatif de personnage de The Unboxing of Isaac comme options pour l\'art de personnage &lt;br>&lt;/br>
@@ -237,7 +237,7 @@
      </string>
 
     <string name="version_25">
-         &lt;b>&lt;u>Version 5.01 (18-mai-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 5,01 (18-mai-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Ajout de la possibilité de sauvegarder des jeux solo et coopératifs &lt;br>&lt;/br>
          \u2022 Les jeux solo et coopératifs n\'apparaissent plus dans les statistiques en ligne.
          Ils auront éventuellement leurs propres sections, mais il était important de publier cela rapidement &lt;br>&lt;/br>
@@ -246,14 +246,14 @@
      </string>
 
     <string name="version_26">
-         &lt;b>&lt;u>Version 5.02 (8 juillet 2023)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 5,02 (8 juillet 2023)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Ajout des sections de statistiques pour les jeux solo/coopératif&lt;br>&lt;/br>
          \u2022 Rendu le menu des statistiques plus intelligent lors de l\'affichage des options &lt;br>&lt;/br>
          \u2022 Ajustement du texte du didacticiel pour refléter la nouvelle fonction &lt;br>&lt;/br> &lt;br>&lt;/br>
      </string>
 
     <string name="version_27">
-         &lt;b>&lt;u>Version 5.03 (10-déc-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 5,03 (10-déc-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Correction d\'un bug dans le didacticiel où le bouton pour avancer était hors écran &lt;br>&lt;/br>
          \u2022 Le didacticiel a été forcé d\'avancer automatiquement après 10 secondes pour éviter que des personnes ne restent bloquées dessus &lt;br>&lt;/br>
          \u2022 Ajout de la nouvelle illustration promotionnelle du personnage Bum-bo à l\'application &lt;br>&lt;/br>
@@ -261,12 +261,20 @@
          \u2022 Ajout d\'une traduction d\'application en espagnol à l\'aide de Google Translate-s\'il vous plaît laissez-moi savoir si cela est illisible &lt;br>&lt;/br>&lt;br>&lt;/br>
      </string>
     <string name="version_28">
-         &lt;b>&lt;u>Version 5.04 (4 janvier 24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+         &lt;b>&lt;u>Version 5,04 (4 janvier 24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Ajout de la possibilité de changer de langue dans l\'application, au lieu d\'utiliser la langue du système &lt;br>&lt;/br>
          \u2022 Ajout d\'une traduction d\'application en français à l\'aide de Google Translate &lt;br>&lt;/br>
          \u2022 Ajout d\'une traduction d\'application en allemand à l\'aide de Google Translate &lt;br>&lt;/br>
          \u2022 Ajout d\'une traduction d\'application en italien à l\'aide de Google Translate &lt;br>&lt;/br>
          \u2022 Toutes mes excuses à tous les locuteurs natifs, car ce sont des traductions approximatives - elles peuvent être totalement inutilisables &lt;br>&lt;/br>
          \u2022 Si vous souhaitez nous faire part de vos commentaires ou d\'une meilleure traduction, veuillez envoyer un e-mail en utilisant le bouton « Proposer de traduire ».&lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="icon_bumbo">The Legend of Bum-bo!</string>
+    <string name="icon_summer">L\'été d\'Isaac</string>
+    <string name="version_31">
+        &lt;b>&lt;u>Version 5,05 (24-juin-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Ajout d\'une nouvelle carte artistique alternative Bumbo de The Legend of Bumbo en option pour l\'art des personnages &lt;br>&lt;/br>
+        \u2022 Ajout d\'une nouvelle carte artistique alternative Guppy de Youtooz en option pour l\'art des personnages &lt;br>&lt;/br>
+        \u2022 Ajout de personnages et d\'objets du nouvel ensemble L\'été d\'Isaac&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

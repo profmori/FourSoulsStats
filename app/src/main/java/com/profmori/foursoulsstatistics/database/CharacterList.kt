@@ -95,7 +95,12 @@ class CharacterList {
             CharEntity("yung venuz", R.drawable.rwz_yung_venuz, null, "warp"),
 
             //Tapeworm Promo Character
-            CharEntity("tapeworm", R.drawable.tw_tapeworm, null, "tapeworm")
+            CharEntity("tapeworm", R.drawable.tw_tapeworm, null, "tapeworm"),
+
+            // Summer of Isaac Characters
+            CharEntity("clubby the seal", R.drawable.soi_clubby_the_seal, null, "summer"),
+            CharEntity("gish", R.drawable.soi_gish, null, "summer"),
+            CharEntity("stacy", R.drawable.soi_stacy, null, "summer")
         )
     }
 }

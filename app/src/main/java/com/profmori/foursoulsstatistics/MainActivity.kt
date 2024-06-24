@@ -15,7 +15,6 @@ import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharacterList
 import com.profmori.foursoulsstatistics.database.GameDataBase
-import com.profmori.foursoulsstatistics.database.ItemList
 import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import com.profmori.foursoulsstatistics.statistics_pages.StatisticsMenu
 import kotlinx.coroutines.CoroutineScope
@@ -61,11 +60,8 @@ class MainActivity : AppCompatActivity() {
                     SettingsHandler.saveToFile(this@MainActivity, settings)
                     // Save the updated settings
 
-                    val items = OnlineDataHandler.getOnlineItems(this@MainActivity)
+                    OnlineDataHandler.getOnlineItems(this@MainActivity)
                     // Update the items from online
-
-                    ItemList.saveToFile(this@MainActivity, items)
-                    // Save to a file
 
                 }
 
@@ -150,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         // Set all the buttons to the same background
 
         LanguageHandler.getLanguage(changeLanguage)
-        changeLanguage.setOnClickListener{
+        changeLanguage.setOnClickListener {
             LanguageHandler.changeLanguage()
         }
 

@@ -50,3 +50,5 @@ ehthumbs.db
 Thumbs.db
 app/release
 service_account_key.json
+upload_spreadsheet.py
+Four Souls Stats - Player Record.csv

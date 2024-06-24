@@ -2,6 +2,9 @@ package com.profmori.foursoulsstatistics.online_database
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -12,6 +15,7 @@ import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.Game
 import com.profmori.foursoulsstatistics.database.GameDataBase
 import com.profmori.foursoulsstatistics.database.GameInstance
+import com.profmori.foursoulsstatistics.database.ItemList
 import com.profmori.foursoulsstatistics.database.Player
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,13 +30,21 @@ class OnlineDataHandler {
             // This is magic off the internet and will probably break in the future
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val network = connectivityManager.activeNetworkInfo
-            if (network != null) {
-                if (network.isConnected) {
-                    val wifi = network.type == ConnectivityManager.TYPE_WIFI
-                    if (wifi) {
-                        return true
-                    }
+            val capabilities = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            } else {
+                return true
+            }
+            if (capabilities != null) {
+                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                    return true
+                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                    return true
                 }
             }
             return false
@@ -53,8 +65,7 @@ class OnlineDataHandler {
         }
 
         private fun generateOnlineName(instance: GameInstance, index: Int): String {
-            var obfName = instance.playerName.toCharArray().map { c -> c.code }
-                .joinToString("")
+            var obfName = instance.playerName.toCharArray().map { c -> c.code }.joinToString("")
             // Create the obfuscated name from the player's name
 
             if (instance.solo) {
@@ -67,8 +78,7 @@ class OnlineDataHandler {
         }
 
         suspend fun getAllEternals(
-            context: Context,
-            searchCoop: Boolean
+            context: Context, searchCoop: Boolean
         ): Array<OnlineGameInstance> {
             signIn()
             // Sign into the database
@@ -137,21 +147,13 @@ class OnlineDataHandler {
                     onlineQuery.documents.forEach { document ->
                         val gameInstance = document.toObject<OnlineGameInstance>()!!
                         // Creates the online game instance object from the online database entry
-                        if (
-                            (gameInstance.groupID != "") and (gameInstance.gameID != "") and
-                            (gameInstance.gameSize != 0) and (gameInstance.treasureNum != -1) and
-                            (gameInstance.playerName != "") and (gameInstance.charName != "") and
-                            (gameInstance.eternal != "") and (gameInstance.souls != -1)
-                        ) {
+                        if ((gameInstance.groupID != "") and (gameInstance.gameID != "") and (gameInstance.gameSize != 0) and (gameInstance.treasureNum != -1) and (gameInstance.playerName != "") and (gameInstance.charName != "") and (gameInstance.eternal != "") and (gameInstance.souls != -1)) {
                             // If the game instance had all entries valid
                             localDAO.addPlayer(Player(gameInstance.playerName))
                             // Try to add the player to the database
                             localDAO.addCharacter(
                                 CharEntity(
-                                    gameInstance.charName,
-                                    R.drawable.blank_char,
-                                    null,
-                                    "custom"
+                                    gameInstance.charName, R.drawable.blank_char, null, "custom"
                                 )
                             )
                             // Add any custom characters that don't exist
@@ -173,8 +175,11 @@ class OnlineDataHandler {
                             localDAO.updateGame(
                                 // Add / update the stored game in the local database
                                 Game(
-                                    gameInstance.gameID, gameInstance.gameSize,
-                                    gameInstance.treasureNum, true, gameInstance.coop,
+                                    gameInstance.gameID,
+                                    gameInstance.gameSize,
+                                    gameInstance.treasureNum,
+                                    true,
+                                    gameInstance.coop,
                                     gameInstance.turnsLeft
                                 )
                             )
@@ -209,7 +214,7 @@ class OnlineDataHandler {
 
         }
 
-        suspend fun getOnlineItems(context: Context): MutableMap<String, Array<String>> {
+        fun getOnlineItems(context: Context) {
             // Get the list of all items
             val items = emptyMap<String, Array<String>>().toMutableMap()
             // Create an empty map
@@ -218,9 +223,9 @@ class OnlineDataHandler {
                 // Access the online database
                 val data = onlineDatabase.get()
                 // Get all data from the database
-                data.addOnSuccessListener { groupIDs ->
+                data.addOnSuccessListener { itemDocuments ->
                     // When data is retrieved
-                    groupIDs.documents.forEach {
+                    itemDocuments.documents.forEach {
                         // Iterate through each item
                         val onlineItem = it.toObject<OnlineItem>()!!
                         // Create an online item object
@@ -237,9 +242,12 @@ class OnlineDataHandler {
                         items[onlineItem.set] = itemArray
                         // Set the array for that set to be updated
                     }
-                }.await()
+                    println(items)
+                    // print the item list
+                    ItemList.saveToFile(context, items)
+                    // Save to a file
+                }
             }
-            return items
         }
 
         fun saveGames(context: Context) {

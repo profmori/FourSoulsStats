@@ -34,9 +34,9 @@
     <string name="card_souls">Almas:</string>
     <string name="card_winner">Ganadore:</string>
     <string name="win_starting_item">Artículo inicial:</string>
-    <string name="stats_no_local">No hay juegos almacenados para este grupo de juego.</string>
+    <string name="stats_no_local">No hay juegos almacenados para este grupo de juego</string>
     <string name="stats_no_wifi">Las estadísticas en línea requieren una conexión wifi para acceder. Por favor, inténtelo de nuevo más tarde</string>
-    <string name="stats_no_data">No hay datos para ver en este momento. Conéctate a Wi-Fi o ingresa algunos juegos.</string>
+    <string name="stats_no_data">No hay datos para ver en este momento. Conéctate a Wi-Fi o ingresa algunos juegos</string>
     <string name="stats_treasures">Tesoros:</string>
     <string name="stats_players">Jugadores:</string>
     <string name="stats_filter">Filtrado por:</string>
@@ -92,7 +92,7 @@
     <string name="settings_reroll_eternal">Aleatorizar Eden Eterne</string>
     <string name="settings_reroll_duplicates">Permitir duplicados aleatorios</string>
     <string name="settings_reroll_duplicates_eden">Permitir duplicados aleatorios de Eden</string>
-    <string name="reroll_no_icons">No se seleccionó ningún ícono de repetición; seleccione al menos 1.</string>
+    <string name="reroll_no_icons">No se seleccionó ningún ícono de repetición; seleccione al menos 1</string>
     <string name="reroll_suggest_icon">Sugerir nuevo icono</string>
     <string name="reroll_title">Seleccionar iconos de repetición</string>
     <string name="settings_clear_data">Borrar todos los\ndatos almacenados</string>
@@ -124,33 +124,33 @@
     <string name="thanks_backgrounds">Botones y tarjeta de personaje en blanco a partir de imágenes creadas por
         <a href="https://www.reddit.com/r/FourSouls/comments/jtriv2/templates_and_fonts_for_making_custom_cards/">
         u/Koretex_</a> para las Four Souls Reddit </string>
-    <string name="thanks_friends">Y gracias a mis amigos por su apoyo, inspiración y en definitiva por jugar Four Souls conmigo.</string>
+    <string name="thanks_friends">Y gracias a mis amigos por su apoyo, inspiración y en definitiva por jugar Four Souls conmigo</string>
     <string name="thanks_edmund">Four Souls fue creado y diseñado por Edmund McMillen (<a href="https://twitter.com/edmundmcmillen">@edmundmcmillen</a>),
          y desarrollado por <a href="https://maestromedia.com/">Maestro Media</a>. Gracias a ellos por apoyar tanto a la comunidad,
          además de proporcionar imágenes de alta calidad de las cartas del juego de forma gratuita</string>
     <string name="thanks_cards">Otras imágenes de tarjetas, iconos de conjuntos y categorías de elementos de <a href="https://foursouls.com/">foursouls.com</a>.
-     Gracias al equipo que dirige y mantiene el sitio web por su dedicación y arduo trabajo.</string>
+     Gracias al equipo que dirige y mantiene el sitio web por su dedicación y arduo trabajo</string>
     <string name="tutorial_data">Ingrese datos del juego usando este botón</string>
     <string name="tutorial_stats">Vea las estadísticas de su grupo, así como las estadísticas promedio de toda la comunidad, usando este botón</string>
     <string name="tutorial_edit">Utilice este botón para editar juegos ingresados previamente y corregir cualquier error cometido.
-         También puedes eliminar juegos del historial de juego por completo.</string>
+         También puedes eliminar juegos del historial de juego por completo</string>
     <string name="tutorial_settings">Utilice este botón para editar juegos ingresados previamente y corregir cualquier error cometido.
-         También puedes eliminar juegos del historial de juego por completo..</string>
+         También puedes eliminar juegos del historial de juego por completo</string>
     <string name="tutorial_issues">Utilice este botón para informar cualquier problema que tenga o errores que encuentre. Además, se pueden hacer nuevas sugerencias.
-        Si desea traducir la aplicación, cualquier oferta será muy apreciada. Esto también se puede hacer desde este botón.</string>
+        Si desea traducir la aplicación, cualquier oferta será muy apreciada. Esto también se puede hacer desde este botón</string>
     <string name="tutorial_group_id">Utilice esta línea para ingresar la identificación única de su grupo o cree una nueva.
-Esto se utilizará para permitir que diferentes dispositivos sincronicen los mismos juegos y es necesario incluso si permanece desconectado.</string>
+Esto se utilizará para permitir que diferentes dispositivos sincronicen los mismos juegos y es necesario incluso si permanece desconectado</string>
     <string name="tutorial_online">Este interruptor controla si los datos de su grupo se almacenarán en línea o no.
-        Sigue siendo importante configurar tu ID de grupo, ya que al cambiarlo se restablecerán tus juegos grabados, incluso cuando no estés conectado.</string>
+        Sigue siendo importante configurar tu ID de grupo, ya que al cambiarlo se restablecerán tus juegos grabados, incluso cuando no estés conectado</string>
     <string name="tutorial_edition">Selecciona de qué ediciones del juego quieres usar cartas,
-         y si las tarjetas con arte alternativo tienen la posibilidad de mostrarse.</string>
-    <string name="tutorial_background">Use esto para seleccionar el fondo de la aplicación.</string>
-    <string name="tutorial_border">Use esto para seleccionar el borde de la aplicación.</string>
+         y si las tarjetas con arte alternativo tienen la posibilidad de mostrarse</string>
+    <string name="tutorial_background">Use esto para seleccionar el fondo de la aplicación</string>
+    <string name="tutorial_border">Use esto para seleccionar el borde de la aplicación</string>
     <string name="tutorial_readable_font">Utilice fuentes más legibles, en lugar de las fuentes Four Souls</string>
-    <string name="tutorial_clear_button">Utilice el botón borrar para eliminar todos los datos guardados en este dispositivo. Cualquier juego que no se guarde en línea se perderá para siempre.</string>
-    <string name="tutorial_select_icon">Utilice este botón para seleccionar qué iconos se pueden mostrar para mezclar una selección aleatoria de personajes.</string>
-    <string name="tutorial_random_settings">Utilice estos interruptores para definir el comportamiento de la aleatorización de personajes.</string>
-    <string name="tutorial_random_settings_2">Se puede evitar que los personajes se dupliquen, siendo Eden un caso especial, y se pueden seleccionar automáticamente elementos eternos para Eden.</string>
+    <string name="tutorial_clear_button">Utilice el botón borrar para eliminar todos los datos guardados en este dispositivo. Cualquier juego que no se guarde en línea se perderá para siempre</string>
+    <string name="tutorial_select_icon">Utilice este botón para seleccionar qué iconos se pueden mostrar para mezclar una selección aleatoria de personajes</string>
+    <string name="tutorial_random_settings">Utilice estos interruptores para definir el comportamiento de la aleatorización de personajes</string>
+    <string name="tutorial_random_settings_2">Se puede evitar que los personajes se dupliquen, siendo Eden un caso especial, y se pueden seleccionar automáticamente elementos eternos para Eden</string>
     <string name="edit_title">Editar / eliminar\njuegos</string>
     <string name="edit_select_game">Seleccione un juego para editar:</string>
     <string name="edit_no_games">No se encontraron juegos para editar</string>
@@ -161,14 +161,14 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
         ¿Quieres continuar?</string>
     <string name="adjust_ignore_changes">Salir sin guardar</string>
     <string name="adjust_cancel_exit">Volver a editar</string>
-    <string name="adjust_incorrect_data">Entrada incorrecta. Asegúrate de que todos los datos estén completados correctamente.</string>
+    <string name="adjust_incorrect_data">Entrada incorrecta. Asegúrate de que todos los datos estén completados correctamente</string>
     <string name="adjust_cancel_delete">Cancelar</string>
     <string name="adjust_confirm_delete">Confirmar</string>
     <string name="adjust_check_delete">Eliminar un juego es permanente y no se puede deshacer
         ¿Estás seguro de que quieres eliminar este juego?</string>
     <string name="feedback_title">Comentario</string>
     <string name="feedback_preference">El método preferido para recibir comentarios es a través de GitHub, así que utilícelo siempre que sea posible.
-         De lo contrario, se proporcionan enlaces para enviar correos electrónicos.\nSe agradecen las ofertas de traducción y deben enviarse por correo electrónico.</string>
+         De lo contrario, se proporcionan enlaces para enviar correos electrónicos.\nSe agradecen las ofertas de traducción y deben enviarse por correo electrónico</string>
     <string name="feedback_github_report">Informe Github</string>
     <string name="feedback_bug">Enviar un informe de error por correo electrónico</string>
     <string name="feedback_suggestion">Enviar una sugerencia por correo electrónico</string>
@@ -183,8 +183,8 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     <string name="statistics_global_solo_eternal">Ver comunidad\nClasificaciones de artículos eternos en solitario</string>
     <string name="patch_notes_title">Notas del parche</string>
     <string name="version_16">
-        &lt;b>&lt;u>Versión 4.01 (17-dic-21)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
-        \u2022 Se agregaron resúmenes de nuevas versiones a la aplicación para que los cambios sean más visibles. &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 4,01 (17-dic-21)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Se agregaron resúmenes de nuevas versiones a la aplicación para que los cambios sean más visibles &lt;br>&lt;/br>
         \u2022 Se actualizaron las tarjetas de personajes en blanco para usar las tarjetas de la nueva versión 2 de u/Koretex_&lt;br>&lt;/br>
         \u2022 The Lost ahora comienza automáticamente con 1 alma en la pantalla de resultados&lt;br>&lt;/br>
          \u2022 Se cambió la lista de controles deslizantes a un conjunto de íconos para cada uno de los conjuntos &lt;br>&lt;/br>
@@ -197,7 +197,7 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     </string>
 
     <string name="version_18">
-        &lt;b>&lt;u>Versión 4.02 (28-ene-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 4,02 (28-ene-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Se agregó el control a la lista de íconos para el botón de aleatorización &lt;br>&lt;/br>
          \u2022 Se agregaron tarjetas actualizadas para Jacob \&amp; Esaú, el Siniestro, Baba y Steven &lt;br>&lt;/br>
          \u2022 Se agregó una política de privacidad para estar en línea con las nuevas políticas de Google &lt;br>&lt;/br>
@@ -205,7 +205,7 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     </string>
 
     <string name="version_20">
-        &lt;b>&lt;u>Versión 4.03 (16-jun-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 4,03 (16-jun-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Tarjetas agregadas del Unboxing de Isaac y promociones asociadas &lt;br>&lt;/br>
          \u2022 Se agregó una nueva promoción de Eden de UKGE &lt;br>&lt;/br>
          \u2022 Se agregó Retro Eden y una nueva fuente de píxeles que se puede desactivar &lt;br>&lt;/br>
@@ -213,23 +213,23 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     </string>
 
     <string name="version_21">
-        &lt;b>&lt;u>Versión 4.04 (11-jul-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 4,04 (11-jul-22)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Tarjetas realmente agregadas del Unboxing de Isaac y promociones asociadas &lt;br>&lt;/br>
          \u2022 Se agregó sincronización para promoción y Unboxing de los tesoros de Isaac para que cada nueva actualización no
          requiere una actualización de la aplicación &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 
     <string name="version_22">
-        &lt;b>&lt;u>Versión 4.05 (12-abr-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 4,05 (12-abr-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Tarjetas G-Fuel separadas de las tarjetas promocionales, para estar en línea con <a href="https://foursouls.com/cards/">
-             cuatroalmas.com</a> &lt;br>&lt;/br>
+             foursouls.com</a> &lt;br>&lt;/br>
          \u2022 Se agregaron nuevas tarjetas con arte alternativo de personajes de The Unboxing of Isaac como opciones para el arte de personajes &lt;br>&lt;/br>
          \u2022 Se corrigieron problemas de tamaño de fuente al usar la tarjeta Retro Eden &lt;br>&lt;/br>
          \u2022 Se agregó un botón para ver todas las notas del parche antiguo desde el menú de configuración y se agregaron fechas a las notas del parche &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 
     <string name="version_25">
-        &lt;b>&lt;u>Versión 5.01 (18-mayo-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 5,01 (18-mayo-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Se agregó la capacidad de guardar juegos para un jugador y cooperativos &lt;br>&lt;/br>
          \u2022 Se impidió que los juegos para un jugador y cooperativos se muestren en las estadísticas en línea.
          Eventualmente tendrán sus propias secciones, pero era importante publicar esto rápidamente &lt;br>&lt;/br>
@@ -238,14 +238,14 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     </string>
 
     <string name="version_26">
-        &lt;b>&lt;u>Versión 5.02 (8-jul-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 5,02 (8-jul-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Se agregaron las secciones de estadísticas para juegos para un jugador / cooperativos&lt;br>&lt;/br>
          \u2022 Se hizo que el menú de estadísticas fuera más inteligente al mostrar opciones &lt;br>&lt;/br>
          \u2022 Se ajustó algún texto del tutorial para reflejar la nueva función &lt;br>&lt;/br> &lt;br>&lt;/br>
     </string>
 
     <string name="version_27">
-        &lt;b>&lt;u>Versión 5.03 (10-dic-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 5,03 (10-dic-23)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
          \u2022 Se corrigió un error en el tutorial donde el botón para avanzar estaba fuera de la pantalla &lt;br>&lt;/br>
          \u2022 Se obligó a que el tutorial avanzara automáticamente después de 10 segundos para evitar que las personas se quedaran atascadas en él &lt;br>&lt;/br>
          \u2022 Se agregó el nuevo arte promocional del personaje Bum-bo a la aplicación &lt;br>&lt;/br>
@@ -253,12 +253,20 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
          \u2022 Se agregó una traducción de la aplicación en español usando el traductor de Google. Avíseme si esto es ilegible &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
     <string name="version_28">
-        &lt;b>&lt;u>Versión 5.04 (4-ene-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        &lt;b>&lt;u>Versión 5,04 (4-ene-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Se agregó la capacidad de cambiar el idioma dentro de la aplicación, en lugar de usar el idioma del sistema &lt;br>&lt;/br>
         \u2022 Se agregó una traducción de la aplicación al francés usando el traductor de Google &lt;br>&lt;/br>
         \u2022 Se agregó una traducción de la aplicación al alemán usando el traductor de Google &lt;br>&lt;/br>
         \u2022 Se agregó una traducción de la aplicación al italiano usando el traductor de Google &lt;br>&lt;/br>
         \u2022 Disculpas para todos los hablantes nativos, ya que estas son traducciones aproximadas; pueden ser completamente inutilizables &lt;br>&lt;/br>
-        \u2022 Si desea enviar comentarios o una mejor traducción, envíe un correo electrónico utilizando el botón "Oferta para traducir".&lt;br>&lt;/br>&lt;br>&lt;/br>
+        \u2022 Si desea enviar comentarios o una mejor traducción, envíe un correo electrónico utilizando el botón "Oferta para traducir"&lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="icon_bumbo">The Legend of Bum-bo!</string>
+    <string name="icon_summer">Verano de Isaac</string>
+    <string name="version_31">
+        &lt;b>&lt;u>Versión 5,05 (24-jun-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Se agregó una nueva tarjeta de arte alternativo de Bumbo de The Legend of Bumbo como una opción para el arte del personaje&lt;br>&lt;/br>
+        \u2022 Se agregó una nueva tarjeta de arte alternativo de Guppy de Youtooz como una opción para el arte del personaje &lt;br>&lt;/br>
+        \u2022 Se agregaron personajes y elementos del nuevo conjunto Verano de Isaac.&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

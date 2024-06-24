@@ -53,6 +53,10 @@ class ItemList {
                 treasureList += readChangeable(context, "gfuel")
             }
 
+            if (settings["summer"].toBoolean()) {
+                treasureList += readChangeable(context, "summer")
+            }
+
             if (settings["custom"].toBoolean()) {
                 treasureList += readChangeable(context, "custom_treasures")
             }
@@ -106,7 +110,9 @@ class ItemList {
         }
 
         fun saveToFile(context: Context, items: MutableMap<String, Array<String>>) {
+            println(items)
             for (key in items.keys) {
+                println(key)
                 val keyFilename = "$key.txt"
                 val keyFile = context.getFileStreamPath(keyFilename)
                 keyFile.createNewFile()
