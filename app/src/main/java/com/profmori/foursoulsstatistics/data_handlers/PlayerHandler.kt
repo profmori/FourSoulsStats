@@ -46,6 +46,9 @@ class PlayerHandler(
     private var useYoutooz = true
     // Variable for whether or not to use youtooz guppy
 
+    private var useSummer = true
+    // Variable for whether or not to use youtooz guppy
+
 
     companion object {
         fun makePlayerList(playerNum: Int): Array<PlayerHandler> {
@@ -55,13 +58,7 @@ class PlayerHandler(
             for (i in (1 until playerNum + 1)) {
                 // Iterates through every player in the array
                 players += (PlayerHandler(
-                    "",
-                    "",
-                    ImageHandler.randomBlank(),
-                    null,
-                    0,
-                    winner = false,
-                    solo = false
+                    "", "", ImageHandler.randomBlank(), null, 0, winner = false, solo = false
                 ))
                 // Add a player with no name or character and a blank character image
             }
@@ -70,9 +67,7 @@ class PlayerHandler(
         }
 
         fun updatePlayerList(
-            playerList: Array<PlayerHandler>,
-            playerNum: Int,
-            context: Context
+            playerList: Array<PlayerHandler>, playerNum: Int, context: Context
         ): Array<PlayerHandler> {
             // Function to update the number of players without resetting the recycler
             val newPlayerList = playerList.toMutableList()
@@ -93,13 +88,7 @@ class PlayerHandler(
                 for (i in (currentLength until charNum)) {
                     // For the number of extra players
                     newPlayerList += PlayerHandler(
-                        "",
-                        "",
-                        ImageHandler.randomBlank(),
-                        null,
-                        0,
-                        winner = false,
-                        solo = false
+                        "", "", ImageHandler.randomBlank(), null, 0, winner = false, solo = false
                     )
                     // Add a player with no name or character and a blank character image
                     newPlayerList.last().fonts = playerList[0].fonts
@@ -147,6 +136,8 @@ class PlayerHandler(
         // Set the player handler flag for using bumbo bumbo correctly
         useYoutooz = settings["youtooz"].toBoolean()
         // Set the player handler flag for using youtooz guppy correctly
+        useSummer = settings["summer"].toBoolean()
+        // Set the player handler flag for using summer of Isaac cards correctly
 
         charList.sortBy { it.charName }
         // Sorts the character list alphabetically
@@ -193,9 +184,7 @@ class PlayerHandler(
                     // Adds the 2 alt art Eden cards if alternate arts are an option
                     if (usePromo) {
                         imageArray += arrayOf(
-                            R.drawable.p_eden_1,
-                            R.drawable.p_eden_2,
-                            R.drawable.p_eden_3
+                            R.drawable.p_eden_1, R.drawable.p_eden_2, R.drawable.p_eden_3
                         )
                     }
                     // Adds the 2 promo eden cards if promos are being used
@@ -217,7 +206,7 @@ class PlayerHandler(
                         }
                     }
 
-                    if (useUnboxing or useBumbo or useYoutooz) {
+                    if (useUnboxing or useBumbo or useYoutooz or useSummer) {
                         val limitedImage = ImageHandler.getLimitedAlt(charName)
                         if (limitedImage > 0) {
                             imageArray += arrayOf(limitedImage)

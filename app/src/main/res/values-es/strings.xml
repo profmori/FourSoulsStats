@@ -269,4 +269,9 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
         \u2022 Se agregó una nueva tarjeta de arte alternativo de Guppy de Youtooz como una opción para el arte del personaje &lt;br>&lt;/br>
         \u2022 Se agregaron personajes y elementos del nuevo conjunto Verano de Isaac.&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+    <string name="version_32">
+        &lt;b>&lt;u>Versión 5,06 (10-ago-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Se agregó la nueva carta de arte alternativo "The Hoarder" del set Verano de Isaac como una opción para el arte del personaje &lt;br>&lt;/br>
+        \u2022 Se agregó la nueva carta de arte alternativo "The Miser" del set Verano de Isaac como una opción para el arte del personaje &lt;br>&lt;/br>
+    </string>
 </resources>

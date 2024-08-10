@@ -25,9 +25,7 @@ class ImageHandler {
 
         fun setButtonImage(): Int {
             val backgroundList = arrayOf(
-                R.drawable.button_event,
-                R.drawable.button_item,
-                R.drawable.button_loot
+                R.drawable.button_event, R.drawable.button_item, R.drawable.button_loot
             )
             // Create an array of the possible button images
             val randPos = (backgroundList.indices).random()
@@ -118,6 +116,14 @@ class ImageHandler {
 
                 "guppy" -> {
                     return R.drawable.ytz_guppy
+                }
+
+                "the miser" -> {
+                    return R.drawable.soi_the_miser
+                }
+
+                "the hoarder" -> {
+                    return R.drawable.soi_the_hoarder
                 }
             }
             return -1

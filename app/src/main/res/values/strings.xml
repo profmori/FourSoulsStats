@@ -331,4 +331,9 @@
         \u2022 Added new Guppy alt art card from Youtooz as an option for character art &lt;br>&lt;/br>
         \u2022 Added characters and items from the new Summer of Isaac set&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+    <string name="version_32">
+        &lt;b>&lt;u>Version 5.06 (10-Aug-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added new "The Hoarder" alt art card from the Summer of Isaac set as an option for character art &lt;br>&lt;/br>
+        \u2022 Added new "The Miser" alt art card from the Summer of Isaac set as an option for character art &lt;br>&lt;/br>
+    </string>
 </resources>

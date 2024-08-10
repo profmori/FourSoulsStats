@@ -173,7 +173,7 @@ class EditSettings : AppCompatActivity() {
         val changeLanguage = findViewById<Button>(R.id.settingsLanguage)
         LanguageHandler.getLanguage(changeLanguage)
 
-        changeLanguage.setOnClickListener{
+        changeLanguage.setOnClickListener {
             LanguageHandler.changeLanguage()
         }
 

@@ -13,10 +13,7 @@ class CharacterList {
             CharEntity("eden", R.drawable.b2_eden, null, "base"),
             CharEntity("eve", R.drawable.b2_eve, null, "base"),
             CharEntity(
-                "the forgotten",
-                R.drawable.b2_the_forgotten,
-                R.drawable.aa_the_forgotten,
-                "base"
+                "the forgotten", R.drawable.b2_the_forgotten, R.drawable.aa_the_forgotten, "base"
             ),
             CharEntity("isaac", R.drawable.b2_isaac, R.drawable.aa_isaac, "base"),
             CharEntity("judas", R.drawable.b2_judas, R.drawable.aa_judas, "base"),
@@ -59,10 +56,7 @@ class CharacterList {
             CharEntity("the deserter", R.drawable.r_the_deserter, null, "requiem"),
             CharEntity("the empty", R.drawable.r_the_empty, null, "requiem"),
             CharEntity(
-                "the enigma",
-                R.drawable.r_the_enigma,
-                R.drawable.r_the_enigma_back,
-                "requiem"
+                "the enigma", R.drawable.r_the_enigma, R.drawable.r_the_enigma_back, "requiem"
             ),
             CharEntity("the fettered", R.drawable.r_the_fettered, null, "requiem"),
             CharEntity("the harlot", R.drawable.r_the_harlot, R.drawable.aa_the_harlot, "requiem"),

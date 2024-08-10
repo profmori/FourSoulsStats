@@ -12,7 +12,7 @@ class LanguageHandler {
 
         fun getLanguage(button: Button) {
             var currentLocale = getApplicationLocales().toLanguageTags()
-            if (currentLocale == ""){
+            if (currentLocale == "") {
                 currentLocale = Locale.getDefault().language
                 setApplicationLocales(LocaleListCompat.forLanguageTags(currentLocale))
             }
