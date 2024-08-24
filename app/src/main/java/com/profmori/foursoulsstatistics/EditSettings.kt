@@ -1,12 +1,9 @@
 package com.profmori.foursoulsstatistics
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -39,9 +36,6 @@ import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig
 import kotlin.collections.set
 
 class EditSettings : AppCompatActivity() {
@@ -218,7 +212,7 @@ class EditSettings : AppCompatActivity() {
         scrollView.scrollTo(0, 0)
         // Move to the top of the scroll view when the settings page opens
 
-        runTutorial()
+//        runTutorial()
         // Run the tutorial
 
         borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -408,8 +402,8 @@ class EditSettings : AppCompatActivity() {
 
         tutorialButton.setOnClickListener {
             // When the tutorial reset is clicked
-            MaterialShowcaseView.resetAll(this)
-            // Reset all the tutorials so they show again
+//            MaterialShowcaseView.resetAll(this)
+//            // Reset all the tutorials so they show again
             returnButton.performClick()
             // Click the return button to save and go back to the main menu
         }
@@ -531,8 +525,8 @@ class EditSettings : AppCompatActivity() {
 
     private fun runTutorial() {
 
-        val config = ShowcaseConfig()
-        config.delay = 200
+//        val config = ShowcaseConfig()
+//        config.delay = 200
         // Delay between each showcase view
 
         val editionSelect = findViewById<ConstraintLayout>(R.id.editionSelect)
@@ -568,139 +562,139 @@ class EditSettings : AppCompatActivity() {
         val scrollView = findViewById<ScrollView>(R.id.scrollView)
         // Get the scroll view so the view can be automatically scrolled
 
-        val sequence = MaterialShowcaseSequence(this, "settings")
-        // Creates the sequence to store all the tutorial steps
-
-        sequence.setConfig(config)
-        // Configures it to the chosen settings
-
-        val edition = MaterialShowcaseView.Builder(this)
-            .setTarget(editionSelect)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_edition))
-            .withRectangleShape(true)
-            .build()
-        // Highlights the edition select area
-
-        val easySwitch = MaterialShowcaseView.Builder(this)
-            .setTarget(easyFont)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_readable_font))
-            .withRectangleShape(true)
-            .build()
-        // Highlights the readable font switch
-
-        val border = MaterialShowcaseView.Builder(this)
-            .setTarget(borderLine)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_border))
-            .withRectangleShape(true)
-            .build()
-        // Highlights the border select dropdown
-
-        val background = MaterialShowcaseView.Builder(this)
-            .setTarget(backgroundLine)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_background))
-            .withRectangleShape(true)
-            .build()
-        // Highlights the background select dropdown
-
-        val onlineSwitch = MaterialShowcaseView.Builder(this)
-            .setTarget(online)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_online))
-            .withRectangleShape(true)
-            .build()
-        // Highlights the online connection switch
-
-        val groupID = MaterialShowcaseView.Builder(this)
-            .setTarget(groupLine)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_group_id))
-            .withRectangleShape(true)
-            .build()
-        // Highlights the group id input area
-
-        val clearData = MaterialShowcaseView.Builder(this)
-            .setTarget(clearButton)
-            .setDismissText(resources.getString(R.string.generic_dismiss))
-            .setContentText(resources.getString(R.string.tutorial_clear_button))
-            .build()
-        // Highlights the button to clear all data
-
-        val rerollIconSelect = MaterialShowcaseView.Builder(this)
-            .setTarget(rerollButton)
-            .setDismissText(R.string.generic_dismiss)
-            .setContentText(resources.getString(R.string.tutorial_select_icon))
-            .build()
-        // Highlights the reroll icon selection button
-
-        val rerollSettings = MaterialShowcaseView.Builder(this)
-            .setTarget(rerollOptions)
-            .setDismissText(R.string.generic_dismiss)
-            .setContentText(resources.getString(R.string.tutorial_random_settings))
-            .withRectangleShape(true).withRectangleShape(true)
-            .build()
-
-        val rerollSettings2 = MaterialShowcaseView.Builder(this)
-            .setTarget(rerollOptions)
-            .setDismissText(R.string.generic_dismiss)
-            .setContentText(resources.getString(R.string.tutorial_random_settings_2))
-            .withRectangleShape(true).withRectangleShape(true)
-            .build()
-        // Highlights the reroll options
-
-        sequence.addSequenceItem(groupID)
-        sequence.addSequenceItem(onlineSwitch)
-        sequence.addSequenceItem(easySwitch)
-        sequence.addSequenceItem(edition)
-        sequence.addSequenceItem(border)
-        sequence.addSequenceItem(background)
-        sequence.addSequenceItem(rerollIconSelect)
-        sequence.addSequenceItem(rerollSettings)
-        sequence.addSequenceItem(rerollSettings2)
-        sequence.addSequenceItem(clearData)
-        // Put the tutorial sequence together
-
-        sequence.setOnItemShownListener { itemView, _ ->
-            Handler(Looper.getMainLooper()).postDelayed({
-                val field = MaterialShowcaseView::class.java.getDeclaredField("mDismissButton")
-                field.isAccessible = true
-                val i = field.get(itemView) as TextView
-                try {
-                    i.performClick()
-                } catch (e: java.lang.NullPointerException) {
-                    // The tutorial has already been advanced past this point
-                }
-            }, 10000)
-        }
-
-        sequence.setOnItemDismissedListener { itemView, _ ->
-            // When any sequence item is dismissed
-            val yPos = when (itemView) {
-//                groupID -> online.top
-//                onlineSwitch -> easyFont.top
-                easySwitch -> edition.top
-                edition -> borderLine.top
-//                border -> backgroundLine.top
-//                background -> rerollButton.top
-                rerollIconSelect -> rerollOptions.top
-                rerollSettings -> clearButton.top
-                clearData -> tutorialButton.top
-                else -> scrollView.scrollY
-            }
-            // Get the y position of the next item
-            val objectAnimator =
-                ObjectAnimator.ofInt(scrollView, "scrollY", scrollView.scrollY, yPos)
-                    .setDuration(500)
-            // Scroll to the chosen y position in 500 milliseconds
-            objectAnimator.start()
-            // Start the animation
-        }
-
-        sequence.start()
-        // Run the tutorial
+//        val sequence = MaterialShowcaseSequence(this, "settings")
+//        // Creates the sequence to store all the tutorial steps
+//
+//        sequence.setConfig(config)
+//        // Configures it to the chosen settings
+//
+//        val edition = MaterialShowcaseView.Builder(this)
+//            .setTarget(editionSelect)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_edition))
+//            .withRectangleShape(true)
+//            .build()
+//        // Highlights the edition select area
+//
+//        val easySwitch = MaterialShowcaseView.Builder(this)
+//            .setTarget(easyFont)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_readable_font))
+//            .withRectangleShape(true)
+//            .build()
+//        // Highlights the readable font switch
+//
+//        val border = MaterialShowcaseView.Builder(this)
+//            .setTarget(borderLine)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_border))
+//            .withRectangleShape(true)
+//            .build()
+//        // Highlights the border select dropdown
+//
+//        val background = MaterialShowcaseView.Builder(this)
+//            .setTarget(backgroundLine)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_background))
+//            .withRectangleShape(true)
+//            .build()
+//        // Highlights the background select dropdown
+//
+//        val onlineSwitch = MaterialShowcaseView.Builder(this)
+//            .setTarget(online)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_online))
+//            .withRectangleShape(true)
+//            .build()
+//        // Highlights the online connection switch
+//
+//        val groupID = MaterialShowcaseView.Builder(this)
+//            .setTarget(groupLine)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_group_id))
+//            .withRectangleShape(true)
+//            .build()
+//        // Highlights the group id input area
+//
+//        val clearData = MaterialShowcaseView.Builder(this)
+//            .setTarget(clearButton)
+//            .setDismissText(resources.getString(R.string.generic_dismiss))
+//            .setContentText(resources.getString(R.string.tutorial_clear_button))
+//            .build()
+//        // Highlights the button to clear all data
+//
+//        val rerollIconSelect = MaterialShowcaseView.Builder(this)
+//            .setTarget(rerollButton)
+//            .setDismissText(R.string.generic_dismiss)
+//            .setContentText(resources.getString(R.string.tutorial_select_icon))
+//            .build()
+//        // Highlights the reroll icon selection button
+//
+//        val rerollSettings = MaterialShowcaseView.Builder(this)
+//            .setTarget(rerollOptions)
+//            .setDismissText(R.string.generic_dismiss)
+//            .setContentText(resources.getString(R.string.tutorial_random_settings))
+//            .withRectangleShape(true).withRectangleShape(true)
+//            .build()
+//
+//        val rerollSettings2 = MaterialShowcaseView.Builder(this)
+//            .setTarget(rerollOptions)
+//            .setDismissText(R.string.generic_dismiss)
+//            .setContentText(resources.getString(R.string.tutorial_random_settings_2))
+//            .withRectangleShape(true).withRectangleShape(true)
+//            .build()
+//        // Highlights the reroll options
+//
+//        sequence.addSequenceItem(groupID)
+//        sequence.addSequenceItem(onlineSwitch)
+//        sequence.addSequenceItem(easySwitch)
+//        sequence.addSequenceItem(edition)
+//        sequence.addSequenceItem(border)
+//        sequence.addSequenceItem(background)
+//        sequence.addSequenceItem(rerollIconSelect)
+//        sequence.addSequenceItem(rerollSettings)
+//        sequence.addSequenceItem(rerollSettings2)
+//        sequence.addSequenceItem(clearData)
+//        // Put the tutorial sequence together
+//
+//        sequence.setOnItemShownListener { itemView, _ ->
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                val field = MaterialShowcaseView::class.java.getDeclaredField("mDismissButton")
+//                field.isAccessible = true
+//                val i = field.get(itemView) as TextView
+//                try {
+//                    i.performClick()
+//                } catch (e: java.lang.NullPointerException) {
+//                    // The tutorial has already been advanced past this point
+//                }
+//            }, 10000)
+//        }
+//
+//        sequence.setOnItemDismissedListener { itemView, _ ->
+//            // When any sequence item is dismissed
+//            val yPos = when (itemView) {
+////                groupID -> online.top
+////                onlineSwitch -> easyFont.top
+//                easySwitch -> edition.top
+//                edition -> borderLine.top
+////                border -> backgroundLine.top
+////                background -> rerollButton.top
+//                rerollIconSelect -> rerollOptions.top
+//                rerollSettings -> clearButton.top
+//                clearData -> tutorialButton.top
+//                else -> scrollView.scrollY
+//            }
+//            // Get the y position of the next item
+//            val objectAnimator =
+//                ObjectAnimator.ofInt(scrollView, "scrollY", scrollView.scrollY, yPos)
+//                    .setDuration(500)
+//            // Scroll to the chosen y position in 500 milliseconds
+//            objectAnimator.start()
+//            // Start the animation
+//        }
+//
+//        sequence.start()
+//        // Run the tutorial
     }
 
     private fun updateFonts(

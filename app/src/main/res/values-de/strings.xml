@@ -137,7 +137,7 @@
     <string name="tutorial_settings">Verwenden Sie diese Schaltfläche, um Ihr App-Erlebnis anzupassen.
          \nDadurch können Sie viele Dinge auswählen, einschließlich Online-Funktionen und App-Erscheinungsbild</string>
     <string name="tutorial_issues">Verwenden Sie diese Schaltfläche, um alle Probleme oder gefundenen Fehler zu melden. Darüber hinaus können neue Vorschläge gemacht werden.
-         \nWenn Sie die App übersetzen möchten, freuen wir uns über jedes Angebot. Dies kann auch über diese Schaltfläche erfolgen</string>
+         \nWenn Sie die App übersetzen möchten, freuen wir uns über jedes Angebot.</string>
     <string name="tutorial_group_id">Verwenden Sie diese Zeile, um die eindeutige ID Ihrer Gruppe einzugeben oder eine neue zu erstellen.
          \nDies wird verwendet, um verschiedenen Geräten die Synchronisierung derselben Spiele zu ermöglichen und ist auch dann erforderlich, wenn Sie offline bleiben</string>
     <string name="tutorial_online">Dieser Schalter steuert, ob Ihre Gruppendaten online gespeichert werden oder nicht.

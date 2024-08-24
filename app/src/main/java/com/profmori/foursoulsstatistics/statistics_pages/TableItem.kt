@@ -26,7 +26,6 @@ class TableItem(var name: String) {
         fun convert(eternalList: List<String?>, context: Context): Array<TableItem> {
             var convertedArray = emptyArray<TableItem>()
             val distinctEternals = eternalList.distinct()
-            println(distinctEternals)
             val indexList = emptyList<Int>().toMutableList()
             // Creates a list of all the indices of chosen elements of the list
             ItemList.getItems(context).forEach {
@@ -34,12 +33,10 @@ class TableItem(var name: String) {
                 val index = distinctEternals.indexOf(it.lowercase())
                 // Get the index of the eternal in the list of online eternals
                 if (index >= 0) {
-                    println(it)
                     // If it is in the list
                     indexList += index
                     // Add its index to the list
                 } else if (it == "\"I Can't Believe It's Not Butter Bean\"") {
-                    println(it)
                     // "I Can't Believe It's Not Butter Bean" - the cause of every special case in the app
                     indexList += distinctEternals.indexOf("\"i can't believe it's not")
                     // Add the cut off version's index to the list

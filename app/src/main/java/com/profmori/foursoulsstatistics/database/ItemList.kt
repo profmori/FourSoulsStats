@@ -110,9 +110,7 @@ class ItemList {
         }
 
         fun saveToFile(context: Context, items: MutableMap<String, Array<String>>) {
-            println(items)
             for (key in items.keys) {
-                println(key)
                 val keyFilename = "$key.txt"
                 val keyFile = context.getFileStreamPath(keyFilename)
                 keyFile.createNewFile()

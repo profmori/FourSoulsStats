@@ -1,6 +1,8 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
 import android.content.Context
+import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+import android.text.style.LeadingMarginSpan
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -51,6 +53,10 @@ class SettingsHandler {
             return editionArray
         }
 
+        fun getInputLock(context: Context): Boolean {
+            val settings = readSettings(context)
+            return settings["inputLock"].toBoolean()
+        }
         fun getSets(): Array<String> {
             return arrayOf(
                 "base",
@@ -140,6 +146,11 @@ class SettingsHandler {
                 settings[set] = "false"
             }
 
+            settings["inputLock"] = "false"
+            settings["initialTutorial"] = "true"
+            settings["runTutorial"] = "true"
+            // Settings to control the tutoiral
+
             saveToFile(context, settings)
             // Save the settings file
 
@@ -199,6 +210,12 @@ class SettingsHandler {
                 else -> context.resources.getString(R.string.loot_back)
             }
             // Use a when statement on all the possible text options to match the key
+        }
+
+        fun setInputLock(context: Context, bool: Boolean){
+            val settings = readSettings(context)
+            settings["inputLock"] = bool.toString()
+            saveToFile(context, settings)
         }
 
         fun saveToFile(
@@ -295,6 +312,8 @@ class SettingsHandler {
                                 // Add the existing notes to the start of the string
                                 this.append(versionNote)
                                 // Add the new version notes to the end
+                                val totalLen = versionNotes.length + versionNote.length
+                                this.setSpan(LeadingMarginSpan.Standard(0,5),1,totalLen,SPAN_EXCLUSIVE_EXCLUSIVE)
                             }
                         }
                     }
@@ -304,6 +323,7 @@ class SettingsHandler {
                     // If any version notes exist
                     val fonts = TextHandler.setFont(context)
                     // Get the button font
+
                     val notesDialog =
                         PatchNotesDialog(versionNotes, fonts)
                     // Create the patch notes dialog

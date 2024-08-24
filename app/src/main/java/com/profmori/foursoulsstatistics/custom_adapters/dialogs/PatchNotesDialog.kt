@@ -6,7 +6,6 @@ import android.content.DialogInterface
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannedString
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
@@ -21,7 +20,7 @@ class PatchNotesDialog(
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
-            val notesView = LayoutInflater.from(context)
+            val notesView = layoutInflater
                 .inflate(R.layout.patch_notes_dialog, view as ViewGroup?, false)
             // Set up the patch notes view
 

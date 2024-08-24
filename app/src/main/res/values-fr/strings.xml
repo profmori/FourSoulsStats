@@ -148,7 +148,7 @@
     <string name="tutorial_settings">Utilisez ce bouton pour personnaliser l\'expérience de votre application.
          \nCela vous permet de choisir de nombreux éléments, notamment les fonctionnalités en ligne et l\'apparence de l\'application</string>
     <string name="tutorial_issues">Utilisez ce bouton pour signaler tout problème que vous rencontrez ou les bogues que vous trouvez. En plus de cela, de nouvelles suggestions peuvent être faites.
-         \nSi vous souhaitez traduire l\'application, toute offre est grandement appréciée. Cela peut également être fait à partir de ce bouton</string>
+         \nSi vous souhaitez traduire l\'application, toute offre est grandement appréciée.</string>
     <string name="tutorial_group_id">Utilisez cette ligne pour saisir l\'identifiant unique de votre groupe ou en créer un nouveau.
          \nCeci sera utilisé pour permettre à différents appareils de synchroniser les mêmes jeux, et est requis même si vous restez hors ligne</string>
     <string name="tutorial_online">Ce commutateur contrôle si les données de votre groupe seront ou non stockées en ligne.

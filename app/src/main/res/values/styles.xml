@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
+        <item name="sv_backgroundColor">#CC1A1A1A</item>
+        <item name="sv_showcaseColor">#AF3029</item>
+        <item name="sv_detailTextAppearance">@style/ReadableText</item>
+        <item name="sv_buttonBackgroundColor">#00000000</item>
+    </style>
+
+    <style name="ReadableText" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/atkinson_hyperlegible_regular</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:autoSizeMinTextSize">15sp</item>
+        <item name="android:autoSizeMaxTextSize">30sp</item>
+        <item name="android:autoSizeTextType">uniform</item>
+    </style>
+
+</resources>

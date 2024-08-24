@@ -139,7 +139,7 @@
     <string name="tutorial_settings">Utilizza questo pulsante per personalizzare la tua esperienza con l\'app.
          \nCiò ti consente di scegliere molte cose, incluse le funzionalità online e l\'aspetto dell\'app</string>
     <string name="tutorial_issues">Usa questo pulsante per segnalare eventuali problemi che riscontri o bug che trovi. Oltre a ciò si possono avanzare nuove proposte.
-         \nSe desideri tradurre l\'app, qualsiasi offerta è molto apprezzata. Questo può essere fatto anche da questo pulsante</string>
+         \nSe desideri tradurre l\'app, qualsiasi offerta è molto apprezzata.</string>
     <string name="tutorial_group_id">Utilizza questa riga per inserire l\'ID univoco del tuo gruppo o crearne uno nuovo.
          \nVerrà utilizzato per consentire a dispositivi diversi di sincronizzare gli stessi giochi ed è necessario anche se rimani offline</string>
     <string name="tutorial_online">Questo interruttore controlla se i dati del tuo gruppo verranno archiviati online o meno.

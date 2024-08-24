@@ -14,7 +14,7 @@ java {
 android {
     defaultConfig {
         applicationId "com.profmori.foursoulsstatistics"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 34
         versionCode 32
         versionName "5.06"
@@ -34,7 +34,7 @@ android {
         debug{
             keyAlias 'four_souls_stats'
             keyPassword 'FourSoulsStats'
-            storeFile file('C:\\Users\\Jim\\Documents\\FourSoulsStats\\Keys\\FourSoulsStatsApp.jks')
+            storeFile file('C:\\Users\\jimla\\Documents\\FourSoulsStats\\Keys\\FourSoulsStatsApp.jks')
             storePassword 'FourSoulsStats'
         }
     }
@@ -44,6 +44,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
         debug{
             signingConfig signingConfigs.debug
@@ -77,6 +78,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     implementation("com.google.firebase:firebase-appcheck-debug")
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4'
+    implementation 'androidx.leanback:leanback:1.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
@@ -107,5 +109,6 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     // Material Showcase
-    implementation 'com.github.deano2390:MaterialShowcaseView:1.3.4'
+    implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.20"
 }

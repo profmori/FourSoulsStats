@@ -137,7 +137,7 @@
     <string name="tutorial_settings">Utilice este botón para editar juegos ingresados previamente y corregir cualquier error cometido.
          También puedes eliminar juegos del historial de juego por completo</string>
     <string name="tutorial_issues">Utilice este botón para informar cualquier problema que tenga o errores que encuentre. Además, se pueden hacer nuevas sugerencias.
-        Si desea traducir la aplicación, cualquier oferta será muy apreciada. Esto también se puede hacer desde este botón</string>
+        Si desea traducir la aplicación, cualquier oferta será muy apreciada.</string>
     <string name="tutorial_group_id">Utilice esta línea para ingresar la identificación única de su grupo o cree una nueva.
 Esto se utilizará para permitir que diferentes dispositivos sincronicen los mismos juegos y es necesario incluso si permanece desconectado</string>
     <string name="tutorial_online">Este interruptor controla si los datos de su grupo se almacenarán en línea o no.

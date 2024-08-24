@@ -186,6 +186,14 @@
 
 
     <!-- Main Page Tutorial Lines -->
+    <string name="tutorial_language">
+        Click the flag to change between languages\t / \t
+        Haga clic en la bandera para cambiar entre idiomas\t / \t
+        Cliquez sur le drapeau pour changer de langue\t / \t
+        Clicca sulla bandiera per cambiare lingua\t / \t
+        Klicken Sie auf die Flagge, um zwischen den Sprachen zu wechseln\n
+        Click anywhere to continue
+    </string>
     <string name="tutorial_data">Input game data using this button</string>
     <string name="tutorial_stats">View your group\'s statistics, as well as average statistics for the whole community, using this button</string>
     <string name="tutorial_edit">Use this button to edit previously entered games to amend any mistakes made.
@@ -193,7 +201,7 @@
     <string name="tutorial_settings">Use this button to customise your app experience.
         \nThis allows you to choose many things, including online capabilities and app appearance.</string>
     <string name="tutorial_issues">Use this button to report any issues you have, or bugs you find. As well as this, new suggestions can be made.
-        \nIf you would like to translate the app, any offers are greatly appreciated. This can also be done from this button.</string>
+        \nIf you would like to translate the app, any offers are greatly appreciated.</string>
 
     <!-- Settings Page Tutorial Lines -->
     <string name="tutorial_group_id">Use this line to input your group\'s unique id, or create a new one.

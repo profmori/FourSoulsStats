@@ -242,8 +242,6 @@ class OnlineDataHandler {
                         items[onlineItem.set] = itemArray
                         // Set the array for that set to be updated
                     }
-                    println(items)
-                    // print the item list
                     ItemList.saveToFile(context, items)
                     // Save to a file
                 }

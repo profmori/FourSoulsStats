@@ -100,7 +100,6 @@ class ViewStatisticsPage : AppCompatActivity() {
             // Finds the stats table
 
             if ((playerSlider.visibility == View.GONE) or (treasureSlider.visibility == View.GONE)) {
-                println("test")
                 playerTable.headerAdapter.notifyDataSetChanged()
             }
 

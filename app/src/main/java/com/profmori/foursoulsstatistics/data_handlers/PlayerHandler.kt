@@ -47,7 +47,7 @@ class PlayerHandler(
     // Variable for whether or not to use youtooz guppy
 
     private var useSummer = true
-    // Variable for whether or not to use youtooz guppy
+    // Variable for whether or not to use summer of isaac cards
 
 
     companion object {
