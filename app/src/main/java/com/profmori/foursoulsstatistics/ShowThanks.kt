@@ -24,6 +24,7 @@ class ShowThanks : AppCompatActivity() {
         val thanksFriends = findViewById<TextView>(R.id.thanksFriends)
         val thanksEdmund = findViewById<TextView>(R.id.thanksEdmund)
         val thanksCards = findViewById<TextView>(R.id.thanksCards)
+        val thanksCommunity = findViewById<TextView>(R.id.thanksCommunity)
         // Get all the main elements
 
         val buttonBG = ImageHandler.setButtonImage()
@@ -47,6 +48,7 @@ class ShowThanks : AppCompatActivity() {
         thanksFriends.typeface = fonts["body"]
         thanksCards.typeface = fonts["body"]
         thanksEdmund.typeface = fonts["body"]
+        thanksCommunity.typeface = fonts["body"]
         // Update the fonts
 
         thanksFont.movementMethod = LinkMovementMethod.getInstance()
@@ -54,6 +56,25 @@ class ShowThanks : AppCompatActivity() {
         thanksEdmund.movementMethod = LinkMovementMethod.getInstance()
         thanksCards.movementMethod = LinkMovementMethod.getInstance()
         // Allows the hyperlinks to be followed
+
+        var communityThanks = ""
+        var communityNum = 0
+        while (true){
+            val communityNote = "community_$communityNum"
+            val stringID = resources.getIdentifier(
+                communityNote, "string", "com.profmori.foursoulsstatistics"
+            )
+            //Get all individual community thanks messages and combine
+            if (stringID > 0) {
+                communityThanks += resources.getString(stringID) + "\n"
+                communityNum += 1
+            }else{
+                break
+            }
+        }
+        // Put all the community thanks together programmatically
+        thanksCommunity.text = communityThanks.trim('\n')
+        // Put the community thanks on the list
 
         returnButton.setOnClickListener {
             // When the return button is clicked

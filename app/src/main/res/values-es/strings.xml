@@ -181,6 +181,7 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     <string name="statistics_global_eternal">Ver comunidad\nClasificaciones de artículos eternos</string>
     <string name="statistics_global_solo_character">Ver comunidad\nActuación de personaje solista</string>
     <string name="statistics_global_solo_eternal">Ver comunidad\nClasificaciones de artículos eternos en solitario</string>
+    <string name="community_0">Gracias a Éri Patrik por la sugerencia de aleatorización de personajes individuales y por sugerir que el recuento total de victorias &amp; el recuento de almas se muestren en las estadísticas del grupo.</string>
     <string name="patch_notes_title">Notas del parche</string>
     <string name="version_16">
         &lt;b>&lt;u>Versión 4,01 (17-dic-21)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.database.CharEntity
+import com.profmori.foursoulsstatistics.database.ItemList
 import com.profmori.foursoulsstatistics.database.Player
 
 class PlayerHandler(
@@ -152,7 +153,7 @@ class PlayerHandler(
         // Stores the names of the players from the list of players
     }
 
-    fun updateCharacter(newName: String) {
+    fun updateCharacter(newName: String, context: Context? = null) {
         if (charName != newName) {
             // If the character name has changed
 
@@ -197,6 +198,20 @@ class PlayerHandler(
                     }
                     // Adds the retro eden card if retro is being use
                     // Picks a random Eden card
+
+                    if (context != null) {
+                        val settings = SettingsHandler.readSettings(context)
+                        // Get the current settings
+
+                        if (settings["random_eden"].toBoolean())
+                        // And eden eternals are also to be randomised
+                        {
+                            val randomEternal = ItemList.getItems(context).random()
+                            // Generate a random Eden eternal
+                            eternal = randomEternal
+                            // Set the player eternal to the randomly selected one
+                        }
+                    }
                 } else {
                     if ((currentChar.imageAlt != null) and useAlts) {
                         // If there is an alternate image, and the player wants the chance to use alternate art
@@ -214,6 +229,7 @@ class PlayerHandler(
                     }
                 }
                 charImage = imageArray.random()
+
             } else if (newName == "") {
                 // If the name is now blank
                 charName = newName

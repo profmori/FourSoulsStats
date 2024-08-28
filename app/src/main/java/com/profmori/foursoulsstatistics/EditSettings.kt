@@ -663,7 +663,7 @@ class EditSettings : AppCompatActivity() {
         val setRecycler = findViewById<RecyclerView>(R.id.iconRecycler)
         val iconList = SettingsHandler.getSets()
         val setAdapter =
-            SetSelectionAdapter(iconList, fonts["body"]!!, settings, pixelLine, customButton)
+            SetSelectionAdapter(iconList, fonts["body"]!!, pixelLine, customButton)
         setRecycler.adapter = setAdapter
         setRecycler.layoutManager = GridLayoutManager(this, 4)
         // Lay the recycler out as a grid

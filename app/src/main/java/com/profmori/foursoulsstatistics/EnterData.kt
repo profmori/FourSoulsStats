@@ -25,7 +25,6 @@ import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import com.profmori.foursoulsstatistics.database.CharEntity
 import com.profmori.foursoulsstatistics.database.GameDAO
 import com.profmori.foursoulsstatistics.database.GameDataBase
-import com.profmori.foursoulsstatistics.database.ItemList
 import com.profmori.foursoulsstatistics.database.Player
 import kotlinx.coroutines.launch
 
@@ -354,7 +353,6 @@ class EnterData : AppCompatActivity() {
         rerollButton.setOnClickListener {
             // When the reroll button is clicked
             var selectedChars = emptyArray<CharEntity>()
-            SettingsHandler.saveSettings(this, settings)
             playerHandlerList.forEachIndexed { index, playerHandler ->
                 // Iterate through all the current players added
                 var randomChar = playerHandler.charList.random()
@@ -381,19 +379,9 @@ class EnterData : AppCompatActivity() {
                     selectedChars = emptyArray()
                     // Reset the number of selected characters
                 }
-                playerHandler.updateCharacter(randomChar.charName)
+                playerHandler.updateCharacter(randomChar.charName, this)
                 // Set the player to that character
-                if (randomChar.charName == "eden" &&
-                    // If eden is selected
-                    settings["random_eden"].toBoolean()
-                )
-                // And eden eternals are also to be randomised
-                {
-                    val randomEternal = ItemList.getItems(this).random()
-                    // Generate a random Eden eternal
-                    playerHandler.eternal = randomEternal
-                    // Set the player eternal to the randomly selected one
-                }
+
                 adapter.notifyItemChanged(index)
                 // Update the view
             }

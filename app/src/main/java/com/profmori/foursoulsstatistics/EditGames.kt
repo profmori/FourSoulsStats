@@ -36,6 +36,11 @@ class EditGames : AppCompatActivity() {
         val gameList = findViewById<RecyclerView>(R.id.editGameList)
         // Gets the handler for the list of played games
 
+        val reorderButton = findViewById<Button>(R.id.editGamesReorder)
+        // Get the button for reordering the games
+        var sortDir = 1
+        // Set the sorting direction (-1 oldest first, 1 newest first)
+
         val buttonBG = ImageHandler.setButtonImage()
         // Get a random button from the possible options
 
@@ -75,6 +80,8 @@ class EditGames : AppCompatActivity() {
         val gameDao = gameDatabase.gameDAO
         // Get the database access object
 
+        var idList: Array<String> = emptyArray()
+
         lifecycleScope.launch {
             // As a coroutine
             if (SettingsHandler.readSettings(this@EditGames)["online"].toBoolean()) {
@@ -84,9 +91,9 @@ class EditGames : AppCompatActivity() {
             val games = gameDao.getGames(true) + gameDao.getGames(false)
             // Get all games
             if (games.isNotEmpty()) {
-                val idList = games.map { game -> game.gameID }.toTypedArray()
+                idList = games.map { game -> game.gameID }.toTypedArray()
                 // Create a list of all game ids
-                idList.sort()
+                idList.sortDescending()
                 // Sort the game ids so they are in chronological order
                 listAdapter = GamesListAdapter(idList, buttonBG, fonts["body"]!!)
                 // Create the list adapter
@@ -103,6 +110,21 @@ class EditGames : AppCompatActivity() {
                 returnButton.performClick()
                 // Press the back button
             }
+        }
+
+        reorderButton.setOnClickListener {
+            sortDir *= -1
+            if (sortDir == 1) {
+                idList.sortDescending()
+            } else {
+                idList.sort()
+            }
+            listAdapter = GamesListAdapter(idList, buttonBG, fonts["body"]!!)
+            // Create the list adapter
+            gameList.adapter = listAdapter
+            // Attach the adapter to the game list
+            gameList.layoutManager = LinearLayoutManager(this@EditGames)
+            // Lay it out as a list
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {

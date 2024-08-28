@@ -12,12 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
+import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 
 class SetSelectionAdapter(
     private val iconList: Array<String>,
     private val textFont: Typeface,
-    private val settings: MutableMap<String, String>,
     private val pixelLine: ConstraintLayout,
     private val customButton: Button
 ) : RecyclerView.Adapter<SetSelectionAdapter.ViewHolder>() {
@@ -50,6 +50,7 @@ class SetSelectionAdapter(
         // Get the current icon name
         viewHolder.icon.setImageResource(ImageHandler.getIcon(currIcon))
         // Set the associated icon
+        var settings = SettingsHandler.readSettings(viewHolder.itemView.context)
         if (settings[currIcon].toBoolean()) {
             // If the icon is currently selected
             viewHolder.icon.setColorFilter(Color.argb(0, 255, 255, 255))
@@ -70,6 +71,7 @@ class SetSelectionAdapter(
                 // Clear tint
                 settings[currIcon] = "true"
                 // Correct the setting
+                SettingsHandler.saveSettings(viewHolder.itemView.context, settings)
             }
         }
 
@@ -77,6 +79,7 @@ class SetSelectionAdapter(
             // When one of the icons is clicked
             if (currIcon != "base") {
                 // If it isn't the base game which cannot be turned off
+                settings = SettingsHandler.readSettings(viewHolder.itemView.context)
                 val newSetting = !settings[currIcon].toBoolean()
                 // Get the new setting as the inverse of the old
                 settings[currIcon] = newSetting.toString()
@@ -99,6 +102,7 @@ class SetSelectionAdapter(
                     }
                 }
             }
+            SettingsHandler.saveSettings(viewHolder.itemView.context, settings)
         }
         viewHolder.iconText.setText(TextHandler.getIconText(currIcon))
         // Get the appropriate text from the text handler

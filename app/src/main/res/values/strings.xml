@@ -237,7 +237,7 @@
     <string name="adjust_cancel_delete">Cancel</string>
     <string name="adjust_confirm_delete">Confirm</string>
     <string name="adjust_check_delete">Deleting a game is permanent and cannot be undone\nAre you sure you want to delete this game?</string>
-    
+
     <!-- Feedback Page -->
     <string name="feedback_title">Feedback</string>
     <string name="feedback_preference">The preferred method of receiving feedback is via GitHub, so please use that where possible. 
@@ -254,6 +254,9 @@
     <string name="statistics_global_eternal">View Community\nEternal Rankings</string>
     <string name="statistics_global_solo_character">View Community\nSolo Character Rankings</string>
     <string name="statistics_global_solo_eternal">View Community\nSolo Eternal Rankings</string>
+
+    <!-- Community Thanks -->
+    <string name="community_0">Thanks to Éri Patrik for the suggestion of individual character randomisation and suggesting that total win count &amp; soul count be shown in group statistics</string>
 
     <!-- Version Update Codes -->
     <string name="patch_notes_title">Patch Notes</string>

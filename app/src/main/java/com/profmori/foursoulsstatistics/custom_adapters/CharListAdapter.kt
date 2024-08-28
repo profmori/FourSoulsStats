@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.profmori.foursoulsstatistics.R
 import com.profmori.foursoulsstatistics.data_handlers.PlayerHandler
@@ -49,6 +50,9 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         // Access the player selection entry in code
         val eternalPrompt: TextView = itemView.findViewById(R.id.inputEternalSelect)
         // Access the eternal entry prompt
+
+        // Access the randomisation buttion in code
+        val rerollCharButton: AppCompatButton = itemView.findViewById(R.id.inputRerollButton)
 
         val parent = parentGroup
         // Stores the parent viewgroup
@@ -97,6 +101,8 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         val eternalPrompt = viewHolder.eternalPrompt
         // Gets the eternal entry prompt
 
+        val randomButton = viewHolder.rerollCharButton
+
         playerPrompt.typeface = fonts["body"]
         playerEntry.typeface = fonts["body"]
         charPrompt.typeface = fonts["body"]
@@ -109,6 +115,9 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
         eternalEntry.visibility = INVISIBLE
         eternalPrompt.visibility = INVISIBLE
         // Hide all the eternal item field
+
+//        randomButton.background = ImageHandler.randomReroll(viewHolder.charImage.context)
+//        // Set the image for the reroll icon from the available selection
 
         RecyclerHandler.updateView(
             playerHandler,
@@ -228,6 +237,15 @@ class CharListAdapter(private val playerHandlerList: Array<PlayerHandler>) :
                 itemList
             )
             // Run all the logic for the eternal data
+        }
+
+        randomButton.setOnClickListener {
+            val randomChar = playerHandler.charList.random()
+            // Select a random character from the list of possible options
+            playerHandler.updateCharacter(randomChar.charName, viewHolder.parent.context)
+            // Set the player to that character
+            notifyItemChanged(position)
+            // Update the view
         }
     }
 

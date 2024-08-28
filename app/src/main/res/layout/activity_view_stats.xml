@@ -118,7 +118,7 @@
         app:layout_constraintTop_toTopOf="@id/treasureTitle"
         app:values="@array/temp_slider" />
 
-    <de.codecrafters.tableview.SortableTableView
+    <FrameLayout
         android:id="@+id/statsTable"
 
         android:layout_width="320dp"
@@ -126,17 +126,30 @@
         android:layout_marginHorizontal="35dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
-        android:divider="@color/darker"
-        android:dividerHeight="1dp"
-
-        android:focusable="true"
 
         app:layout_constraintBottom_toTopOf="@id/backToStats"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/treasureTitle"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/treasureTitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/statsTableHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf ="parent"
+            app:layout_constraintBottom_toTopOf="@id/statsTableBody"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/statsTableBody"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf ="statsTableHeader"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backToStats"
