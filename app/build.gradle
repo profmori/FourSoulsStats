@@ -16,7 +16,7 @@ android {
         applicationId "com.profmori.foursoulsstatistics"
         minSdkVersion 26
         targetSdkVersion 34
-        versionCode 32
+        versionCode 34
         versionName "5.06"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -69,7 +69,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation platform('com.google.firebase:firebase-bom:33.2.0')
 
     // Declare the dependencies for the desired Firebase products without specifying versions
     // For example, declare the dependencies for Firebase Authentication and Cloud Firestore

@@ -265,5 +265,9 @@
         &lt;b>&lt;u>Version 5,06 (10-ago-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Aggiunta la nuova carta alt art "The Hoarder" dal set Summer of Isaac come opzione per l\'arte del personaggio &lt;br>&lt;/br>
         \u2022 Aggiunta la nuova carta alt art "The Miser" dal set Summer of Isaac come opzione per l\'arte del personaggio &lt;br>&lt;/br>
+        \u2022 Rielaborato il tutorial per consentire la selezione della lingua prima dell\'inizio del tutorial principale &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+    <string name="tutorial_show_tutorial">Vuoi vedere il tutorial?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 </resources>

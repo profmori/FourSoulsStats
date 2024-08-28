@@ -186,7 +186,7 @@
 
 
     <!-- Main Page Tutorial Lines -->
-    <string name="tutorial_language">
+    <string name="tutorial_language" translatable="false">
         Click the flag to change between languages\t / \t
         Haga clic en la bandera para cambiar entre idiomas\t / \t
         Cliquez sur le drapeau pour changer de langue\t / \t
@@ -194,6 +194,9 @@
         Klicken Sie auf die Flagge, um zwischen den Sprachen zu wechseln\n
         Click anywhere to continue
     </string>
+    <string name="tutorial_show_tutorial">Would you like to view the tutorial?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="tutorial_data">Input game data using this button</string>
     <string name="tutorial_stats">View your group\'s statistics, as well as average statistics for the whole community, using this button</string>
     <string name="tutorial_edit">Use this button to edit previously entered games to amend any mistakes made.
@@ -343,5 +346,6 @@
         &lt;b>&lt;u>Version 5.06 (10-Aug-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added new "The Hoarder" alt art card from the Summer of Isaac set as an option for character art &lt;br>&lt;/br>
         \u2022 Added new "The Miser" alt art card from the Summer of Isaac set as an option for character art &lt;br>&lt;/br>
+        \u2022 Reworked the tutorial to allow language to be selected before the main tutorial starts &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

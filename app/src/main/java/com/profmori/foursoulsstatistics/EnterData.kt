@@ -354,7 +354,7 @@ class EnterData : AppCompatActivity() {
         rerollButton.setOnClickListener {
             // When the reroll button is clicked
             var selectedChars = emptyArray<CharEntity>()
-            SettingsHandler.saveToFile(this, settings)
+            SettingsHandler.saveSettings(this, settings)
             playerHandlerList.forEachIndexed { index, playerHandler ->
                 // Iterate through all the current players added
                 var randomChar = playerHandler.charList.random()

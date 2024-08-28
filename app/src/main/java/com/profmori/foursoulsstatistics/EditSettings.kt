@@ -27,6 +27,7 @@ import com.profmori.foursoulsstatistics.custom_adapters.DropDownAdapter
 import com.profmori.foursoulsstatistics.custom_adapters.SetSelectionAdapter
 import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ChangeGroupDialog
 import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ConfirmDeleteDialog
+import com.profmori.foursoulsstatistics.custom_adapters.tutorial.TutorialAdaptor
 import com.profmori.foursoulsstatistics.data_handlers.ImageHandler
 import com.profmori.foursoulsstatistics.data_handlers.LanguageHandler
 import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
@@ -40,9 +41,6 @@ import kotlin.collections.set
 
 class EditSettings : AppCompatActivity() {
 
-    private var settings = mutableMapOf<String, String>()
-    // Store the settings globally
-
     private var borderList = emptyMap<String, String>()
     // Initialises the border list
 
@@ -53,7 +51,7 @@ class EditSettings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_settings)
 
-        settings = SettingsHandler.readSettings(this)
+        val settings = SettingsHandler.readSettings(this)
 
         borderList = mapOf(
             resources.getString(R.string.character_back) to "character_back",
@@ -212,16 +210,15 @@ class EditSettings : AppCompatActivity() {
         scrollView.scrollTo(0, 0)
         // Move to the top of the scroll view when the settings page opens
 
-//        runTutorial()
+        if (SettingsHandler.getTutorial(this)[0]) {
+            runTutorial()
+        }
         // Run the tutorial
 
         borderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             // When a border item is selected
             override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 updateSave(
                     easyFont,
@@ -245,10 +242,7 @@ class EditSettings : AppCompatActivity() {
         backgroundSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             // When a background is selected
             override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 updateSave(
                     easyFont,
@@ -394,16 +388,15 @@ class EditSettings : AppCompatActivity() {
             // When the button to clear all data is clicked
             val fonts = TextHandler.setFont(this)
             // Get the font for the deletion dialog
-            val clearDialog =
-                ConfirmDeleteDialog(this, fonts["body"]!!)
+            val clearDialog = ConfirmDeleteDialog(this, fonts["body"]!!)
             clearDialog.show(supportFragmentManager, "clearData")
             // Create and show the confirmation to change the group ID
         }
 
         tutorialButton.setOnClickListener {
             // When the tutorial reset is clicked
-//            MaterialShowcaseView.resetAll(this)
-//            // Reset all the tutorials so they show again
+            SettingsHandler.setTutorial(this, true)
+            // Reset the tutorial variable so they show again
             returnButton.performClick()
             // Click the return button to save and go back to the main menu
         }
@@ -482,9 +475,7 @@ class EditSettings : AppCompatActivity() {
                     id = SettingsHandler.sanitiseGroupID(id)
                     if (id in existingIds) {
                         val existsSnackbar = Snackbar.make(
-                            view,
-                            R.string.settings_duplicate_group,
-                            Snackbar.LENGTH_LONG
+                            view, R.string.settings_duplicate_group, Snackbar.LENGTH_LONG
                         )
                         // Create the snackbar
                         existsSnackbar.changeFont(TextHandler.setFont(this)["body"]!!)
@@ -496,8 +487,7 @@ class EditSettings : AppCompatActivity() {
                     if (id != oldId) {
                         val fonts = TextHandler.setFont(this)
                         // Get the font for the dialog
-                        val entryDialog =
-                            ChangeGroupDialog(groupEntry, oldId!!, fonts["body"]!!)
+                        val entryDialog = ChangeGroupDialog(groupEntry, oldId!!, fonts["body"]!!)
                         entryDialog.show(supportFragmentManager, "groupID")
                         // Create and show the confirmation to change the group ID
 
@@ -508,9 +498,7 @@ class EditSettings : AppCompatActivity() {
 
         patchButton.setOnClickListener {
             SettingsHandler.versionCheck(
-                "0",
-                this,
-                supportFragmentManager
+                "0", this, supportFragmentManager
             )
         }
 
@@ -525,176 +513,84 @@ class EditSettings : AppCompatActivity() {
 
     private fun runTutorial() {
 
-//        val config = ShowcaseConfig()
-//        config.delay = 200
-        // Delay between each showcase view
-
         val editionSelect = findViewById<ConstraintLayout>(R.id.editionSelect)
         // Get editions area
-
         val easyFont = findViewById<SwitchCompat>(R.id.readableSwitch)
         // Match readability switch
-
         val borderLine = findViewById<ConstraintLayout>(R.id.borderGroup)
         // Get the border line
-
         val backgroundLine = findViewById<ConstraintLayout>(R.id.backgroundGroup)
         // Get the background line
-
         val online = findViewById<SwitchCompat>(R.id.onlineSwitch)
         // Match the online saving behaviour
-
         val groupLine = findViewById<TextView>(R.id.groupIDEntry)
         // Gets the group id input
-
         val clearButton = findViewById<Button>(R.id.clearButton)
         // Gets the button to clear data
-
-        val tutorialButton = findViewById<Button>(R.id.tutorialButton)
-        // Get the button to reset the tutorial
-
         val rerollButton = findViewById<Button>(R.id.rerollIconSelect)
         // Get the button to pick a reroll icon
-
         val rerollOptions = findViewById<ConstraintLayout>(R.id.randomSettingsGroup)
         //Get the full settings group
-
         val scrollView = findViewById<ScrollView>(R.id.scrollView)
         // Get the scroll view so the view can be automatically scrolled
 
-//        val sequence = MaterialShowcaseSequence(this, "settings")
-//        // Creates the sequence to store all the tutorial steps
-//
-//        sequence.setConfig(config)
-//        // Configures it to the chosen settings
-//
-//        val edition = MaterialShowcaseView.Builder(this)
-//            .setTarget(editionSelect)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_edition))
-//            .withRectangleShape(true)
-//            .build()
-//        // Highlights the edition select area
-//
-//        val easySwitch = MaterialShowcaseView.Builder(this)
-//            .setTarget(easyFont)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_readable_font))
-//            .withRectangleShape(true)
-//            .build()
-//        // Highlights the readable font switch
-//
-//        val border = MaterialShowcaseView.Builder(this)
-//            .setTarget(borderLine)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_border))
-//            .withRectangleShape(true)
-//            .build()
-//        // Highlights the border select dropdown
-//
-//        val background = MaterialShowcaseView.Builder(this)
-//            .setTarget(backgroundLine)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_background))
-//            .withRectangleShape(true)
-//            .build()
-//        // Highlights the background select dropdown
-//
-//        val onlineSwitch = MaterialShowcaseView.Builder(this)
-//            .setTarget(online)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_online))
-//            .withRectangleShape(true)
-//            .build()
-//        // Highlights the online connection switch
-//
-//        val groupID = MaterialShowcaseView.Builder(this)
-//            .setTarget(groupLine)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_group_id))
-//            .withRectangleShape(true)
-//            .build()
-//        // Highlights the group id input area
-//
-//        val clearData = MaterialShowcaseView.Builder(this)
-//            .setTarget(clearButton)
-//            .setDismissText(resources.getString(R.string.generic_dismiss))
-//            .setContentText(resources.getString(R.string.tutorial_clear_button))
-//            .build()
-//        // Highlights the button to clear all data
-//
-//        val rerollIconSelect = MaterialShowcaseView.Builder(this)
-//            .setTarget(rerollButton)
-//            .setDismissText(R.string.generic_dismiss)
-//            .setContentText(resources.getString(R.string.tutorial_select_icon))
-//            .build()
-//        // Highlights the reroll icon selection button
-//
-//        val rerollSettings = MaterialShowcaseView.Builder(this)
-//            .setTarget(rerollOptions)
-//            .setDismissText(R.string.generic_dismiss)
-//            .setContentText(resources.getString(R.string.tutorial_random_settings))
-//            .withRectangleShape(true).withRectangleShape(true)
-//            .build()
-//
-//        val rerollSettings2 = MaterialShowcaseView.Builder(this)
-//            .setTarget(rerollOptions)
-//            .setDismissText(R.string.generic_dismiss)
-//            .setContentText(resources.getString(R.string.tutorial_random_settings_2))
-//            .withRectangleShape(true).withRectangleShape(true)
-//            .build()
-//        // Highlights the reroll options
-//
-//        sequence.addSequenceItem(groupID)
-//        sequence.addSequenceItem(onlineSwitch)
-//        sequence.addSequenceItem(easySwitch)
-//        sequence.addSequenceItem(edition)
-//        sequence.addSequenceItem(border)
-//        sequence.addSequenceItem(background)
-//        sequence.addSequenceItem(rerollIconSelect)
-//        sequence.addSequenceItem(rerollSettings)
-//        sequence.addSequenceItem(rerollSettings2)
-//        sequence.addSequenceItem(clearData)
-//        // Put the tutorial sequence together
-//
-//        sequence.setOnItemShownListener { itemView, _ ->
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                val field = MaterialShowcaseView::class.java.getDeclaredField("mDismissButton")
-//                field.isAccessible = true
-//                val i = field.get(itemView) as TextView
-//                try {
-//                    i.performClick()
-//                } catch (e: java.lang.NullPointerException) {
-//                    // The tutorial has already been advanced past this point
-//                }
-//            }, 10000)
-//        }
-//
-//        sequence.setOnItemDismissedListener { itemView, _ ->
-//            // When any sequence item is dismissed
-//            val yPos = when (itemView) {
-////                groupID -> online.top
-////                onlineSwitch -> easyFont.top
-//                easySwitch -> edition.top
-//                edition -> borderLine.top
-////                border -> backgroundLine.top
-////                background -> rerollButton.top
-//                rerollIconSelect -> rerollOptions.top
-//                rerollSettings -> clearButton.top
-//                clearData -> tutorialButton.top
-//                else -> scrollView.scrollY
-//            }
-//            // Get the y position of the next item
-//            val objectAnimator =
-//                ObjectAnimator.ofInt(scrollView, "scrollY", scrollView.scrollY, yPos)
-//                    .setDuration(500)
-//            // Scroll to the chosen y position in 500 milliseconds
-//            objectAnimator.start()
-//            // Start the animation
-//        }
-//
-//        sequence.start()
-//        // Run the tutorial
+
+        val clearData = TutorialAdaptor.runTutorialStep(
+            this, clearButton, R.string.tutorial_clear_button, this, scrollView = scrollView
+        )
+        // Highlights the button to clear all data
+        val rerollSettings2 = TutorialAdaptor.runTutorialStep(
+            this,
+            rerollOptions,
+            R.string.tutorial_random_settings_2,
+            clearData,
+            scrollView = scrollView
+        )
+        val rerollSettings = TutorialAdaptor.runTutorialStep(
+            this,
+            rerollOptions,
+            R.string.tutorial_random_settings,
+            rerollSettings2,
+            scrollView = scrollView
+        )
+        // Highlights the reroll options
+        val rerollIconSelect = TutorialAdaptor.runTutorialStep(
+            this,
+            rerollButton,
+            R.string.tutorial_select_icon,
+            rerollSettings,
+            scrollView = scrollView
+        )
+        // Highlights the reroll icon selection button
+        val background = TutorialAdaptor.runTutorialStep(
+            this,
+            backgroundLine,
+            R.string.tutorial_background,
+            rerollIconSelect,
+            scrollView = scrollView
+        )
+        // Highlights the background select dropdown
+        val border = TutorialAdaptor.runTutorialStep(
+            this, borderLine, R.string.tutorial_border, background, scrollView = scrollView
+        )
+        // Highlights the border select dropdown
+        val edition = TutorialAdaptor.runTutorialStep(
+            this, editionSelect, R.string.tutorial_edition, border, scrollView = scrollView
+        )
+        // Highlights the edition select area
+        val easySwitch = TutorialAdaptor.runTutorialStep(
+            this, easyFont, R.string.tutorial_readable_font, edition, scrollView = scrollView
+        )
+        // Highlights the readable font switch
+        val onlineSwitch = TutorialAdaptor.runTutorialStep(
+            this, online, R.string.tutorial_online, easySwitch, scrollView = scrollView
+        )
+        // Highlights the online connection switch
+        val groupID = TutorialAdaptor.runTutorialStep(
+            this, groupLine, R.string.tutorial_group_id, onlineSwitch, scrollView = scrollView
+        )
+        // Highlights the group id input area
+        groupID.build()
     }
 
     private fun updateFonts(
@@ -720,6 +616,8 @@ class EditSettings : AppCompatActivity() {
         returnButton: Button,
         patchButton: Button
     ) {
+        val settings = SettingsHandler.readSettings(this)
+
         val fonts = TextHandler.setFont(this)
 
         titleText.typeface = fonts["title"]
@@ -746,8 +644,7 @@ class EditSettings : AppCompatActivity() {
         pixelFont.typeface = TextHandler.updateRetroFont(this, fonts)["body"]
 
         val bodySize = if ((pixelFont.typeface == ResourcesCompat.getFont(
-                this,
-                R.font.four_souls_pixel
+                this, R.font.four_souls_pixel
             ))
         ) {
             12f
@@ -783,10 +680,10 @@ class EditSettings : AppCompatActivity() {
             DropDownAdapter(this, backgroundList.keys.toTypedArray(), fonts["body"]!!)
         backgroundSpinner.adapter = backgroundAdapter
         backgroundSpinner.setSelection(
-            backgroundAdapter.getPosition(spinnerItems["background"]),
-            false
+            backgroundAdapter.getPosition(spinnerItems["background"]), false
         )
         // Update the background dropdown adapters while keeping the same background
+        SettingsHandler.saveSettings(this, settings)
     }
 
     private fun updateSave(
@@ -800,6 +697,7 @@ class EditSettings : AppCompatActivity() {
         duplicateEden: SwitchCompat,
         groupID: EditText
     ) {
+        val settings = SettingsHandler.readSettings(this)
         settings["readable_font"] = easyFont.isChecked.toString()
         settings["pixel_font"] = pixelSwitch.isChecked.toString()
         settings["border"] = borderList[borderSpinner.selectedItem.toString()]!!
@@ -810,7 +708,7 @@ class EditSettings : AppCompatActivity() {
         settings["duplicate_eden"] = duplicateEden.isChecked.toString()
         settings["random_eden"] = randomEternal.isChecked.toString()
         // Update the settings map
-        SettingsHandler.saveToFile(this, settings)
+        SettingsHandler.saveSettings(this, settings)
         // Save the map
     }
 }

@@ -3,7 +3,6 @@ package com.profmori.foursoulsstatistics.custom_adapters.tutorial
 import android.app.Activity
 import android.view.MotionEvent
 import android.widget.Button
-import androidx.fragment.app.DialogFragment
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener
 import com.github.amlcurran.showcaseview.ShowcaseView
 import com.profmori.foursoulsstatistics.MainActivity
@@ -19,16 +18,23 @@ class TutorialShowcaseEventListener(private var nextStep: Any?, val parent: Acti
     override fun onShowcaseViewDidHide(showcaseView: ShowcaseView) {
         when (nextStep) {
             is ShowcaseView.Builder -> {
-                (nextStep as ShowcaseView.Builder).build()
+                if (SettingsHandler.getTutorial(parent)[0]) (nextStep as ShowcaseView.Builder).build()
             }
 
-            is DialogFragment -> {
-                println("tutorial menu")
+            is TutorialDialog -> {
+                if (SettingsHandler.getTutorial(parent)[1]) {
+                    (nextStep as TutorialDialog).showDialog()
+                }
+
+                if (SettingsHandler.getTutorial(parent)[0]) {
+                    (nextStep as TutorialDialog).nextStep.build()
+                }
             }
 
             is MainActivity -> {
                 SettingsHandler.setInputLock(nextStep as MainActivity, false)
-                val settingsButton = (nextStep as MainActivity).findViewById<Button>(R.id.mainSettings)
+                val settingsButton =
+                    (nextStep as MainActivity).findViewById<Button>(R.id.mainSettings)
                 settingsButton.performClick()
             }
         }
@@ -36,8 +42,6 @@ class TutorialShowcaseEventListener(private var nextStep: Any?, val parent: Acti
 
     override fun onShowcaseViewShow(showcaseView: ShowcaseView) {
         showcaseView.hideButton()
-
-//        Looper.myLooper()?.let { Handler(it).postDelayed({showcaseView.hide()}, 10000) }
     }
 
     override fun onShowcaseViewTouchBlocked(motionEvent: MotionEvent?) {

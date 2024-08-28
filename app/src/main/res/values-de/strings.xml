@@ -264,5 +264,9 @@
         &lt;b>&lt;u>Version 5,06 (10. August 24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Neue alternative Kunstkarte „The Hoarder“ aus dem Summer of Isaac-Set als Option für Charakterkunst hinzugefügt &lt;br>&lt;/br>
         \u2022 Neue alternative Kunstkarte „The Miser“ aus dem Summer of Isaac-Set als Option für Charakterkunst hinzugefügt &lt;br>&lt;/br>
+        \u2022 Das Tutorial wurde überarbeitet, sodass die Sprache vor dem Start des Haupt-Tutorials ausgewählt werden kann &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+    <string name="tutorial_show_tutorial">Möchten Sie sich das Tutorial ansehen?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
 </resources>

@@ -29,8 +29,7 @@ class SettingsHandler {
             // Set the foreground text from the key
 
             return mapOf(
-                "background" to background,
-                "border" to border
+                "background" to background, "border" to border
             )
             // Return a map of the text
         }
@@ -57,6 +56,7 @@ class SettingsHandler {
             val settings = readSettings(context)
             return settings["inputLock"].toBoolean()
         }
+
         fun getSets(): Array<String> {
             return arrayOf(
                 "base",
@@ -77,6 +77,14 @@ class SettingsHandler {
                 "youtooz",
                 "custom"
             )
+        }
+
+        fun getTutorial(context: Context): Array<Boolean> {
+            val settings = readSettings(context)
+            val returnArray = arrayOf(
+                settings["runTutorial"].toBoolean(), settings["initialTutorial"].toBoolean()
+            )
+            return returnArray
         }
 
         private fun initialiseSettings(context: Context) {
@@ -104,20 +112,18 @@ class SettingsHandler {
             // Get any existing ids
             val charPool: List<Char> = ('A'..'Z') + ('0'..'9')
             // Sets the list of possible characters to use
-            var randID = (1..6)
-                .map { kotlin.random.Random.nextInt(0, charPool.size) }
-                .map(charPool::get)
-                .joinToString("")
+            var randID =
+                (1..6).map { kotlin.random.Random.nextInt(0, charPool.size) }.map(charPool::get)
+                    .joinToString("")
             // Generate a random 6 length string
 
             randID = sanitiseGroupID(randID)
             // Sanitise the id to remove ambiguous characters
             while (existingIDs.contains(randID)) {
                 // If the random string is already an id
-                randID = (1..6)
-                    .map { kotlin.random.Random.nextInt(0, charPool.size) }
-                    .map(charPool::get)
-                    .joinToString("")
+                randID =
+                    (1..6).map { kotlin.random.Random.nextInt(0, charPool.size) }.map(charPool::get)
+                        .joinToString("")
                 // Generate a new random 6 length string
 
                 randID = sanitiseGroupID(randID)
@@ -151,7 +157,7 @@ class SettingsHandler {
             settings["runTutorial"] = "true"
             // Settings to control the tutoiral
 
-            saveToFile(context, settings)
+            saveSettings(context, settings)
             // Save the settings file
 
             return settings
@@ -212,15 +218,24 @@ class SettingsHandler {
             // Use a when statement on all the possible text options to match the key
         }
 
-        fun setInputLock(context: Context, bool: Boolean){
+        fun setInputLock(context: Context, bool: Boolean) {
             val settings = readSettings(context)
             settings["inputLock"] = bool.toString()
-            saveToFile(context, settings)
+            saveSettings(context, settings)
         }
 
-        fun saveToFile(
-            context: Context,
-            settings: MutableMap<String, String>
+        fun setTutorial(context: Context, bool: Boolean) {
+            val settings = readSettings(context)
+            println(bool.toString())
+            settings["inputLock"] = bool.toString()
+            settings["runTutorial"] = bool.toString()
+            settings["initialTutorial"] = "false"
+            println(settings["runTutorial"])
+            saveSettings(context, settings)
+        }
+
+        fun saveSettings(
+            context: Context, settings: MutableMap<String, String>
         ): MutableMap<String, String> {
             // Save the settings given
             val settingsFile = context.getFileStreamPath("settings.txt")
@@ -231,10 +246,13 @@ class SettingsHandler {
             val writer = context.openFileOutput(settingsFile.name, AppCompatActivity.MODE_PRIVATE)
             // Create the file output stream writer
 
+            println(settings["runTutorial"])
+
             writer.use { stream ->
                 keys.forEach { settingKey ->
                     // For every key in the settings map
                     val settingVal = settings[settingKey]
+                    println("$settingKey:$settingVal")
                     // Get the setting as a string
                     val writeText = "$settingKey:$settingVal\n"
                     // Write it to the text file with no spaces and a new line
@@ -275,9 +293,7 @@ class SettingsHandler {
         }
 
         fun versionCheck(
-            versionNo: String?,
-            context: Context,
-            fragmentManager: FragmentManager
+            versionNo: String?, context: Context, fragmentManager: FragmentManager
         ): String {
             if (!versionNo.isNullOrBlank()) {
                 // Otherwise set the variable to the current version number
@@ -295,9 +311,7 @@ class SettingsHandler {
                         val name = "version_$version"
                         // Generate the string name for the version
                         val stringID = context.resources.getIdentifier(
-                            name,
-                            "string",
-                            "com.profmori.foursoulsstatistics"
+                            name, "string", "com.profmori.foursoulsstatistics"
                         )
                         // Get the version resource ID
                         if (stringID > 0) {
@@ -313,7 +327,12 @@ class SettingsHandler {
                                 this.append(versionNote)
                                 // Add the new version notes to the end
                                 val totalLen = versionNotes.length + versionNote.length
-                                this.setSpan(LeadingMarginSpan.Standard(0,5),1,totalLen,SPAN_EXCLUSIVE_EXCLUSIVE)
+                                this.setSpan(
+                                    LeadingMarginSpan.Standard(0, 5),
+                                    1,
+                                    totalLen,
+                                    SPAN_EXCLUSIVE_EXCLUSIVE
+                                )
                             }
                         }
                     }
@@ -324,8 +343,7 @@ class SettingsHandler {
                     val fonts = TextHandler.setFont(context)
                     // Get the button font
 
-                    val notesDialog =
-                        PatchNotesDialog(versionNotes, fonts)
+                    val notesDialog = PatchNotesDialog(versionNotes, fonts)
                     // Create the patch notes dialog
                     notesDialog.show(fragmentManager, "patchNotes")
                     // Show the patch notes dialog as a popup

@@ -273,5 +273,9 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
         &lt;b>&lt;u>Versión 5,06 (10-ago-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Se agregó la nueva carta de arte alternativo "The Hoarder" del set Verano de Isaac como una opción para el arte del personaje &lt;br>&lt;/br>
         \u2022 Se agregó la nueva carta de arte alternativo "The Miser" del set Verano de Isaac como una opción para el arte del personaje &lt;br>&lt;/br>
+        \u2022 Se modificó el tutorial para permitir que se seleccione el idioma antes de que comience el tutorial principal &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+    <string name="tutorial_show_tutorial">¿Quieres ver el tutorial?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 </resources>

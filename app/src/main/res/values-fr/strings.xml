@@ -281,5 +281,9 @@
         &lt;b>&lt;u>Version 5,06 (10-août-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Ajout d\'une nouvelle carte d\'art alternative «The Hoarder» de l\'ensemble Summer of Isaac comme option pour l\'art des personnages &lt;br>&lt;/br>
         \u2022 Ajout d\'une nouvelle carte d\'art alternative «The Miser» de l\'ensemble Summer of Isaac comme option pour l\'art des personnages &lt;br>&lt;/br>
+        \u2022 Le tutoriel a été retravaillé pour permettre la sélection de la langue avant le début du didacticiel principal &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+    <string name="tutorial_show_tutorial">Souhaitez-vous voir le tutoriel ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>
