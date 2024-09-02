@@ -18,7 +18,6 @@ class TutorialAdaptor {
             nextStep: Any? = null,
             scrollView: ScrollView? = null
         ): ShowcaseView.Builder {
-            println("${targetItem.top} ${targetItem.bottom}")
             val tutorialStep =
                 ShowcaseView.Builder(parentActivity).setTarget(ViewTarget(targetItem))
                     .setStyle(R.style.CustomShowcaseTheme).setContentText(tutorialText)

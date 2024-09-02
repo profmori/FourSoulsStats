@@ -94,7 +94,7 @@ class OnlineDataHandler {
                     if (documentObj.coop == searchCoop) {
                         games += arrayOf(documentObj)
                     }
-                    // Adds all non co-op game instances with eternals to the list
+                    // Adds all game instances with the right co-op tag eternals to the list
                 }
             }
             return games

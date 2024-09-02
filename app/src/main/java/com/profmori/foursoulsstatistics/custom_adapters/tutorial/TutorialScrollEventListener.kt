@@ -21,7 +21,6 @@ class TutorialScrollEventListener(
 
     override fun onShowcaseViewHide(showcaseView: ShowcaseView) {
         if (SettingsHandler.getTutorial(parent)[0]) {
-            println("scroll ${scrollView.scrollY} -> $targetItem.top")
             val objectAnimator =
                 ObjectAnimator.ofInt(scrollView, "scrollY", scrollView.scrollY, targetItem.top)
                     .setDuration(500)

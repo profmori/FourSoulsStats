@@ -226,11 +226,9 @@ class SettingsHandler {
 
         fun setTutorial(context: Context, bool: Boolean) {
             val settings = readSettings(context)
-            println(bool.toString())
             settings["inputLock"] = bool.toString()
             settings["runTutorial"] = bool.toString()
             settings["initialTutorial"] = "false"
-            println(settings["runTutorial"])
             saveSettings(context, settings)
         }
 
@@ -246,13 +244,10 @@ class SettingsHandler {
             val writer = context.openFileOutput(settingsFile.name, AppCompatActivity.MODE_PRIVATE)
             // Create the file output stream writer
 
-            println(settings["runTutorial"])
-
             writer.use { stream ->
                 keys.forEach { settingKey ->
                     // For every key in the settings map
                     val settingVal = settings[settingKey]
-                    println("$settingKey:$settingVal")
                     // Get the setting as a string
                     val writeText = "$settingKey:$settingVal\n"
                     // Write it to the text file with no spaces and a new line

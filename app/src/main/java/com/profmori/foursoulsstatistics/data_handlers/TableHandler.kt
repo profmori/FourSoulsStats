@@ -6,28 +6,120 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.google.android.material.slider.RangeSlider
-import com.profmori.foursoulsstatistics.R
-import com.profmori.foursoulsstatistics.custom_adapters.AdjustedSoulsComparator
-import com.profmori.foursoulsstatistics.custom_adapters.GamesPlayedComparator
-import com.profmori.foursoulsstatistics.custom_adapters.NameComparator
-import com.profmori.foursoulsstatistics.custom_adapters.SoulsComparator
-import com.profmori.foursoulsstatistics.custom_adapters.StatsTable
-import com.profmori.foursoulsstatistics.custom_adapters.StatsTableDataAdapter
-import com.profmori.foursoulsstatistics.custom_adapters.StatsTableHeaderAdapter
-import com.profmori.foursoulsstatistics.custom_adapters.TurnsComparator
-import com.profmori.foursoulsstatistics.custom_adapters.WinrateComparator
 import com.profmori.foursoulsstatistics.database.Game
+import com.profmori.foursoulsstatistics.database.GameDataBase
+import com.profmori.foursoulsstatistics.database.GameInstance
+import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
+import com.profmori.foursoulsstatistics.online_database.OnlineGameInstance
 import com.profmori.foursoulsstatistics.statistics_pages.StatisticsMenu
-import de.codecrafters.tableview.SortableTableView
+import com.profmori.foursoulsstatistics.statistics_pages.StatsTable
+import com.profmori.foursoulsstatistics.statistics_pages.TableRow
 
 class TableHandler {
     companion object {
+        suspend fun gatherData(
+            tableType: String, coopBool: Boolean, onlineData: Boolean, context: Context
+        ): Array<TableRow> {
+
+            val settings = SettingsHandler.readSettings(context)
+            // Get the settings for later use
+
+            var returnRows = emptyArray<TableRow>()
+            // Create an object to store the list of table rows generated
+            var gamesList = emptyArray<Game>()
+            // Create an object to store all the games that are being read
+
+            val gameDatabase = GameDataBase.getDataBase(context)
+            val gameDao = gameDatabase.gameDAO
+            // Get the local database for later use
+
+            if (onlineData) {
+                val onlineData = OnlineDataHandler.getAllGames(context, coopBool)
+                var onlineGames = onlineData.map { onlineInstance -> convertToGame(onlineInstance) }
+                onlineGames = onlineGames.distinct()
+                val onlineInstances = onlineData.map { onlineInstance -> convertToGameInstance(onlineInstance) }
+                when (tableType) {
+                    "Character" -> {
+                        var charMap = mutableMapOf<String, TableRow>()
+                        onlineInstances.forEach { instance ->
+                            if (instance.charName !in charMap.keys){
+                                charMap.put(instance.charName, TableRow(instance.charName))
+                            }
+                            charMap[instance.charName]!!.addInstance(instance)
+                        }
+                        charMap.values.forEach { returnRows += it }
+                    }
+                    "Eternal" -> {
+                        var eternalMap = mutableMapOf<String, TableRow>()
+                        onlineInstances.forEach { instance ->
+                            if (!instance.eternal.isNullOrEmpty()){
+                                if (instance.eternal !in eternalMap.keys){
+                                    eternalMap.put(instance.eternal, TableRow(instance.eternal))
+                                }
+                                eternalMap[instance.eternal]!!.addInstance(instance)
+                            }
+                        }
+                        eternalMap.values.forEach { returnRows += it }
+                    }
+                    else -> {}
+                }
+                returnRows.forEach { row -> row.addGames(onlineGames.toTypedArray())}
+            } else {
+                gamesList = gameDao.getGames(coopBool)
+                when (tableType) {
+                    "Player" -> {
+                        val playerList = gameDao.getPlayers()
+                        playerList.forEach { player ->
+                            val tableRow = TableRow(player.playerName)
+                            val instances = gameDao.getPlayerWithInstance(player.playerName)
+                            val gameInstances = instances[0].gameInstances
+                            tableRow.addInstances(convertInstances(gameInstances, coopBool))
+                            returnRows += tableRow
+                        }
+                    }
+
+                    "Character" -> {
+                        val charList = gameDao.getFullCharacterList()
+                        charList.forEach { character ->
+                            val tableRow = TableRow(character.charName)
+                            val instances = gameDao.getCharacterWithInstance(character.charName)
+                            val gameInstances = instances[0].gameInstances
+                            tableRow.addInstances(convertInstances(gameInstances, coopBool))
+                            returnRows += tableRow
+                        }
+                    }
+
+                    "Eternal" -> {
+                        val eternalInstances = gameDao.getEternalList()
+                        var eternalMap = mutableMapOf<String, TableRow>()
+                        eternalInstances.forEach { instance ->
+                            if (instance.eternal !in eternalMap.keys) {
+                                eternalMap.put(instance.eternal!!, TableRow(instance.eternal))
+                            }
+                            eternalMap[instance.eternal]!!.addInstance(instance)
+                        }
+                        eternalMap.values.forEach { returnRows += it }
+                    }
+
+                    else -> {}
+                }
+                returnRows.forEach { row -> row.addGames(gamesList) }
+            }
+
+
+            return returnRows
+        }
+
         fun pageSetup(
-            context: Context, backButton: Button, background: ImageView, characterTitle: TextView,
-            filterText: TextView, playerText: TextView, treasureText: TextView
+            context: Context,
+            backButton: Button,
+            background: ImageView,
+            characterTitle: TextView,
+            filterText: TextView,
+            playerText: TextView,
+            treasureText: TextView
         ) {
             val buttonBG = ImageHandler.setButtonImage()
             backButton.setBackgroundResource(buttonBG)
@@ -55,14 +147,54 @@ class TableHandler {
             }
         }
 
-        fun dataSetup(
-            gamesList: Array<Game>,
+        private fun convertInstances(
+            gameInstances: List<GameInstance>, coopBool: Boolean
+        ): Array<GameInstance> {
+            var instanceList = emptyArray<GameInstance>()
+            gameInstances.forEach { instance ->
+                if (instance.solo == coopBool) {
+                    instanceList += instance
+                }
+            }
+            return instanceList
+        }
+
+        private fun convertToGameInstance(onlineInstance: OnlineGameInstance): GameInstance {
+            return GameInstance(
+                -1,
+                onlineInstance.gameID,
+                onlineInstance.playerName,
+                onlineInstance.charName,
+                onlineInstance.eternal,
+                onlineInstance.souls,
+                onlineInstance.winner,
+                onlineInstance.solo
+            )
+        }
+
+        private fun convertToGame(onlineInstance: OnlineGameInstance): Game {
+            return Game(
+                onlineInstance.gameID,
+                onlineInstance.gameSize,
+                onlineInstance.treasureNum,
+                true,
+                onlineInstance.solo,
+                onlineInstance.turnsLeft
+            )
+        }
+
+        fun pageSetup(
+            tableData: StatsTable,
             filterText: TextView,
             playerText: TextView,
             playerSlider: RangeSlider,
             treasureText: TextView,
             treasureSlider: RangeSlider
         ) {
+            var gamesList = emptyArray<Game>()
+                tableData.rows.forEach { row ->
+                    gamesList += row.storedGames.values
+            }
             val treasures = gamesList.map { game -> game.treasureNo }
             // Get the list of treasure numbers
             val players = gamesList.map { game -> game.playerNo }
@@ -109,68 +241,6 @@ class TableHandler {
                 filterText.visibility = View.VISIBLE
             }
             // If there is nothing to filter, don't show filter text
-        }
-
-        fun createTable(
-            context: Context,
-            table: SortableTableView<StatsTable>,
-            headerList: Array<String>,
-            tableData: Array<StatsTable>,
-            coopBoolean: Boolean
-        ) {
-            val fonts = TextHandler.setFont(context)
-            // Get the fonts from the text handler
-
-            table.columnCount = 4
-            // Sets the number of columns
-
-            val headerAdapter = StatsTableHeaderAdapter(context, fonts["title"]!!, headerList)
-            // Creates the header adapter
-            table.headerAdapter = headerAdapter
-
-            table.setHeaderBackgroundColor(ContextCompat.getColor(context, R.color.darker))
-            table.setBackgroundColor(ContextCompat.getColor(context, R.color.lighter))
-            // Sets the table backgrounds as tints
-            table.setColumnComparator(
-                0,
-                NameComparator()
-            )
-            table.setColumnComparator(
-                1,
-                WinrateComparator()
-            )
-            table.setColumnComparator(
-                2,
-                SoulsComparator()
-            )
-            table.setColumnComparator(
-                3,
-                if (coopBoolean) {
-                    TurnsComparator()
-                } else {
-                    AdjustedSoulsComparator()
-                }
-            )
-            // Allows all the columns to be sorted
-
-            val charDataAdapter =
-                StatsTableDataAdapter(context, fonts["body"]!!, tableData, coopBoolean)
-            // Create the character data adapter
-            table.dataAdapter = charDataAdapter
-            // Attach it to the table
-            table.sort(NameComparator())
-            table.sort(GamesPlayedComparator())
-            table.sort(
-                if (coopBoolean) {
-                    TurnsComparator()
-                } else {
-                    AdjustedSoulsComparator()
-                }
-            )
-            table.sort(SoulsComparator())
-            table.sort(WinrateComparator())
-            // Set the default sort: Winrate -> Avg Souls -> Adjusted Souls / Avg Turns
-            // -> Games Played -> Alphabetical
         }
     }
 }

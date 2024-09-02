@@ -185,7 +185,7 @@ class PlayerHandler(
                     // Adds the 2 alt art Eden cards if alternate arts are an option
                     if (usePromo) {
                         imageArray += arrayOf(
-                            R.drawable.p_eden_1, R.drawable.p_eden_2, R.drawable.p_eden_3
+                            R.drawable.p_eden_1, R.drawable.p_eden_2, R.drawable.p_eden_3, R.drawable.p_eden_4
                         )
                     }
                     // Adds the 2 promo eden cards if promos are being used

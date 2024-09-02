@@ -1,23 +1,18 @@
 package com.profmori.foursoulsstatistics.statistics_pages
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.RangeSlider
 import com.profmori.foursoulsstatistics.R
-import com.profmori.foursoulsstatistics.custom_adapters.StatsTable
-import com.profmori.foursoulsstatistics.data_handlers.SettingsHandler
 import com.profmori.foursoulsstatistics.data_handlers.TableHandler
-import com.profmori.foursoulsstatistics.database.CharEntity
-import com.profmori.foursoulsstatistics.database.Game
-import com.profmori.foursoulsstatistics.database.GameDataBase
-import com.profmori.foursoulsstatistics.online_database.OnlineDataHandler
-import com.profmori.foursoulsstatistics.online_database.OnlineGameInstance
-import de.codecrafters.tableview.SortableTableView
+import com.profmori.foursoulsstatistics.data_handlers.TableHandler.Companion.gatherData
 import kotlinx.coroutines.launch
 
 class ViewStatisticsPage : AppCompatActivity() {
@@ -27,17 +22,6 @@ class ViewStatisticsPage : AppCompatActivity() {
 
         val characterTitle = findViewById<TextView>(R.id.viewStatsTitle)
         // Gets the title
-
-        val tableType = intent.getStringExtra("firstColumn")
-
-        characterTitle.setText(
-            when (tableType) {
-                "Player" -> R.string.player_stats_title
-                "Character" -> R.string.character_stats_title
-                "Eternal" -> R.string.eternal_stats_title
-                else -> R.string.error_placeholder
-            }
-        )
 
         val filterText = findViewById<TextView>(R.id.filtersHeader)
         // Get the filter text
@@ -56,93 +40,52 @@ class ViewStatisticsPage : AppCompatActivity() {
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image
 
+        val tableType = intent.getStringExtra("firstColumn")
+        val coopPage = intent.getBooleanExtra("coop", false)
+        val onlineData = intent.getBooleanExtra("online", false)
+        // Get the details of the required table
+
+        characterTitle.setText(
+            when (tableType) {
+                "Player" -> R.string.player_stats_title
+                "Character" -> R.string.character_stats_title
+                "Eternal" -> R.string.eternal_stats_title
+                else -> R.string.error_placeholder
+            }
+        )
+        var tableRows = emptyArray<TableRow>()
+        lifecycleScope.launch {
+            tableRows =
+                gatherData(tableType.toString(), coopPage, onlineData, this@ViewStatisticsPage)
+
+            val tableData = makeTable(
+                tableType,
+                coopPage,
+                tableRows
+            )
+            TableHandler.pageSetup(
+                tableData, filterText, playerText, playerSlider, treasureText, treasureSlider
+            )
+            // Set up the table page with sliders
+            playerSlider.addOnChangeListener { _, _, _ ->
+                tableData.filterData(playerSlider.values, treasureSlider.values)
+            }
+            treasureSlider.addOnChangeListener { _, _, _ ->
+                tableData.filterData(playerSlider.values, treasureSlider.values)
+            }
+        }
+
         TableHandler.pageSetup(
-            this,
-            backButton,
-            background,
-            characterTitle,
-            filterText,
-            playerText,
-            treasureText
+            this, backButton, background, characterTitle, filterText, playerText, treasureText
         )
         // Setup the page correctly
-
-        lifecycleScope.launch {
-
-            var gamesList = emptyArray<Game>()
-
-            val onlineGame = intent.getBooleanExtra("online", false)
-            val coopPage = intent.getBooleanExtra("coop", false)
-
-            if (onlineGame) {
-                val onlineList = OnlineDataHandler.getAllGames(this@ViewStatisticsPage, coopPage)
-                onlineList.forEach {
-                    gamesList += makeLocal(it)
-                }
-            } else {
-                val gameDatabase = GameDataBase.getDataBase(this@ViewStatisticsPage)
-                val gameDao = gameDatabase.gameDAO
-                gamesList = gameDao.getGames(coopPage)
-                // Get a list of games
-            }
-
-            TableHandler.dataSetup(
-                gamesList,
-                filterText,
-                playerText,
-                playerSlider,
-                treasureText,
-                treasureSlider
-            )
-            // Set up the table from the local data
-
-            val playerTable = findViewById<SortableTableView<StatsTable>>(R.id.statsTable)
-            // Finds the stats table
-
-            if ((playerSlider.visibility == View.GONE) or (treasureSlider.visibility == View.GONE)) {
-                playerTable.headerAdapter.notifyDataSetChanged()
-            }
-
-            playerSlider.addOnChangeListener { _, _, _ ->
-                makeTable(
-                    tableType,
-                    onlineGame,
-                    coopPage,
-                    playerSlider.values,
-                    treasureSlider.values
-                )
-                // Create the table with the up to date data
-            }
-            // When the player slider is changed update the table
-
-            treasureSlider.addOnChangeListener { _, _, _ ->
-                makeTable(
-                    tableType,
-                    onlineGame,
-                    coopPage,
-                    playerSlider.values,
-                    treasureSlider.values
-                )
-                // Create the table with the up to date data
-            }
-            // When the treasure slider is changed update the table
-
-            makeTable(tableType, onlineGame, coopPage, playerSlider.values, treasureSlider.values)
-            // Create the table with the up to date data
-        }
     }
 
     private fun makeTable(
         tableType: String?,
-        online: Boolean,
         coopPage: Boolean,
-        playerRange: List<Float>,
-        treasureRange: List<Float>
-    ) {
-
-        val playerTable = findViewById<SortableTableView<StatsTable>>(R.id.statsTable)
-        // Finds the stats table
-
+        tableRows: Array<TableRow>
+    ): StatsTable {
         val tableHeader = when (tableType) {
             "Player" -> R.string.player_table_header
             "Character" -> R.string.character_table_header
@@ -152,139 +95,40 @@ class ViewStatisticsPage : AppCompatActivity() {
 
         val tableHeaders = if (coopPage) {
             arrayOf(
-                resources.getString(tableHeader),
-                resources.getString(R.string.stats_table_winrate),
-                resources.getString(R.string.stats_table_souls),
-                resources.getString(R.string.stats_table_turns_remaining)
+                TableHeader(resources.getString(tableHeader), 4),
+                TableHeader(resources.getString(R.string.stats_table_winrate), 1),
+                TableHeader(resources.getString(R.string.stats_table_souls), 2),
+                TableHeader(resources.getString(R.string.stats_table_turns_remaining), 3)
             )
         } else {
             arrayOf(
-                resources.getString(tableHeader),
-                resources.getString(R.string.stats_table_winrate),
-                resources.getString(R.string.stats_table_souls),
-                resources.getString(R.string.stats_table_adjusted_souls)
+                TableHeader(resources.getString(tableHeader), 4),
+                TableHeader(resources.getString(R.string.stats_table_winrate), 1),
+                TableHeader(resources.getString(R.string.stats_table_souls), 2),
+                TableHeader(resources.getString(R.string.stats_table_adjusted_souls), 3)
             )
         }
-        // Sets all the header strings
+        // Sets all the table columns
 
-        val gameDatabase = GameDataBase.getDataBase(this)
-        // Get the database instance
-        val gameDao = gameDatabase.gameDAO
-        // Get the database access object
-
-        var tableData = emptyArray<StatsTable>()
+        val tableData = StatsTable(tableHeaders, tableRows, this)
         // Empty array to store player data
 
-        lifecycleScope.launch {
-            // As a coroutine
-            var stats = emptyArray<TableItem>()
+        val tableHeaderRow = findViewById<RecyclerView>(R.id.statsTableHeader)
+        // Finds the stats table
+        val headerAdapter = TableHeaderAdapter(tableData)
+        tableHeaderRow.adapter = headerAdapter
+        // Sets the adaptor for the header row
+        tableHeaderRow.layoutManager = GridLayoutManager(this, 4)
+        // Create the header row as a 4x1 grid
 
-            when (tableType) {
-                "Player" -> {
-                    val playerData = gameDao.getPlayers()
-                    stats = TableItem.convert(playerData)
-                }
+        val tableBody = findViewById<RecyclerView>(R.id.statsTableBody)
+        val bodyAdapter = TableBodyAdaptor(tableData)
+        tableBody.adapter = bodyAdapter
+        // Sets the adaptor for the rest of the table
+        tableBody.layoutManager = LinearLayoutManager(this)
+        // Create the table as a list of rows
 
-                "Character" -> {
-                    var characterData = emptyArray<CharEntity>()
-                    // Create an empty list of all characters
-                    val edition = SettingsHandler.getEditions(this@ViewStatisticsPage)
-                    // Get the current editions from settings
-                    edition.forEach { characterData += gameDao.getCharacterList(it) }
-                    // Create a list of all characters in the used editions
-                    stats = TableItem.convert(characterData)
-                }
-
-                else -> {}
-            }
-
-            if (online) {
-                val onlineGames = when (tableType) {
-                    "Character" -> OnlineDataHandler.getAllGames(this@ViewStatisticsPage, coopPage)
-                    "Eternal" -> OnlineDataHandler.getAllEternals(this@ViewStatisticsPage, coopPage)
-                    else -> emptyArray()
-                }
-
-                if (tableType == "Eternal") {
-                    val eternalList = onlineGames.map { game -> game.eternal }
-                    stats = TableItem.convert(eternalList, this@ViewStatisticsPage)
-                }
-
-                val filteredOnlinePlayers = onlineGames.filter {
-                    (it.gameSize >= playerRange[0].toInt()) and (it.gameSize <= playerRange[1].toInt())
-                }
-                // Get the online games with the right number of players
-
-                val selectedOnlineGames = filteredOnlinePlayers.filter {
-                    (it.treasureNum >= treasureRange[0].toInt()) and (it.treasureNum <= treasureRange[1].toInt())
-                }.toTypedArray()
-                // Get the online games with the right number of treasures
-
-                stats.forEach {
-                    // For every item in the table
-
-                    val newPlayerTable = StatsTable(it.name, 0.0, 0.0, 0, 0.0, 0.0)
-                    // Create a new row
-
-                    newPlayerTable.setData(it.name, tableType!!, selectedOnlineGames)
-                    // Update the data
-                    tableData += arrayOf(newPlayerTable)
-                    // Add it to the array
-                }
-
-            } else {
-                val games = gameDao.getGames(coopPage)
-                // Get all games
-
-                val filteredPlayers = games.filter {
-                    (it.playerNo >= playerRange[0].toInt()) and (it.playerNo <= playerRange[1].toInt())
-                }
-                // Get the games with the right number of players
-
-                val selectedGames = filteredPlayers.filter {
-                    (it.treasureNo >= treasureRange[0].toInt()) and (it.treasureNo <= treasureRange[1].toInt())
-                }.toTypedArray()
-                // Get the games with the right number of treasures
-
-                stats.forEach {
-                    // For every item in the table
-
-                    val newPlayerTable = StatsTable(it.name, 0.0, 0.0, 0, 0.0, 0.0)
-                    // Create a new row
-
-                    val gameInstances = when (tableType) {
-                        "Player" -> gameDao.getPlayerWithInstance(it.name)[0].gameInstances
-                        "Character" -> gameDao.getCharacterWithInstance(it.name)[0].gameInstances
-                        else -> emptyList()
-                    }
-                    // Get all game instances that value has played, and extract just the instances
-
-                    newPlayerTable.setData(it.name, gameInstances, selectedGames)
-                    // Update the data
-                    tableData += arrayOf(newPlayerTable)
-                    // Add it to the array
-                }
-            }
-
-            TableHandler.createTable(
-                this@ViewStatisticsPage,
-                playerTable,
-                tableHeaders,
-                tableData,
-                coopPage
-            )
-            // Creates the table using the headers and data
-        }
-    }
-
-    private fun makeLocal(online: OnlineGameInstance): Game {
-        return Game(
-            online.gameID,
-            online.gameSize,
-            online.treasureNum,
-            true,
-            online.coop,
-            online.turnsLeft
-        )
+        return tableData
     }
 }
+
