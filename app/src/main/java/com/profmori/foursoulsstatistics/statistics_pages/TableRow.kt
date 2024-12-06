@@ -56,7 +56,20 @@ class TableRow(rowName: String) {
                 gamesWon / gamesPlayed.distinct().size
             }
 
-            context.resources.getString(R.string.stats_table_souls) -> {
+            context.resources.getString(R.string.stats_table_wins) -> {
+                var gamesWon = 0
+                storedInstances.keys.forEach { instance ->
+                    if (storedInstances[instance]!!) {
+                        gamesPlayed += instance.gameID
+                        if (instance.winner) {
+                            gamesWon += 1
+                        }
+                    }
+                }
+                gamesWon
+            }
+
+            context.resources.getString(R.string.stats_table_soulrate) -> {
                 var soulsWon = 0f
                 storedInstances.keys.forEach { instance ->
                     if (storedInstances[instance]!!) {
@@ -65,6 +78,17 @@ class TableRow(rowName: String) {
                     }
                 }
                 soulsWon / gamesPlayed.distinct().size
+            }
+
+            context.resources.getString(R.string.stats_table_souls) -> {
+                var soulsWon = 0
+                storedInstances.keys.forEach { instance ->
+                    if (storedInstances[instance]!!) {
+                        gamesPlayed += instance.gameID
+                        soulsWon += instance.souls
+                    }
+                }
+                soulsWon
             }
 
             context.resources.getString(R.string.stats_table_turns_remaining) -> {
@@ -79,7 +103,7 @@ class TableRow(rowName: String) {
                 turnsRemaining / gamesPlayed.distinct().size
             }
 
-            context.resources.getString(R.string.stats_table_adjusted_souls) -> {
+            context.resources.getString(R.string.stats_table_adjusted_soulrate) -> {
                 var adjustedSouls = 0f
                 storedInstances.keys.forEach { instance ->
                     if (storedInstances[instance]!!) {
@@ -89,6 +113,27 @@ class TableRow(rowName: String) {
                     }
                 }
                 adjustedSouls / gamesPlayed.distinct().size
+            }
+
+            context.resources.getString(R.string.stats_table_adjusted_souls) -> {
+                var adjustedSouls = 0
+                storedInstances.keys.forEach { instance ->
+                    if (storedInstances[instance]!!) {
+                        gamesPlayed += instance.gameID
+                        val currentGame = storedGames[instance.gameID]!!
+                        adjustedSouls += instance.souls * currentGame.playerNo
+                    }
+                }
+                adjustedSouls
+            }
+
+            context.resources.getString(R.string.stats_table_played) -> {
+                storedInstances.keys.forEach { instance ->
+                    if (storedInstances[instance]!!) {
+                        gamesPlayed += instance.gameID
+                    }
+                }
+                gamesPlayed.distinct().size
             }
 
             else -> rowName
@@ -107,15 +152,20 @@ class RowComparator(val header: TableHeader, val context: Context) : Comparator<
         if (row1Value is String) {
             sortDir = (row2Value as String).compareTo(row1Value)
         } else if (row1Value is Float) {
-            sortDir = row1Value.compareTo(row2Value as Float)
+            sortDir = if (row1Value.isNaN()) {
+                1
+            } else if ((row2Value as Float).isNaN()) {
+                -1
+            } else {
+                row1Value.compareTo(row2Value)
+            }
         } else if (row1Value is Int) {
             sortDir = row1Value.compareTo(row2Value as Int)
         }
 
         if (header.sortDescending) {
-            sortDir *= -1
+            if ((row1Value !is Float) || (!row1Value.isNaN() && !(row2Value as Float).isNaN())) sortDir *= -1
         }
         return sortDir
-
     }
 }

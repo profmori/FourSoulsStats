@@ -39,23 +39,30 @@ class TableHandler {
                 val onlineData = OnlineDataHandler.getAllGames(context, coopBool)
                 var onlineGames = onlineData.map { onlineInstance -> convertToGame(onlineInstance) }
                 onlineGames = onlineGames.distinct()
-                val onlineInstances = onlineData.map { onlineInstance -> convertToGameInstance(onlineInstance) }
+                val onlineInstances =
+                    onlineData.map { onlineInstance -> convertToGameInstance(onlineInstance) }
                 when (tableType) {
                     "Character" -> {
                         var charMap = mutableMapOf<String, TableRow>()
                         onlineInstances.forEach { instance ->
-                            if (instance.charName !in charMap.keys){
+                            if (instance.charName !in charMap.keys) {
                                 charMap.put(instance.charName, TableRow(instance.charName))
                             }
                             charMap[instance.charName]!!.addInstance(instance)
                         }
-                        charMap.values.forEach { returnRows += it }
+                        gameDao.getFullCharacterList().forEach { char ->
+                            val row = charMap[char.charName]
+                            if (row is TableRow) {
+                                returnRows += row
+                            }
+                        }
                     }
+
                     "Eternal" -> {
                         var eternalMap = mutableMapOf<String, TableRow>()
                         onlineInstances.forEach { instance ->
-                            if (!instance.eternal.isNullOrEmpty()){
-                                if (instance.eternal !in eternalMap.keys){
+                            if (!instance.eternal.isNullOrEmpty()) {
+                                if (instance.eternal !in eternalMap.keys) {
                                     eternalMap.put(instance.eternal, TableRow(instance.eternal))
                                 }
                                 eternalMap[instance.eternal]!!.addInstance(instance)
@@ -63,9 +70,10 @@ class TableHandler {
                         }
                         eternalMap.values.forEach { returnRows += it }
                     }
+
                     else -> {}
                 }
-                returnRows.forEach { row -> row.addGames(onlineGames.toTypedArray())}
+                returnRows.forEach { row -> row.addGames(onlineGames.toTypedArray()) }
             } else {
                 gamesList = gameDao.getGames(coopBool)
                 when (tableType) {
@@ -115,6 +123,7 @@ class TableHandler {
         fun pageSetup(
             context: Context,
             backButton: Button,
+            headerChangeButton: Button,
             background: ImageView,
             characterTitle: TextView,
             filterText: TextView,
@@ -123,7 +132,8 @@ class TableHandler {
         ) {
             val buttonBG = ImageHandler.setButtonImage()
             backButton.setBackgroundResource(buttonBG)
-            // Get the button and set the image
+            headerChangeButton.setBackgroundResource(buttonBG)
+            // Get the button background and set the buttons to use it
 
             SettingsHandler.updateBackground(context, background)
             // Set the background image
@@ -136,6 +146,7 @@ class TableHandler {
             playerText.typeface = fonts["body"]
             treasureText.typeface = fonts["body"]
             backButton.typeface = fonts["body"]
+            headerChangeButton.typeface = fonts["body"]
             // Set all button and title fonts
 
             backButton.setOnClickListener {
@@ -192,8 +203,8 @@ class TableHandler {
             treasureSlider: RangeSlider
         ) {
             var gamesList = emptyArray<Game>()
-                tableData.rows.forEach { row ->
-                    gamesList += row.storedGames.values
+            tableData.rows.forEach { row ->
+                gamesList += row.storedGames.values
             }
             val treasures = gamesList.map { game -> game.treasureNo }
             // Get the list of treasure numbers

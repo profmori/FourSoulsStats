@@ -66,7 +66,8 @@
     <string name="stats_treasures">Treasures:</string>
     <string name="stats_players">Players:</string>
     <string name="stats_filter">Filter By:</string>
-    <string name="stats_return">Return To Statistics Page</string>
+    <string name="stats_return">Return To\nStatistics Page</string>
+    <string name="stats_change_header">Change Shown Data</string>
     <string name="player_stats_title">Player\nStatistics</string>
     <string name="character_stats_title">Character\nStatistics</string>
     <string name="eternal_stats_title">Eternal Item\nStatistics</string>
@@ -76,10 +77,16 @@
     <string name="character_table_header">Character</string>
     <string name="eternal_table_header">Eternal Item</string>
     <string name="stats_table_winrate">Win Rate</string>
-    <string name="stats_table_souls">Average Souls</string>
-    <string name="stats_table_adjusted_souls">Adjusted Souls</string>
+    <string name="stats_table_wins">Total Wins</string>
+    <string name="stats_table_soulrate">Average Souls</string>
+    <string name="stats_table_souls">Total Souls</string>
+    <string name="stats_table_adjusted_soulrate">Average Adjusted Souls</string>
+    <string name="stats_table_adjusted_soulrate_explained">Average Adjusted Souls\n<i>Adjusted souls are the number of souls, multiplied by the number of players in the game</i></string>
+    <string name="stats_table_adjusted_souls">Total Adjusted Souls</string>
+    <string name="stats_table_adjusted_souls_explained">Total Adjusted Souls\n<i>Adjusted souls are the number of souls, multiplied by the number of players in the game</i></string>
     <string name="stats_table_turns_remaining">Average Turns Remaining</string>
     <string name="stats_table_played">Games Played</string>
+    <string name="select_3_headers">Wrong number of headers selected.\\nPlease select exactly 3 headers</string>
     <string name="stats_table_entry" translatable="false">%.2f</string>
 
     <!-- Settings -->
@@ -330,6 +337,7 @@
         \u2022 Fixed a bug where patch notes would overlap the title on smaller devices &lt;br>&lt;/br>
         \u2022 Added a Spanish app translation using Google translate - please let me kow if this is unreadable &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+
     <string name="version_28">
         &lt;b>&lt;u>Version 5.04 (4-Jan-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added the ability to change langauge within the app, instead of using system language &lt;br>&lt;/br>
@@ -339,16 +347,26 @@
         \u2022 Apologies for all native speakers as these are rough translations - they may be entirely unusable &lt;br>&lt;/br>
         \u2022 If you wish to provide feedback or a better translation, please email using the "Offer to Translate" button.&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+
     <string name="version_31">
         &lt;b>&lt;u>Version 5.05 (24-Jun-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added new Bumbo alt art card from The Legend of Bumbo as an option for character art &lt;br>&lt;/br>
         \u2022 Added new Guppy alt art card from Youtooz as an option for character art &lt;br>&lt;/br>
         \u2022 Added characters and items from the new Summer of Isaac set&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
+
     <string name="version_32">
         &lt;b>&lt;u>Version 5.06 (10-Aug-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added new "The Hoarder" alt art card from the Summer of Isaac set as an option for character art &lt;br>&lt;/br>
         \u2022 Added new "The Miser" alt art card from the Summer of Isaac set as an option for character art &lt;br>&lt;/br>
         \u2022 Reworked the tutorial to allow language to be selected before the main tutorial starts &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+
+    <string name="version_34">
+        &lt;b>&lt;u>Version 6.01 (07-Sept-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added new promotional Sony-Shock Eden alt art card as an option for character art &lt;br>&lt;/br>
+        \u2022 Added the ability to reorder the game history from oldest first to newest first to make editing easier &lt;br>&lt;/br>
+        \u2022 Added additional statistics options to the statistics table page (suggested by Éri Patrik) &lt;br>&lt;/br>
+        \u2022 Added the ability to randomise individual characters on the character select screen (suggested by Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.slider.RangeSlider
 import com.profmori.foursoulsstatistics.R
+import com.profmori.foursoulsstatistics.custom_adapters.dialogs.ChangeColumnsDialog
 import com.profmori.foursoulsstatistics.data_handlers.TableHandler
 import com.profmori.foursoulsstatistics.data_handlers.TableHandler.Companion.gatherData
+import com.profmori.foursoulsstatistics.data_handlers.TextHandler
 import kotlinx.coroutines.launch
 
 class ViewStatisticsPage : AppCompatActivity() {
@@ -37,6 +39,9 @@ class ViewStatisticsPage : AppCompatActivity() {
         val backButton = findViewById<Button>(R.id.backToStats)
         // Gets the button to go back to the statistics menu
 
+        val headerChangeButton = findViewById<Button>(R.id.statsChangeHeader)
+        // Gets the button to open the change headers button
+
         val background = findViewById<ImageView>(R.id.background)
         // Gets the background image
 
@@ -54,11 +59,12 @@ class ViewStatisticsPage : AppCompatActivity() {
             }
         )
         var tableRows = emptyArray<TableRow>()
+        var tableData: StatsTable = StatsTable(emptyArray(), emptyArray(), this)
         lifecycleScope.launch {
             tableRows =
                 gatherData(tableType.toString(), coopPage, onlineData, this@ViewStatisticsPage)
 
-            val tableData = makeTable(
+            tableData = makeTable(
                 tableType,
                 coopPage,
                 tableRows
@@ -76,9 +82,21 @@ class ViewStatisticsPage : AppCompatActivity() {
         }
 
         TableHandler.pageSetup(
-            this, backButton, background, characterTitle, filterText, playerText, treasureText
+            this,
+            backButton,
+            headerChangeButton,
+            background,
+            characterTitle,
+            filterText,
+            playerText,
+            treasureText
         )
         // Setup the page correctly
+        headerChangeButton.setOnClickListener {
+            val headerChangeDialog =
+                ChangeColumnsDialog(tableData, TextHandler.setFont(this@ViewStatisticsPage))
+            headerChangeDialog.show(supportFragmentManager, "Stats table Header Options")
+        }
     }
 
     private fun makeTable(
@@ -97,15 +115,15 @@ class ViewStatisticsPage : AppCompatActivity() {
             arrayOf(
                 TableHeader(resources.getString(tableHeader), 4),
                 TableHeader(resources.getString(R.string.stats_table_winrate), 1),
-                TableHeader(resources.getString(R.string.stats_table_souls), 2),
+                TableHeader(resources.getString(R.string.stats_table_soulrate), 2),
                 TableHeader(resources.getString(R.string.stats_table_turns_remaining), 3)
             )
         } else {
             arrayOf(
                 TableHeader(resources.getString(tableHeader), 4),
                 TableHeader(resources.getString(R.string.stats_table_winrate), 1),
-                TableHeader(resources.getString(R.string.stats_table_souls), 2),
-                TableHeader(resources.getString(R.string.stats_table_adjusted_souls), 3)
+                TableHeader(resources.getString(R.string.stats_table_soulrate), 2),
+                TableHeader(resources.getString(R.string.stats_table_adjusted_soulrate), 3)
             )
         }
         // Sets all the table columns

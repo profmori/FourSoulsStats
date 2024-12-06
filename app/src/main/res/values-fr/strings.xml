@@ -40,7 +40,8 @@
     <string name="stats_treasures">Trésors:</string>
     <string name="stats_players">Joueurs:</string>
     <string name="stats_filter">Filtrer par:</string>
-    <string name="stats_return">Retour à la page de statistiques</string>
+    <string name="stats_return">Retour à la\npage de statistiques</string>
+    <string name="stats_change_header">Modifier les données affichées</string>
     <string name="player_stats_title">Statistiques\ndu joueur</string>
     <string name="character_stats_title">Statistiques\ndu personnage</string>
     <string name="eternal_stats_title">Objet éternel\nStatistiques</string>
@@ -48,10 +49,16 @@
     <string name="character_table_header">Personnage</string>
     <string name="eternal_table_header">Objet éternel</string>
     <string name="stats_table_winrate">Taux de victoire</string>
-    <string name="stats_table_souls">Âmes moyennes</string>
-    <string name="stats_table_adjusted_souls">Âmes ajustées</string>
+    <string name="stats_table_wins">Total des victoires</string>
+    <string name="stats_table_soulrate">Âmes moyennes</string>
+    <string name="stats_table_souls">Âmes totales</string>
+    <string name="stats_table_adjusted_soulrate">Âmes moyennes ajustées</string>
+    <string name="stats_table_adjusted_soulrate_explained">Âmes ajustées moyennes <i>Les âmes ajustées sont le nombre d\'âmes, multiplié par le nombre de joueurs dans le jeu</i></string>
+    <string name="stats_table_adjusted_souls">Nombre total d\'âmes ajustées</string>
+    <string name="stats_table_adjusted_souls_explained">Total des âmes ajustées <i>Les âmes ajustées sont le nombre d\'âmes, multiplié par le nombre de joueurs dans le jeu</i></string>
     <string name="stats_table_turns_remaining">Tours moyens restants</string>
     <string name="stats_table_played">Jeux joués</string>
+    <string name="select_3_headers">Nombre incorrect d\'en-têtes sélectionnés.\\nVeuillez sélectionner exactement 3 en-têtes</string>
     <string name="settings_title">Paramètres</string>
 
     <string name="settings_group_id">ID du groupe:</string>
@@ -287,4 +294,5 @@
     <string name="tutorial_show_tutorial">Souhaitez-vous voir le tutoriel ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="version_34">&lt;b>&lt;u>Version 6.01 (07-Sept-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Ajout d\'une nouvelle carte d\'art alternative promotionnelle Sony-Shock Eden comme option pour l\'art des personnages &lt;br>&lt;/br> \\u2022 Ajout de la possibilité de réorganiser l\'historique du jeu du plus ancien au plus récent pour faciliter l\'édition &lt;br>&lt;/br> \\u2022 Ajout d\'options de statistiques supplémentaires à la page du tableau des statistiques (suggéré par Éri Patrik) &lt;br>&lt;/br> \\u2022 Ajout de la possibilité de randomiser des personnages individuels sur l\'écran de sélection des personnages (suggéré par Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
 </resources>

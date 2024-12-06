@@ -41,7 +41,8 @@
     <string name="stats_treasures">Tesori:</string>
     <string name="stats_players">Giocatori:</string>
     <string name="stats_filter">Filtra per:</string>
-    <string name="stats_return">Torna alla pagina delle statistiche</string>
+    <string name="stats_return">Torna alla pagina\ndelle statistiche</string>
+    <string name="stats_change_header">Cambia i dati mostrati</string>
     <string name="player_stats_title">Statistiche\ngiocatore</string>
     <string name="character_stats_title">Statistiche\ncarattere</string>
     <string name="eternal_stats_title">Statistiche oggetto eterno\n</string>
@@ -49,10 +50,16 @@
     <string name="character_table_header">Carattere</string>
     <string name="eternal_table_header">Articolo eterno</string>
     <string name="stats_table_winrate">Tasso di vincita</string>
-    <string name="stats_table_souls">Anime medie</string>
-    <string name="stats_table_adjusted_souls">Anime adattate</string>
+    <string name="stats_table_wins">Vittorie totali</string>
+    <string name="stats_table_soulrate">Anime medie</string>
+    <string name="stats_table_souls">Anime totali</string>
+    <string name="stats_table_adjusted_soulrate">Anime aggiustate medie</string>
+    <string name="stats_table_adjusted_soulrate_explained">Anime aggiustate medie <i>Le anime aggiustate sono il numero di anime, moltiplicato per il numero di giocatori nel gioco</i></string>
+    <string name="stats_table_adjusted_souls">Anime totali aggiustate</string>
+    <string name="stats_table_adjusted_souls_explained">Anime totali aggiustate <i>Le anime aggiustate sono il numero di anime, moltiplicato per il numero di giocatori nel gioco</i></string>
     <string name="stats_table_turns_remaining">Media turni rimanenti</string>
     <string name="stats_table_played">Giochi giocati</string>
+    <string name="select_3_headers">Numero errato di intestazioni selezionate.\\nSelezionare esattamente 3 intestazioni</string>
     <string name="settings_title">Impostazioni</string>
     <string name="settings_group_id">ID gruppo:</string>
     <string name="settings_group_id_explain">L\'ID del gruppo deve contenere 6 lettere, numeri o simboli</string>
@@ -271,4 +278,5 @@
     <string name="tutorial_show_tutorial">Vuoi vedere il tutorial?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="version_34">&lt;b>&lt;u>Versione 6.01 (07-Set-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Aggiunta una nuova carta promozionale Sony-Shock Eden alt art come opzione per l\'arte del personaggio &lt;br>&lt;/br> \\u2022 Aggiunta la possibilità di riordinare la cronologia del gioco dal più vecchio al più nuovo per semplificare la modifica &lt;br>&lt;/br> \\u2022 Aggiunte opzioni statistiche aggiuntive alla pagina della tabella delle statistiche (suggerito da Éri Patrik) &lt;br>&lt;/br> \\u2022 Aggiunta la possibilità di randomizzare i singoli personaggi nella schermata di selezione del personaggio (suggerito da Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
 </resources>

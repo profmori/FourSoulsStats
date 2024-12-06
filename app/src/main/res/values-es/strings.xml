@@ -41,6 +41,7 @@
     <string name="stats_players">Jugadores:</string>
     <string name="stats_filter">Filtrado por:</string>
     <string name="stats_return">Volver a la\npágina de estadísticas</string>
+    <string name="stats_change_header">Cambiar los datos mostrados</string>
     <string name="player_stats_title">Estadísticas\ndel jugadore</string>
     <string name="character_stats_title">Estadísticas\ndel personaje</string>
     <string name="eternal_stats_title">Objeto eterno\ndel personaje</string>
@@ -48,10 +49,16 @@
     <string name="character_table_header">Personaje</string>
     <string name="eternal_table_header">Objeto eterno</string>
     <string name="stats_table_winrate">Ratio de victorias</string>
-    <string name="stats_table_souls">Almas promedio</string>
-    <string name="stats_table_adjusted_souls">Almas ajustadas</string>
+    <string name="stats_table_wins">Victorias totales</string>
+    <string name="stats_table_soulrate">Almas promedio</string>
+    <string name="stats_table_souls">Almas totales</string>
+    <string name="stats_table_adjusted_soulrate">Almas promedio ajustadas</string>
+    <string name="stats_table_adjusted_soulrate_explained">Almas ajustadas promedio <i>Las almas ajustadas son el número de almas, multiplicado por el número de jugadores en el juego</i></string>
+    <string name="stats_table_adjusted_souls">Almas Totalmente Ajustadas</string>
+    <string name="stats_table_adjusted_souls_explained">Almas ajustadas totales <i>Las almas ajustadas son el número de almas, multiplicado por el número de jugadores en el juego</i></string>
     <string name="stats_table_turns_remaining">Promedio de vueltas restantes</string>
     <string name="stats_table_played">Juegos jugados</string>
+    <string name="select_3_headers">Se seleccionó un número incorrecto de encabezados. Seleccione exactamente 3 encabezados.</string>
     <string name="settings_title">Ajustes</string>
     <string name="settings_group_id">Identificación del grupo:</string>
     <string name="settings_group_id_explain">El ID de grupo debe contener 6 letras, números o símbolos</string>
@@ -279,4 +286,5 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     <string name="tutorial_show_tutorial">¿Quieres ver el tutorial?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="version_34">&lt;b>&lt;u>Versión 6.01 (24 de septiembre de 2024)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Se agregó una nueva tarjeta de arte alternativo promocional de Sony-Shock Eden como una opción para el arte del personaje &lt;br>&lt;/br> \\u2022 Se agregó la capacidad de reordenar el historial del juego desde el más antiguo primero hasta el más nuevo primero para facilitar la edición &lt;br>&lt;/br> \\u2022 Se agregaron opciones de estadísticas adicionales a la página de la tabla de estadísticas (sugerido por Éri Patrik) &lt;br>&lt;/br> \\u2022 Se agregó la capacidad de aleatorizar personajes individuales en la pantalla de selección de personajes (sugerido por Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
 </resources>

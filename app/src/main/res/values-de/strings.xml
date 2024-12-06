@@ -40,7 +40,8 @@
     <string name="stats_treasures">Schätze:</string>
     <string name="stats_players">Spieler:</string>
     <string name="stats_filter">Filtern nach:</string>
-    <string name="stats_return">Zurück zur Statistikseite</string>
+    <string name="stats_return">Zurück zur\nStatistikseite</string>
+    <string name="stats_change_header">Angezeigte Daten ändern</string>
     <string name="player_stats_title">Spieler\nStatistiken</string>
     <string name="character_stats_title">Charakter\nStatistik</string>
     <string name="eternal_stats_title">Ewiger Gegenstand\nStatistiken</string>
@@ -48,10 +49,16 @@
     <string name="character_table_header">Charakter</string>
     <string name="eternal_table_header">Ewiger Gegenstand</string>
     <string name="stats_table_winrate">Gewinnrate</string>
-    <string name="stats_table_souls">Durchschnittliche Seelen</string>
-    <string name="stats_table_adjusted_souls">Angepasste Seelen</string>
+    <string name="stats_table_wins">Gesamtsiege</string>
+    <string name="stats_table_soulrate">Durchschnittliche Seelen</string>
+    <string name="stats_table_souls">Gesamtzahl der Seelen</string>
+    <string name="stats_table_adjusted_soulrate">Durchschnittlich angepasste Seelen</string>
+    <string name="stats_table_adjusted_soulrate_explained">Durchschnittlich angepasste Seelen <i>Angepasste Seelen sind die Anzahl der Seelen multipliziert mit der Anzahl der Spieler im Spiel</i></string>
+    <string name="stats_table_adjusted_souls">Gesamtzahl der angepassten Seelen</string>
+    <string name="stats_table_adjusted_souls_explained">Gesamtzahl der angepassten Seelen <i>Angepasste Seelen sind die Anzahl der Seelen multipliziert mit der Anzahl der Spieler im Spiel</i></string>
     <string name="stats_table_turns_remaining">Durchschnittliche verbleibende Runden</string>
     <string name="stats_table_played">Gespielte Spiele</string>
+    <string name="select_3_headers">Falsche Anzahl an Überschriften ausgewählt.\\nBitte wählen Sie genau 3 Überschriften aus</string>
     <string name="settings_title">Einstellungen</string>
     <string name="settings_group_id">Gruppen-ID:</string>
     <string name="settings_group_id_explain">Gruppen-ID muss 6 Buchstaben, Zahlen oder Symbole enthalten</string>
@@ -270,4 +277,5 @@
     <string name="tutorial_show_tutorial">Möchten Sie sich das Tutorial ansehen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
+    <string name="version_34">&lt;b>&lt;u>Version 6.01 (07.09.24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Neue alternative Werbegrafikkarte „Sony-Shock Eden“ als Option für Charaktergrafik hinzugefügt &lt;br>&lt;/br> \\u2022 Möglichkeit hinzugefügt, den Spielverlauf vom ältesten zuerst zum neuesten zuerst neu zu ordnen, um die Bearbeitung zu vereinfachen &lt;br>&lt;/br> \\u2022 Weitere Statistikoptionen zur Statistiktabellenseite hinzugefügt (vorgeschlagen von Éri Patrik) &lt;br>&lt;/br> \\u2022 Möglichkeit hinzugefügt, einzelne Charaktere auf dem Charakterauswahlbildschirm zufällig auszuwählen (vorgeschlagen von Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
 </resources>

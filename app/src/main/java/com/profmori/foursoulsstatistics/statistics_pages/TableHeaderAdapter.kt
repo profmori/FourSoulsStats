@@ -43,6 +43,8 @@ class TableHeaderAdapter(val statsTable: StatsTable) :
         val textFont = TextHandler.setFont(viewHolder.context)["body"]
         val currentColumn = statsTable.headers[column]
         // Get the current header text
+        statsTable.head = this
+
         viewHolder.headerText.setText(currentColumn.headerName)
         // Set the text to match the current header
         viewHolder.headerText.post {
