@@ -53,6 +53,7 @@ class ImageHandler {
         fun getIcon(iconName: String): Int {
             val iconMap = mapOf(
                 "alt_art" to R.drawable.icon_alt_art,
+                "anniversary" to R.drawable.icon_anniversary,
                 "base" to R.drawable.icon_base,
                 "bumbo" to R.drawable.icon_bum,
                 "custom" to R.drawable.icon_custom,

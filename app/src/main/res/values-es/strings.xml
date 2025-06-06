@@ -287,4 +287,9 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="version_34">&lt;b>&lt;u>Versión 6.01 (24 de septiembre de 2024)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Se agregó una nueva tarjeta de arte alternativo promocional de Sony-Shock Eden como una opción para el arte del personaje &lt;br>&lt;/br> \\u2022 Se agregó la capacidad de reordenar el historial del juego desde el más antiguo primero hasta el más nuevo primero para facilitar la edición &lt;br>&lt;/br> \\u2022 Se agregaron opciones de estadísticas adicionales a la página de la tabla de estadísticas (sugerido por Éri Patrik) &lt;br>&lt;/br> \\u2022 Se agregó la capacidad de aleatorizar personajes individuales en la pantalla de selección de personajes (sugerido por Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
+    <string name="icon_anniversary">"  10º Aniversario"</string>
+    <string name="version_36">
+        &lt;b>&lt;u>Versión 6,02 (06-jun-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Se añadieron las tarjetas de Isaac del 10.º aniversario &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
 </resources>

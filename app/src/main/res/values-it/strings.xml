@@ -278,5 +278,10 @@
     <string name="tutorial_show_tutorial">Vuoi vedere il tutorial?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
-    <string name="version_34">&lt;b>&lt;u>Versione 6.01 (07-Set-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Aggiunta una nuova carta promozionale Sony-Shock Eden alt art come opzione per l\'arte del personaggio &lt;br>&lt;/br> \\u2022 Aggiunta la possibilità di riordinare la cronologia del gioco dal più vecchio al più nuovo per semplificare la modifica &lt;br>&lt;/br> \\u2022 Aggiunte opzioni statistiche aggiuntive alla pagina della tabella delle statistiche (suggerito da Éri Patrik) &lt;br>&lt;/br> \\u2022 Aggiunta la possibilità di randomizzare i singoli personaggi nella schermata di selezione del personaggio (suggerito da Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
+    <string name="version_34">&lt;b>&lt;u>Versione 6,01 (07-Set-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Aggiunta una nuova carta promozionale Sony-Shock Eden alt art come opzione per l\'arte del personaggio &lt;br>&lt;/br> \\u2022 Aggiunta la possibilità di riordinare la cronologia del gioco dal più vecchio al più nuovo per semplificare la modifica &lt;br>&lt;/br> \\u2022 Aggiunte opzioni statistiche aggiuntive alla pagina della tabella delle statistiche (suggerito da Éri Patrik) &lt;br>&lt;/br> \\u2022 Aggiunta la possibilità di randomizzare i singoli personaggi nella schermata di selezione del personaggio (suggerito da Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
+    <string name="icon_anniversary">10° Anniversario</string>
+    <string name="version_36">
+        &lt;b>&lt;u>Versione 6,02 (06-giu-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Aggiunte le carte Isaac per il 10° anniversario &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
 </resources>

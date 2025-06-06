@@ -18,6 +18,9 @@ class ItemList {
             if (settings["alt_art"].toBoolean()) {
                 treasureList += readFile(context, R.raw.alt_treasures)
             }
+            if (settings["anniversary"].toBoolean()) {
+                treasureList += readFile(context, R.raw.anniversary_treasures)
+            }
             if (settings["gish"].toBoolean()) {
                 treasureList += readFile(context, R.raw.gish_treasures)
             }

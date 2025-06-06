@@ -70,6 +70,7 @@ class SettingsHandler {
                 "promo",
                 "retro",
                 "summer",
+                "anniversary",
                 "tapeworm",
                 "target",
                 "unboxing",

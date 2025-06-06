@@ -111,6 +111,7 @@
 
 
     <string name="icon_alt_art">Alt Art</string>
+    <string name="icon_anniversary">10th Anniversary</string>
     <string name="icon_base">Base Game</string>
     <string name="icon_bumbo">The Legend of Bum-bo!</string>
     <string name="icon_custom">Custom Cards</string>
@@ -368,5 +369,10 @@
         \u2022 Added the ability to reorder the game history from oldest first to newest first to make editing easier &lt;br>&lt;/br>
         \u2022 Added additional statistics options to the statistics table page (suggested by Éri Patrik) &lt;br>&lt;/br>
         \u2022 Added the ability to randomise individual characters on the character select screen (suggested by Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+
+    <string name="version_36">
+        &lt;b>&lt;u>Version 6.02 (06-Jun-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added 10th Anniversary Isaac Cards &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

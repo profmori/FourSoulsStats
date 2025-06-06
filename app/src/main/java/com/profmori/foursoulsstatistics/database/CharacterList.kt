@@ -94,7 +94,11 @@ class CharacterList {
             // Summer of Isaac Characters
             CharEntity("clubby the seal", R.drawable.soi_clubby_the_seal, null, "summer"),
             CharEntity("gish", R.drawable.soi_gish, null, "summer"),
-            CharEntity("stacy", R.drawable.soi_stacy, null, "summer")
+            CharEntity("stacy", R.drawable.soi_stacy, null, "summer"),
+
+            // 10 Year Anniversary Characters
+            CharEntity("florian", R.drawable.anni_florian, null, "anniversary"),
+            CharEntity("level one isaac", R.drawable.anni_level_one_isaac, null, "anniversary")
         )
     }
 }

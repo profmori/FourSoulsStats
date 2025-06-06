@@ -277,5 +277,10 @@
     <string name="tutorial_show_tutorial">Möchten Sie sich das Tutorial ansehen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
-    <string name="version_34">&lt;b>&lt;u>Version 6.01 (07.09.24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Neue alternative Werbegrafikkarte „Sony-Shock Eden“ als Option für Charaktergrafik hinzugefügt &lt;br>&lt;/br> \\u2022 Möglichkeit hinzugefügt, den Spielverlauf vom ältesten zuerst zum neuesten zuerst neu zu ordnen, um die Bearbeitung zu vereinfachen &lt;br>&lt;/br> \\u2022 Weitere Statistikoptionen zur Statistiktabellenseite hinzugefügt (vorgeschlagen von Éri Patrik) &lt;br>&lt;/br> \\u2022 Möglichkeit hinzugefügt, einzelne Charaktere auf dem Charakterauswahlbildschirm zufällig auszuwählen (vorgeschlagen von Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
+    <string name="version_34">&lt;b>&lt;u>Version 6,01 (07.09.24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br> \\u2022 Neue alternative Werbegrafikkarte „Sony-Shock Eden“ als Option für Charaktergrafik hinzugefügt &lt;br>&lt;/br> \\u2022 Möglichkeit hinzugefügt, den Spielverlauf vom ältesten zuerst zum neuesten zuerst neu zu ordnen, um die Bearbeitung zu vereinfachen &lt;br>&lt;/br> \\u2022 Weitere Statistikoptionen zur Statistiktabellenseite hinzugefügt (vorgeschlagen von Éri Patrik) &lt;br>&lt;/br> \\u2022 Möglichkeit hinzugefügt, einzelne Charaktere auf dem Charakterauswahlbildschirm zufällig auszuwählen (vorgeschlagen von Éri Patrik) &lt;br>&lt;/br>&lt;br>&lt;/br></string>
+    <string name="icon_anniversary">10. Jahrestag</string>
+    <string name="version_36">
+        &lt;b>&lt;u>Version 6,02 (06. Juni 25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Isaac-Karten zum 10. Jubiläum hinzugefügt &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
 </resources>

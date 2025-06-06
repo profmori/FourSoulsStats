@@ -28,6 +28,7 @@ class TextHandler {
         fun getIconText(iconName: String): Int {
             val iconMap = mapOf(
                 "alt_art" to R.string.icon_alt_art,
+                "anniversary" to R.string.icon_anniversary,
                 "base" to R.string.icon_base,
                 "bumbo" to R.string.icon_bumbo,
                 "custom" to R.string.icon_custom,
