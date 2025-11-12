@@ -35,6 +35,8 @@ class TextHandler {
                 "gfuel" to R.string.icon_gfuel,
                 "gish" to R.string.icon_gish,
                 "gold" to R.string.icon_gold,
+                "mewgenics" to R.string.icon_mewgenics,
+                "nendoroid" to R.string.icon_nendoroid,
                 "plus" to R.string.icon_plus,
                 "promo" to R.string.icon_promo,
                 "requiem" to R.string.icon_requiem,

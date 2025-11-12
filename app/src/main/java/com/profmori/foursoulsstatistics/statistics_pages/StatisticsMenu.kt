@@ -65,6 +65,8 @@ class StatisticsMenu : AppCompatActivity() {
             val competitiveGames = gameDao.getGames(false)
             val coopGames = gameDao.getGames(true)
             // Get all games
+            val eternalList = gameDao.getEternalList()
+            // Get a list of all eternals
 
             var menuItems = emptyArray<StatsPageProperties>()
             var noLocal = true
@@ -86,7 +88,11 @@ class StatisticsMenu : AppCompatActivity() {
                         coop = true
                     )
                 }
-                // Add the local buttons to the menu
+                // Add the local game buttons to the menu
+                if (eternalList.size >= 5) {
+                    menuItems += StatsPageProperties(R.string.statistics_group_eternal, "Eternal")
+                }
+                // If a group has at least 5 different eternals stored, show them
                 noLocal = false
                 // Don't show the popup to say there are no local games
             }

@@ -98,7 +98,13 @@ class CharacterList {
 
             // 10 Year Anniversary Characters
             CharEntity("florian", R.drawable.anni_florian, null, "anniversary"),
-            CharEntity("level one isaac", R.drawable.anni_level_one_isaac, null, "anniversary")
+            CharEntity("level one isaac", R.drawable.anni_level_one_isaac, null, "anniversary"),
+
+            // Nendoroid Character
+            CharEntity("isaac (nendoroid)", R.drawable.nen_isaac, null, "nendoroid"),
+
+            // Mewgenics Character
+            CharEntity("stacy 704891", R.drawable.mew_stacy704891, null, "mewgenics"),
         )
     }
 }

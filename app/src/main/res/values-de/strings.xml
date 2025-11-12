@@ -77,12 +77,8 @@
     <string name="icon_base">Basisspiel</string>
     <string name="icon_custom">Benutzerdefinierte Karten</string>
     <string name="settings_promo">Promo:</string>
-    <string name="icon_gfuel">G-Fuel</string>
-    <string name="icon_gish">Gish</string>
     <string name="icon_gold">Goldbox</string>
     <string name="icon_plus">Vier Seelen +</string>
-    <string name="icon_promo">Promo</string>
-    <string name="icon_requiem">Requiem</string>
     <string name="icon_retro">Retro</string>
     <string name="icon_tapeworm">Bandwurm</string>
     <string name="icon_target">Ziel</string>
@@ -260,7 +256,6 @@
          \u2022 Entschuldigung für alle Muttersprachler, da es sich hierbei um grobe Übersetzungen handelt – sie könnten völlig unbrauchbar sein &lt;br>&lt;/br>
          \u2022 Wenn Sie Feedback oder eine bessere Übersetzung geben möchten, senden Sie bitte eine E-Mail über die Schaltfläche „Übersetzung anbieten“&lt;br>&lt;/br>&lt;br>&lt;/br>
      </string>
-    <string name="icon_bumbo">The Legend of Bum-bo!</string>
     <string name="icon_summer">Sommer von Isaac</string>
     <string name="version_31">
         &lt;b>&lt;u>Version 5,05 (24. Juni 24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
@@ -282,5 +277,12 @@
     <string name="version_36">
         &lt;b>&lt;u>Version 6,02 (06. Juni 25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Isaac-Karten zum 10. Jubiläum hinzugefügt &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="statistics_group_eternal">Sehen Sie sich die ewige Rangliste Ihrer Gruppe an</string>
+    <string name="version_37">
+        &lt;b>&lt;u>Version 6,03 (09.11.25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Nendoroid- und Mewgenics-Karten hinzugefügt &lt;br>&lt;/br>
+        \u2022 Seite zur Anzeige der ewigen Item-Rangliste eurer Gruppe hinzugefügt, sobald ihr Spiele mit mindestens 5 verschiedenen ewigen Items registriert habt (Vorschlag von Antologik) &lt;br>&lt;/br>
+        \u2022 Es wurde ein kleiner Fehler behoben, der dazu führte, dass die Daten von Gruppen-IDs, die ein O enthielten, bei der Online-Synchronisierung gelöscht wurden &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

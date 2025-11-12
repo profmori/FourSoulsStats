@@ -17,7 +17,6 @@
     <string name="input_title">Inserisci dati di gioco</string>
     <string name="input_no_players">Numero di giocatori:</string>
     <string name="input_no_treasures">Numero di tesori iniziali:</string>
-    <string name="input_default_treasures" translatable="false">0</string>
     <string name="input_continue_button">Inserisci gioco\nRisultati</string>
     <string name="input_too_few">Non tutti i dati sono stati compilati</string>
     <string name="input_co_op">Gioca in cooperativa:</string>
@@ -78,12 +77,8 @@
     <string name="icon_base">Gioco base</string>
     <string name="icon_custom">Carte personalizzate</string>
     <string name="settings_promo">Promozione:</string>
-    <string name="icon_gfuel">G-Fuel</string>
-    <string name="icon_gish">Gish</string>
     <string name="icon_gold">Scatola d\'oro</string>
     <string name="icon_plus">Quattro Anime +</string>
-    <string name="icon_promo">Promo</string>
-    <string name="icon_requiem">Requiem</string>
     <string name="icon_retro">Retrò</string>
     <string name="icon_summer">L\'estate di Isaac</string>
     <string name="icon_tapeworm">Tenia</string>
@@ -262,7 +257,6 @@
          \u2022 Ci scusiamo con tutti i madrelingua poiché si tratta di traduzioni approssimative e potrebbero essere del tutto inutilizzabili &lt;br>&lt;/br>
          \u2022 Se desideri fornire un feedback o una traduzione migliore, invia un\'e-mail utilizzando il pulsante "Offri di tradurre"&lt;br>&lt;/br>&lt;br>&lt;/br>
      </string>
-    <string name="icon_bumbo">The Legend of Bum-bo!</string>
     <string name="version_31">
         &lt;b>&lt;u>Version 5,05 (24-giugno-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Aggiunta la nuova carta grafica alternativa di Bumbo da The Legend of Bumbo come opzione per la grafica del personaggio &lt;br>&lt;/br>
@@ -283,5 +277,12 @@
     <string name="version_36">
         &lt;b>&lt;u>Versione 6,02 (06-giu-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Aggiunte le carte Isaac per il 10° anniversario &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="statistics_group_eternal">Visualizza le classifiche eterne del tuo gruppo</string>
+    <string name="version_37">
+        &lt;b>&lt;u>Versione 6,03 (09-nov-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Aggiunte carte Nendoroid e Mewgenics &lt;br>&lt;/br>
+        \u2022 Aggiunta una pagina per visualizzare la classifica degli oggetti eterni del tuo gruppo, una volta registrate partite con almeno 5 oggetti eterni diversi (suggerito da Antologik) &lt;br>&lt;/br>
+        \u2022 Risolto un bug minore per cui i dati degli ID di gruppo contenenti una O venivano cancellati dalla sincronizzazione online &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

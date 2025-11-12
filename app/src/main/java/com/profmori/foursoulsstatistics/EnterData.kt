@@ -1,6 +1,5 @@
 package com.profmori.foursoulsstatistics
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -107,7 +106,7 @@ class EnterData : AppCompatActivity() {
             soloGame = intent.getBooleanExtra("solo", false)
 
             if (soloGame) {
-                playerNo.setText("1")
+                playerNo.setText(getString(R.string.one))
             } else {
                 playerNo.setText(playerNames.size.toString())
             }
@@ -115,7 +114,7 @@ class EnterData : AppCompatActivity() {
             treasureNo.setText(gameTreasures.toString())
             // Get feedback from results if it exists and set the player and treasure numbers
 
-        } catch (e: NullPointerException) {
+        } catch (_: NullPointerException) {
             // If an error is thrown because this data was not passed
             fromResults = false
             // You haven't come from the results page
@@ -222,7 +221,7 @@ class EnterData : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
                 val imm =
-                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
@@ -241,7 +240,7 @@ class EnterData : AppCompatActivity() {
                 try {
                     playerCount = playerNo.text.toString().toInt()
                     // Try and make the value in the text into an integer
-                } catch (e: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     playerCount = oldPlayerCount
                     // If an error is thrown from no text set the number of players back to what it was
                     playerNo.setText(playerCount.toString())
@@ -285,7 +284,7 @@ class EnterData : AppCompatActivity() {
                 }
             } else {
                 // If the user has just entered the text field
-                playerNo.setText("")
+                playerNo.setText(R.string.blank)
                 // Clear the input
             }
         }
@@ -294,7 +293,7 @@ class EnterData : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
                 val imm =
-                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
@@ -318,7 +317,7 @@ class EnterData : AppCompatActivity() {
                 }
             } else {
                 // If the user has just entered the text field
-                treasureNo.setText("")
+                treasureNo.setText(R.string.blank)
                 // Clear the text field
             }
         }

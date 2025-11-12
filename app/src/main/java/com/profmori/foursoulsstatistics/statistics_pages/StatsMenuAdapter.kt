@@ -20,7 +20,7 @@ class StatsMenuAdapter(
         val menuButton: AppCompatButton = itemView.findViewById(R.id.statsMenuButton)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatsMenuAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         // Gets the context of the view
 
@@ -32,7 +32,7 @@ class StatsMenuAdapter(
         return ViewHolder(contactView)
     }
 
-    override fun onBindViewHolder(viewHolder: StatsMenuAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val buttonType = menuItems[position]
 
         val menuButton = viewHolder.menuButton

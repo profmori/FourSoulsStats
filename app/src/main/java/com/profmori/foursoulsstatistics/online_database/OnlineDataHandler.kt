@@ -3,7 +3,6 @@ package com.profmori.foursoulsstatistics.online_database
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -30,11 +29,8 @@ class OnlineDataHandler {
             // This is magic off the internet and will probably break in the future
             val connectivityManager =
                 context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val capabilities = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val capabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            } else {
-                return true
-            }
             if (capabilities != null) {
                 if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                     Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")

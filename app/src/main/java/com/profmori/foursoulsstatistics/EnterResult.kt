@@ -1,6 +1,5 @@
 package com.profmori.foursoulsstatistics
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -139,7 +138,7 @@ class EnterResult : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
                 val imm =
-                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
@@ -158,7 +157,7 @@ class EnterResult : AppCompatActivity() {
                 try {
                     turnCount = turnNoBox.text.toString().toInt()
                     // Try and make the value in the text into an integer
-                } catch (e: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     turnCount = oldTurnCount
                     // If an error is thrown from no text set the number of players back to what it was
                     turnNoBox.setText(turnCount.toString())
@@ -168,7 +167,7 @@ class EnterResult : AppCompatActivity() {
                         // If the user tries to input something invalid
                         turnCount = 0
                         // Set the turn count to 0
-                        turnNoBox.setText("0")
+                        turnNoBox.setText(getString(R.string.zero))
                         // Rewrite the text field to show this
                     }
 
@@ -180,7 +179,7 @@ class EnterResult : AppCompatActivity() {
                 }
             } else {
                 // If the user has just entered the text field
-                turnNoBox.setText("")
+                turnNoBox.setText(R.string.blank)
                 // Clear the input
             }
         }

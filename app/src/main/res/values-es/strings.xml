@@ -77,12 +77,8 @@
     <string name="icon_alt_art">Arte alternativo</string>
     <string name="icon_base">Juego base</string>
     <string name="icon_custom">Tarjetas personalizadas</string>
-    <string name="icon_gfuel">G-Fuel</string>
-    <string name="icon_gish">Gish</string>
     <string name="icon_gold">Gold Box</string>
     <string name="icon_plus">Four Souls +</string>
-    <string name="icon_promo">Promo</string>
-    <string name="icon_requiem">Requiem</string>
     <string name="icon_retro">Retro</string>
     <string name="icon_tapeworm">Tapeworm</string>
     <string name="icon_target">Target</string>
@@ -269,7 +265,6 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
         \u2022 Disculpas para todos los hablantes nativos, ya que estas son traducciones aproximadas; pueden ser completamente inutilizables &lt;br>&lt;/br>
         \u2022 Si desea enviar comentarios o una mejor traducción, envíe un correo electrónico utilizando el botón "Oferta para traducir"&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
-    <string name="icon_bumbo">The Legend of Bum-bo!</string>
     <string name="icon_summer">Verano de Isaac</string>
     <string name="version_31">
         &lt;b>&lt;u>Versión 5,05 (24-jun-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
@@ -291,5 +286,12 @@ Esto se utilizará para permitir que diferentes dispositivos sincronicen los mis
     <string name="version_36">
         &lt;b>&lt;u>Versión 6,02 (06-jun-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Se añadieron las tarjetas de Isaac del 10.º aniversario &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="statistics_group_eternal">Consulta la clasificación eterna de tu grupo</string>
+    <string name="version_37">
+        &lt;b>&lt;u>Versión 6,03 (09-nov-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Añadidas las cartas Nendoroid y Mewgenics &lt;br>&lt;/br>
+        \u2022 Añadida una página para ver la clasificación de objetos eternos de tu grupo, una vez que hayas registrado partidas con al menos 5 objetos eternos diferentes (sugerencia de Antologik) &lt;br>&lt;/br>
+        \u2022 Se corrigió un error menor por el cual los ID de grupo que contenían una O perdían sus datos de la sincronización en línea &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

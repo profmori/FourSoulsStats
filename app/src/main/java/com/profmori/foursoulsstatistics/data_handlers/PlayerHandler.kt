@@ -56,7 +56,7 @@ class PlayerHandler(
             // Function to make the original array of players
             var players = emptyArray<PlayerHandler>()
             // Creates the array
-            for (i in (1 until playerNum + 1)) {
+            (1 until playerNum + 1).forEach {
                 // Iterates through every player in the array
                 players += (PlayerHandler(
                     "", "", ImageHandler.randomBlank(), null, 0, winner = false, solo = false
@@ -86,7 +86,7 @@ class PlayerHandler(
 
             if (currentLength < charNum) {
                 // If the number of players has increased
-                for (i in (currentLength until charNum)) {
+                (currentLength until charNum).forEach {
                     // For the number of extra players
                     newPlayerList += PlayerHandler(
                         "", "", ImageHandler.randomBlank(), null, 0, winner = false, solo = false

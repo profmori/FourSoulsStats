@@ -4,6 +4,9 @@
     <string name="app_name">Four Souls Stats</string>
 
     <!-- Common Strings -->
+    <string name="blank" translatable="false" />
+    <string name="one" translatable="false">1</string>
+    <string name="zero" translatable="false">0</string>
     <string name="error_placeholder">If You Are Seeing This, There\'s A Bug</string>
     <string name="back_to_main_1">Return to Main Menu</string>
     <string name="back_to_main_2">Return to\nMain Menu</string>
@@ -113,14 +116,16 @@
     <string name="icon_alt_art">Alt Art</string>
     <string name="icon_anniversary">10th Anniversary</string>
     <string name="icon_base">Base Game</string>
-    <string name="icon_bumbo">The Legend of Bum-bo!</string>
+    <string name="icon_bumbo" translatable="false">The Legend of Bum-bo!</string>
     <string name="icon_custom">Custom Cards</string>
-    <string name="icon_gfuel">G-Fuel</string>
-    <string name="icon_gish">Gish</string>
+    <string name="icon_gfuel" translatable="false">G-Fuel</string>
+    <string name="icon_gish" translatable="false">Gish</string>
     <string name="icon_gold">Gold Box</string>
+    <string name="icon_mewgenics" translatable="false">Mewgenics</string>
+    <string name="icon_nendoroid" translatable="false">Nendoroid</string>
     <string name="icon_plus">Four Souls +</string>
-    <string name="icon_promo">Promo</string>
-    <string name="icon_requiem">Requiem</string>
+    <string name="icon_promo" translatable="false">Promo</string>
+    <string name="icon_requiem" translatable="false">Requiem</string>
     <string name="icon_retro">Retro</string>
     <string name="icon_summer">Summer of Isaac</string>
     <string name="icon_tapeworm">Tapeworm</string>
@@ -257,6 +262,7 @@
     <string name="statistics_title">Statistics</string>
     <string name="statistics_group_player">View Your Group\'s\nPlayer Rankings</string>
     <string name="statistics_group_character">View Your Group\'s\nCharacter Rankings</string>
+    <string name="statistics_group_eternal">View Your Group\'s Eternal Rankings</string>
     <string name="statistics_group_solo_character">View Your Group\'s\nSolo Character Performance</string>
     <string name="statistics_global_character">View Community\nCharacter Rankings</string>
     <string name="statistics_global_eternal">View Community\nEternal Rankings</string>
@@ -374,5 +380,12 @@
     <string name="version_36">
         &lt;b>&lt;u>Version 6.02 (06-Jun-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Added 10th Anniversary Isaac Cards &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+
+    <string name="version_37">
+        &lt;b>&lt;u>Version 6.03 (09-Nov-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Added Nendoroid and Mewgenics Cards &lt;br>&lt;/br>
+        \u2022 Added a page for viewing your group\'s eternal item rankings, once you have registered games with at least 2 different eternal items (suggested by Antologik) &lt;br>&lt;/br>
+        \u2022 Fixed a minor bug where group ids containing an O would have their data wiped from online sync &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

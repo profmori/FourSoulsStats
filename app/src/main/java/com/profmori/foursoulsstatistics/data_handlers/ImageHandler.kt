@@ -60,6 +60,8 @@ class ImageHandler {
                 "gfuel" to R.drawable.icon_gfuel,
                 "gish" to R.drawable.icon_gish,
                 "gold" to R.drawable.icon_gold,
+                "mewgenics" to R.drawable.icon_mewgenics,
+                "nendoroid" to R.drawable.icon_nendoroid,
                 "plus" to R.drawable.icon_plus,
                 "promo" to R.drawable.icon_promo,
                 "requiem" to R.drawable.icon_requiem,

@@ -82,12 +82,8 @@
     <string name="icon_alt_art">Art alternatif</string>
     <string name="icon_base">Jeu de base</string>
     <string name="icon_custom">Cartes personnalisées</string>
-    <string name="icon_gfuel">G-Fuel</string>
-    <string name="icon_gish">Gish</string>
     <string name="icon_gold">Boîte d\'or</string>
     <string name="icon_plus">Quatre âmes +</string>
-    <string name="icon_promo">Promo</string>
-    <string name="icon_requiem">Requiem</string>
     <string name="icon_retro">Rétro</string>
     <string name="icon_tapeworm">Ténia</string>
     <string name="icon_target">Cible</string>
@@ -191,7 +187,7 @@
     <string name="feedback_translate">Proposition de traduction</string>
     <string name="statistics_title">Statistiques</string>
     <string name="statistics_group_player">Affichez le\nclassement des joueurs de votre groupe</string>
-    <string name="statistics_group_character">Affichez le\nclassement des personnages de votre groupe</string>
+    <string name="statistics_group_character">Affichez le classement des personnages de votre groupe</string>
     <string name="statistics_group_solo_character">Affichez les performances des personnages solo de votre groupe</string>
     <string name="statistics_global_character">Afficher le\nclassement des personnages de la communauté</string>
     <string name="statistics_global_eternal">Afficher les\nclassements éternels de la communauté</string>
@@ -277,7 +273,6 @@
          \u2022 Toutes mes excuses à tous les locuteurs natifs, car ce sont des traductions approximatives - elles peuvent être totalement inutilisables &lt;br>&lt;/br>
          \u2022 Si vous souhaitez nous faire part de vos commentaires ou d\'une meilleure traduction, veuillez envoyer un e-mail en utilisant le bouton « Proposer de traduire ».&lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
-    <string name="icon_bumbo">The Legend of Bum-bo!</string>
     <string name="icon_summer">L\'été d\'Isaac</string>
     <string name="version_31">
         &lt;b>&lt;u>Version 5,05 (24-juin-24)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
@@ -299,5 +294,12 @@
     <string name="version_36">
         &lt;b>&lt;u>Version 6,02 (06-juin-2025)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
         \u2022 Ajout des cartes Isaac pour le 10e anniversaire &lt;br>&lt;/br>&lt;br>&lt;/br>
+    </string>
+    <string name="statistics_group_eternal">Affichez le classement éternel de votre groupe</string>
+    <string name="version_37">
+        &lt;b>&lt;u>Version 6,03 (09-Nov-25)&lt;/b>&lt;/u> &lt;br>&lt;/br> &lt;br>&lt;/br>
+        \u2022 Ajout des cartes Nendoroid et Mewgenics &lt;br>&lt;/br>
+        \u2022 Ajout d\'une page permettant de consulter le classement des objets éternels de votre groupe, une fois que vous avez enregistré des parties avec au moins 5 objets éternels différents (suggestion d\'Antologik) &lt;br>&lt;/br>
+        \u2022 Correction d\'un bug mineur qui effaçait les données des identifiants de groupe contenant un O lors de la synchronisation en ligne &lt;br>&lt;/br>&lt;br>&lt;/br>
     </string>
 </resources>

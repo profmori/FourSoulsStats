@@ -4,8 +4,6 @@ import android.app.Activity
 import android.view.View
 import android.widget.ScrollView
 import com.github.amlcurran.showcaseview.ShowcaseView
-import com.github.amlcurran.showcaseview.targets.ActionItemTarget
-import com.github.amlcurran.showcaseview.targets.PointTarget
 import com.github.amlcurran.showcaseview.targets.ViewTarget
 import com.profmori.foursoulsstatistics.R
 

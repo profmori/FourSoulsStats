@@ -58,7 +58,7 @@ class ViewStatisticsPage : AppCompatActivity() {
                 else -> R.string.error_placeholder
             }
         )
-        var tableRows = emptyArray<TableRow>()
+        var tableRows: Array<TableRow>
         var tableData: StatsTable = StatsTable(emptyArray(), emptyArray(), this)
         lifecycleScope.launch {
             tableRows =

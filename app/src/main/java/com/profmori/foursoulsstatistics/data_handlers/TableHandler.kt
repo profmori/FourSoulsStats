@@ -23,12 +23,12 @@ class TableHandler {
             tableType: String, coopBool: Boolean, onlineData: Boolean, context: Context
         ): Array<TableRow> {
 
-            val settings = SettingsHandler.readSettings(context)
+//            val settings = SettingsHandler.readSettings(context)
             // Get the settings for later use
 
             var returnRows = emptyArray<TableRow>()
             // Create an object to store the list of table rows generated
-            var gamesList = emptyArray<Game>()
+            var gamesList: Array<Game> //= emptyArray<Game>()
             // Create an object to store all the games that are being read
 
             val gameDatabase = GameDataBase.getDataBase(context)
@@ -36,11 +36,11 @@ class TableHandler {
             // Get the local database for later use
 
             if (onlineData) {
-                val onlineData = OnlineDataHandler.getAllGames(context, coopBool)
-                var onlineGames = onlineData.map { onlineInstance -> convertToGame(onlineInstance) }
+                val onlineGameData = OnlineDataHandler.getAllGames(context, coopBool)
+                var onlineGames = onlineGameData.map { onlineInstance -> convertToGame(onlineInstance) }
                 onlineGames = onlineGames.distinct()
                 val onlineInstances =
-                    onlineData.map { onlineInstance -> convertToGameInstance(onlineInstance) }
+                    onlineGameData.map { onlineInstance -> convertToGameInstance(onlineInstance) }
                 when (tableType) {
                     "Character" -> {
                         var charMap = mutableMapOf<String, TableRow>()

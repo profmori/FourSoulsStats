@@ -1,5 +1,6 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.style.LeadingMarginSpan
@@ -76,6 +77,8 @@ class SettingsHandler {
                 "unboxing",
                 "warp",
                 "youtooz",
+                "mewgenics",
+                "nendoroid",
                 "custom"
             )
         }
@@ -288,6 +291,7 @@ class SettingsHandler {
             // Make everything scale correctly
         }
 
+        @SuppressLint("DiscouragedApi")
         fun versionCheck(
             versionNo: String?, context: Context, fragmentManager: FragmentManager
         ): String {

@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
@@ -23,8 +22,7 @@ class CustomCharDialog(
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
-            val textInputView = LayoutInflater.from(context)
-                .inflate(R.layout.new_custom_dialog, view as ViewGroup?, false)
+            val textInputView = layoutInflater.inflate(R.layout.new_custom_dialog, view as ViewGroup?, false)
             // Set up the input
 
             val textInput = textInputView.findViewById<EditText>(R.id.customName)

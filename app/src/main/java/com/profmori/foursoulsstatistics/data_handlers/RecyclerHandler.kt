@@ -1,5 +1,6 @@
 package com.profmori.foursoulsstatistics.data_handlers
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -257,6 +258,7 @@ class RecyclerHandler {
             }
         }
 
+        @SuppressLint("SetTextI18n")
         fun enterSouls(
             hasFocus: Boolean,
             soulsBox: EditText,
@@ -266,7 +268,7 @@ class RecyclerHandler {
             var soulNumber = try {
                 soulsBox.text.toString().toInt()
                 // Gets the soul input field
-            } catch (e: java.lang.NumberFormatException) {
+            } catch (_: java.lang.NumberFormatException) {
                 0
             }
             if (!hasFocus) {
@@ -276,7 +278,7 @@ class RecyclerHandler {
                 try {
                     soulNumber = soulsBox.text.toString().toInt()
                     // Try and set the soul number from the text input
-                } catch (e: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     // If the input cannot be made into a number
                     soulNumber = oldSoulNumber
                     // Use the old soul number

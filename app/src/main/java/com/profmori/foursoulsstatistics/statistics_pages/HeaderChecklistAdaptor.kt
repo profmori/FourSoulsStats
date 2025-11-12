@@ -51,10 +51,10 @@ class HeaderChecklistAdaptor(private val statsTable: StatsTable) :
         // Check the headers that are currently included
 
         currCheckbox.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, checked ->
-            if (checked) {
-                checkedArray = checkedArray.plus(statsTable.getAllHeaders()[row])
+            checkedArray = if (checked) {
+                checkedArray.plus(statsTable.getAllHeaders()[row])
             } else {
-                checkedArray = checkedArray.filter { element ->
+                checkedArray.filter { element ->
                     element != statsTable.getAllHeaders()[row]
                 }.toTypedArray()
             }

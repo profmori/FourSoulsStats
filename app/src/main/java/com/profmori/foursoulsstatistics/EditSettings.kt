@@ -1,6 +1,5 @@
 package com.profmori.foursoulsstatistics
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -445,7 +444,7 @@ class EditSettings : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 // if the soft input is done
                 val imm =
-                    view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    view.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 // Get an input method manager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
                 // Hide the keyboard
@@ -473,6 +472,7 @@ class EditSettings : AppCompatActivity() {
                 } else {
                     var id = groupEntry.text.toString().uppercase()
                     id = SettingsHandler.sanitiseGroupID(id)
+                    groupEntry.setText(id)
                     if (id in existingIds) {
                         val existsSnackbar = Snackbar.make(
                             view, R.string.settings_duplicate_group, Snackbar.LENGTH_LONG

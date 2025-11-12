@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.SpannedString
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast

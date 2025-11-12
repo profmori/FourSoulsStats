@@ -79,9 +79,9 @@ class TableHeaderAdapter(val statsTable: StatsTable) :
                 currentColumn.sortDescending = !currentColumn.sortDescending
                 // Invert the sorting order
             }else {
-                for (column in statsTable.headers) {
-                    if (column.sortPriority < currentColumn.sortPriority) {
-                        column.sortPriority += 1
+                for (columnHeader in statsTable.headers) {
+                    if (columnHeader.sortPriority < currentColumn.sortPriority) {
+                        columnHeader.sortPriority += 1
                     }
                 }
                 currentColumn.sortPriority = 1
